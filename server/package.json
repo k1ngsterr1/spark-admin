@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec ts-node server.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.2",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.3",
+    "pg": "^8.11.3",
+    "sequelize": "^6.36.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "_moduleAliases": {
+    "@controllers": "./controllers",
+    "@models": "./models",
+    "@config": "./config",
+    "@routes": "./routes",
+    "@services": "./services"
+  },
+  "imports": {
+    "@controllers": "./controllers",
+    "@models": "./models",
+    "@config": "./config",
+    "@routes": "./routes",
+    "@services": "./services"
+  }
+}

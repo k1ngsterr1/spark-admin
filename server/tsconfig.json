@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@controllers/*": ["./controllers/*"],
+      "@models/*": ["./models/*"],
+      "@config": ["./config"],
+      "@routes/*": ["./routes/*"],
+      "@services/*": ["./services/*"]
+    }
+  }
+}
