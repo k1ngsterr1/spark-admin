@@ -1,8 +1,10 @@
 const express = require("express");
 const dotenv = require("dotenv").config({ path: ".env" });
 const bcryptjs = require("bcryptjs");
+import sequelize from "config/sequelize";
 
 // imports
+import { User } from "@models/userModel";
 import authRoutes from "@routes/authRoutes";
 
 const app = express();
@@ -19,4 +21,5 @@ app.get("/", (req: any, res: any) => {
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
+  console.log(User);
 });

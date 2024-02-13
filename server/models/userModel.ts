@@ -1,70 +1,93 @@
-import { Model, DataTypes, Optional } from "sequelize";
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  CreatedAt,
+  UpdatedAt,
+  AutoIncrement,
+  PrimaryKey,
+  Unique,
+  Default,
+  BeforeCreate,
+  BeforeUpdate,
+} from "sequelize-typescript";
+
+import bcryptjs from "bcryptjs";
 import sequelize from "config/sequelize";
 
-const bcryptjs = require("bcryptjs");
 interface UserAttributes {
   id: number;
   username: string;
-  role: string;
   email: string;
   password: string;
+  role: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-interface UserCreationsAttributes extends Optional<UserAttributes, "id"> {}
+interface UserCreationAttributes {
+  username: string;
+  email: string;
+  password: string;
+  role?: string;
+}
 
-class User
-  extends Model<UserAttributes, UserCreationsAttributes>
-  implements UserAttributes
-{
-  public id!: number;
-  public username!: string;
-  public email!: string;
-  private _role!: string; // Use an underscore to differentiate private properties
-  private _password!: string;
+@Table({
+  tableName: "users",
+})
+export class User extends Model<UserAttributes, UserCreationAttributes> {
+  @AutoIncrement
+  @PrimaryKey
+  @Column(DataType.INTEGER)
+  id!: number;
 
-  constructor(attributes: UserAttributes) {
-    super();
-    Object.assign(this, attributes);
-    this._password = this.hashPassword(attributes.password);
-  }
+  @Column(DataType.STRING)
+  username!: string;
+
+  @Unique
+  @Column(DataType.STRING)
+  email!: string;
+
+  @Column(DataType.STRING)
+  password!: string;
+
+  @Default("user")
+  @Column(DataType.STRING)
+  role!: string;
+
+  @CreatedAt
+  createdAt!: Date;
+
+  @UpdatedAt
+  updatedAt!: Date;
 
   private hashPassword(password: string): string {
     const salt = bcryptjs.genSaltSync(10);
     return bcryptjs.hashSync(password, salt);
   }
 
-  public async changePassword(
+  @BeforeCreate
+  @BeforeUpdate
+  static async hashPasswordHook(instance: User) {
+    if (instance.changed("password")) {
+      instance.password = instance.hashPassword(instance.password);
+    }
+  }
+
+  async verifyPassword(password: string): Promise<boolean> {
+    return bcryptjs.compare(password, this.password);
+  }
+
+  async changePassword(
     oldPassword: string,
     newPassword: string
   ): Promise<boolean> {
     if (await this.verifyPassword(oldPassword)) {
-      this._password = this.hashPassword(newPassword);
+      this.password = newPassword;
+      await this.save();
       return true;
     }
     return false;
-  }
-
-  public async verifyPassword(password: string): Promise<boolean> {
-    return bcryptjs.compareSync(password, this._password);
-  }
-
-  public changeRole(newRole: string): void {
-    this._role = newRole;
-  }
-
-  get role(): string {
-    return this._role;
-  }
-
-  set role(newRole: string) {
-    this._role = newRole;
-  }
-
-  get password(): string {
-    return "Password is private";
-  }
-
-  get passwordHash(): string {
-    return this._password;
   }
 }

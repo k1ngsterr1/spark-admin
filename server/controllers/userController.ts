@@ -1,12 +1,20 @@
-const User = require("@models/userModel");
-const bcryptjs = require("bcryptjs");
+import { User } from "@models/userModel";
+import bcryptjs from "bcryptjs";
+import sequelize from "config/sequelize";
 
 class UserController {
   async createUser(req, res) {
     try {
       const { username, email, password } = req.body;
+      const userRepository = sequelize.getRepository(User);
+      const newUser = await userRepository.create({
+        username,
+        email,
+        password,
+      });
 
-      const newUser = new User({ username, email, password });
+      console.log(newUser);
+
       await newUser.save(
         res
           .status(201)
@@ -45,7 +53,7 @@ class UserController {
   async changeUserPassword(req, res) {
     try {
       const { userId, oldPassword, newPassword } = req.body;
-      const user = await User.findById(userId); // Adjust based on your ORM
+      const user = await User.findByPk(userId);
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -73,7 +81,7 @@ class UserController {
   async changeUserRole(req, res) {
     try {
       const { userId, newRole } = req.body;
-      const user = await User.findById(userId);
+      const user = await User.findByPk(userId);
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });
