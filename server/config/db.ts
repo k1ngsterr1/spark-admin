@@ -4,7 +4,7 @@ const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: "SPARK_ADMIN",
-  password: process.env.DB_BASS,
+  password: process.env.DB_PASS,
   port: 5432,
 });
 

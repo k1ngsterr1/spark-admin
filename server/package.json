@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec ts-node server.ts"
+    "start": "nodemon --exec ts-node -r tsconfig-paths/register server.ts",
+    "sequelize": "sequelize"
   },
   "author": "",
   "license": "ISC",
@@ -15,9 +16,10 @@
     "express": "^4.18.2",
     "nodemon": "^3.0.3",
     "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
     "sequelize": "^6.36.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "sequelize-typescript": "^2.1.6",
+    "ts-node": "^10.9.2"
   },
   "_moduleAliases": {
     "@controllers": "./controllers",
@@ -32,5 +34,12 @@
     "@config": "./config",
     "@routes": "./routes",
     "@services": "./services"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "@types/sequelize": "^4.28.20",
+    "sequelize-cli": "^6.6.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.3.3"
   }
 }

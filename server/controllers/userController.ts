@@ -1,11 +1,20 @@
-const User = require("@models/userModel");
+import { User } from "@models/userModel";
+import bcryptjs from "bcryptjs";
+import sequelize from "config/sequelize";
 
 class UserController {
   async createUser(req, res) {
     try {
-      const { username, email, password, role } = req.body;
+      const { username, email, password } = req.body;
+      const userRepository = sequelize.getRepository(User);
+      const newUser = await userRepository.create({
+        username,
+        email,
+        password,
+      });
 
-      const newUser = new User({ username, email, password, role });
+      console.log(newUser);
+
       await newUser.save(
         res
           .status(201)
@@ -18,10 +27,33 @@ class UserController {
     }
   }
 
+  async login(req, res) {
+    try {
+      const { email, password } = req.body;
+      const user = await User.findOne({ where: { email } });
+
+      if (!user) {
+        return res
+          .status(401)
+          .json({ message: "Authentication failed. User not found" });
+      }
+
+      const isMatch: boolean = await bcryptjs.compare(password, user.password);
+
+      if (!isMatch) {
+        return res
+          .status(401)
+          .json({ message: "Authentication failed. Wrong password." });
+      }
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
   async changeUserPassword(req, res) {
     try {
       const { userId, oldPassword, newPassword } = req.body;
-      const user = await User.findById(userId); // Adjust based on your ORM
+      const user = await User.findByPk(userId);
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -45,4 +77,26 @@ class UserController {
         .json({ message: "Error changing password", error: error.message });
     }
   }
+
+  async changeUserRole(req, res) {
+    try {
+      const { userId, newRole } = req.body;
+      const user = await User.findByPk(userId);
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      user.role = newRole;
+
+      await user.save();
+      res.json({ message: "Role updated successfully", role: user.role });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "Error changing role:", error: error.message });
+    }
+  }
 }
+
+export default new UserController();
