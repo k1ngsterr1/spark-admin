@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+.registration {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.registration__content {
+  width: 90%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.registration__heading {
+  font-size: clamp(16px, 1.66656vw, 64px);
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+}
+.registration__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-size: clamp(9px, 0.93744vw, 36px);
+  font-family: "Inter", sans-serif;
+}
+.registration__input {
+  width: clamp(175px, 18.228vw, 700px);
+  text-align: left;
+  padding: clamp(6px, 0.62496vw, 24px);
+  color: rgba(26, 26, 26, 0.5);
+  border-radius: clamp(4px, 0.41664vw, 16px);
+  border: 1px rgba(255, 147, 114, 0.5) solid;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  outline: none;
+}
+.registration__input:focus {
+  color: #ff5722;
+  border-color: #ff5722;
+  outline: 0;
+  outline-offset: 0;
+}
+.registration__sign-up {
+  width: clamp(175px, 18.228vw, 700px);
+  border-radius: clamp(4px, 0.41664vw, 16px);
+  text-align: center;
+  background-color: #ff5722;
+  color: #fff;
+  padding: clamp(6px, 0.62496vw, 24px);
+  font-size: clamp(10px, 1.0416vw, 40px);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+.registration__sign-up:hover {
+  background-color: #f93a00;
+}
+.registration__mini-text {
+  color: #1a1a1a;
+  font-size: clamp(8px, 0.83328vw, 32px);
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+}
+.registration__mini-text .login-orange {
+  color: #ff5722;
+  font-size: clamp(8px, 0.83328vw, 32px);
+  font-weight: 500;
+}
+.registration__google {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+.registration__separator {
+  width: 156px;
+  height: 1px;
+  background: rgba(26, 26, 26, 0.4);
+}
+.registration__separator-or {
+  font-size: clamp(8px, 0.83328vw, 32px);
+  font-weight: 500;
+  padding: 0 10px;
+}
+.registration__google-button {
+  width: clamp(175px, 18.228vw, 700px);
+  border-radius: clamp(4px, 0.41664vw, 16px);
+  border: 1px #ff5722 solid;
+  text-align: center;
+  color: #1a1a1a;
+  padding: clamp(6px, 0.62496vw, 24px);
+  font-size: clamp(8px, 0.83328vw, 32px);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+.registration__google-button:hover {
+  background-color: #ff5722;
+  color: #fff;
+}
