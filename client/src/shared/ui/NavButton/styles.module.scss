@@ -1,0 +1,10 @@
+.nav_button {
+  width: 100%;
+  transition: 0.3s all;
+  @apply pl-3;
+
+  &:hover {
+    @apply text-primary;
+    @apply bg-primary-TRANSPARENT;
+  }
+}

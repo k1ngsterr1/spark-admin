@@ -1,0 +1,14 @@
+.menu {
+  position: sticky;
+  width: clamp(200px, 20.832vw, 800px);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__logo {
+    width: clamp(45px, 4.6872vw, 180px);
+    height: clamp(45px, 4.6872vw, 180px);
+    cursor: pointer;
+  }
+}

@@ -1,5 +1,11 @@
+import { Menu } from "@features/Menu";
+
 const page = () => {
-  return <div></div>;
+  return (
+    <div>
+      <Menu />
+    </div>
+  );
 };
 
 export default page;
