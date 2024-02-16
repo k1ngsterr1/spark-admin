@@ -1,6 +1,6 @@
 .menu {
   position: sticky;
-  width: clamp(200px, 20.832vw, 800px);
+  width: clamp(150px, 15.624vw, 600px);
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -10,5 +10,14 @@
     width: clamp(45px, 4.6872vw, 180px);
     height: clamp(45px, 4.6872vw, 180px);
     cursor: pointer;
+    @apply mt-8;
+    @apply mb-8;
+  }
+
+  &__nav {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 }

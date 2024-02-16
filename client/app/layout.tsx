@@ -1,4 +1,5 @@
 import "../src/shared/styles/global.scss";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 export const metadata = {
   title: "Next.js",

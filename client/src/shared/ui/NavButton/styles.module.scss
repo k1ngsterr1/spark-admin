@@ -1,7 +1,22 @@
 .nav_button {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: 0.3s all;
-  @apply pl-3;
+  @apply rounded-md;
+  @apply gap-4;
+  @apply p-2;
+
+  &__icon {
+    @apply text-primary;
+  }
+
+  &__text {
+    @apply text-base;
+    @apply font-medium;
+    @apply text-secondary;
+  }
 
   &:hover {
     @apply text-primary;
