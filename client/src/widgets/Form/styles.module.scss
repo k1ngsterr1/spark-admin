@@ -1,0 +1,65 @@
+.registration {
+  @apply flex;
+  @apply justify-center;
+  flex-direction: column;
+  align-items: center;
+
+  &__content {
+    width: 90%;
+    @apply flex;
+    @apply justify-center;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__logo {
+    margin-top: clamp(51px, 5.31216vw, 204px);
+    width: clamp(68px, 7.08288vw, 272px);
+    height: clamp(68px, 7.08288vw, 272px);
+  }
+  &__heading {
+    @apply mt-8;
+    font-size: clamp(16px, 1.66656vw, 64px);
+    font-weight: 700;
+  }
+  &__form {
+    @apply mt-8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: clamp(9px, 0.93744vw, 36px);
+  }
+
+  &__minitext {
+    @apply mt-4;
+    @apply text-black;
+    font-size: clamp(8px, 0.83328vw, 32px);
+    font-weight: 500;
+
+    .login__orange {
+      @apply text-primary;
+      font-size: clamp(8px, 0.83328vw, 32px);
+      font-weight: 500;
+      transition: 0.3s ease-in-out;
+      &:hover {
+        @apply text-primary-dark;
+      }
+    }
+  }
+  &__google {
+    @apply mt-5;
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+  &__separator {
+    width: clamp(76px, 7.9161600000000005vw, 304px);
+    height: clamp(0.5px, 0.05208vw, 2px);
+    background: rgba(26, 26, 26, 0.4);
+  }
+  &__separator__or {
+    font-size: clamp(8px, 0.83328vw, 32px);
+    font-weight: 500;
+    padding: 0 10px;
+  }
+}

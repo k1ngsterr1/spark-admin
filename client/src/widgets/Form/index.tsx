@@ -2,83 +2,38 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from "../../assets/logo.webp";
 import styles from "./styles.module.scss";
+import ButtonProp from "@shared/ui/Buttons";
+import Input from "@shared/ui/Inputs";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Form = () => {
   return (
-    <section className="registration">
-      <div className="registration__content">
-        <p>
-          {/* <FontAwesomeIcon  icon={}/> */}
-          {/* <Icon icon="mdi:eye" /> */}
-        </p>
-        <Image src={logo} alt="logo" />
-        <span className="registration__heading">Welcome back</span>
-        <form className="registration__form">
-          <div className="registration__input-name">
-            <label htmlFor="username" className="visually-hidden">
-              Username
-            </label>
-            <input
-              id="username"
-              className="registration__input"
-              type="text"
-              required
-              placeholder="Username"
-            />
-          </div>
-          <div className="registration__input-email">
-            <label htmlFor="email" className="visually-hidden">
-              Email
-            </label>
-            <input
-              id="email"
-              className="registration__input"
-              type="email"
-              required
-              placeholder="example@gmail.com"
-            />
-          </div>
-          <div className="registration__input-password">
-            <label htmlFor="password" className="visually-hidden">
-              Password
-            </label>
-            <input
-              id="password"
-              className="registration__input"
-              type="password"
-              required
-              placeholder="Password"
-            />
-          </div>
-          <div className="registration__input-password-confirm">
-            <label htmlFor="confirmPassword" className="visually-hidden">
-              Confirm Password
-            </label>
-            <input
-              id="confirmPassword"
-              className="registration__input"
-              type="password"
-              required
-              placeholder="Confirm Password"
-            />
-          </div>
-          <button className="registration__sign-up">Sign Up</button>
+    <section className={styles.registration}>
+      <div className={styles.registration__content}>
+        <Image className={styles.registration__logo} src={logo} alt="logo" />
+        <span className={styles.registration__heading}>Welcome back</span>
+        <form className={styles.registration__form}>
+          <Input placeholder={"Username"} />
+          <Input placeholder={"example@gmail.com"} />
+          <Input placeholder={"Password"} />
+          <Input placeholder={"Confirm Password"} />
+          <ButtonProp text={"Sign Up"} className={"sign-up mt-6"} />
         </form>
-        <div className="registration__mini-text">
+        <div className={styles.registration__minitext}>
           <span>Already a User? </span>
-          <Link href="" className="login-orange">
+          <Link href="" className={styles.login__orange}>
             Login
           </Link>
         </div>
-        <div className="registration__google">
-          <div className="registration__separator" />
-          <span className="registration__separator-or">OR</span>
-          <div className="registration__separator" />
+        <div className={styles.registration__google}>
+          <div className={styles.registration__separator} />
+          <span className={styles.registration__separator__or}>OR</span>
+          <div className={styles.registration__separator} />
         </div>
-        <button className="registration__google-button">
-          Продолжить с Google
-        </button>
+        <ButtonProp
+          text={"Продолжить с Google"}
+          className={"google-button mt-6"}
+        />
       </div>
     </section>
   );

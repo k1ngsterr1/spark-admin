@@ -1,0 +1,28 @@
+.sign-up {
+  width: clamp(175px, 18.228vw, 700px);
+  border-radius: clamp(4px, 0.41664vw, 16px);
+  text-align: center;
+  @apply bg-primary;
+  color: #fff3ef;
+  padding: clamp(6px, 0.62496vw, 24px);
+  font-size: clamp(10px, 1.0416vw, 40px);
+  transition: 0.3s ease-in-out;
+  &:hover {
+    @apply bg-primary-dark;
+  }
+}
+
+.google-button {
+  width: clamp(175px, 18.228vw, 700px);
+  border-radius: clamp(4px, 0.41664vw, 16px);
+  border: 1px #ff5722 solid;
+  text-align: center;
+  @apply text-secondary;
+  padding: clamp(6px, 0.62496vw, 24px);
+  font-size: clamp(8px, 0.83328vw, 32px);
+  transition: 0.3s ease-in-out;
+  &:hover {
+    color: #fff3ef;
+    @apply bg-primary;
+  }
+}
