@@ -1,9 +1,9 @@
-import Form from "@widgets/Form/index";
+import RegistrationForm from "@widgets/RegistrationForm/index";
 
 const RegistrationPage = () => {
   return (
     <>
-      <Form />
+      <RegistrationForm />
     </>
   );
 };

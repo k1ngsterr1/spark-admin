@@ -12,7 +12,7 @@
     align-items: center;
   }
   &__logo {
-    margin-top: clamp(51px, 5.31216vw, 204px);
+    margin-top: clamp(46px, 4.79136vw, 184px);
     width: clamp(68px, 7.08288vw, 272px);
     height: clamp(68px, 7.08288vw, 272px);
   }
@@ -28,6 +28,29 @@
     justify-content: center;
     flex-direction: column;
     font-size: clamp(9px, 0.93744vw, 36px);
+  }
+
+  .show_password {
+    position: absolute;
+    @apply ml-72;
+    @apply mb-6;
+    @apply text-primary;
+    font-size: clamp(11px, 1.1457600000000001vw, 44px);
+    cursor: pointer;
+    &:hover {
+      @apply text-primary-dark;
+    }
+  }
+  .show_password_confirm {
+    position: absolute;
+    @apply ml-72;
+    @apply text-primary;
+    margin-top: clamp(51px, 5.31216vw, 204px);
+    font-size: clamp(11px, 1.1457600000000001vw, 44px);
+    cursor: pointer;
+    &:hover {
+      @apply text-primary-dark;
+    }
   }
 
   &__minitext {
