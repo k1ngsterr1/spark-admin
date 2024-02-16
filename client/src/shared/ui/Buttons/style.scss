@@ -1,0 +1,39 @@
+.sign-up {
+  width: clamp(175px, 18.228vw, 700px);
+  border-radius: clamp(4px, 0.41664vw, 16px);
+  @apply bg-primary;
+  color: #fff3ef;
+  padding: clamp(6px, 0.62496vw, 24px);
+  font-size: clamp(10px, 1.0416vw, 40px);
+  transition: 0.3s ease-in-out;
+  &:hover {
+    @apply bg-primary-dark;
+  }
+  .google-icon {
+    display: none;
+  }
+}
+
+.google-button {
+  position: relative;
+  width: clamp(175px, 18.228vw, 700px);
+  border-radius: clamp(4px, 0.41664vw, 16px);
+  border: 2px #ff5722 solid;
+  @apply text-secondary;
+  padding: clamp(6px, 0.62496vw, 24px);
+  font-size: clamp(9px, 0.93744vw, 36px);
+  transition: 0.3s ease-in-out;
+  &:hover {
+    color: #fff3ef;
+    @apply bg-primary;
+  }
+  .text {
+    margin-left: clamp(13px, 1.35408vw, 52px);
+  }
+}
+.google-icon {
+  position: absolute;
+  left: clamp(27px, 2.81232vw, 108px);
+  bottom: clamp(5.5px, 0.5728800000000001vw, 22px);
+  font-size: clamp(14px, 1.45824vw, 56px);
+}
