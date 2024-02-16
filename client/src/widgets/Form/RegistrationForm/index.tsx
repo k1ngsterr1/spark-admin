@@ -4,14 +4,15 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import ButtonProp from "@shared/ui/Buttons";
-import Input from "@shared/ui/Inputs";
+import Button from "@shared/ui/Buttons";
+import Input from "@shared/ui/Inputs/DefaultInport";
+import PasswordInput from "@shared/ui/Inputs/PasswordInput";
 
-import styles from "./styles.module.scss";
+import styles from "../styles/styles.module.scss";
 
-import logo from "../../assets/logo.webp";
-import { IoMdEye } from "react-icons/io";
-import { IoMdEyeOff } from "react-icons/io";
+import logo from "@assets/logo.webp";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Form = () => {
   const [visible, setVisible] = useState(false);
@@ -22,33 +23,37 @@ const Form = () => {
         <Image className={styles.registration__logo} src={logo} alt="logo" />
         <span className={styles.registration__heading}>Welcome back</span>
         <form className={styles.registration__form}>
-          <Input placeholder={"Username"} />
-          <Input placeholder={"example@gmail.com"} />
-          <input
-            className="registration__input mb-3"
+          <Input placeholder="Username" type="text" />
+          <Input placeholder="example@gmail.com" type="text" />
+          <PasswordInput
+            placeholder="Password"
             type={visible ? "text" : "password"}
-            required
-            placeholder={"Password"}
           />
           <div
             className={styles.show_password}
             onClick={() => setVisible(!visible)}
           >
-            {visible ? <IoMdEye /> : <IoMdEyeOff />}
+            {visible ? (
+              <FontAwesomeIcon icon={faEye} />
+            ) : (
+              <FontAwesomeIcon icon={faEyeSlash} />
+            )}
           </div>
-          <input
-            className="registration__input mb-3"
+          <PasswordInput
+            placeholder="Confirm Password"
             type={visible ? "text" : "password"}
-            required
-            placeholder={"Confirm Password"}
           />
           <div
             className={styles.show_password_confirm}
             onClick={() => setVisible(!visible)}
           >
-            {visible ? <IoMdEye /> : <IoMdEyeOff />}
+            {visible ? (
+              <FontAwesomeIcon icon={faEye} />
+            ) : (
+              <FontAwesomeIcon icon={faEyeSlash} />
+            )}
           </div>
-          <ButtonProp text={"Sign Up"} className={"sign-up mt-6"} />
+          <Button text="Sign Up" buttonType="sign-up" margin="mt-8" />
         </form>
         <div className={styles.registration__minitext}>
           <span>Already a User? </span>
@@ -61,9 +66,10 @@ const Form = () => {
           <span className={styles.registration__separator__or}>OR</span>
           <div className={styles.registration__separator} />
         </div>
-        <ButtonProp
-          text={"Продолжить с Google"}
-          className={"google-button mt-6"}
+        <Button
+          text="Продолжить с Google"
+          buttonType="transperent"
+          margin="mt-5"
         />
       </div>
     </section>

@@ -4,12 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import ButtonProp from "@shared/ui/Buttons";
-import Input from "@shared/ui/Inputs";
+import Button from "@shared/ui/Buttons";
+import Input from "@shared/ui/Inputs/DefaultInport";
 
-import styles from "../RegistrationForm/styles.module.scss";
+import styles from "../styles/styles.module.scss";
 
-import logo from "../../assets/logo.webp";
+import logo from "@assets/logo.webp";
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
 
@@ -35,7 +35,7 @@ const LoginForm = () => {
           >
             {visible ? <IoMdEye /> : <IoMdEyeOff />}
           </div>
-          <ButtonProp text={"Login"} className={"sign-up mt-6"} />
+          {/* <Button>Продолжить с Google</Button> */}
         </form>
         <div className={styles.registration__minitext}>
           <span>Don't have an account? </span>
@@ -48,10 +48,11 @@ const LoginForm = () => {
           <span className={styles.registration__separator__or}>OR</span>
           <div className={styles.registration__separator} />
         </div>
-        <ButtonProp
+        {/* <ButtonProp
           text={"Продолжить с Google"}
           className={"google-button mt-6"}
         />
+      </div> */}
       </div>
     </section>
   );
