@@ -7,11 +7,13 @@ import Image from "next/image";
 import Button from "@shared/ui/Buttons";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import PasswordInput from "@shared/ui/Inputs/PasswordInput";
+import HorizontalSeparator from "@shared/ui/Separators/HorizontalSeparators";
 
 import styles from "../styles/styles.module.scss";
 
 import logo from "@assets/logo.webp";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Form = () => {
@@ -53,7 +55,7 @@ const Form = () => {
               <FontAwesomeIcon icon={faEyeSlash} />
             )}
           </div>
-          <Button text="Sign Up" buttonType="sign-up" margin="mt-8" />
+          <Button text="Sign Up" buttonType="regular" margin="mt-8" />
         </form>
         <div className={styles.registration__minitext}>
           <span>Already a User? </span>
@@ -61,16 +63,19 @@ const Form = () => {
             Login
           </Link>
         </div>
-        <div className={styles.registration__google}>
-          <div className={styles.registration__separator} />
-          <span className={styles.registration__separator__or}>OR</span>
-          <div className={styles.registration__separator} />
+        <div className={styles.registration__text_separator}>
+          <HorizontalSeparator />
+          <span className={styles.registration__text_or}>OR</span>
+          <HorizontalSeparator />
         </div>
         <Button
           text="Продолжить с Google"
-          buttonType="transperent"
-          margin="mt-5"
-        />
+          buttonType="transparent"
+          margin="mt-4"
+        ></Button>
+        <div className={styles.google_icon}>
+          <FontAwesomeIcon icon={faGoogle} />
+        </div>
       </div>
     </section>
   );

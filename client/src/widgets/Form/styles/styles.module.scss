@@ -1,8 +1,8 @@
 .registration {
   @apply flex;
   @apply justify-center;
+  @apply items-center;
   flex-direction: column;
-  align-items: center;
 
   &__content {
     width: 90%;
@@ -33,7 +33,7 @@
   .show_password {
     position: absolute;
     @apply ml-72;
-    margin-top: clamp(38px, 3.9580800000000003vw, 152px);
+    @apply mb-2;
     @apply text-primary;
     font-size: clamp(9px, 0.93744vw, 36px);
     cursor: pointer;
@@ -45,7 +45,7 @@
   .show_password_confirm {
     position: absolute;
     @apply ml-72;
-    margin-top: clamp(101px, 10.52016vw, 404px);
+    margin-top: clamp(59.5px, 6.19752vw, 238px);
     @apply text-primary;
     font-size: clamp(9px, 0.93744vw, 36px);
     cursor: pointer;
@@ -70,20 +70,25 @@
       }
     }
   }
-  &__google {
+  &__text_separator {
     @apply mt-5;
     display: flex;
     align-items: center;
     text-align: center;
   }
-  &__separator {
-    width: clamp(76px, 7.9161600000000005vw, 304px);
-    height: clamp(0.5px, 0.05208vw, 2px);
-    background: rgba(26, 26, 26, 0.4);
-  }
-  &__separator__or {
+  &__text_or {
     font-size: clamp(8px, 0.83328vw, 32px);
     font-weight: 500;
     padding: 0 10px;
+  }
+  .google_icon {
+    @apply text-secondary;
+    @apply text-xl;
+    position: absolute;
+    top: 803px;
+    right: 1040px;
+    // &:hover {
+    //   @apply text-white;
+    // }
   }
 }
