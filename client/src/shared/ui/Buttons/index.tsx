@@ -1,21 +1,17 @@
-import "./style.scss";
+import styles from "./styles.module.scss";
 
-import { FcGoogle } from "react-icons/fc";
-
-interface ButtonProps {
-  className: string;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  margin?: string;
   text: string;
+  buttonType: string;
 }
 
-const ButtonProp: React.FC<ButtonProps> = ({ className, text }) => {
+const Button: React.FC<ButtonProps> = ({ margin, text, ...rest }) => {
   return (
-    <button className={`${className}`}>
+    <button className={`${styles.button} ${margin}`} {...rest}>
       <span className="text">{text}</span>
-      <span className="google-icon">
-        <FcGoogle />
-      </span>
     </button>
   );
 };
 
-export default ButtonProp;
+export default Button;

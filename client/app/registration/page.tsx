@@ -1,4 +1,4 @@
-import RegistrationForm from "@widgets/RegistrationForm/index";
+import RegistrationForm from "@widgets/Form/RegistrationForm/index";
 
 const RegistrationPage = () => {
   return (

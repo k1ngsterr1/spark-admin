@@ -1,4 +1,4 @@
-.sign-up {
+.regular {
   width: clamp(175px, 18.228vw, 700px);
   border-radius: clamp(4px, 0.41664vw, 16px);
   @apply bg-primary;
@@ -14,7 +14,7 @@
   }
 }
 
-.google-button {
+.transperent {
   position: relative;
   width: clamp(175px, 18.228vw, 700px);
   border-radius: clamp(4px, 0.41664vw, 16px);
@@ -30,10 +30,4 @@
   .text {
     margin-left: clamp(13px, 1.35408vw, 52px);
   }
-}
-.google-icon {
-  position: absolute;
-  left: clamp(27px, 2.81232vw, 108px);
-  bottom: clamp(5.5px, 0.5728800000000001vw, 22px);
-  font-size: clamp(14px, 1.45824vw, 56px);
 }

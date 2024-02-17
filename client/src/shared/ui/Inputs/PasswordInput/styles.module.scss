@@ -1,4 +1,5 @@
-.registration__input {
+.password_input {
+  @apply mt-3;
   position: relative;
   font-size: clamp(8px, 0.83328vw, 32px);
   width: clamp(175px, 18.228vw, 700px);
