@@ -1,33 +1,45 @@
-.regular {
+%button-common {
   width: clamp(175px, 18.228vw, 700px);
   border-radius: clamp(4px, 0.41664vw, 16px);
-  @apply bg-primary;
-  color: #fff3ef;
   padding: clamp(6px, 0.62496vw, 24px);
   font-size: clamp(10px, 1.0416vw, 40px);
   transition: 0.3s ease-in-out;
+  text-align: center;
+}
+
+.button {
+  @extend %button-common;
+}
+
+.button--regular {
+  @extend %button-common;
+  background-color: #ff5722;
+  color: #fff3ef;
   &:hover {
-    @apply bg-primary-dark;
+    background-color: darken(#ff5722, 10%);
   }
   .google-icon {
     display: none;
   }
 }
 
-.transperent {
-  position: relative;
-  width: clamp(175px, 18.228vw, 700px);
-  border-radius: clamp(4px, 0.41664vw, 16px);
-  border: 2px #ff5722 solid;
-  @apply text-secondary;
-  padding: clamp(6px, 0.62496vw, 24px);
-  font-size: clamp(9px, 0.93744vw, 36px);
-  transition: 0.3s ease-in-out;
+.button--transparent {
+  @extend %button-common;
+  background-color: transparent;
+  border: 2px solid #ff5722;
+  color: #ff5722; // Assuming text-secondary is #ff5722
   &:hover {
     color: #fff3ef;
-    @apply bg-primary;
+    background-color: #ff5722;
   }
   .text {
     margin-left: clamp(13px, 1.35408vw, 52px);
   }
+}
+
+.button--regular--small {
+  @extend .button--regular;
+  width: auto !important;
+  @apply pl-8;
+  @apply pr-8;
 }

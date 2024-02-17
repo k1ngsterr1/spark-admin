@@ -1,15 +1,25 @@
+import React from "react";
 import styles from "./styles.module.scss";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   margin?: string;
   text: string;
-  buttonType: string;
+  buttonType: "regular" | "transparent" | "regular--small";
 }
 
-const Button: React.FC<ButtonProps> = ({ margin, text, ...rest }) => {
+const Button: React.FC<ButtonProps> = ({
+  margin,
+  text,
+  buttonType,
+  ...rest
+}) => {
+  const buttonClass = `${styles.button} ${styles[`button--${buttonType}`]} ${
+    margin ? styles[margin] : ""
+  }`;
+
   return (
-    <button className={`${styles.button} ${margin}`} {...rest}>
-      <span className="text">{text}</span>
+    <button className={buttonClass} {...rest}>
+      {text}
     </button>
   );
 };
