@@ -13,3 +13,12 @@
 body {
   font-family: "Inter", sans-serif;
 }
+
+h1 {
+  font-family: Inter;
+  font-size: clamp(14px, 1.45824vw, 56px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  @apply text-secondary;
+}

@@ -1,0 +1,16 @@
+.header {
+  width: 100%;
+  height: clamp(50px, 5.208vw, 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @apply pt-4;
+  @apply pb-4;
+
+  &__content {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}

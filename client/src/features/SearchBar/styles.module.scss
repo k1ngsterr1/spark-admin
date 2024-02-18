@@ -1,0 +1,32 @@
+.search_tab {
+  display: flex;
+  align-items: center;
+
+  &__button {
+    transition: 0.3s all;
+    @apply rounded-full;
+    @apply p-1;
+
+    &:hover {
+      @apply bg-primary-TRANSPARENT;
+    }
+  }
+
+  &__icon {
+    @apply p-1;
+    @apply text-primary;
+  }
+
+  &__input {
+    outline: none;
+    border: none;
+    transition: width 0.3s ease, opacity 0.3s ease, visibility 0.3s;
+    border-bottom: 2px solid;
+    @apply border-primary-TRANSPARENT;
+    @apply pl-2;
+    @apply text-secondary;
+    &:focus {
+      @apply border-primary;
+    }
+  }
+}
