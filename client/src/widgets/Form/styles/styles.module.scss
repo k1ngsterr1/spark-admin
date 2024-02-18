@@ -54,6 +54,54 @@
     }
   }
 
+  .show_password_login {
+    position: absolute;
+    @apply ml-72;
+    @apply mb-2.5;
+    @apply text-primary;
+    font-size: clamp(9px, 0.93744vw, 36px);
+    cursor: pointer;
+    &:hover {
+      @apply text-primary-dark;
+    }
+  }
+
+  .show_password_current {
+    position: absolute;
+    @apply ml-72;
+    margin-bottom: clamp(116px, 12.08256vw, 464px);
+    @apply text-primary;
+    font-size: clamp(9px, 0.93744vw, 36px);
+    cursor: pointer;
+    &:hover {
+      @apply text-primary-dark;
+    }
+  }
+
+  .show_password_new {
+    position: absolute;
+    @apply ml-72;
+    margin-bottom: clamp(52.5px, 5.4684vw, 210px);
+    @apply text-primary;
+    font-size: clamp(9px, 0.93744vw, 36px);
+    cursor: pointer;
+    &:hover {
+      @apply text-primary-dark;
+    }
+  }
+
+  .show_password_retype {
+    position: absolute;
+    @apply ml-72;
+    margin-top: clamp(11.75px, 1.22388vw, 47px);
+    @apply text-primary;
+    font-size: clamp(9px, 0.93744vw, 36px);
+    cursor: pointer;
+    &:hover {
+      @apply text-primary-dark;
+    }
+  }
+
   &__minitext {
     @apply mt-4;
     @apply text-black;
@@ -81,14 +129,15 @@
     font-weight: 500;
     padding: 0 10px;
   }
-  .google_icon {
-    @apply text-secondary;
-    @apply text-xl;
-    position: absolute;
-    top: 803px;
-    right: 1040px;
-    // &:hover {
-    //   @apply text-white;
-    // }
-  }
+  // .google_icon {
+  //   @apply text-secondary;
+  //   @apply text-xl;
+  //   margin-left: 8px;
+  //   position: absolute;
+  //   top: 803px;
+  //   right: 1040px;
+  //   &:hover {
+  //     @apply text-white;
+  //   }
+  // }
 }

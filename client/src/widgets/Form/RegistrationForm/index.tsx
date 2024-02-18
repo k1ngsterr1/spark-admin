@@ -11,18 +11,21 @@ import HorizontalSeparator from "@shared/ui/Separators/HorizontalSeparators";
 
 import styles from "../styles/styles.module.scss";
 
-import logo from "@assets/logo.webp";
+import SparkLogo from "@assets/spark_product_logo.svg";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Form = () => {
   const [visible, setVisible] = useState(false);
+  const [visibleConfirmPassword, setVisibleConfirmPassword] = useState(false);
 
   return (
     <section className={styles.registration}>
       <div className={styles.registration__content}>
-        <Image className={styles.registration__logo} src={logo} alt="logo" />
+        <div className={styles.registration__logo}>
+          <SparkLogo />
+        </div>
         <span className={styles.registration__heading}>Welcome back</span>
         <form className={styles.registration__form}>
           <Input placeholder="Username" type="text" />
@@ -43,13 +46,13 @@ const Form = () => {
           </div>
           <PasswordInput
             placeholder="Confirm Password"
-            type={visible ? "text" : "password"}
+            type={visibleConfirmPassword ? "text" : "password"}
           />
           <div
             className={styles.show_password_confirm}
-            onClick={() => setVisible(!visible)}
+            onClick={() => setVisibleConfirmPassword(!visibleConfirmPassword)}
           >
-            {visible ? (
+            {visibleConfirmPassword ? (
               <FontAwesomeIcon icon={faEye} />
             ) : (
               <FontAwesomeIcon icon={faEyeSlash} />
@@ -71,11 +74,9 @@ const Form = () => {
         <Button
           text="Продолжить с Google"
           buttonType="transparent"
-          margin="mt-4"
+          margin="mt-5"
         ></Button>
-        <div className={styles.google_icon}>
-          <FontAwesomeIcon icon={faGoogle} />
-        </div>
+        {/* <FontAwesomeIcon icon={faGoogle} /> */}
       </div>
     </section>
   );

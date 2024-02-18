@@ -14,9 +14,6 @@ const Button: React.FC<ButtonProps> = ({
   buttonType,
   ...rest
 }) => {
-  // const buttonClass = `${styles.button} ${
-  //   buttonType === "regular" ? styles.regular : styles.transparent
-  // } ${margin ? margin : ""}`;
   const buttonClass = `${styles.button} ${styles[`button--${buttonType}`]} ${
     margin ? margin : ""
   }`;
