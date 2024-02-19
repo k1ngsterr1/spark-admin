@@ -10,8 +10,8 @@ import Input from "@shared/ui/Inputs/DefaultInport";
 import styles from "../styles/styles.module.scss";
 
 import logo from "@assets/logo.webp";
-import { IoMdEye } from "react-icons/io";
-import { IoMdEyeOff } from "react-icons/io";
+// import { IoMdEye } from "react-icons/io";
+// import { IoMdEyeOff } from "react-icons/io";
 
 const LoginForm = () => {
   const [visible, setVisible] = useState(false);
