@@ -1,4 +1,4 @@
-import Button from "@shared/ui/Buttons";
+import { Button } from "@shared/ui/Buttons";
 import React from "react";
 
 export const Dashboard = () => {
