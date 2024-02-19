@@ -1,11 +1,12 @@
 import React from "react";
 
 import styles from "./styles.module.scss";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 interface WebsiteTabProps {
   text: string;
-  preview: string;
+  preview: StaticImageData;
+  userQuantity: number;
 }
 
 export const WebsiteTab: React.FC<WebsiteTabProps> = ({ text, preview }) => {
@@ -17,6 +18,7 @@ export const WebsiteTab: React.FC<WebsiteTabProps> = ({ text, preview }) => {
           className={styles.website_tab__preview_content__preview}
           alt={text}
         />
+        <div className={styles.website_tab__preview_content__text}></div>
       </div>
     </div>
   );

@@ -1,0 +1,15 @@
+.sites_section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__row {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid red;
+    margin: auto;
+    @apply gap-4;
+  }
+}
