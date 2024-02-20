@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ButtonLink } from "@shared/ui/Buttons";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import PasswordInput from "@shared/ui/Inputs/PasswordInput";
-import HorizontalSeparator from "@shared/ui/Separators/HorizontalSeparators";
+import MiniText from "@shared/ui/MiniText/index";
 
 import styles from "../styles/styles.module.scss";
 
@@ -38,12 +38,12 @@ const Form = () => {
             href="email-confirmation"
           />
         </form>
-        <div className={styles.registration__mini_text}>
-          <span>Уже есть аккаунт? </span>
-          <Link href="login" className={styles.login__orange}>
-            Войти
-          </Link>
-        </div>
+        <MiniText
+          margin="mt-2"
+          href="login"
+          text="Уже есть аккаунт? "
+          linktext="Войти"
+        />
       </div>
     </section>
   );

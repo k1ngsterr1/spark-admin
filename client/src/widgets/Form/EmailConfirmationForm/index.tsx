@@ -26,7 +26,7 @@ const EmailConfirm = () => {
           <div className={styles.login__orange}>ruslanmakmhatom@gmail.com</div>
         </div>
         <form className={styles.registration__form}>
-          <Button text="Login" buttonType="regular" margin="mt-8" />
+          <Button text="Подтвердить" buttonType="regular" margin="mt-8" />
         </form>
       </div>
     </section>
