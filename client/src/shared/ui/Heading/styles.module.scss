@@ -1,4 +1,8 @@
 .heading {
   font-size: clamp(16px, 1.66656vw, 64px);
   font-weight: 700;
+  font-family: Inter;
+  font-style: normal;
+  line-height: normal;
+  @apply text-secondary;
 }

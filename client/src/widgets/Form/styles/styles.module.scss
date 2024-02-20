@@ -1,13 +1,38 @@
+@import "../../../shared/styles/mixins.scss";
+
+@mixin text-orange(
+  $margin: 0,
+  $text-size: 1rem,
+  $orange-text-size: 1rem,
+  $font-weight: 500
+) {
+  .text_with_detail {
+    margin-top: $margin;
+    font-size: $text-size;
+    font-weight: $font-weight;
+    font-weight: 500;
+  }
+  .text_orange {
+    @apply text-primary;
+    font-size: $text-size;
+    font-weight: $font-weight;
+    transition: 0.3s ease-in-out;
+    &:hover {
+      @apply text-primary-dark;
+    }
+  }
+}
+
 .registration {
-  @apply flex;
-  @apply justify-center;
-  @apply items-center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 
   &__content {
     width: 90%;
-    @apply flex;
-    @apply justify-center;
+    display: flex;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
   }
@@ -23,40 +48,5 @@
     justify-content: center;
     flex-direction: column;
     font-size: clamp(9px, 0.93744vw, 36px);
-  }
-
-  &__mini_text_account_user {
-    @apply mt-2;
-    @apply text-black;
-    @apply text-xl;
-    font-weight: 500;
-
-    .login__orange {
-      @apply text-primary;
-      @apply text-xl;
-      font-weight: 500;
-      transition: 0.3s ease-in-out;
-      &:hover {
-        @apply text-primary-dark;
-      }
-    }
-  }
-
-  &__mini_text_account_mail {
-    @apply mt-6;
-    @apply text-black;
-    @apply text-lg;
-    font-weight: 500;
-
-    .login__orange {
-      @apply text-center;
-      @apply text-primary;
-      @apply text-lg;
-      font-weight: 500;
-      transition: 0.3s ease-in-out;
-      &:hover {
-        @apply text-primary-dark;
-      }
-    }
   }
 }
