@@ -1,20 +1,34 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from "./styles.module.scss";
 
-interface KebabMenuProps {}
+export const KebabMenu = () => {
+  const [isKebabOpen, setKebabOpen] = useState(false);
 
-export const KebabMenu: React.FC<KebabMenuProps> = () => {
+  const handleOpenMenu = () => {
+    setKebabOpen(!isKebabOpen);
+  };
+
   return (
     <>
-      <FontAwesomeIcon
-        icon={faEllipsisVertical}
-        className={styles.kebab_menu}
-        size="xl"
-      />
+      <button className={styles.button_kebab} onClick={handleOpenMenu}>
+        <FontAwesomeIcon
+          icon={faEllipsisVertical}
+          className={styles.kebab_menu}
+          size="xl"
+        />
+        {isKebabOpen && (
+          <div className={styles.kebab_opened}>
+            <span className="mt-2">Добавить</span>
+            <span className="mt-2">Изменить</span>
+            <span className="mt-2">Удалить</span>
+          </div>
+        )}
+      </button>
     </>
   );
 };
