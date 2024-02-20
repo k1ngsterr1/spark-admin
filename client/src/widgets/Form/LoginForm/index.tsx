@@ -9,10 +9,16 @@ import PasswordInput from "@shared/ui/Inputs/PasswordInput";
 
 import styles from "../styles/styles.module.scss";
 
+<<<<<<< HEAD
 import SparkLogo from "@assets/spark_product_logo.svg";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+=======
+import logo from "@assets/logo.webp";
+// import { IoMdEye } from "react-icons/io";
+// import { IoMdEyeOff } from "react-icons/io";
+>>>>>>> 678f273510fdb90c540316657b244b89a60eb16b
 
 const LoginForm = () => {
   return (

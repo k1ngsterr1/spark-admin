@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 'use client'
 import React, { useState } from "react";
 import { SearchBar } from "@features/SearchBar";
@@ -27,3 +28,10 @@ export const Users = () => {
 };
 
 export default Users
+=======
+import React from "react";
+
+export const Users = () => {
+  return <div></div>;
+};
+>>>>>>> 678f273510fdb90c540316657b244b89a60eb16b
