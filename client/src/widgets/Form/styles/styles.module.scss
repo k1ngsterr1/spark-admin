@@ -16,11 +16,6 @@
     width: clamp(68px, 7.08288vw, 272px);
     height: clamp(68px, 7.08288vw, 272px);
   }
-  &__heading {
-    @apply mt-8;
-    font-size: clamp(16px, 1.66656vw, 64px);
-    font-weight: 700;
-  }
   &__form {
     @apply mt-6;
     display: flex;
@@ -28,93 +23,6 @@
     justify-content: center;
     flex-direction: column;
     font-size: clamp(9px, 0.93744vw, 36px);
-  }
-
-  .show_password {
-    position: absolute;
-    @apply ml-72;
-    @apply mb-2;
-    @apply text-primary;
-    font-size: clamp(9px, 0.93744vw, 36px);
-    cursor: pointer;
-    &:hover {
-      @apply text-primary-dark;
-    }
-  }
-
-  .show_password_confirm {
-    position: absolute;
-    @apply ml-72;
-    margin-top: clamp(59.5px, 6.19752vw, 238px);
-    @apply text-primary;
-    font-size: clamp(9px, 0.93744vw, 36px);
-    cursor: pointer;
-    &:hover {
-      @apply text-primary-dark;
-    }
-  }
-
-  .show_password_login {
-    position: absolute;
-    @apply ml-72;
-    @apply mb-6;
-    @apply text-primary;
-    font-size: clamp(9px, 0.93744vw, 36px);
-    cursor: pointer;
-    &:hover {
-      @apply text-primary-dark;
-    }
-  }
-
-  .show_password_current {
-    position: absolute;
-    margin-bottom: clamp(100px, 10.416vw, 400px);
-    @apply text-primary;
-    font-size: clamp(9px, 0.93744vw, 36px);
-    cursor: pointer;
-    &:hover {
-      @apply text-primary-dark;
-    }
-  }
-
-  .show_password_new {
-    position: absolute;
-    margin-bottom: clamp(36px, 3.74976vw, 144px);
-    @apply text-primary;
-    font-size: clamp(9px, 0.93744vw, 36px);
-    cursor: pointer;
-    &:hover {
-      @apply text-primary-dark;
-    }
-  }
-
-  .show_password_retype {
-    position: absolute;
-    @apply ml-72;
-    margin-top: clamp(27px, 2.81232vw, 108px);
-    @apply text-primary;
-    font-size: clamp(9px, 0.93744vw, 36px);
-    cursor: pointer;
-    &:hover {
-      @apply text-primary-dark;
-    }
-  }
-
-  &__mini_text_change_password {
-    @apply mt-2;
-    @apply text-black;
-    font-size: clamp(8px, 0.83328vw, 32px);
-    font-weight: 500;
-
-    .login__orange {
-      @apply text-primary;
-      font-size: clamp(8px, 0.83328vw, 32px);
-      font-weight: 500;
-      transition: 0.3s ease-in-out;
-      &:hover {
-        @apply text-primary-dark;
-      }
-    }
   }
 
   &__mini_text_account_user {

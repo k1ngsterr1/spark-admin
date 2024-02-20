@@ -1,13 +1,10 @@
-"use client";
-import { useState } from "react";
 import { ButtonLink } from "@shared/ui/Buttons/index";
 import PasswordInput from "@shared/ui/Inputs/PasswordInput";
+import Heading from "@shared/ui/Heading/index";
 
 import styles from "../styles/styles.module.scss";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ChangePassword = () => {
   return (
@@ -16,7 +13,7 @@ const ChangePassword = () => {
         <div className={styles.registration__logo}>
           <SparkLogo />
         </div>
-        <h1 className={styles.registration__heading}>Сменить пароль</h1>
+        <Heading text="Сменить пароль" margin="mt-8" />
         <form className={styles.registration__form}>
           <PasswordInput placeholder="Текущий пароль" margin="mt-3" />
           <PasswordInput placeholder="Новый пароль" margin="mt-3" />

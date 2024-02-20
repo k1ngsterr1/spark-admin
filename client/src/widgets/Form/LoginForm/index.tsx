@@ -1,12 +1,8 @@
-"use client";
-import { useState } from "react";
-
-import Link from "next/link";
-
 import { Button } from "@shared/ui/Buttons";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import PasswordInput from "@shared/ui/Inputs/PasswordInput";
 import MiniText from "@shared/ui/MiniText/index";
+import Heading from "@shared/ui/Heading/index";
 
 import styles from "../styles/styles.module.scss";
 
@@ -19,7 +15,7 @@ const LoginForm = () => {
         <div className={styles.registration__logo}>
           <SparkLogo />
         </div>
-        <span className={styles.registration__heading}>Войти</span>
+        <Heading text="Войти" margin="mt-8" />
         <form className={styles.registration__form}>
           <Input placeholder={"example@gmail.com"} />
           <PasswordInput placeholder="Пароль" margin="mt-3" />

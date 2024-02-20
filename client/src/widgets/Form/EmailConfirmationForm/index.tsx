@@ -1,10 +1,7 @@
-"use client";
-import { useState } from "react";
-
-import Link from "next/link";
-
 import { Button } from "@shared/ui/Buttons";
 import Input from "@shared/ui/Inputs/DefaultInport";
+import Heading from "@shared/ui/Heading/index";
+
 import styles from "../styles/styles.module.scss";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
@@ -16,7 +13,7 @@ const EmailConfirm = () => {
         <div className={styles.registration__logo}>
           <SparkLogo />
         </div>
-        <h1 className={styles.registration__heading}>Подтверждение почты</h1>
+        <Heading text="Подтверждение почты" margin="mt-8" />
         <div className={styles.registration__mini_text_account_user}>
           <span>Аккаунт:</span>
           <span className={styles.login__orange}>smth</span>
