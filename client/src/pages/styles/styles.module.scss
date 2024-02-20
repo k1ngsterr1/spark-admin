@@ -1,0 +1,17 @@
+.users {
+    width: 86.6%;
+    margin: auto;
+
+    &__text {
+        @apply text-primary;
+        @apply mt-8 mb-8 text-2xl;
+    }
+
+    &__box {
+        border: 1px solid;
+        @apply border-primary pt-4 pl-4;
+        @apply rounded-md;
+        width: 100dvh;
+        height: 70dvh;
+    }
+}

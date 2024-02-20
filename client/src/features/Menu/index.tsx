@@ -6,6 +6,7 @@ import {
   faGlobe,
   faHeadphones,
   faLock,
+  faUser,
   faLockOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import { MenuButton, NavButton } from "@shared/ui/NavButton";
@@ -49,6 +50,12 @@ export const Menu = () => {
           icon={faGear}
           href="/settings"
           text="Настройки"
+          margin="mt-4"
+        />
+        <NavButton
+          icon={faUser}
+          href="/users"
+          text="Пользователи"
           margin="mt-4"
         />
       </nav>
