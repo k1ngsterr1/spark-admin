@@ -29,8 +29,8 @@ const Form = () => {
         <form className={styles.registration__form}>
           <Input placeholder="Имя пользователя" type="text" />
           <Input placeholder="example@gmail.com" type="text" />
-          <PasswordInput placeholder="Пароль" />
-          <PasswordInput placeholder="Подтвердить пароль" />
+          <PasswordInput placeholder="Пароль" margin="mt-3" />
+          <PasswordInput placeholder="Подтвердить пароль" margin="mt-3" />
           <ButtonLink
             text="Зарегистрироваться"
             buttonType="regular"

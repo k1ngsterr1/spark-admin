@@ -11,9 +11,6 @@ import MiniText from "@shared/ui/MiniText/index";
 import styles from "../styles/styles.module.scss";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const LoginForm = () => {
   return (
@@ -25,7 +22,7 @@ const LoginForm = () => {
         <span className={styles.registration__heading}>Войти</span>
         <form className={styles.registration__form}>
           <Input placeholder={"example@gmail.com"} />
-          <PasswordInput placeholder="Пароль" />
+          <PasswordInput placeholder="Пароль" margin="mt-3" />
           <MiniText
             margin="mt-2"
             href="change-password"

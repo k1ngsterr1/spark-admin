@@ -19,18 +19,23 @@ const PasswordInputProp: React.FC<PasswordInputProps> = ({
 
   return (
     <>
-      <input
-        className={`${styles.password_input} ${margin}`}
-        required
-        {...rest}
-        type={visible ? "text" : "password"}
-      />
-      <div onClick={() => setVisible(!visible)}>
-        {visible ? (
-          <FontAwesomeIcon icon={faEye} />
-        ) : (
-          <FontAwesomeIcon icon={faEyeSlash} />
-        )}
+      <div className={styles.input_container}>
+        <input
+          className={`${styles.password_input} ${margin}`}
+          required
+          {...rest}
+          type={visible ? "text" : "password"}
+        />
+        <div
+          onClick={() => setVisible(!visible)}
+          className={styles.show_password}
+        >
+          {visible ? (
+            <FontAwesomeIcon icon={faEye} />
+          ) : (
+            <FontAwesomeIcon icon={faEyeSlash} />
+          )}
+        </div>
       </div>
     </>
   );

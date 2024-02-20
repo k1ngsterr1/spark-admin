@@ -18,9 +18,9 @@ const ChangePassword = () => {
         </div>
         <h1 className={styles.registration__heading}>Сменить пароль</h1>
         <form className={styles.registration__form}>
-          <PasswordInput placeholder="Текущий пароль" />
-          <PasswordInput placeholder="Новый пароль" />
-          <PasswordInput placeholder="Повторите новый пароль" />
+          <PasswordInput placeholder="Текущий пароль" margin="mt-3" />
+          <PasswordInput placeholder="Новый пароль" margin="mt-3" />
+          <PasswordInput placeholder="Повторите новый пароль" margin="mt-3" />
           <ButtonLink
             text="Сменить пароль"
             buttonType="regular"
