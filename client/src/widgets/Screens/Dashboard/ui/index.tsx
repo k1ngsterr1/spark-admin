@@ -13,12 +13,10 @@ export const Dashboard = () => {
         <Button text="Добавить сайт" buttonType="regular--small" />
       </div>
       <section className={styles.sites_section}>
-        <div className={styles.sites_section__row}>
-          <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
-          <WebsiteTab text="Проверка" preview={image} userQuantity={3} />{" "}
-          <WebsiteTab text="Проверка" preview={image} userQuantity={3} />{" "}
-          <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
-        </div>
+        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
+        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />{" "}
+        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />{" "}
+        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
       </section>
     </div>
   );

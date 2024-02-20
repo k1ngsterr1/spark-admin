@@ -1,3 +1,55 @@
 .website_tab {
+  width: 100%;
+  cursor: pointer;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.3s all;
+  @apply p-3;
+  @apply mt-4;
+  @apply rounded;
+  @apply bg-primary-ALMOST_WHITE;
+
+  &__preview_content {
+    display: flex;
+    align-items: center;
+    @apply gap-4;
+
+    &__preview {
+      width: clamp(64px, 6.66624vw, 256px);
+      height: clamp(64px, 6.66624vw, 256px);
+      @apply rounded-md;
+    }
+
+    &__text_content {
+      display: flex;
+      flex-direction: column;
+
+      &__lower {
+        display: flex;
+        flex-direction: row;
+        @apply mt-4;
+        @apply gap-8;
+      }
+    }
+  }
+
+  &:hover {
+    @apply bg-primary-TRANSPARENT;
+  }
+}
+
+.text {
+  font-size: 25px;
+  @apply text-secondary;
+  @apply font-semibold;
+}
+
+.count {
+  @apply text-xl;
+  @apply text-gray-700;
+}
+
+.icon {
+  @apply text-primary;
 }
