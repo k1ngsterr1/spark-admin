@@ -1,0 +1,10 @@
+.kebab_menu {
+  position: absolute;
+  transition: 0.3s all;
+  @apply text-primary;
+  @apply top-4;
+  @apply right-4;
+  &:hover {
+    @apply text-primary-dark;
+  }
+}

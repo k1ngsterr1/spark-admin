@@ -8,6 +8,7 @@ import {
   faPerson,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { KebabMenu } from "@shared/ui/KebabMenu";
 
 interface WebsiteTabProps {
   text: string;
@@ -50,6 +51,7 @@ export const WebsiteTab: React.FC<WebsiteTabProps> = ({ text, preview }) => {
           </div>
         </div>
       </div>
+      <KebabMenu />
     </div>
   );
 };

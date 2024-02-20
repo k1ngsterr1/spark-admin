@@ -14,8 +14,11 @@ export const Dashboard = () => {
       </div>
       <section className={styles.sites_section}>
         <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
-        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />{" "}
-        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />{" "}
+        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
+        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
+        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
+        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
+        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
         <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
       </section>
     </div>

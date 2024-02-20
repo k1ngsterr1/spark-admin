@@ -1,4 +1,5 @@
 .website_tab {
+  position: relative;
   width: 100%;
   cursor: pointer;
   display: flex;
@@ -40,7 +41,7 @@
 }
 
 .text {
-  font-size: 25px;
+  font-size: clamp(12.5px, 1.302vw, 50px);
   @apply text-secondary;
   @apply font-semibold;
 }
