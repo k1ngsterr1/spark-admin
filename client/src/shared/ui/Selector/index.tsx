@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 
+import styles from './style.module.scss'
+
 interface SelectorProps {
+    items: string[];
+    className?: string;
     onChange: (selectedOption: string) => void;
 }
 
-export const Selector: React.FC<SelectorProps> = ({ onChange }) => {
+export const Selector: React.FC<SelectorProps> = ({ items, onChange, className }) => {
     const [isOpen, setIsOpen] = useState(false);
-
-    const roles = ['Role 1', 'Role 2', 'Role 3'];
 
 
     const handleOptionClick = (selectedOption: string) => {
@@ -16,16 +18,12 @@ export const Selector: React.FC<SelectorProps> = ({ onChange }) => {
     };
 
     return (
-        <div>
-            {isOpen && (
-                <div>
-                    {roles.map((role, index) => (
-                        <div key={index} onClick={() => handleOptionClick(role)}>
-                            {role}
-                        </div>
-                    ))}
+        <div className={`${styles.selector} ${className || ''}`.trim()}>
+            {items.map((item, index) => (
+                <div className={styles.selector__items} key={index} onClick={() => handleOptionClick(item)}>
+                    {item}
                 </div>
-            )}
+            ))}
         </div>
     );
 };

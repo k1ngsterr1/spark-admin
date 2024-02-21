@@ -1,14 +1,19 @@
-<<<<<<< HEAD
 'use client'
 import React, { useState } from "react";
 import { SearchBar } from "@features/SearchBar";
 import { Button } from "@shared/ui/Buttons";
 import PopUp from "@shared/ui/PopUp";
+import UserPick from "@shared/ui/UserPick";
 
 import styles from '../styles/styles.module.scss'
 
 export const Users = () => {
     const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+    const [users, setUsers] = useState<{ login: string; role: string; site: string; }[]>([]);
+
+    const addUser = (user: { login: string; role: string; site: string; }) => {
+        setUsers(currentUsers => [...currentUsers, user]);
+    };
 
     const handleOpenPopUp = () => {
         setIsPopUpOpen(true);
@@ -19,19 +24,16 @@ export const Users = () => {
                 Управление пользователями
             </p>
             <Button onClick={handleOpenPopUp} text="Добавить пользователя" buttonType="regular--small" />
-            <PopUp isOpen={isPopUpOpen} setIsOpen={setIsPopUpOpen} />
+            <PopUp isOpen={isPopUpOpen} setIsOpen={setIsPopUpOpen} addUser={addUser} />
         </div>
         <div className={styles.users__box}>
             <SearchBar />
+            {users.map((user, index) => (
+                <UserPick key={index} login={user.login} role={user.role} site={user.site} />
+            ))}
         </div>
     </div>;
 };
 
 export default Users
-=======
-import React from "react";
 
-export const Users = () => {
-  return <div></div>;
-};
->>>>>>> 678f273510fdb90c540316657b244b89a60eb16b
