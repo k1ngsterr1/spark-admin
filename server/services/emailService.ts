@@ -11,10 +11,8 @@ const sendVerificationEmail = async (email: string, name: string) => {
     port: 465,
     secure: true,
     auth: {
-      // user: process.env.EMAIL_USER,
-      // pass: process.env.EMAIL_PASS,
-      user: "info@sparkstudio.kz",
-      pass: "Askar2005",
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
     tls: {
       rejectUnauthorized: false,
@@ -113,9 +111,6 @@ const sendVerificationEmail = async (email: string, name: string) => {
     text: `Your verification code is: ${code}`,
     html: emailTemplate,
   };
-
-  console.log("code:", code);
-  console.log("Verification code send to:", email);
 
   await transporter.sendMail(mailOptions);
 };

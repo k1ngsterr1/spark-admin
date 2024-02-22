@@ -22,8 +22,6 @@ class UserController {
         return res.status(400).json({ message: "Passwords do not match" });
       }
 
-      console.log(newUser);
-
       await newUser.save(
         res
           .status(201)
@@ -71,6 +69,31 @@ class UserController {
         token: token,
       });
     } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  async verifyUser(req, res) {
+    try {
+      const { userCode, userID } = req.body;
+      const userRepository = sequelize.getRepository(User);
+      const user = userRepository.findByPk(userID);
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      if ((await user).verificationCode === userCode) {
+        (await user).isVerified = true;
+        (await user).verificationCode = null;
+        (await user).save;
+
+        res.json({ message: "User successfully verified" });
+      } else {
+        res.status(400).json({ message: "Invalid verification code" });
+      }
+    } catch (error) {
+      console.error(error);
       res.status(500).json({ error: error.message });
     }
   }

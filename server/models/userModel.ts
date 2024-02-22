@@ -27,6 +27,7 @@ interface UserAttributes {
   email: string;
   password: string;
   role: string;
+  verificationCode: string;
   // websites: WebsiteItem[];
   createdAt?: Date;
   updatedAt?: Date;
@@ -62,6 +63,9 @@ export class User extends Model<UserAttributes, UserCreationAttributes> {
   @Default("user")
   @Column(DataType.STRING)
   role!: string;
+
+  @Column(DataType.STRING)
+  verificationCode!: string;
 
   @Default("false")
   @Column(DataType.BOOLEAN)
