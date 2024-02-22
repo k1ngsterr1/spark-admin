@@ -12,8 +12,8 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       role: {
-        defaultValue: "user",
         type: Sequelize.STRING,
+        defaultValue: "user",
       },
       username: {
         allowNull: false,
@@ -27,6 +27,10 @@ module.exports = {
       password: {
         allowNull: false,
         type: Sequelize.STRING,
+      },
+      isVerified: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,

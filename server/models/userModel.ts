@@ -63,6 +63,10 @@ export class User extends Model<UserAttributes, UserCreationAttributes> {
   @Column(DataType.STRING)
   role!: string;
 
+  @Default("false")
+  @Column(DataType.BOOLEAN)
+  isVerified!: boolean;
+
   @CreatedAt
   createdAt!: Date;
 
