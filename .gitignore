@@ -74,3 +74,6 @@ bower_components
 Thumbs.db
 *.swp
 *.lock
+
+# Ignore private keys
+/config/keys/

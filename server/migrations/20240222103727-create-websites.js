@@ -3,34 +3,20 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("users", {
+    await queryInterface.createTable("websites", {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        unique: true,
-        type: Sequelize.INTEGER,
-      },
-      role: {
-        type: Sequelize.STRING,
-        defaultValue: "user",
-      },
-      username: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
-      email: {
-        allowNull: false,
-        unique: true,
+      name: {
         type: Sequelize.STRING,
       },
-      password: {
-        allowNull: false,
+      url: {
         type: Sequelize.STRING,
       },
-      isVerified: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+      owners: {
+        type: Sequelize.JSONB,
       },
       createdAt: {
         allowNull: false,
@@ -46,6 +32,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable("websites");
   },
 };

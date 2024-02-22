@@ -16,12 +16,19 @@ import {
 import bcryptjs from "bcryptjs";
 import sequelize from "config/sequelize";
 
+// interface WebsiteItem {
+//   website: string;
+//   ID: string;
+// }
+
 interface UserAttributes {
   id: number;
   username: string;
   email: string;
   password: string;
   role: string;
+  verificationCode: string;
+  // websites: WebsiteItem[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -30,6 +37,7 @@ interface UserCreationAttributes {
   username: string;
   email: string;
   password: string;
+  // websites?: WebsiteItem[];
   role?: string;
 }
 
@@ -55,6 +63,13 @@ export class User extends Model<UserAttributes, UserCreationAttributes> {
   @Default("user")
   @Column(DataType.STRING)
   role!: string;
+
+  @Column(DataType.STRING)
+  verificationCode!: string;
+
+  @Default("false")
+  @Column(DataType.BOOLEAN)
+  isVerified!: boolean;
 
   @CreatedAt
   createdAt!: Date;
