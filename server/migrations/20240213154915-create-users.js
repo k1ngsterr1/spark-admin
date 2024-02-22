@@ -8,10 +8,11 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
+        unique: true,
         type: Sequelize.INTEGER,
       },
       role: {
-        defaultValue: "Owner",
+        defaultValue: "user",
         type: Sequelize.STRING,
       },
       username: {
@@ -20,6 +21,7 @@ module.exports = {
       },
       email: {
         allowNull: false,
+        unique: true,
         type: Sequelize.STRING,
       },
       password: {

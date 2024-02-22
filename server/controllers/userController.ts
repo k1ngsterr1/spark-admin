@@ -8,13 +8,18 @@ const jwt = require("jsonwebtoken");
 class UserController {
   async createUser(req, res) {
     try {
-      const { username, email, password } = req.body;
+      const { username, email, password, passwordConfirmation } = req.body;
       const userRepository = sequelize.getRepository(User);
       const newUser = await userRepository.create({
         username,
         email,
         password,
       });
+
+      if (password !== passwordConfirmation) {
+        console.log(password, passwordConfirmation);
+        return res.status(400).json({ message: "Passwords do not match" });
+      }
 
       console.log(newUser);
 
