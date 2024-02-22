@@ -2,6 +2,9 @@ import { User } from "@models/userModel";
 import bcryptjs from "bcryptjs";
 import sequelize from "config/sequelize";
 
+const JWT_SECRET = process.env.JWT_SECRET;
+const jwt = require("jsonwebtoken");
+
 class UserController {
   async createUser(req, res) {
     try {
@@ -30,7 +33,8 @@ class UserController {
   async login(req, res) {
     try {
       const { email, password } = req.body;
-      const user = await User.findOne({ where: { email } });
+      const userRepository = sequelize.getRepository(User);
+      const user = await userRepository.findOne({ where: { email } });
 
       if (!user) {
         return res
@@ -45,6 +49,20 @@ class UserController {
           .status(401)
           .json({ message: "Authentication failed. Wrong password." });
       }
+
+      const token = jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+        },
+        JWT_SECRET,
+        { expiresIn: "2h" }
+      );
+
+      res.json({
+        message: "Logged in successfully",
+        token: token,
+      });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

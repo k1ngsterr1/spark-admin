@@ -63,9 +63,6 @@ export class User extends Model<UserAttributes, UserCreationAttributes> {
   @Column(DataType.STRING)
   role!: string;
 
-  // @Column(DataType.ARRAY(DataType.JSON))
-  // websites!: WebsiteItem[];
-
   @CreatedAt
   createdAt!: Date;
 

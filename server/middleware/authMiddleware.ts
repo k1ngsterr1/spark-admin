@@ -6,14 +6,15 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split("")[1];
+  const token = authHeader.toString();
+
+  console.log("token:", token, "header:", authHeader);
 
   if (token == null) {
     return res.status(401).json({ message: "No token provided" });
   }
   try {
     const decodedUser = jwt.verify(token, JWT_SECRET);
-    // Attach the user information to the request object
     req.user = decodedUser;
     next();
   } catch (error) {
