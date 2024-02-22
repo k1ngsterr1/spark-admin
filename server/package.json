@@ -29,7 +29,8 @@
     "@config": "./config",
     "@routes": "./routes",
     "@services": "./services",
-    "@middleware": "./middleware"
+    "@middleware": "./middleware",
+    "@utils": "./utils"
   },
   "imports": {
     "@controllers": "./controllers",
@@ -37,7 +38,8 @@
     "@config": "./config",
     "@routes": "./routes",
     "@services": "./services",
-    "@middleware": "./middleware"
+    "@middleware": "./middleware",
+    "@utils": "./utils"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",

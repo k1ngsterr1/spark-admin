@@ -3,6 +3,7 @@ import bcryptjs from "bcryptjs";
 import sequelize from "config/sequelize";
 
 const JWT_SECRET = process.env.JWT_SECRET;
+const sendVerificationEmail = require("@services/emailService");
 const jwt = require("jsonwebtoken");
 
 class UserController {
@@ -28,6 +29,7 @@ class UserController {
           .status(201)
           .json({ message: "User created successfully", user: newUser })
       );
+      sendVerificationEmail(email, username);
     } catch (error) {
       res
         .status(400)
