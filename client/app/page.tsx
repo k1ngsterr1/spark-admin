@@ -1,19 +1,7 @@
-import { Header } from "@features/Header";
-import { Menu } from "@features/Menu";
-import { Dashboard } from "@widgets/Screens/Dashboard/ui";
-
-import "@fortawesome/fontawesome-svg-core/styles.css";
+import React from "react";
 
 const page = () => {
-  return (
-    <div className="flex">
-      <Menu />
-      <main className="flex flex-col w-full">
-        <Header />
-        <Dashboard />
-      </main>
-    </div>
-  );
+  return <div>page</div>;
 };
 
 export default page;

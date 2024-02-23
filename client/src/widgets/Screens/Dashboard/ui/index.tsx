@@ -2,10 +2,15 @@ import React from "react";
 import { Button } from "@shared/ui/Buttons";
 import Heading from "@shared/ui/Heading/index";
 import { WebsiteTab } from "@entities/WebsiteTab";
+import { WebsiteItem } from "@shared/lib/types";
 
 import image from "@assets/example.png";
 
 import styles from "./styles.module.scss";
+
+// interface DashboardProps {
+//   websites: WebsiteItem[];
+// }
 
 export const Dashboard = () => {
   return (
@@ -15,13 +20,14 @@ export const Dashboard = () => {
         <Button text="Добавить сайт" buttonType="regular--small" />
       </div>
       <section className={styles.sites_section}>
-        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
-        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
-        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
-        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
-        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
-        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
-        <WebsiteTab text="Проверка" preview={image} userQuantity={3} />
+        {/* {websites.map((website) => (
+          <WebsiteTab
+            key={website.id}
+            text={website.name}
+            preview={website.preview}
+            userQuantity={website.userQuantity}
+          />
+        ))} */}
       </section>
     </div>
   );
