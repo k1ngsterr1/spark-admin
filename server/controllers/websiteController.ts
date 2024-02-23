@@ -1,21 +1,22 @@
 import { Website } from "@models/websiteModel";
+import { User } from "@models/userModel";
 import sequelize from "config/sequelize";
 
 class WebsiteController {
   async addWebsite(req, res) {
     try {
-      const { name, url } = req.body;
-      const user = req.user;
+      const { name, url, userID } = req.body;
+      const userRepository = sequelize.getRepository(User);
+      const user = userRepository.findByPk(userID);
 
       const websiteRepositry = sequelize.getRepository(Website);
-      console.log(Website);
 
       const newWebsite = await websiteRepositry.create({
         name,
         url,
         owners: [
           {
-            name: user.name,
+            name: (await user).email,
             role: "Owner",
           },
         ],
