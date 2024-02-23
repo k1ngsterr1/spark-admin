@@ -6,6 +6,7 @@ module.exports = {
     await queryInterface.createTable("websites", {
       id: {
         allowNull: false,
+        unique: true,
         primaryKey: true,
         type: Sequelize.STRING,
       },
@@ -13,6 +14,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       url: {
+        unique: true,
         type: Sequelize.STRING,
       },
       owners: {

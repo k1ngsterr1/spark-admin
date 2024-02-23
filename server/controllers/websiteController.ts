@@ -5,9 +5,8 @@ import sequelize from "config/sequelize";
 class WebsiteController {
   async addWebsite(req, res) {
     try {
-      const { name, url, userID } = req.body;
-      const userRepository = sequelize.getRepository(User);
-      const user = userRepository.findByPk(userID);
+      const { name, url } = req.body;
+      const userID = req.user.id;
 
       const websiteRepositry = sequelize.getRepository(Website);
 
@@ -16,7 +15,7 @@ class WebsiteController {
         url,
         owners: [
           {
-            name: (await user).email,
+            id: userID,
             role: "Owner",
           },
         ],
@@ -27,5 +26,11 @@ class WebsiteController {
       return res.status(500).json({ error: "Failed to create website" });
     }
   }
+
+  // async getWebsites(req,res){
+  //   try{
+  //     const {userEmail} = req.body
+  //   }
+  // }
 }
 export default new WebsiteController();

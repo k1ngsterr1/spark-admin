@@ -16,7 +16,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 
 interface OwnerItem {
-  name: string;
+  id: number;
   role: string;
 }
 
@@ -55,6 +55,7 @@ export class Website extends Model<
   @Column(DataType.STRING)
   name!: string;
 
+  @Unique
   @Column(DataType.STRING)
   url!: string;
 
