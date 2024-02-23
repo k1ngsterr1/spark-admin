@@ -5,6 +5,7 @@ import sequelize from "config/sequelize";
 const JWT_SECRET = process.env.JWT_SECRET;
 const sendVerificationEmail = require("@services/emailService");
 const jwt = require("jsonwebtoken");
+const verificationCodeGenerator = require("@utils/generateCode");
 
 class UserController {
   async createUser(req, res) {
@@ -22,12 +23,18 @@ class UserController {
         return res.status(400).json({ message: "Passwords do not match" });
       }
 
+      const code = verificationCodeGenerator(5);
+      newUser.verificationCode = code;
+
+      console.log("Users code is:", newUser.verificationCode);
+
       await newUser.save(
         res
           .status(201)
           .json({ message: "User created successfully", user: newUser })
       );
-      sendVerificationEmail(email, username);
+
+      sendVerificationEmail(email, username, code);
     } catch (error) {
       res
         .status(400)
@@ -82,6 +89,8 @@ class UserController {
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
+
+      console.log(userCode);
 
       if ((await user).verificationCode === userCode) {
         (await user).isVerified = true;

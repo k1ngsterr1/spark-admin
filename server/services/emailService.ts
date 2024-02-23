@@ -1,10 +1,10 @@
-// const sparkLogo = require("../assets/spark_product_logo.svg");
 const nodemailer = require("nodemailer");
-const verificationCode = require("@utils/generateCode");
 
-const sendVerificationEmail = async (email: string, name: string) => {
-  const code = verificationCode(5);
-
+const sendVerificationEmail = async (
+  email: string,
+  name: string,
+  code: string
+) => {
   const transporter = nodemailer.createTransport({
     pool: true,
     host: "pkz42.hoster.kz",
