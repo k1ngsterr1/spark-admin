@@ -8,6 +8,7 @@ class WebsiteController {
       const user = req.user;
 
       const websiteRepositry = sequelize.getRepository(Website);
+      console.log(Website);
 
       const newWebsite = await websiteRepositry.create({
         name,

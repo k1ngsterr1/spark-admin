@@ -1,4 +1,5 @@
 import { User } from "@models/userModel";
+import { Website } from "@models/websiteModel";
 import { Sequelize } from "sequelize-typescript";
 
 const sequelize = new Sequelize({
@@ -11,7 +12,7 @@ const sequelize = new Sequelize({
   storage: ":memory:",
   port: 5432,
   logging: false,
-  models: [User],
+  models: [User, Website],
 });
 
 export default sequelize;

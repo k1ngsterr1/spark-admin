@@ -6,7 +6,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
-  const token = authHeader.toString();
+  const token = authHeader && authHeader.split(" ")[1];
 
   console.log("token:", token, "header:", authHeader);
 
@@ -15,6 +15,7 @@ const authenticateToken = (req, res, next) => {
   }
   try {
     const decodedUser = jwt.verify(token, JWT_SECRET);
+    console.log(decodedUser);
     req.user = decodedUser;
     next();
   } catch (error) {

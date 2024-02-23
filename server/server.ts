@@ -6,6 +6,7 @@ import sequelize from "config/sequelize";
 
 // imports
 import { User } from "@models/userModel";
+import { Website } from "@models/websiteModel";
 import authRoutes from "@routes/authRoutes";
 import authenticateToken from "@middleware/authMiddleware";
 import websiteRoutes from "@routes/websiteRoutes";
@@ -26,4 +27,5 @@ app.get("/", (req: any, res: any) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
   console.log(User);
+  console.log(Website);
 });
