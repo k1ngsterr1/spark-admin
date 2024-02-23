@@ -14,11 +14,25 @@ body {
   font-family: "Inter", sans-serif;
 }
 
-h1 {
-  font-family: Inter;
-  font-size: clamp(14px, 1.45824vw, 56px);
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  @apply text-secondary;
+@mixin text-orange(
+  $margin: 0,
+  $text-size: 1rem,
+  $orange-text-size: 1rem,
+  $font-weight: 500
+) {
+  .text_with_detail {
+    margin-top: $margin;
+    font-size: $text-size;
+    font-weight: $font-weight;
+    font-weight: 500;
+  }
+  .text_orange {
+    @apply text-primary;
+    font-size: $text-size;
+    font-weight: $font-weight;
+    transition: 0.3s ease-in-out;
+    &:hover {
+      @apply text-primary-dark;
+    }
+  }
 }

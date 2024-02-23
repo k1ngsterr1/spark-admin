@@ -3,12 +3,16 @@ import styles from "../DefaultInport/styles.module.scss";
 interface DefaultInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   margin?: string;
+  inputType: "default" | "email";
 }
 
-const InputProp: React.FC<DefaultInputProps> = ({ margin, ...rest }) => {
+const InputProp: React.FC<DefaultInputProps> = ({ margin, inputType, ...rest }) => {
+  const inputClass = `${styles.input} ${styles[`input--${inputType}`]} ${margin ? margin : ""}`;
+
   return (
-    <input className={`${styles.default_input} ${margin}`} {...rest} required />
+    <input className={inputClass} {...rest} required />
   );
 };
 
 export default InputProp;
+
