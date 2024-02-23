@@ -1,0 +1,15 @@
+.users {
+  width: 98%;
+  @apply m-5;
+
+  &__text {
+    @apply text-primary;
+    @apply mt-8 mb-8 text-2xl;
+  }
+
+  &__box {
+    @apply pt-4 pl-4;
+    @apply rounded-md;
+    width: 100vh;
+  }
+}

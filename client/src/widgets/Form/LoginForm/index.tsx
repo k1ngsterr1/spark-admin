@@ -6,6 +6,7 @@ import Heading from "@shared/ui/Heading/index";
 
 import styles from "../styles/styles.module.scss";
 
+<<<<<<< HEAD
 import SparkLogo from "@assets/spark_product_logo.svg";
 
 const LoginForm = () => {
