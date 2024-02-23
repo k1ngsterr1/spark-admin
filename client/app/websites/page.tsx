@@ -17,7 +17,6 @@ const WebsitesPage: React.FC<DashboardProps> = ({ websites }) => {
     <div className="flex">
       <Menu />
       <main className="flex flex-col w-full">
-        <WebsitePopup />
         <Header />
         <Dashboard />
       </main>
