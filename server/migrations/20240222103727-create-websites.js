@@ -17,7 +17,10 @@ module.exports = {
         unique: true,
         type: Sequelize.STRING,
       },
-      owners: {
+      owner: {
+        type: Sequelize.INTEGER,
+      },
+      users: {
         type: Sequelize.JSONB,
       },
       createdAt: {

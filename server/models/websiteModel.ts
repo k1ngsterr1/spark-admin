@@ -15,7 +15,8 @@ import {
 
 import { v4 as uuidv4 } from "uuid";
 
-interface OwnerItem {
+export interface UserItems {
+  email: string;
   id: number;
   role: string;
 }
@@ -24,7 +25,8 @@ interface WebsiteAttributes {
   id: string;
   name: string;
   url: string;
-  owners: OwnerItem[];
+  owner: number;
+  users: UserItems[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -33,7 +35,8 @@ interface WebsiteCreationAttributes {
   id: string;
   name: string;
   url: string;
-  owners: OwnerItem[];
+  owner: number;
+  users: UserItems[];
 }
 
 @Table({
@@ -59,8 +62,11 @@ export class Website extends Model<
   @Column(DataType.STRING)
   url!: string;
 
+  @Column(DataType.INTEGER)
+  owner!: number;
+
   @Column(DataType.JSONB)
-  owners!: OwnerItem[];
+  users!: UserItems[];
 
   @CreatedAt
   createdAt?: Date;
