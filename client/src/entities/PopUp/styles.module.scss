@@ -19,6 +19,7 @@
     align-items: center;
     flex-direction: column;
     position: relative;
+
     &__text {
       @apply text-primary text-2xl mb-8 w-52 text-center;
     }
@@ -28,15 +29,21 @@
       height: clamp(68px, 7.08288vw, 272px);
       @apply mb-8;
     }
+
     &__icon {
       position: absolute;
-      bottom: clamp(92.5px, 9.6348vw, 370px);
-      @apply right-36  w-14 h-6;
+      bottom: clamp(127.5px, 13.2804vw, 510px);
+      @apply w-14 h-5;
+      right: clamp(92.5px, 9.6348vw, 370px);
+      z-index: 4;
     }
+
     &__icon2 {
       position: absolute;
-      bottom: clamp(62.5px, 6.51vw, 250px);
-      @apply right-36 w-14 h-6;
+      bottom: clamp(95px, 9.8952vw, 380px);
+      @apply w-14 h-5;
+      right: clamp(92.5px, 9.6348vw, 370px);
+      z-index: 10;
     }
   }
 }

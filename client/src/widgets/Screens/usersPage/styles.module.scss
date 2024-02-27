@@ -12,4 +12,8 @@
     @apply rounded-md;
     width: 100vh;
   }
+
+  &__main {
+    @apply -28;
+  }
 }

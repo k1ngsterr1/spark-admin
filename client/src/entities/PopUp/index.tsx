@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Button } from "@shared/ui/Buttons";
-import Input from "../Inputs/DefaultInport/index";
-import { Selector } from "../Selector";
-import { faArrowDownLong } from "@fortawesome/free-solid-svg-icons";
+import Input from "../../shared/ui/Inputs/DefaultInport/index";
+import { Selector } from "../../shared/ui/Selector";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from "./styles.module.scss";
-import Logo from "../../../assets/spark_product_logo.svg";
+import Logo from '../../assets/spark_product_logo.svg';
 
 interface PopUpProps {
   isOpen: boolean;
@@ -62,6 +62,7 @@ const PopUp: React.FC<
             placeholder="Введите логин пользователя"
             value={login}
             onChange={(e) => setLogin(e.target.value)}
+            inputType="default"
           />
           <div className="">
             <Input
@@ -69,9 +70,10 @@ const PopUp: React.FC<
               readOnly
               onClick={handleRoleInputClick}
               value={selectedRole}
+              inputType="default"
             />
             <FontAwesomeIcon
-              icon={faArrowDownLong}
+              icon={faChevronDown}
               className={styles.popup__items__icon}
               color={"gray"}
             />
@@ -92,9 +94,10 @@ const PopUp: React.FC<
               onClick={handleSiteInputClick}
               value={selectedSite}
               onChange={(e) => setSite(e.target.value)}
+              inputType="default"
             />
             <FontAwesomeIcon
-              icon={faArrowDownLong}
+              icon={faChevronDown}
               className={styles.popup__items__icon2}
               color={"gray"}
             />

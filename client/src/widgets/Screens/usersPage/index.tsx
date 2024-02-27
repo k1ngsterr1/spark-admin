@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import { SearchBar } from "@features/SearchBar";
 import { Button } from "@shared/ui/Buttons";
-import PopUp from "@shared/ui/PopUp";
+import PopUp from "@entities/PopUp";
 import UserPick from "@shared/ui/UserPick";
 
-import styles from "../styles/styles.module.scss";
+import styles from "./styles.module.scss";
 
 export const Users = () => {
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
@@ -23,7 +23,7 @@ export const Users = () => {
   return (
     <div className={styles.users}>
       <div className="flex justify-between items-center mt-4">
-        <h1>Управление пользователями</h1>
+        <h1 className={styles.users__main}>Управление пользователями</h1>
         <Button
           onClick={handleOpenPopUp}
           text="Добавить пользователя"

@@ -16,7 +16,7 @@ const UserPick: React.FC<UserPickProps> = ({ login, role, site }) => {
                 <p>Логин: {login}, Роль: {role}, Сайт: {site}</p>
 
             </div>
-            <KebabMenu />
+            {/* <KebabMenu /> */}
         </>
     );
 };
