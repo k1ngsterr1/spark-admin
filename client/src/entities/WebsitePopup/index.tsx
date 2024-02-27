@@ -1,11 +1,15 @@
 import React from "react";
-import Image from "next/image";
 
 import Logo from "@assets/spark_product_logo.svg";
 
 import styles from "./styles.module.scss";
 
-export const WebsitePopup = () => {
+interface WebsitePopupProps {
+  isOpen: boolean;
+}
+
+export const WebsitePopup: React.FC<WebsitePopupProps> = ({ isOpen }) => {
+  if (!isOpen) return null;
   return (
     <div className={styles.overlay}>
       <div className={styles.website_popup}>

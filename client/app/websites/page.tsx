@@ -2,26 +2,31 @@ import { Header } from "@features/Header";
 import { Menu } from "@features/Menu";
 import { Dashboard } from "@widgets/Screens/Dashboard/ui";
 import { WebsitePopup } from "@entities/WebsitePopup";
-import { useDispatch, useSelector } from "react-redux";
-import { GetServerSideProps } from "next";
-import { RootState } from "@redux/store";
 import { WebsiteItem } from "@shared/lib/types";
+import { useHydrateStore } from "@redux/hydrateStore";
+import StoreProvider from "app/StoreProvider/StoreProvider";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
 interface DashboardProps {
   websites: WebsiteItem[];
+  popupState: any;
 }
 
-const WebsitesPage: React.FC<DashboardProps> = ({ websites }) => {
+const WebsitesPage: React.FC<DashboardProps> = ({ websites, popupState }) => {
+  const store = useHydrateStore(popupState);
+
   return (
-    <div className="flex">
-      <Menu />
-      <main className="flex flex-col w-full">
-        <Header />
-        <Dashboard />
-      </main>
-    </div>
+    <StoreProvider>
+      <div className="flex">
+        <Menu />
+        <main className="flex flex-col w-full">
+          <Header />
+          <WebsitePopup isOpen={popupState.isOpen} />
+          <Dashboard />
+        </main>
+      </div>
+    </StoreProvider>
   );
 };
 
