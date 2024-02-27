@@ -4,7 +4,6 @@ import { SearchBar } from "@features/SearchBar";
 import { Button } from "@shared/ui/Buttons";
 import PopUp from "@entities/PopUp";
 import UserPick from "@shared/ui/UserPick";
-
 import styles from "./styles.module.scss";
 
 export const Users = () => {
@@ -37,6 +36,11 @@ export const Users = () => {
       </div>
       <div className={styles.users__box}>
         <SearchBar />
+        <div className={styles.users__box__items}>
+          <p>Логин пользователя</p>
+          <p>Роль пользователя</p>
+          <p>Сайт</p>
+        </div>
         {users.map((user, index) => (
           <UserPick
             key={index}
