@@ -1,8 +1,5 @@
 import React from "react";
-import { Button } from "@shared/ui/Buttons";
-import { Provider } from "react-redux";
 import { ClientSideButton } from "@shared/ui/ClientSideButton";
-import { toggleOnPopup } from "@redux/slices/websitePopupSlice";
 
 import Heading from "@shared/ui/Heading/index";
 
@@ -16,7 +13,7 @@ export const Dashboard = () => {
         <ClientSideButton
           text="Добавить сайт"
           buttonType="regular--small"
-          action={() => toggleOnPopup()}
+          actionId="togglePopup"
         />
       </div>
       <section className={styles.sites_section}>

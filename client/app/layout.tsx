@@ -18,9 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <Provider store={store}>
-        <body>{children}</body>
-      </Provider>
+      {/* <Provider store={store}> */}
+      <body>{children}</body>
+      {/* </Provider> */}
     </html>
   );
 }

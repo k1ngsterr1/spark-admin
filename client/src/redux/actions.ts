@@ -1,8 +1,7 @@
-import { toggleOnPopup, anotherActionCreator } from "@redux/slices";
+import { toggleOnPopup } from "./slices/websitePopupSlice";
 
 const actionMap = {
-  togglePopup: toggleOnPopup, // "togglePopup" is the identifier for the toggleOnPopup action creator.
-  anotherAction: anotherActionCreator, // Similarly, "anotherAction" is an identifier for another action creator.
+  togglePopup: toggleOnPopup,
 };
 
 export default actionMap;
