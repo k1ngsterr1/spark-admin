@@ -27,6 +27,7 @@ export const Users = () => {
           onClick={handleOpenPopUp}
           text="Добавить пользователя"
           buttonType="regular--small"
+          margin={"mt-24"}
         />
         <PopUp
           isOpen={isPopUpOpen}
