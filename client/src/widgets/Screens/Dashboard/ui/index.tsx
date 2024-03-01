@@ -1,11 +1,7 @@
 import React from "react";
-import { useHydrateStore } from "@redux/hydrateStore";
-import { Button } from "@shared/ui/Buttons";
+import { ClientSideButton } from "@shared/ui/ClientSideButton";
+
 import Heading from "@shared/ui/Heading/index";
-import { WebsiteTab } from "@entities/WebsiteTab";
-import { WebsiteItem } from "@shared/lib/types";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleOnPopup } from "@redux/slices/websitePopupSlice";
 
 import styles from "./styles.module.scss";
 
@@ -14,10 +10,10 @@ export const Dashboard = () => {
     <div className="flex flex-col">
       <div className="flex w-[90%] justify-between items-center m-auto ">
         <Heading text="Ваши Сайты" />
-        <Button
+        <ClientSideButton
           text="Добавить сайт"
           buttonType="regular--small"
-          // onClick={() => dispatch(toggleOnPopup())}
+          actionId="togglePopup"
         />
       </div>
       <section className={styles.sites_section}>
