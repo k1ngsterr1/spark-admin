@@ -10,14 +10,20 @@
 }
 
 .website_popup {
+  width: 500px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   @apply rounded-md;
   @apply bg-white;
 
+  &__text {
+    @apply text-2xl;
+  }
+
   &__logo {
-    width: clamp(32px, 3.33312vw, 128px);
-    height: clamp(32px, 3.33312vw, 128px);
+    width: clamp(40px, 4.1664vw, 160px);
+    height: clamp(40px, 4.1664vw, 160px);
   }
 }

@@ -17,7 +17,11 @@ const LoginForm = () => {
         </div>
         <Heading text="Войти" margin="mt-8" />
         <form className={styles.registration__form}>
-          <Input placeholder={"example@gmail.com"} />
+          <Input
+            placeholder={"example@gmail.com"}
+            inputType="default"
+            type="text"
+          />
           <PasswordInput placeholder="Пароль" margin="mt-3" />
           <MiniText
             margin="mt-2"

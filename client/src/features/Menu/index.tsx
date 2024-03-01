@@ -28,6 +28,7 @@ export const Menu = () => {
           text="Мои сайты"
           margin="mt-0"
         />
+        <NavButton icon={faUser} href="/users" text="Мои Юзеры" margin="mt-4" />
         <NavButton
           icon={faChartArea}
           href="/analytics"
@@ -50,12 +51,6 @@ export const Menu = () => {
           icon={faGear}
           href="/settings"
           text="Настройки"
-          margin="mt-4"
-        />
-        <NavButton
-          icon={faUser}
-          href="/users"
-          text="Пользователи"
           margin="mt-4"
         />
       </nav>

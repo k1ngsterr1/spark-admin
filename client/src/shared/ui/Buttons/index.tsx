@@ -1,4 +1,5 @@
 "use client";
+import { useWebPopup } from "@shared/lib/contexts/AppContext";
 import { FunctionTypes, functions } from "@shared/lib/hooks/useFunctions";
 import Link from "next/link";
 
@@ -21,15 +22,11 @@ const Button: React.FC<ButtonProps> = ({
   const buttonClass = `${styles.button} ${styles[`button--${buttonType}`]} ${
     margin ? margin : ""
   }`;
+  const { toggleWebPopup } = useWebPopup();
 
   const handleClick = () => {
-    if (functionType) {
-      const functionToCall = functions[functionType];
-      if (functionToCall) {
-        functionToCall();
-      } else {
-        console.warn(`No function mapped for type: ${functionType}`);
-      }
+    if (functionType === "webPopup") {
+      toggleWebPopup();
     }
   };
 
