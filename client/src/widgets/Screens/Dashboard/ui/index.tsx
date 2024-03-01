@@ -1,6 +1,5 @@
 import React from "react";
-import { ClientSideButton } from "@shared/ui/ClientSideButton";
-
+import { Button } from "@shared/ui/Buttons";
 import Heading from "@shared/ui/Heading/index";
 
 import styles from "./styles.module.scss";
@@ -10,10 +9,10 @@ export const Dashboard = () => {
     <div className="flex flex-col">
       <div className="flex w-[90%] justify-between items-center m-auto ">
         <Heading text="Ваши Сайты" />
-        <ClientSideButton
+        <Button
           text="Добавить сайт"
           buttonType="regular--small"
-          actionId="togglePopup"
+          // onClick={togglePopup}
         />
       </div>
       <section className={styles.sites_section}>

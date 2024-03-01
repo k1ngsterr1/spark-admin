@@ -1,10 +1,8 @@
 import { Header } from "@features/Header";
 import { Menu } from "@features/Menu";
 import { Dashboard } from "@widgets/Screens/Dashboard/ui";
-import { ClientSideComponent, WebsitePopup } from "@entities/WebsitePopup";
+import { WebsitePopup } from "@entities/WebsitePopup";
 import { WebsiteItem } from "@shared/lib/types";
-
-import StoreProvider from "app/StoreProvider/StoreProvider";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
@@ -19,7 +17,7 @@ const WebsitesPage: React.FC<DashboardProps> = ({ popupState }) => {
       <Menu />
       <main className="flex flex-col w-full">
         <Header />
-        <ClientSideComponent popupState={popupState} />
+        <WebsitePopup />
         <Dashboard />
       </main>
     </div>
