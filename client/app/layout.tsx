@@ -1,3 +1,4 @@
+import { AppProvider } from "@shared/lib/contexts/AppContext";
 import "../src/shared/styles/global.scss";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
@@ -13,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body>{children}</body>
+      <AppProvider>
+        <body>{children}</body>
+      </AppProvider>
     </html>
   );
 }

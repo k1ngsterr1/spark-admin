@@ -1,3 +1,4 @@
+"use client";
 import {
   createContext,
   useContext,
@@ -13,7 +14,7 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-export const usePopup = () => {
+export const useWebPopup = () => {
   const context = useContext(AppContext);
   if (context === undefined) {
     throw new Error("usePopup must be used within a AppProvider");
