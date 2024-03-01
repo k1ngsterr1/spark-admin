@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Button } from "@shared/ui/Buttons";
 import Input from "../../shared/ui/Inputs/DefaultInport/index";
 import { Selector } from "../../shared/ui/Selector";
+import { useOutsideClick } from "@shared/lib/hooks/useOutsideClick";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from "./styles.module.scss";
-import Logo from '../../assets/spark_product_logo.svg';
+import Logo from "../../assets/spark_product_logo.svg";
 
 interface PopUpProps {
   isOpen: boolean;
@@ -25,6 +26,13 @@ const PopUp: React.FC<
   const [site, setSite] = useState("");
   const [selectedSite, setSelectedSite] = useState<string>("");
 
+  const popUpRef = useRef(null);
+  const roleSelectorRef = useRef(null);
+  const siteSelectorRef = useRef(null);
+
+  useOutsideClick(roleSelectorRef, () => setIsSelectorVisible(false));
+  useOutsideClick(siteSelectorRef, () => setIsSiteSelectorVisible(false));
+  useOutsideClick(popUpRef, () => setIsOpen(false));
   const handleConfirm = () => {
     addUser({ login: login, role: selectedRole, site: selectedSite });
     setIsOpen(false);
@@ -51,7 +59,10 @@ const PopUp: React.FC<
   };
 
   return (
-    <div className={`${styles.popup} ${isOpen ? styles.show : ""}`}>
+    <div
+      ref={popUpRef}
+      className={`${styles.popup} ${isOpen ? styles.show : ""}`}
+    >
       {isOpen && (
         <div className={styles.popup__items}>
           <div className={styles.popup__items__logo}>
@@ -64,7 +75,7 @@ const PopUp: React.FC<
             onChange={(e) => setLogin(e.target.value)}
             inputType="default"
           />
-          <div className="">
+          <div ref={roleSelectorRef} className={styles.popup__items__container}>
             <Input
               placeholder="Выберите роль"
               readOnly
@@ -87,7 +98,7 @@ const PopUp: React.FC<
               />
             )}
           </div>
-          <div className="">
+          <div ref={siteSelectorRef} className={styles.popup__items__container}>
             <Input
               placeholder="Выберите сайт"
               readOnly
@@ -98,7 +109,7 @@ const PopUp: React.FC<
             />
             <FontAwesomeIcon
               icon={faChevronDown}
-              className={styles.popup__items__icon2}
+              className={styles.popup__items__icon}
               color={"gray"}
             />
             {isSiteSelectorVisible && (

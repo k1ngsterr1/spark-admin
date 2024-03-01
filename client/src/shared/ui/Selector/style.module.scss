@@ -1,17 +1,18 @@
 .selector {
-    position: absolute;
-    background-color: #e6e6e6;
-    width: clamp(175px, 18.228vw, 700px);
-    @apply rounded-md max-h-32;
-    overflow-y: auto;
-    z-index: 3;
+  position: absolute;
+  background-color: #e6e6e6;
+  width: clamp(175px, 18.228vw, 700px);
+  @apply rounded-md max-h-32;
+  overflow-y: auto;
+  z-index: 100;
+  top: clamp(30px, 3.1248vw, 120px);
 
-    &__items {
-        @apply p-2;
-        transition: 0.3s all;
-    }
+  &__items {
+    @apply p-2;
+    transition: 0.3s all;
+  }
 
-    &__items:hover {
-        @apply bg-primary text-primary-ALMOST_WHITE rounded-md;
-    }
+  &__items:hover {
+    @apply bg-primary text-primary-ALMOST_WHITE rounded-md;
+  }
 }

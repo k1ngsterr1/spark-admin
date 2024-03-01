@@ -30,20 +30,19 @@
       @apply mb-8;
     }
 
-    &__icon {
-      position: absolute;
-      bottom: clamp(127.5px, 13.2804vw, 510px);
-      @apply w-14 h-5;
-      right: clamp(92.5px, 9.6348vw, 370px);
-      z-index: 4;
+    &__container {
+      position: relative;
+      display: flex;
+      align-items: center;
     }
 
-    &__icon2 {
+    &__icon {
       position: absolute;
-      bottom: clamp(95px, 9.8952vw, 380px);
-      @apply w-14 h-5;
-      right: clamp(92.5px, 9.6348vw, 370px);
-      z-index: 10;
+      right: clamp(8px, 0.83328vw, 32px);
+      bottom: clamp(8px, 0.83328vw, 32px);
+      height: clamp(8px, 0.83328vw, 32px);
+      width: clamp(8px, 0.83328vw, 32px);
+      z-index: 4;
     }
   }
 }
