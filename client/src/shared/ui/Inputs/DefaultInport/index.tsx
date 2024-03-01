@@ -6,13 +6,16 @@ interface DefaultInputProps
   inputType: "default" | "email";
 }
 
-const InputProp: React.FC<DefaultInputProps> = ({ margin, inputType, ...rest }) => {
-  const inputClass = `${styles.input} ${styles[`input--${inputType}`]} ${margin ? margin : ""}`;
+const InputProp: React.FC<DefaultInputProps> = ({
+  margin,
+  inputType,
+  ...rest
+}) => {
+  const inputClass = `${styles.input} ${styles[`input--${inputType}`]} ${
+    margin ? margin : ""
+  }`;
 
-  return (
-    <input className={inputClass} {...rest} required />
-  );
+  return <input className={inputClass} {...rest} required />;
 };
 
 export default InputProp;
-
