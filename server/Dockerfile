@@ -1,29 +1,48 @@
 # syntax=docker/dockerfile:1
 
-ARG NODE_VERSION=20.11.0
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Dockerfile reference guide at
+# https://docs.docker.com/go/dockerfile-reference/
+
+# Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
+
+ARG NODE_VERSION=20.11.1
 
 FROM node:${NODE_VERSION}-alpine
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+# Use production node environment by default.
+ENV NODE_ENV production
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
+COPY tsconfig*.json ./
 
-# Install app dependencies
-RUN npm install
+WORKDIR /usr/src/app
 
-# If you are building your code for production
-# RUN npm ci --only=production
+#.ENV VARIABLES
+ARG DB_USER
+ARG DB_HOST
+ARG DB_PASS
+ARG JWT_SECRET
+ARG PORT
 
-# Bundle app source
-COPY . .
+# Download dependencies as a separate step to take advantage of Docker's caching.
+# Leverage a cache mount to /root/.npm to speed up subsequent builds.
+# Leverage a bind mounts to package.json and package-lock.json to avoid having to copy them into
+# into this layer.
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci --omit=dev
 
-# Use a non-root user for better security
+# Run the application as a non-root user.
 USER node
 
-# Your app binds to port 4000, so use the EXPOSE instruction to have it mapped by the docker daemon
+# Copy the rest of the source files into the image.
+COPY . .
+
+# Expose the port that the application listens on.
 EXPOSE 4000
 
-# Define the command to run your app using CMD which defines your runtime
-CMD ["npm", "start"]
+# Run the application.
+CMD npm start
