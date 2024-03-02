@@ -3,9 +3,9 @@ import { Pool } from "pg";
 const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
-  database: "SPARK_ADMIN",
+  database: "railway",
   password: process.env.DB_PASS,
-  port: 5432,
+  port: 54356,
 });
 
 export default pool;

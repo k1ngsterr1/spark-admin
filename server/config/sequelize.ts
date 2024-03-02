@@ -4,13 +4,13 @@ import { Sequelize } from "sequelize-typescript";
 
 const sequelize = new Sequelize({
   repositoryMode: true,
-  database: "SPARK_ADMIN",
+  database: "railway",
   host: process.env.DB_HOST,
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
   dialect: "postgres",
   storage: ":memory:",
-  port: 5432,
+  port: 54356,
   logging: false,
   models: [User, Website],
 });
