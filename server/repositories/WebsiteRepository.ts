@@ -1,5 +1,5 @@
 import { IWebsiteRepository, NewWebsiteInput } from "@interfaces/IWebsiteReposity";
-import { Website } from "@models/websiteModel";
+import { UserItems, Website } from "@models/websiteModel";
 import sequelize from 'config/sequelize';
 
 export class WebsiteRepository implements IWebsiteRepository {
@@ -16,4 +16,8 @@ export class WebsiteRepository implements IWebsiteRepository {
           where: { owner: ownerId },
         });
       }
+      
+    async addUserToWebsite(websiteId: string, userItem: UserItems): Promise<void>{
+        return sequelize.getRepository(Website).we 
+    }
 }
