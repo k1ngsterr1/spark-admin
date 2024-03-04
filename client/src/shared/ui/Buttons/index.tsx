@@ -9,7 +9,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   margin?: string;
   text: string;
   buttonType: "regular" | "transparent" | "regular--small";
-  functionType: FunctionTypes;
+  functionType?: FunctionTypes;
 }
 
 const Button: React.FC<ButtonProps> = ({

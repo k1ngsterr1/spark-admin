@@ -1,5 +1,3 @@
-import { useWebPopup } from "../contexts/AppContext";
-
 export type FunctionTypes = string;
 
 interface FunctionsMap {
