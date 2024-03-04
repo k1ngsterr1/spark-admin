@@ -1,25 +1,33 @@
+import { ChangePasswordService } from './../use_cases/User/ChangePassword';
+import { JWTService } from './../use_cases/User/JWTService';
 import { Request, Response } from 'express';
 import { User } from "@models/userModel";
 import { CreateUser } from "@use_cases/User/CreateUser";
 import { UserRepository } from "repositories/UserRepository";
 import { LoginUser } from '@use_cases/User/LoginUser';
+import { VerifyService } from '@use_cases/User/VerifyUser';
+
 import EmailService from "@use_cases/User/EmailVerification";
-import bcryptjs from "bcryptjs";
 import sequelize from "config/sequelize";
 
 
-const JWT_SECRET = process.env.JWT_SECRET;
-const jwt = require("jsonwebtoken");
+
 
 class UserController {
   private createUserUseCase: CreateUser;
   private loginUserUseCase: LoginUser;
   private userRepository: UserRepository; 
   private emailService: EmailService; 
+  private changePasswordService: ChangePasswordService;
+  private verifyService: VerifyService;
+  private jwtService: JWTService;
 
   constructor() {
     this.userRepository = new UserRepository();
     this.emailService = new EmailService();
+    this.changePasswordService = new ChangePasswordService(this.userRepository)
+    this.verifyService = new VerifyService(this.userRepository)
+    this.loginUserUseCase = new LoginUser(this.userRepository, this.jwtService);
     this.createUserUseCase = new CreateUser(this.userRepository, this.emailService);
   }
 
@@ -34,76 +42,43 @@ class UserController {
 
   async login(req: Request, res: Response): Promise<void> {
     try {
-      const { email, password } = req.body;
-      const { user, accessToken, refreshToken } = await this.loginUserUseCase.execute({ email, password });
-
-      res.status(200).json({
-        message: 'User logged in successfully',
+      const { user, accessToken, refreshToken } = await this.loginUserUseCase.execute(req.body);
+        res.status(200).json({
+        message: 'Пользователь вошёл успешно',
         user,
         accessToken,
         refreshToken,
       });
   } catch (error){
     if (error.message === 'Пользователь не найден!' || error.message === 'Неверный пароль!') {
-      res.status(401).json({ message: 'Authentication failed. Invalid credentials.' });
+      res.status(401).json({ message: 'Неверный логин или пароль.' });
     } else {
-      res.status(500).json({ message: 'An error occurred', error: error.message });
+      res.status(500).json({ message: 'Упс! Ошибочка:', error: error.message,});
     }
   }
   }
-  async verifyUser(req, res) {
+
+  async verifyUser(req: Request, res: Response): Promise<void> {
     try {
-      const { userCode, userID } = req.body;
-      const userRepository = sequelize.getRepository(User);
-      const user = userRepository.findByPk(userID);
+     const verifyUser = await this.verifyService.execute(req.body)     
+     res.status(201).json({message: "User verified successfully", verifyUser})
 
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-
-      console.log(userCode);
-
-      if ((await user).verificationCode === userCode) {
-        (await user).isVerified = true;
-        (await user).verificationCode = null;
-        (await user).save;
-
-        res.json({ message: "User successfully verified" });
-      } else {
-        res.status(400).json({ message: "Invalid verification code" });
-      }
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });
     }
   }
 
-  async changeUserPassword(req, res) {
+  async changeUserPassword(req: Request, res: Response): Promise<void> {
     try {
       const { userId, oldPassword, newPassword } = req.body;
-      const user = await User.findByPk(userId);
-
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-
-      const passwordChanged = await user.changePassword(
-        oldPassword,
-        newPassword
-      );
-      if (!passwordChanged) {
-        return res.status(400).json({ message: "Incorrect old password" });
-      }
-
-
-      await user.save();
-
-      res.json({ message: "Password changed successfully" });
-    } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Error changing password", error: error.message });
+      await this.changePasswordService.execute(userId, oldPassword, newPassword);
+      res.status(200).json({ message: "Password changed successfully" });
+      
+    }  catch (error) {
+      res.status(500).json({ message: "Error changing password", error: error.message });
     }
+
   }
 
   async changeUserRole(req, res) {

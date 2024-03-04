@@ -21,7 +21,10 @@ export class LoginUser{
         email: string;
         password: string;
     }) : Promise<{user: UserResponse; accessToken: string; refreshToken: string}>{
+    
+
         const user = await this.userRepository.findByEmail(email);
+        
         if (!user){
             throw new Error('Пользователь не найден!')
         }

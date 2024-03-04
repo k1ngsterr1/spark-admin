@@ -1,10 +1,11 @@
+import { IJWTService } from '@interfaces/IJWTService';
 import { jwt } from 'jsonwebtoken';
 
-export class JWTService{
+export class JWTService implements IJWTService{
     private accessTokenSecret = process.env.JWT_SECRET_ACCESS;
     private refreshTokenSecret = process.env.JWT_SECRET_REFRESH;
     
-    generateAccesTolen(user: {id:number, username: string, role: string}) : string{
+    generateAccessToken(user: {id:number, username: string, role: string}) : string{
         return jwt.sign(
             {userId: user.id, username: user.username, role: user.role},
             this.accessTokenSecret,
