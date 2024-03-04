@@ -11,4 +11,8 @@ export class UserRepository implements IUserRepository {
     return sequelize.getRepository(User).findOne({ where: { email } });
   }
 
+  async findByPk(primaryKey: string | number): Promise<User | null> {
+    return sequelize.getRepository(User).findByPk(primaryKey);
+  }
+
 }

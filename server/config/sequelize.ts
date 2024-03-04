@@ -13,7 +13,7 @@ const sequelize = new Sequelize({
   port: 54356,
   logging: false,
   models: [User, Website],
-});
+}); 
 
 export default sequelize;
 
