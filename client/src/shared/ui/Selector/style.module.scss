@@ -10,6 +10,7 @@
   &__items {
     @apply p-2;
     transition: 0.3s all;
+    font-size: clamp(7.5px,0.7812vw,30px);
   }
 
   &__items:hover {
