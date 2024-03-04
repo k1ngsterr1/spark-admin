@@ -3,8 +3,6 @@ import { Button } from "@shared/ui/Buttons";
 import Input from "../../shared/ui/Inputs/DefaultInport/index";
 import { Selector } from "../../shared/ui/Selector";
 import { useOutsideClick } from "@shared/lib/hooks/useOutsideClick";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from "./styles.module.scss";
 import Logo from "../../assets/spark_product_logo.svg";
@@ -23,7 +21,6 @@ const PopUp: React.FC<
   const [isSiteSelectorVisible, setIsSiteSelectorVisible] = useState(false);
   const [selectedRole, setSelectedRole] = useState<string>("");
   const [login, setLogin] = useState("");
-  const [site, setSite] = useState("");
   const [selectedSite, setSelectedSite] = useState<string>("");
 
   const popUpRef = useRef(null);
@@ -36,26 +33,6 @@ const PopUp: React.FC<
   const handleConfirm = () => {
     addUser({ login: login, role: selectedRole, site: selectedSite });
     setIsOpen(false);
-  };
-
-  const handleRoleInputClick = () => {
-    setIsSelectorVisible(!isSelectorVisible);
-    if (isSelectorVisible) setIsSiteSelectorVisible(false);
-  };
-
-  const handleSiteInputClick = () => {
-    setIsSiteSelectorVisible(!isSiteSelectorVisible);
-    if (isSiteSelectorVisible) setIsSelectorVisible(false);
-  };
-
-  const handleRoleChange = (selectedRole) => {
-    setSelectedRole(selectedRole);
-    setIsSelectorVisible(false);
-  };
-
-  const handleSiteChange = (selectedSite) => {
-    setSelectedSite(selectedSite);
-    setIsSiteSelectorVisible(false);
   };
 
   return (
@@ -76,51 +53,20 @@ const PopUp: React.FC<
             inputType="default"
           />
           <div ref={roleSelectorRef} className={styles.popup__items__container}>
-            <Input
+            <Selector
+              items={["Пользователь", "Редактор", "Админ"]}
               placeholder="Выберите роль"
-              readOnly
-              onClick={handleRoleInputClick}
-              value={selectedRole}
-              inputType="default"
+              selectedValue={selectedRole}
+              onChange={setSelectedRole}
             />
-            <FontAwesomeIcon
-              icon={faChevronDown}
-              className={styles.popup__items__icon}
-              color={"gray"}
-            />
-            {isSelectorVisible && (
-              <Selector
-                items={["Пользователь", "Редактор", "Админ"]}
-                onChange={(selectedRole) => {
-                  handleRoleChange(selectedRole);
-                  setIsSelectorVisible(false);
-                }}
-              />
-            )}
           </div>
           <div ref={siteSelectorRef} className={styles.popup__items__container}>
-            <Input
+            <Selector
+              items={["Site 1", "Site 2", "Site 3"]}
               placeholder="Выберите сайт"
-              readOnly
-              onClick={handleSiteInputClick}
-              value={selectedSite}
-              onChange={(e) => setSite(e.target.value)}
-              inputType="default"
+              selectedValue={selectedSite}
+              onChange={setSelectedSite}
             />
-            <FontAwesomeIcon
-              icon={faChevronDown}
-              className={styles.popup__items__icon}
-              color={"gray"}
-            />
-            {isSiteSelectorVisible && (
-              <Selector
-                items={["Site 1", "Site 2", "Site 3"]}
-                onChange={(selectedSite) => {
-                  handleSiteChange(selectedSite);
-                  setIsSiteSelectorVisible(false);
-                }}
-              />
-            )}
           </div>
           <Button
             onClick={handleConfirm}

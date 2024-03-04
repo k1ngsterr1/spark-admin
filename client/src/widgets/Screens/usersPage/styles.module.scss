@@ -7,17 +7,6 @@
     @apply mt-8 mb-8 text-2xl;
   }
 
-  &__box {
-    @apply pt-4 pl-4;
-    @apply rounded-md;
-    width: 100vh;
-    &__items {
-      display: flex;
-      justify-content: space-evenly;
-      @apply mb-4;
-    }
-  }
-
   &__main {
     @apply font-bold mt-24 ml-3;
     font-size: clamp(17px, 1.77072vw, 68px);

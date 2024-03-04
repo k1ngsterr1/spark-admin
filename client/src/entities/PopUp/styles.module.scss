@@ -12,8 +12,8 @@
   &__items {
     background-color: #ffffff;
     @apply rounded-lg;
-    height: 80dvh;
-    width: 80dvh;
+    height: clamp(225px, 23.436vw, 900px);
+    width: clamp(300px, 31.248vw, 1200px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,28 +21,19 @@
     position: relative;
 
     &__text {
-      @apply text-primary text-2xl mb-8 w-52 text-center;
+      @apply text-primary w-52 text-center;
+      font-size: clamp(9px, 0.93744vw, 36px);
     }
 
     &__logo {
-      width: clamp(68px, 7.08288vw, 272px);
-      height: clamp(68px, 7.08288vw, 272px);
-      @apply mb-8;
+      width: clamp(45px, 4.6872vw, 180px);
+      height: clamp(45px, 4.6872vw, 180px);
     }
 
     &__container {
       position: relative;
       display: flex;
       align-items: center;
-    }
-
-    &__icon {
-      position: absolute;
-      right: clamp(8px, 0.83328vw, 32px);
-      bottom: clamp(8px, 0.83328vw, 32px);
-      height: clamp(8px, 0.83328vw, 32px);
-      width: clamp(8px, 0.83328vw, 32px);
-      z-index: 4;
     }
   }
 }
