@@ -7,6 +7,8 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
+      "@interfaces/*": ["./interfaces/*"],
+      "@use_cases/*": ["./use_cases/*"],
       "@controllers/*": ["./controllers/*"],
       "@models/*": ["./models/*"],
       "@config": ["./config"],

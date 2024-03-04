@@ -26,6 +26,8 @@
   },
   "_moduleAliases": {
     "@controllers": "./controllers",
+    "@interfaces": "./interfaces",
+    "@use_cases": "./use_cases",
     "@models": "./models",
     "@config": "./config",
     "@routes": "./routes",
@@ -35,6 +37,9 @@
   },
   "imports": {
     "@controllers": "./controllers",
+    "@interfaces": "./interfaces",
+    "@use_cases": "./use_cases",
+
     "@models": "./models",
     "@config": "./config",
     "@routes": "./routes",

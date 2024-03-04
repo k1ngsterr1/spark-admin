@@ -1,85 +1,56 @@
+import { Request, Response } from 'express';
 import { User } from "@models/userModel";
+import { CreateUser } from "@use_cases/User/CreateUser";
+import { UserRepository } from "repositories/UserRepository";
+import { LoginUser } from '@use_cases/User/LoginUser';
+import EmailService from "@use_cases/User/EmailVerification";
 import bcryptjs from "bcryptjs";
 import sequelize from "config/sequelize";
 
+
 const JWT_SECRET = process.env.JWT_SECRET;
-const sendVerificationEmail = require("@services/emailService");
 const jwt = require("jsonwebtoken");
-const verificationCodeGenerator = require("@utils/generateCode");
 
 class UserController {
-  async createUser(req, res) {
+  private createUserUseCase: CreateUser;
+  private loginUserUseCase: LoginUser;
+  private userRepository: UserRepository; 
+  private emailService: EmailService; 
+
+  constructor() {
+    this.userRepository = new UserRepository();
+    this.emailService = new EmailService();
+    this.createUserUseCase = new CreateUser(this.userRepository, this.emailService);
+  }
+
+  async createUser(req: Request, res: Response): Promise<void> {
     try {
-      const { username, email, password, passwordConfirmation } = req.body;
-      const userRepository = sequelize.getRepository(User);
-      const newUser = await userRepository.create({
-        username,
-        email,
-        password,
-      });
-
-      if (password !== passwordConfirmation) {
-        console.log(password, passwordConfirmation);
-        return res.status(400).json({ message: "Passwords do not match" });
-      }
-
-      const code = verificationCodeGenerator(5);
-      newUser.verificationCode = code;
-
-      console.log("Users code is:", newUser.verificationCode);
-
-      await newUser.save(
-        res
-          .status(201)
-          .json({ message: "User created successfully", user: newUser })
-      );
-
-      sendVerificationEmail(email, username, code);
+      const newUser = await this.createUserUseCase.execute(req.body);
+      res.status(201).json({ message: "User created successfully", user: newUser });
     } catch (error) {
-      res
-        .status(400)
-        .json({ message: "Error creating user", error: error.message });
+      res.status(400).json({ message: error.message });
     }
   }
 
-  async login(req, res) {
+  async login(req: Request, res: Response): Promise<void> {
     try {
       const { email, password } = req.body;
-      const userRepository = sequelize.getRepository(User);
-      const user = await userRepository.findOne({ where: { email } });
+      const { user, accessToken, refreshToken } = await this.loginUserUseCase.execute({ email, password });
 
-      if (!user) {
-        return res
-          .status(401)
-          .json({ message: "Authentication failed. User not found" });
-      }
-
-      const isMatch: boolean = await bcryptjs.compare(password, user.password);
-
-      if (!isMatch) {
-        return res
-          .status(401)
-          .json({ message: "Authentication failed. Wrong password." });
-      }
-
-      const token = jwt.sign(
-        {
-          id: user.id,
-          email: user.email,
-        },
-        JWT_SECRET,
-        { expiresIn: "2h" }
-      );
-
-      res.json({
-        message: "Logged in successfully",
-        token: token,
+      res.status(200).json({
+        message: 'User logged in successfully',
+        user,
+        accessToken,
+        refreshToken,
       });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+  } catch (error){
+    if (error.message === 'Пользователь не найден!' || error.message === 'Неверный пароль!') {
+      res.status(401).json({ message: 'Authentication failed. Invalid credentials.' });
+    } else {
+      res.status(500).json({ message: 'An error occurred', error: error.message });
     }
   }
-
+  }
   async verifyUser(req, res) {
     try {
       const { userCode, userID } = req.body;
@@ -124,7 +95,7 @@ class UserController {
         return res.status(400).json({ message: "Incorrect old password" });
       }
 
-      // Save the updated user
+
       await user.save();
 
       res.json({ message: "Password changed successfully" });
