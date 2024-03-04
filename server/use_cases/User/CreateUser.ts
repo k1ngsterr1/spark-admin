@@ -13,7 +13,6 @@ export class CreateUser {
         password: string,
         passwordConfirmation: string
       }): Promise<User> {
-
         if (!email || !username || !password){
           throw new Error('Заполните необходимые поля!')
         }
