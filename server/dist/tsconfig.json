@@ -13,7 +13,7 @@
       "@config": ["infrastructure/config"],
       "@services/*": ["./services/*"]
     },
-    "outDir": "../server"
+    "outDir": "../dist"
   }
   // "include": ["../server/**/*"]
 }
