@@ -1,60 +1,41 @@
+import { Request, Response } from 'express';
+import { WebsiteRepository } from './../repositories/WebsiteRepository';
 import { User } from "@models/userModel";
 import { Website } from "@models/websiteModel";
+import { AddWebsite } from "@use_cases/Website/AddWebsite";
+import { GetWebsite } from '@use_cases/Website/getWebsite';
+
 import sequelize from "config/sequelize";
 
 class WebsiteController {
-  async addWebsite(req, res) {
+  private WebsiteRepository: WebsiteRepository;
+  private addWebsiteUseCase: AddWebsite;
+  private getWebsiteByOwner: GetWebsite;
+
+  constructor(){
+    this.addWebsiteUseCase = new AddWebsite(this.WebsiteRepository)
+    this.getWebsiteByOwner = new GetWebsite(this.WebsiteRepository)
+  }
+
+  async addWebsite(req: Request, res: Response) {
     try {
-      const { name, url } = req.body;
-      const userID = req.user.id;
-      const userEmail = req.user.email;
+      const newWebsite = await this.addWebsiteUseCase.execute(req.body)
+      res.status(201).json({message: 'Веб-сайт успешно добавлен'})
 
-      const websiteRepositry = sequelize.getRepository(Website);
-
-      const newWebsite = await websiteRepositry.create({
-        name,
-        url,
-        owner: userID,
-        users: [
-          {
-            email: userEmail,
-            id: userID,
-            role: "Owner",
-          },
-        ],
-      });
-      return res.status(201).json(newWebsite);
     } catch (error) {
-      console.error("Error creating website:", error);
-      return res.status(500).json({ error: "Failed to create website" });
+      console.error("Ошибка с созданием веб-сайта:", error);
+      return res.status(500).json({ error: "Ошибка с созданием веб-сайта" });
     }
   }
 
-  async getWebsites(req, res) {
+  async getWebsites(req: Request, res: Response) {
     try {
       const userID: number = req.user.id;
-
-      const websiteRepositry = sequelize.getRepository(Website);
-
-      const websites = await websiteRepositry.findAll({
-        where: { owner: userID },
-      });
-
-      const optimizedWebsites = websites.map((website) => {
-        return {
-          name: website.name,
-          url: website.url,
-          owner: website.owner,
-          users: website.users,
-          id: website.id,
-        };
-      });
-
-      console.log(userID);
-      return res.status(201).json(optimizedWebsites);
+      const websites = await this.getWebsiteByOwner.execute(userID);
+      return res.status(201).json(websites)
     } catch (error) {
-      console.error("Error with fetching websites:", error);
-      return res.status(500).json({ error: "Failed to get websites" });
+      console.error("Ошибка с получением сайтов:", error);
+      return res.status(500).json({ error: "Ошибка с получением сайтов" });
     }
   }
 
