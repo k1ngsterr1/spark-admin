@@ -41,8 +41,8 @@ RUN npm install\
 #     --mount=type=cache,target=/root/.npm \
 #     npm ci --omit=dev
 
-RUN --mount=type=cache,id=<spark-admin>-node-modules,target=/app/node_modules \
-    npm install
+# RUN --mount=type=cache,id=<spark-admin>-node-modules,target=/app/node_modules \
+#     npm install
 
 
 # Run the application as a non-root user.
