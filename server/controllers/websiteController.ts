@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
-import { WebsiteRepository } from './../repositories/WebsiteRepository';
+import { Request, Response } from "express";
+import { WebsiteRepository } from "./../repositories/WebsiteRepository";
 import { User } from "@models/userModel";
 import { Website } from "@models/websiteModel";
 import { AddWebsite } from "@use_cases/Website/AddWebsite";
-import { GetWebsite } from '@use_cases/Website/getWebsite';
+import { GetWebsite } from "@use_cases/Website/GetWebsite";
 
 import sequelize from "config/sequelize";
 
@@ -12,16 +12,15 @@ class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
   private getWebsiteByOwner: GetWebsite;
 
-  constructor(){
-    this.addWebsiteUseCase = new AddWebsite(this.WebsiteRepository)
-    this.getWebsiteByOwner = new GetWebsite(this.WebsiteRepository)
+  constructor() {
+    this.addWebsiteUseCase = new AddWebsite(this.WebsiteRepository);
+    this.getWebsiteByOwner = new GetWebsite(this.WebsiteRepository);
   }
 
   async addWebsite(req: Request, res: Response) {
     try {
-      const newWebsite = await this.addWebsiteUseCase.execute(req.body)
-      res.status(201).json({message: 'Веб-сайт успешно добавлен'})
-
+      const newWebsite = await this.addWebsiteUseCase.execute(req.body);
+      res.status(201).json({ message: "Веб-сайт успешно добавлен" });
     } catch (error) {
       console.error("Ошибка с созданием веб-сайта:", error);
       return res.status(500).json({ error: "Ошибка с созданием веб-сайта" });
@@ -32,7 +31,7 @@ class WebsiteController {
     try {
       const userID: number = req.user.id;
       const websites = await this.getWebsiteByOwner.execute(userID);
-      return res.status(201).json(websites)
+      return res.status(201).json(websites);
     } catch (error) {
       console.error("Ошибка с получением сайтов:", error);
       return res.status(500).json({ error: "Ошибка с получением сайтов" });

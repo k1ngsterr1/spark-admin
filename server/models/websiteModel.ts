@@ -73,6 +73,4 @@ export class Website extends Model<
 
   @UpdatedAt
   updatedAt?: Date;
-
-  
 }
