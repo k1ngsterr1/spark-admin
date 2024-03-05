@@ -12,6 +12,8 @@
       "@infrastructure/*": ["infrastructure/*"],
       "@config": ["infrastructure/config"],
       "@services/*": ["./services/*"]
-    }
-  }
+    },
+    "outDir": "../server"
+  },
+  "include": ["../server/**/*"]
 }
