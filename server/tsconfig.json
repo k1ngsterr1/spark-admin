@@ -7,15 +7,11 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@interfaces/*": ["./interfaces/*"],
-      "@use_cases/*": ["./use_cases/*"],
-      "@controllers/*": ["./controllers/*"],
-      "@models/*": ["./models/*"],
-      "@config": ["./config"],
-      "@routes/*": ["./routes/*"],
-      "@services/*": ["./services/*"],
-      "@middleware/*": ["./middleware/*"],
-      "@utils/*": ["./utils/*"]
+      "@core/*": ["core/*"],
+      "@presentation/*": ["presentation/*"],
+      "@infrastructure/*": ["infrastructure/*"],
+      "@config": ["infrastructure/config"],
+      "@services/*": ["./services/*"]
     }
   }
 }

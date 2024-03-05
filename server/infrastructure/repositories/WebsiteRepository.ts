@@ -1,9 +1,9 @@
 import {
   IWebsiteRepository,
   NewWebsiteInput,
-} from "@interfaces/IWebsiteReposity";
-import { UserItems, Website } from "@models/websiteModel";
-import sequelize from "config/sequelize";
+} from "core/interfaces/IWebsiteReposity";
+import { Website } from "infrastructure/models/websiteModel";
+import sequelize from "infrastructure/config/sequelize";
 
 export class WebsiteRepository implements IWebsiteRepository {
   async create(websiteDetails: NewWebsiteInput): Promise<Website> {
@@ -19,8 +19,4 @@ export class WebsiteRepository implements IWebsiteRepository {
       where: { owner: ownerId },
     });
   }
-
-  // async addUserToWebsite(websiteId: string, userItem: UserItems): Promise<void>{
-  //     return sequelize.getRepository(Website).we
-  // }
 }

@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { IEmailService } from "@interfaces/IEmailService";
+import { IEmailService } from "core/interfaces/IEmailService";
 
 export class EmailService implements IEmailService {
   private transporter: nodemailer.Transporter;
@@ -20,7 +20,11 @@ export class EmailService implements IEmailService {
     });
   }
 
-  async sendVerificationEmail(email: string, name: string, code: string): Promise<void> {
+  async sendVerificationEmail(
+    email: string,
+    name: string,
+    code: string
+  ): Promise<void> {
     const emailTemplate = `<!DOCTYPE html>
     <html lang="ru">
     <head>

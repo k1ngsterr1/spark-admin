@@ -1,4 +1,4 @@
-import { UserItems, Website } from "@models/websiteModel";
+import { UserItems, Website } from "infrastructure/models/websiteModel";
 
 export interface NewWebsiteInput {
   name: string;

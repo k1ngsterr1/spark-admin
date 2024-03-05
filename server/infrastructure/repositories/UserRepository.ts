@@ -1,9 +1,9 @@
-import { IUserRepository } from '@interfaces/IUserRepositry';
-import { User } from '@models/userModel';
-import sequelize from 'config/sequelize';
+import { IUserRepository } from "core/interfaces/IUserRepositry";
+import { User } from "infrastructure/models/userModel";
+import sequelize from "infrastructure/config/sequelize";
 
 export class UserRepository implements IUserRepository {
-  async create(userDetails: Omit<User, 'id'>): Promise<User> {
+  async create(userDetails: Omit<User, "id">): Promise<User> {
     return sequelize.getRepository(User).create(userDetails);
   }
 
@@ -14,5 +14,4 @@ export class UserRepository implements IUserRepository {
   async findByPk(primaryKey: string | number): Promise<User | null> {
     return sequelize.getRepository(User).findByPk(primaryKey);
   }
-
 }

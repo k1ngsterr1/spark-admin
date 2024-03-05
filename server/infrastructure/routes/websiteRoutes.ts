@@ -1,4 +1,4 @@
-import websiteController from "@controllers/websiteController";
+import websiteController from "presentation/controllers/websiteController";
 
 const express = require("express");
 const router = express.Router();

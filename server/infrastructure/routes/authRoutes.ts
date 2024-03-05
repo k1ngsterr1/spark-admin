@@ -1,4 +1,4 @@
-import userController from "@controllers/userController";
+import userController from "presentation/controllers/userController";
 
 const express = require("express");
 const router = express.Router();

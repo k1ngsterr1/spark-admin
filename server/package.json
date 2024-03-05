@@ -25,27 +25,18 @@
     "sequelize-typescript": "^2.1.6"
   },
   "_moduleAliases": {
-    "@controllers": "./controllers",
-    "@interfaces": "./interfaces",
-    "@use_cases": "./use_cases",
-    "@models": "./models",
+    "@core": "./core",
+    "@presentation": "./presentation",
+    "@infrastructure": "./infrastructure",
     "@config": "./config",
-    "@routes": "./routes",
-    "@services": "./services",
-    "@middleware": "./middleware",
-    "@utils": "./utils"
+    "@services": "./services"
   },
   "imports": {
-    "@controllers": "./controllers",
-    "@interfaces": "./interfaces",
-    "@use_cases": "./use_cases",
-
-    "@models": "./models",
+    "@core": "./core",
+    "@presentation": "./presentation",
+    "@infrastructure": "./infrastructure",
     "@config": "./config",
-    "@routes": "./routes",
-    "@services": "./services",
-    "@middleware": "./middleware",
-    "@utils": "./utils"
+    "@services": "./services"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",

@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { WebsiteRepository } from "./../repositories/WebsiteRepository";
-import { User } from "@models/userModel";
-import { Website } from "@models/websiteModel";
-import { AddWebsite } from "@use_cases/Website/AddWebsite";
-import { GetWebsite } from "@use_cases/Website/GetWebsite";
+import { WebsiteRepository } from "../../infrastructure/repositories/WebsiteRepository";
+import { User } from "infrastructure/models/userModel";
+import { Website } from "infrastructure/models/websiteModel";
+import { AddWebsite } from "core/use_cases/Website/AddWebsite";
+import { GetWebsite } from "core/use_cases/Website/GetWebsite";
 
-import sequelize from "config/sequelize";
+import sequelize from "infrastructure/config/sequelize";
 
 class WebsiteController {
   private WebsiteRepository: WebsiteRepository;

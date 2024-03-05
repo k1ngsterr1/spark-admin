@@ -1,4 +1,4 @@
-import { IWebsiteRepository } from "@interfaces/IWebsiteReposity";
+import { IWebsiteRepository } from "core/interfaces/IWebsiteReposity";
 
 export class AddUser {
   constructor(private websiteRepository: IWebsiteRepository) {}

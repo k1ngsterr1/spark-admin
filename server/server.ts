@@ -2,14 +2,14 @@ const express = require("express");
 const dotenv = require("dotenv").config({ path: ".env" });
 const bcryptjs = require("bcryptjs");
 
-import sequelize from "config/sequelize";
+import sequelize from "infrastructure/config/sequelize";
 
 // imports
-import { User } from "@models/userModel";
-import { Website } from "@models/websiteModel";
-import authRoutes from "@routes/authRoutes";
-import authenticateToken from "@middleware/authMiddleware";
-import websiteRoutes from "@routes/websiteRoutes";
+import { User } from "infrastructure/models/userModel";
+import { Website } from "infrastructure/models/websiteModel";
+import authRoutes from "infrastructure/routes/authRoutes";
+import authenticateToken from "infrastructure/middleware/authMiddleware";
+import websiteRoutes from "infrastructure/routes/websiteRoutes";
 
 const app = express();
 const port = process.env.PORT;

@@ -14,12 +14,6 @@ import {
 } from "sequelize-typescript";
 
 import bcryptjs from "bcryptjs";
-import sequelize from "config/sequelize";
-
-// interface WebsiteItem {
-//   website: string;
-//   ID: string;
-// }
 
 interface UserAttributes {
   id: number;
@@ -28,7 +22,6 @@ interface UserAttributes {
   password: string;
   role: string;
   verificationCode: string;
-  // websites: WebsiteItem[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -37,7 +30,6 @@ interface UserCreationAttributes {
   username: string;
   email: string;
   password: string;
-  // websites?: WebsiteItem[];
   role?: string;
 }
 
