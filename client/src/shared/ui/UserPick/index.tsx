@@ -1,5 +1,4 @@
 import React from "react";
-import { KebabMenu } from "../KebabMenu";
 
 import style from "./style.module.scss";
 

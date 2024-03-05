@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, SyntheticEvent } from "react";
 import { Button } from "@shared/ui/Buttons";
 import Input from "../../shared/ui/Inputs/DefaultInport/index";
