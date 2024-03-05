@@ -1,12 +1,12 @@
 "use client";
 import React, { SyntheticEvent } from "react";
 import { useWebPopup } from "@shared/lib/contexts/AppContext";
+import { Button } from "@shared/ui/Buttons";
 import InputProp from "@shared/ui/Inputs/DefaultInport";
 
 import Logo from "@assets/spark_product_logo.svg";
 
 import styles from "./styles.module.scss";
-import { Button } from "@shared/ui/Buttons";
 
 export const WebsitePopup = () => {
   const { isWebPopupVisible, toggleWebPopup } = useWebPopup();

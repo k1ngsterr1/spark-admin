@@ -11,7 +11,7 @@ interface DashboardProps {
   popupState: any;
 }
 
-const WebsitesPage: React.FC<DashboardProps> = ({ popupState }) => {
+const WebsitesPage: React.FC<DashboardProps> = () => {
   return (
     <div className="flex">
       <Menu />

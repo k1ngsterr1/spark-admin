@@ -28,7 +28,7 @@ export const Menu = () => {
           text="Мои сайты"
           margin="mt-0"
         />
-        <NavButton icon={faUser} href="/users" text="Мои Юзеры" margin="mt-4" />
+        <NavButton icon={faUser} href="/users" text="Мои юзеры" margin="mt-4" />
         <NavButton
           icon={faChartArea}
           href="/analytics"

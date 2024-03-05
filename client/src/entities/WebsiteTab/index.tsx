@@ -5,7 +5,6 @@ import styles from "./styles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendar,
-  faPerson,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { KebabMenu } from "@shared/ui/KebabMenu";
