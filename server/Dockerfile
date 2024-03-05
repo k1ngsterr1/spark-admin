@@ -41,8 +41,9 @@ RUN npm install\
 #     --mount=type=cache,target=/root/.npm \
 #     npm ci --omit=dev
 
-RUN --mount=type=cache,id=node_modules,target=/app/node_modules npm install
-
+RUN --mount=type=cache,id=npm_cache,target=/root/.npm \
+    npm install
+    
 # Run the application as a non-root user.
 USER node
 
