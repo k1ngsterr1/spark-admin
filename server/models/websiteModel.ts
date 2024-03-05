@@ -17,7 +17,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export interface UserItems {
   email: string;
-  id: number;
+  id?: number;
   role: string;
 }
 

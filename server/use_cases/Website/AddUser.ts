@@ -28,6 +28,9 @@ export class AddUser {
       throw new Error("You are not the owner of this website");
     }
 
-    await this.websiteRepository.addUserToWebsite(websiteId, { email, role });
+    await this.websiteRepository.addUserToWebsite(websiteId, {
+      email,
+      role,
+    });
   }
 }
