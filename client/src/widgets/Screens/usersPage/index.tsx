@@ -24,14 +24,15 @@ export const Users = () => {
       <div className="flex justify-between items-center mt-4">
         <h1 className={styles.users__main}>Управление пользователями</h1>
         <Button
-          onClick={handleOpenPopUp}
+          // onClick={handleOpenPopUp}
           text="Добавить пользователя"
           buttonType="regular--small"
           margin={"mt-24"}
+          functionType="userPopup"
         />
         <PopUp
-          isOpen={isPopUpOpen}
-          setIsOpen={setIsPopUpOpen}
+          // isOpen={isPopUpOpen}
+          // setIsOpen={setIsPopUpOpen}
           addUser={addUser}
         />
       </div>
