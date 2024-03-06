@@ -1,5 +1,6 @@
-import React from "react";
+"use client";
 
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -15,8 +16,14 @@ interface PageSelectorProps {
 }
 
 export const PageSelector: React.FC<PageSelectorProps> = ({ pages }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <div className={styles.page_selector}>
+    <div className={styles.page_selector} onClick={handleClick}>
       {pages.map((page, index) => (
         <span key={index}>Page Name</span>
       ))}
@@ -24,6 +31,13 @@ export const PageSelector: React.FC<PageSelectorProps> = ({ pages }) => {
         icon={faChevronDown}
         className={styles.page_selector__chevron}
       />
+      {isOpen && (
+        <div className={styles.page_selector__options}>
+          <span className={styles.page_selector__options__option}>Главная</span>
+          <span className={styles.page_selector__options__option}>Главная</span>
+          <span className={styles.page_selector__options__option}>Главная</span>
+        </div>
+      )}
     </div>
   );
 };

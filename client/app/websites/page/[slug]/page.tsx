@@ -1,7 +1,7 @@
 import { HeaderEditor } from "@features/HeaderEditor";
 import React from "react";
 
-const page = () => {
+const PageEditor = () => {
   return (
     <div className="flex">
       <main className="flex flex-col w-full">
@@ -16,4 +16,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default PageEditor;
