@@ -9,7 +9,7 @@ export const Header = () => {
     <header className={styles.header}>
       <div className={styles.header__content}>
         <SearchBar />
-        <UserTab name="Text" photo="aaa" />
+        <UserTab name="Ruslan Makhmatov" photo="RM" />
       </div>
     </header>
   );

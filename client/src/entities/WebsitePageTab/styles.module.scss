@@ -1,0 +1,33 @@
+.website_page_tab {
+  width: 90%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+  cursor: pointer;
+  transition: 0.3s all;
+  @apply mt-8;
+  @apply p-3;
+  @apply rounded-md;
+  @apply bg-primary-ALMOST_WHITE;
+
+  &:hover {
+    @apply bg-primary-TRANSPARENT;
+  }
+
+  &__name {
+    font-size: clamp(12px, 1.24992vw, 48px);
+    transition: 0.3s all;
+    @apply font-medium;
+  }
+
+  &:hover &__name {
+    @apply text-primary;
+  }
+
+  &__type {
+    @apply mt-1;
+    @apply text-gray-700;
+  }
+}
