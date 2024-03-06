@@ -11,6 +11,9 @@ node_modules/
 # Optional REPL history
 .node_repl_history
 
+#
+config.json
+
 # Output of 'npm pack'
 *.tgz
 

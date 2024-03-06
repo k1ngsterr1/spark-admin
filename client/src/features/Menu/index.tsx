@@ -7,7 +7,6 @@ import {
   faHeadphones,
   faLock,
   faUser,
-  faLockOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import { MenuButton, NavButton } from "@shared/ui/NavButton";
 

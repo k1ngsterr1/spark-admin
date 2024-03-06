@@ -1,0 +1,16 @@
+.page_selector {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s all;
+  @apply gap-2;
+  @apply p-1;
+
+  &__chevron {
+    font-size: clamp(7px, 0.72912vw, 28px);
+  }
+
+  &:hover {
+    @apply text-primary;
+  }
+}
