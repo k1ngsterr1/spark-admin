@@ -32,9 +32,6 @@
     color: #fff3ef;
     background-color: #ff5722;
   }
-  // .text {
-  //   margin-left: clamp(13px, 1.35408vw, 52px);
-  // }
 }
 
 .button--regular--small {
@@ -42,4 +39,10 @@
   width: auto !important;
   @apply pl-8;
   @apply pr-8;
+}
+
+.button--regular--xs {
+  @extend .button--regular;
+  width: 100%;
+  @apply text-sm;
 }

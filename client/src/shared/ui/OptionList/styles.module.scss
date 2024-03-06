@@ -1,0 +1,13 @@
+.option_list {
+  position: absolute;
+  top: 38px;
+  left: -32px;
+  width: 300px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  @apply p-2;
+  @apply bg-gray-100;
+  @apply rounded-md;
+  @apply shadow-sm;
+}

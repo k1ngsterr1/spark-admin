@@ -6,34 +6,10 @@
   transition: 0.3s all;
   @apply gap-2;
   @apply p-1;
-  z-index: 1;
+  z-index: 2;
 
   &__chevron {
     font-size: clamp(7px, 0.72912vw, 28px);
-  }
-
-  &__options {
-    position: absolute;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    top: clamp(16px, 1.66656vw, 64px);
-    left: 0;
-    z-index: 10;
-    @apply p-2;
-    @apply bg-gray-100;
-    @apply rounded-md;
-    @apply shadow-sm;
-
-    &__option {
-      transition: 0.3s all;
-      @apply text-base;
-      @apply p-2;
-
-      &:hover {
-        @apply text-primary;
-      }
-    }
   }
 
   &:hover {

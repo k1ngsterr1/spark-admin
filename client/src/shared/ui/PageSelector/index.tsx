@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./styles.module.scss";
+import { OptionList } from "../OptionList";
 
 interface PageItem {
   type: string;
@@ -17,6 +18,12 @@ interface PageSelectorProps {
 
 export const PageSelector: React.FC<PageSelectorProps> = ({ pages }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const optionsData = [
+    {
+      name: "zhopa",
+    },
+  ];
 
   const handleClick = () => {
     setIsOpen(!isOpen);
@@ -31,13 +38,7 @@ export const PageSelector: React.FC<PageSelectorProps> = ({ pages }) => {
         icon={faChevronDown}
         className={styles.page_selector__chevron}
       />
-      {isOpen && (
-        <div className={styles.page_selector__options}>
-          <span className={styles.page_selector__options__option}>Главная</span>
-          <span className={styles.page_selector__options__option}>Главная</span>
-          <span className={styles.page_selector__options__option}>Главная</span>
-        </div>
-      )}
+      {isOpen && <OptionList options={optionsData} />}
     </div>
   );
 };
