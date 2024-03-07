@@ -46,8 +46,6 @@ export class LoginUser {
       role: user.role,
     };
 
-    console.log(this.userRepository);
-
     const accessToken = this.jwtService.generateAccessToken(userResponse);
     const refreshToken = this.jwtService.generateRefreshToken(userResponse);
 
