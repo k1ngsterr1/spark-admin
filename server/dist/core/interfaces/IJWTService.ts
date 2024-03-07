@@ -1,4 +1,6 @@
-export interface IJWTService{
-    generateAccessToken(user: {id:number, username: string, role: string}): string;
-    generateRefreshToken(user: {id: number, username: string, role: string}): string;
+import { UserResponse } from "@core/use_cases/User/LoginUser";
+
+export interface IJWTService {
+  generateAccessToken(user: UserResponse): string;
+  generateRefreshToken(user: UserResponse): string;
 }

@@ -1,6 +1,7 @@
 import { IUserRepository } from "core/interfaces/IUserRepositry";
 import { User } from "infrastructure/models/userModel";
 import sequelize from "infrastructure/config/sequelize";
+import { Repository } from "sequelize-typescript";
 
 export class UserRepository implements IUserRepository {
   async create(userDetails: Omit<User, "id">): Promise<User> {
@@ -16,6 +17,6 @@ export class UserRepository implements IUserRepository {
   }
 
   async findOne(options: { where: { email: string } }): Promise<User | null> {
-    return await User.findOne(options); // Assuming `User` is a Sequelize model
+    return sequelize.getRepository(User).findOne(options);
   }
 }

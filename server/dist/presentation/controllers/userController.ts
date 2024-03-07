@@ -22,6 +22,7 @@ class UserController {
   constructor() {
     this.userRepository = new UserRepository();
     this.emailService = new EmailService();
+    this.jwtService = new JWTService();
     this.changeUserRoleService = new ChangeUserRoleService(this.userRepository);
     this.changePasswordService = new ChangePasswordService(this.userRepository);
     this.verifyService = new VerifyService(this.userRepository);

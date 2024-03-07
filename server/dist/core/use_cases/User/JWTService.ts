@@ -1,5 +1,5 @@
 import { IJWTService } from "core/interfaces/IJWTService";
-import { jwt } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export class JWTService implements IJWTService {
   private accessTokenSecret = process.env.JWT_SECRET_ACCESS;

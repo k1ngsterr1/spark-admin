@@ -1,10 +1,9 @@
-import { bcryptjs } from "bcryptjs";
-import { User } from "@infrastructure/models/userModel";
+import bcryptjs from "bcryptjs";
 import { IUserRepository } from "core/interfaces/IUserRepositry";
 import { IJWTService } from "core/interfaces/IJWTService";
-import sequelize from "@infrastructure/config/sequelize";
+import { JWTService } from "./JWTService";
 
-type UserResponse = {
+export type UserResponse = {
   id: number;
   username: string;
   email: string;
@@ -30,12 +29,12 @@ export class LoginUser {
   }> {
     const user = await this.userRepository.findOne({ where: { email } });
 
-    console.log("email:", email, "user:", user);
-
     if (!user) {
       throw new Error("Пользователь не найден!");
     }
-    const isMatch = await bcryptjs.compare(password, user.password);
+
+    const isMatch: boolean = await bcryptjs.compare(password, user.password);
+
     if (!isMatch) {
       throw new Error("Неверный пароль!");
     }
@@ -46,6 +45,8 @@ export class LoginUser {
       email: user.email,
       role: user.role,
     };
+
+    console.log(this.userRepository);
 
     const accessToken = this.jwtService.generateAccessToken(userResponse);
     const refreshToken = this.jwtService.generateRefreshToken(userResponse);
