@@ -26,7 +26,6 @@ export const Users = () => {
         />
       </div>
       <div className={styles.users__box}>
-        <SearchBar />
         {users.map((user, index) => (
           <UserPick
             key={index}
