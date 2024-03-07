@@ -1,7 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { SearchBar } from "@features/SearchBar";
+<<<<<<< HEAD
 import { Button } from "@shared/ui/Buttons";
+=======
+import { Button } from "@shared/ui/Buttons_Components/Buttons";
+import PopUp from "@entities/PopUp";
+>>>>>>> 7a33874621262f0282af2d7a53ccb9b8cbcae1df
 import UserPick from "@shared/ui/UserPick";
 import styles from "./styles.module.scss";
 

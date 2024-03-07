@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["core/*"],
+      "@presentation/*": ["presentation/*"],
+      "@infrastructure/*": ["infrastructure/*"],
+      "@config": ["infrastructure/config"],
+      "@services/*": ["./services/*"]
+    },
+    "outDir": "./dist"
+  },
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

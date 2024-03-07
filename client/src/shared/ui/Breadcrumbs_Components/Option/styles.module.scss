@@ -1,0 +1,26 @@
+.option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s all;
+  @apply text-base;
+  @apply p-1;
+  @apply gap-3;
+  @apply rounded-md;
+  @apply text-secondary;
+  &:hover {
+    @apply text-primary;
+    @apply bg-slate-200;
+  }
+
+  &__icon {
+    @apply text-lg;
+    @apply text-secondary;
+  }
+
+  &:hover &__icon {
+    transition: 0.3s all;
+    @apply text-primary;
+  }
+}

@@ -1,0 +1,29 @@
+.additional_button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid;
+  transition: 0.3s all;
+  @apply p-2;
+  @apply border-secondary;
+  @apply rounded-md;
+
+  &__icon {
+    transition: 0.3s all;
+    @apply text-base;
+    @apply text-secondary;
+    &:hover {
+      @apply text-primary;
+    }
+  }
+
+  &:hover {
+    @apply border-primary;
+  }
+
+  &:hover &__icon {
+    @apply text-primary;
+  }
+}

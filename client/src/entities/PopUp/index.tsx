@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 "use client";
 import React, { useState, SyntheticEvent } from "react";
 import { Button } from "@shared/ui/Buttons";
+=======
+import React, { useState, useRef } from "react";
+import { Button } from "@shared/ui/Buttons_Components/Buttons";
+>>>>>>> 7a33874621262f0282af2d7a53ccb9b8cbcae1df
 import Input from "../../shared/ui/Inputs/DefaultInport/index";
 import { Selector } from "../../shared/ui/Selector";
 import { useUserPopup } from "@shared/lib/contexts/AppContext";

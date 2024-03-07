@@ -1,0 +1,7 @@
+.breadcrumbs {
+  font-size: clamp(8px, 0.83328vw, 32px);
+  display: flex;
+  align-items: center;
+  transition: 0.3s all;
+  @apply text-secondary;
+}

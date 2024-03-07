@@ -1,7 +1,12 @@
 "use client";
+import React from "react";
 import { useWebPopup } from "@shared/lib/contexts/AppContext";
+<<<<<<< HEAD
 import { useUserPopup } from "@shared/lib/contexts/AppContext";
 import { FunctionTypes, functions } from "@shared/lib/hooks/useFunctions";
+=======
+import { FunctionTypes } from "@shared/lib/hooks/useFunctions";
+>>>>>>> 7a33874621262f0282af2d7a53ccb9b8cbcae1df
 import Link from "next/link";
 
 import styles from "./styles.module.scss";
@@ -9,7 +14,7 @@ import styles from "./styles.module.scss";
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   margin?: string;
   text: string;
-  buttonType: "regular" | "transparent" | "regular--small";
+  buttonType: "regular" | "transparent" | "regular--small" | "regular--xs";
   functionType?: FunctionTypes;
 }
 
@@ -46,7 +51,7 @@ interface LinkButtonProps {
   margin?: string;
   href: string;
   text: string;
-  buttonType: "regular" | "transparent" | "regular--small";
+  buttonType: "regular" | "transparent" | "regular--small" | "regular--xs";
 }
 
 const ButtonLink: React.FC<LinkButtonProps> = ({

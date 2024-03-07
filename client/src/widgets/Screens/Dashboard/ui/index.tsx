@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@shared/ui/Buttons";
+import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import { useWebPopup } from "@shared/lib/contexts/AppContext";
 import Heading from "@shared/ui/Heading/index";
 

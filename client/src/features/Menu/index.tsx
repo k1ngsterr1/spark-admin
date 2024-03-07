@@ -7,9 +7,8 @@ import {
   faHeadphones,
   faLock,
   faUser,
-  faLockOpen,
 } from "@fortawesome/free-solid-svg-icons";
-import { MenuButton, NavButton } from "@shared/ui/NavButton";
+import { MenuButton, NavButton } from "@shared/ui/Buttons_Components/NavButton";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
 
@@ -28,7 +27,7 @@ export const Menu = () => {
           text="Мои сайты"
           margin="mt-0"
         />
-        <NavButton icon={faUser} href="/users" text="Мои Юзеры" margin="mt-4" />
+        <NavButton icon={faUser} href="/users" text="Мои юзеры" margin="mt-4" />
         <NavButton
           icon={faChartArea}
           href="/analytics"
