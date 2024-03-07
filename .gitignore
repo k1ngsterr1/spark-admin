@@ -28,7 +28,6 @@ yarn-error.log*
 
 # Generated files
 /build/
-/dist/config/
 /logs/
 *.log
 *.csv
