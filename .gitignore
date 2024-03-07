@@ -27,7 +27,6 @@ yarn-error.log*
 .yarn-integrity
 
 # Generated files
-/dist/
 /build/
 /logs/
 *.log

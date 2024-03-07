@@ -1,7 +1,8 @@
 import { bcryptjs } from "bcryptjs";
-import { User } from "infrastructure/models/userModel";
+import { User } from "@infrastructure/models/userModel";
 import { IUserRepository } from "core/interfaces/IUserRepositry";
 import { IJWTService } from "core/interfaces/IJWTService";
+import sequelize from "@infrastructure/config/sequelize";
 
 type UserResponse = {
   id: number;
@@ -27,7 +28,7 @@ export class LoginUser {
     accessToken: string;
     refreshToken: string;
   }> {
-    const user = await this.userRepository.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
 
     if (!user) {
       throw new Error("Пользователь не найден!");
