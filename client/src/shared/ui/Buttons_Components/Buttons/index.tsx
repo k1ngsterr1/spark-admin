@@ -1,5 +1,6 @@
 "use client";
 import { useWebPopup } from "@shared/lib/contexts/AppContext";
+import { useUserPopup } from "@shared/lib/contexts/AppContext";
 import { FunctionTypes } from "@shared/lib/hooks/useFunctions";
 import Link from "next/link";
 
@@ -28,10 +29,14 @@ const Button: React.FC<ButtonProps> = ({
     margin ? margin : ""
   }`;
   const { toggleWebPopup } = useWebPopup();
+  const { toggleUserPopup } = useUserPopup();
 
   const handleClick = () => {
     if (functionType === "webPopup") {
       toggleWebPopup();
+    }
+    if (functionType === "userPopup") {
+      toggleUserPopup();
     }
   };
 

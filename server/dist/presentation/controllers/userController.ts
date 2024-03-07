@@ -6,6 +6,7 @@ import { UserRepository } from "infrastructure/repositories/UserRepository";
 import { LoginUser } from "core/use_cases/User/LoginUser";
 import { VerifyService } from "core/use_cases/User/VerifyUser";
 import { ChangeUserRoleService } from "core/use_cases/User/ChangeUserRole";
+
 import EmailService from "core/use_cases/User/EmailVerification";
 
 class UserController {
