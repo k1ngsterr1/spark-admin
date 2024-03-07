@@ -28,7 +28,9 @@ export class LoginUser {
     accessToken: string;
     refreshToken: string;
   }> {
-    const user = await User.findOne({ where: { email } });
+    const user = await this.userRepository.findOne({ where: { email } });
+
+    console.log("email:", email, "user:", user);
 
     if (!user) {
       throw new Error("Пользователь не найден!");
