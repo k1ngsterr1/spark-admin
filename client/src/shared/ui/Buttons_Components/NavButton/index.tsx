@@ -1,10 +1,9 @@
 import React from "react";
-
-import styles from "./styles.module.scss";
-
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+
+import styles from "./styles.module.scss";
 
 interface NavButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   margin: string;

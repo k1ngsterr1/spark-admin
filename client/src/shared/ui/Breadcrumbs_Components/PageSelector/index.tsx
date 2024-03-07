@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { OptionList } from "../OptionList";
 
 import styles from "./styles.module.scss";
-import { OptionList } from "../OptionList";
 
 interface PageItem {
   type: string;

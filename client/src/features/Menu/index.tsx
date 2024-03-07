@@ -8,7 +8,7 @@ import {
   faLock,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { MenuButton, NavButton } from "@shared/ui/NavButton";
+import { MenuButton, NavButton } from "@shared/ui/Buttons_Components/NavButton";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
 

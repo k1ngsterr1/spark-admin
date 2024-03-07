@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Button } from "@shared/ui/Buttons";
+import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import Input from "../../shared/ui/Inputs/DefaultInport/index";
 import { Selector } from "../../shared/ui/Selector";
 import { useOutsideClick } from "@shared/lib/hooks/useOutsideClick";

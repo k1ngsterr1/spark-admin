@@ -2,8 +2,9 @@ import React from "react";
 import styles from "./styles.module.scss";
 import SparkLogo from "@assets/spark_product_logo.svg";
 
-import { Breadcrumbs } from "@shared/ui/Breadcrumbs";
+import { Breadcrumbs } from "@shared/ui/Breadcrumbs_Components/Breadcrumbs";
 import { faFile, faGlobe, faHome } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "@shared/ui/Buttons_Components/Buttons";
 
 interface HeaderEditorProps {
   websiteName: string;
@@ -33,6 +34,10 @@ export const HeaderEditor: React.FC<HeaderEditorProps> = ({
           </div>
           <Breadcrumbs crumbs={breadcrumbData} />
         </nav>
+        <div className="flex items-center gap-4">
+          <Button text="Предпросмотр" buttonType="regular--text" />
+          <Button text="Сохранить" buttonType="regular--small" />
+        </div>
       </div>
     </header>
   );

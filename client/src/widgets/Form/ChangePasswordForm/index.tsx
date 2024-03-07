@@ -1,4 +1,4 @@
-import { ButtonLink } from "@shared/ui/Buttons/index";
+import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons/index";
 import PasswordInput from "@shared/ui/Inputs/PasswordInput";
 import Heading from "@shared/ui/Heading/index";
 

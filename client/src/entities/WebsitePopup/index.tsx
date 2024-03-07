@@ -1,7 +1,7 @@
 "use client";
 import React, { SyntheticEvent } from "react";
 import { useWebPopup } from "@shared/lib/contexts/AppContext";
-import { Button } from "@shared/ui/Buttons";
+import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import InputProp from "@shared/ui/Inputs/DefaultInport";
 
 import Logo from "@assets/spark_product_logo.svg";

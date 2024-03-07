@@ -8,7 +8,12 @@ import styles from "./styles.module.scss";
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   margin?: string;
   text: string;
-  buttonType: "regular" | "transparent" | "regular--small" | "regular--xs";
+  buttonType:
+    | "regular"
+    | "transparent"
+    | "regular--small"
+    | "regular--xs"
+    | "regular--text";
   functionType?: FunctionTypes;
 }
 

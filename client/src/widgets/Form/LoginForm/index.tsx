@@ -1,4 +1,4 @@
-import { Button } from "@shared/ui/Buttons";
+import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import PasswordInput from "@shared/ui/Inputs/PasswordInput";
 import MiniText from "@shared/ui/MiniText/index";

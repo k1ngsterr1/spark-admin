@@ -3,10 +3,10 @@
   position: relative;
   align-items: center;
   cursor: pointer;
+  z-index: 2;
   transition: 0.3s all;
   @apply gap-2;
   @apply p-1;
-  z-index: 2;
 
   &__chevron {
     font-size: clamp(7px, 0.72912vw, 28px);

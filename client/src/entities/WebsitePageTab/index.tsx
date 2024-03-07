@@ -1,7 +1,7 @@
 import React from "react";
 
 import styles from "./styles.module.scss";
-import { ButtonLink } from "@shared/ui/Buttons";
+import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe, faTrash } from "@fortawesome/free-solid-svg-icons";
 

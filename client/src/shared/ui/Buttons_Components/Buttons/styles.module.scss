@@ -1,13 +1,13 @@
 %button-common {
   width: clamp(175px, 18.228vw, 700px);
   border-radius: clamp(4px, 0.41664vw, 16px);
-  @apply bg-primary;
   color: #fff3ef;
-  @apply p-3;
   padding: clamp(6px, 0.62496vw, 24px);
   font-size: clamp(10px, 1.0416vw, 40px);
   transition: 0.3s ease-in-out;
   text-align: center;
+  @apply bg-primary;
+  @apply p-3;
 }
 
 .button {
@@ -45,4 +45,18 @@
   @extend .button--regular;
   width: 100%;
   @apply text-sm;
+}
+
+.button--regular--text {
+  width: auto !important;
+  font-size: clamp(8px, 0.83328vw, 32px);
+  background: transparent !important;
+  transition: 0.3s all;
+  @apply text-primary;
+  @apply font-bold;
+
+  &:hover {
+    @apply underline;
+    background-color: darken(#ff5722, 10%);
+  }
 }
