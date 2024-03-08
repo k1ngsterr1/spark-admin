@@ -1,14 +1,10 @@
 .users {
-  width: 98%;
-  @apply m-5;
-
-  &__text {
-    @apply text-primary;
-    @apply mt-8 mb-8 text-2xl;
-  }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 
   &__main {
-    @apply font-bold mt-24 ml-3;
+    @apply font-bold;
     font-size: clamp(17px, 1.77072vw, 68px);
   }
 }
