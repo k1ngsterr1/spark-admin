@@ -17,6 +17,10 @@ module.exports = {
         unique: true,
         type: Sequelize.STRING,
       },
+      websiteCode: {
+        unique: true,
+        type: Sequelize.STRING,
+      },
       owner: {
         type: Sequelize.INTEGER,
       },

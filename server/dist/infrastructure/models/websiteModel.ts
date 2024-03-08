@@ -26,6 +26,7 @@ interface WebsiteAttributes {
   name: string;
   url: string;
   owner: number;
+  websiteCode: string;
   users: UserItems[];
   createdAt?: Date;
   updatedAt?: Date;
@@ -64,6 +65,10 @@ export class Website extends Model<
 
   @Column(DataType.INTEGER)
   owner!: number;
+
+  @Unique
+  @Column(DataType.STRING)
+  websiteCode!: string;
 
   @Column(DataType.JSONB)
   users!: UserItems[];
