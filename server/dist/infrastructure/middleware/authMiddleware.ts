@@ -2,13 +2,11 @@ import jwt from "jsonwebtoken";
 
 const express = require("express");
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET_ACCESS;
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-
-  console.log("token:", token, "header:", authHeader);
 
   if (token == null) {
     return res.status(401).json({ message: "No token provided" });

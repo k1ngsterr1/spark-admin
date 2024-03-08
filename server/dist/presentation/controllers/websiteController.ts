@@ -8,21 +8,24 @@ import { GetWebsite } from "core/use_cases/Website/GetWebsite";
 import sequelize from "infrastructure/config/sequelize";
 
 class WebsiteController {
-  private WebsiteRepository: WebsiteRepository;
+  private websiteRepository: WebsiteRepository;
   private addWebsiteUseCase: AddWebsite;
   private getWebsiteByOwner: GetWebsite;
 
   constructor() {
-    this.addWebsiteUseCase = new AddWebsite(this.WebsiteRepository);
-    this.getWebsiteByOwner = new GetWebsite(this.WebsiteRepository);
+    this.websiteRepository = new WebsiteRepository();
+    this.addWebsiteUseCase = new AddWebsite(this.websiteRepository);
+    this.getWebsiteByOwner = new GetWebsite(this.websiteRepository);
   }
 
   async addWebsite(req: Request, res: Response) {
     try {
       const newWebsite = await this.addWebsiteUseCase.execute(req.body);
+
       res.status(201).json({ message: "Веб-сайт успешно добавлен" });
     } catch (error) {
       console.error("Ошибка с созданием веб-сайта:", error);
+      console.log(req.body, this.websiteRepository);
       return res.status(500).json({ error: "Ошибка с созданием веб-сайта" });
     }
   }
