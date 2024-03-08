@@ -1,9 +1,10 @@
 import { HeaderEditor } from "@features/HeaderEditor";
+import { UserWebsite } from "@widgets/Screens/UserWebsite";
 import React from "react";
 
 const PageEditor = () => {
   return (
-    <div className="flex">
+    <div className="flex flex-col">
       <main className="flex flex-col w-full">
         <HeaderEditor
           websiteName="Spark Studio"
@@ -12,6 +13,7 @@ const PageEditor = () => {
           pageURL="aa"
         />
       </main>
+      <UserWebsite />
     </div>
   );
 };

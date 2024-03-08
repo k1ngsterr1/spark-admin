@@ -1,6 +1,6 @@
 import { Menu } from "@features/Menu/index";
 import { Users } from "@widgets/Screens/usersPage/index";
-import PopUp from "@entities/PopUp/index";
+import UserPopup from "@entities/Popup_Components/UserPopup";
 import React from "react";
 
 import styles from "./styles.module.scss";
@@ -10,7 +10,7 @@ export const UsersPage = () => {
     <div className={styles.user}>
       <Menu />
       <Users />
-      <PopUp />
+      <UserPopup />
     </div>
   );
 };

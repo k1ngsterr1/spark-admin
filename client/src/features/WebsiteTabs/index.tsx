@@ -1,5 +1,5 @@
 import React from "react";
-import { WebsiteTab } from "@entities/WebsiteTab";
+import { WebsiteTab } from "@entities/Tabs_Components/WebsiteTab";
 import { fetchWebsites } from "@shared/lib/hooks/useLoadWebsites";
 import { WebsiteItem } from "@shared/lib/types";
 

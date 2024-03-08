@@ -1,7 +1,7 @@
 import React from "react";
 
 import styles from "./styles.module.scss";
-import { UserTab } from "@entities/UserTab";
+import { UserTab } from "@entities/Tabs_Components/UserTab";
 import { SearchBar } from "@features/SearchBar";
 
 export const Header = () => {

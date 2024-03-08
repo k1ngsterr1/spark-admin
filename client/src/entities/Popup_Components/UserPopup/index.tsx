@@ -1,37 +1,27 @@
 "use client";
-import React, { useState, SyntheticEvent } from "react";
+import PopupGeneric from "@shared/ui/Generic_Components/PopupGeneric"; // Adjust the import path accordingly
+import React, { useState } from "react";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
-import Input from "../../shared/ui/Inputs/DefaultInport/index";
-import { Selector } from "../../shared/ui/Selector";
+import Input from "@shared/ui/Inputs/DefaultInport/index";
+import { Selector } from "@shared/ui/Selector";
 import { useUserPopup } from "@shared/lib/contexts/AppContext";
-
-import Logo from "../../assets/spark_product_logo.svg";
-
+import Logo from "@assets/spark_product_logo.svg";
 import styles from "./styles.module.scss";
 
 interface PopUpProps {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  addUser: (user: { login: string; role: string; site: string }) => void;
 }
 
-const PopUp: React.FC<
-  PopUpProps & {
-    addUser: (user: { login: string; role: string; site: string }) => void;
-  }
-> = ({ setIsOpen, addUser }) => {
+const UserPopup: React.FC<PopUpProps> = ({ addUser }) => {
   const [selectedRole, setSelectedRole] = useState<string>("");
-  const [login, setLogin] = useState("");
+  const [login, setLogin] = useState<string>("");
   const [selectedSite, setSelectedSite] = useState<string>("");
-
-  const handleConfirm = () => {
-    addUser({ login: login, role: selectedRole, site: selectedSite });
-    setIsOpen(false);
-  };
 
   const { isUserPopupVisible, toggleUserPopup } = useUserPopup();
 
-  const handlePopUpClick = (event: SyntheticEvent) => {
-    event.stopPropagation();
+  const handleConfirm = () => {
+    addUser({ login, role: selectedRole, site: selectedSite });
+    toggleUserPopup();
   };
 
   if (!isUserPopupVisible) {
@@ -39,8 +29,8 @@ const PopUp: React.FC<
   }
 
   return (
-    <div className={styles.popup} onClick={toggleUserPopup}>
-      <div className={styles.popup__items} onClick={handlePopUpClick}>
+    <PopupGeneric onClose={toggleUserPopup}>
+      <div className={styles.popup__items} onClick={(e) => e.stopPropagation()}>
         <div className={styles.popup__items__logo}>
           <Logo />
         </div>
@@ -74,8 +64,8 @@ const PopUp: React.FC<
           margin="mt-6"
         />
       </div>
-    </div>
+    </PopupGeneric>
   );
 };
 
-export default PopUp;
+export default UserPopup;

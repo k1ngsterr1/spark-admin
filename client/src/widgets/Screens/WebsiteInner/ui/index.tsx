@@ -3,8 +3,8 @@ import React from "react";
 
 import styles from "./styles.module.scss";
 import Link from "next/link";
-import { WebsitePageTab } from "@entities/WebsitePageTab";
-import { WebsiteTab } from "@entities/WebsiteTab";
+import { WebsitePageTab } from "@entities/Tabs_Components/WebsitePageTab";
+import { WebsiteTab } from "@entities/Tabs_Components/WebsiteTab";
 
 interface WebsiteInnerProps {
   websiteName: string;

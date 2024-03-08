@@ -8,10 +8,15 @@ import {
 } from "react";
 
 interface AppContextType {
+  // Popup for website add
   isWebPopupVisible: boolean;
   toggleWebPopup: () => void;
+  // Popup for user add
   isUserPopupVisible: boolean;
   toggleUserPopup: () => void;
+  // Popup for website verification & code generation
+  isWebVerifyPopupVisible: boolean;
+  toggleWebVerifyPopup: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -35,6 +40,7 @@ export const useUserPopup = () => {
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [isWebPopupVisible, setIsWebPopupVisible] = useState(false);
   const [isUserPopupVisible, setIsUserPopupVisible] = useState(false);
+  const [isWebVerifyPopupVisible, setIsWebVerifyPopupVisible] = useState(false);
 
   const toggleWebPopup = useCallback(() => {
     setIsWebPopupVisible(!isWebPopupVisible);
@@ -51,6 +57,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         toggleWebPopup,
         isUserPopupVisible,
         toggleUserPopup,
+        isWebVerifyPopupVisible,
+        toggleWebVerifyPopup,
       }}
     >
       {children}
