@@ -22,7 +22,9 @@ export const CodePopup = () => {
         <div className={styles.website_popup__logo}>
           <Logo />
         </div>
-        <span className={styles.website_popup__text}>Добавьте ваш сайт</span>
+        <span className={styles.website_popup__text}>
+          Создайте уникальный код сайта
+        </span>
       </div>
     </PopupGeneric>
   );
