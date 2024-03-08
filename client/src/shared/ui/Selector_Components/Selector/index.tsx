@@ -52,6 +52,7 @@ export const Selector = <T extends string | number>({
       {isOpen && (
         <Dropdown
           items={items}
+          className={styles.selector__dropdown}
           setOption={() => handleOptionClick(selectedItem)}
         />
       )}

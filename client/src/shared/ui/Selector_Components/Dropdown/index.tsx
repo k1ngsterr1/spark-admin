@@ -4,15 +4,20 @@ import styles from "./styles.module.scss";
 
 interface DropdownProps {
   items: any[];
+  className: string;
   setOption: (selectedOption: string) => void;
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({ items, setOption }) => {
+export const Dropdown: React.FC<DropdownProps> = ({
+  items,
+  setOption,
+  className,
+}) => {
   return (
-    <div className={styles.selector__dropdown}>
+    <div className={styles.dropdown}>
       {items.map((item, index) => (
         <div
-          className={styles.selector__items}
+          className={styles.items}
           key={index}
           onClick={() => setOption(item)}
         >

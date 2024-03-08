@@ -1,7 +1,20 @@
-.selector__dropdown {
+.dropdown {
   background-color: #e6e6e6;
   position: absolute;
   z-index: 100;
-  width: 100%;
+  width: clamp(175px, 18.228vw, 700px);
   @apply rounded-md;
+}
+
+.items {
+  overflow-y: auto;
+  cursor: pointer;
+  transition: 0.3s all;
+  background-color: #e6e6e6;
+  font-size: clamp(7px, 0.72912vw, 28px);
+  @apply rounded-md max-h-32;
+  @apply p-2;
+  &:hover {
+    @apply bg-primary text-primary-ALMOST_WHITE rounded-md;
+  }
 }
