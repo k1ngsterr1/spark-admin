@@ -30,11 +30,14 @@ const UserPopup: React.FC<PopUpProps> = ({ addUser }) => {
 
   return (
     <PopupGeneric onClose={toggleUserPopup}>
-      <div onClick={(e) => e.stopPropagation()}>
-        <div>
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="flex flex-col items-center justify-center"
+      >
+        <div className="w-1/3 m-auto">
           <Logo />
         </div>
-        <p>Меню передачи ролей</p>
+        <p className="text-center mt-2 mb-2">Меню передачи ролей</p>
         <Input
           placeholder="Введите логин пользователя"
           value={login}
