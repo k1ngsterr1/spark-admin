@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Input from "@shared/ui/Inputs/DefaultInport";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dropdown } from "../Dropdown";
 import useSelector from "@shared/lib/hooks/useSelector";
@@ -29,10 +29,11 @@ export const Selector = <T extends string | number>({
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
-  const handleOptionClick = (selectedOption: T) => {
+  const handleOptionClick = (selectedOption: any) => {
     setSelectedItem(selectedOption);
     onChange(selectedOption);
     setIsOpen(false);
+    console.log(selectedItem);
   };
 
   return (
@@ -41,11 +42,11 @@ export const Selector = <T extends string | number>({
         <Input
           placeholder={placeholder}
           readOnly
-          value={selectedValue.toString()}
+          value={selectedValue}
           inputType="default"
         />
         <FontAwesomeIcon
-          icon={faChevronDown}
+          icon={isOpen ? faChevronUp : faChevronDown}
           className={styles.selector__icon}
         />
       </div>
@@ -53,7 +54,7 @@ export const Selector = <T extends string | number>({
         <Dropdown
           items={items}
           className={styles.selector__dropdown}
-          setOption={() => handleOptionClick(selectedItem)}
+          setOption={handleOptionClick}
         />
       )}
     </div>

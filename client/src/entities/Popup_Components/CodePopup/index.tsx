@@ -1,9 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import Logo from "@assets/spark_product_logo.svg";
-import styles from "./styles.module.scss";
 import PopupGeneric from "@shared/ui/Generic_Components/PopupGeneric";
 import { useUserPopup } from "@shared/lib/contexts/AppContext";
+
+import styles from "./styles.module.scss";
 
 export const CodePopup = () => {
   const { isWebPopupVisible, toggleWebPopup } = useUserPopup();

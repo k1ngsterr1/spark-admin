@@ -1,4 +1,6 @@
 .selector {
+  position: relative;
+  @apply text-primary;
   &__items {
     overflow-y: auto;
     cursor: pointer;
@@ -17,7 +19,7 @@
     bottom: clamp(8px, 0.83328vw, 32px);
     height: clamp(8px, 0.83328vw, 32px);
     width: clamp(8px, 0.83328vw, 32px);
-    z-index: 4;
+    z-index: 10;
   }
   &__dropdown {
     background-color: #e6e6e6;
