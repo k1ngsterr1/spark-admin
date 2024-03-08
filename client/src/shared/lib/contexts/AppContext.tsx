@@ -50,6 +50,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setIsUserPopupVisible(!isUserPopupVisible);
   }, [isUserPopupVisible]);
 
+  const toggleWebVerifyPopup = useCallback(() => {
+    setIsWebVerifyPopupVisible(!isWebVerifyPopupVisible);
+  }, [isWebVerifyPopupVisible]);
+
   return (
     <AppContext.Provider
       value={{

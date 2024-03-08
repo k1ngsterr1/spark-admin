@@ -1,30 +1,36 @@
 import React, { useState } from "react";
-import Input from "../Inputs/DefaultInport/index";
+import Input from "@shared/ui/Inputs/DefaultInport";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Dropdown } from "../Dropdown";
+import useSelector from "@shared/lib/hooks/useSelector";
 
 import styles from "./style.module.scss";
 
-interface SelectorProps {
-  items: string[];
+interface SelectorProps<T> {
+  items: T[];
   className?: string;
-  selectedValue: string;
+  selectedValue: T;
+  initialValue?: T;
   placeholder: string;
-  onChange: (selectedOption: string) => void;
+  onChange: (value: T) => void;
 }
 
-export const Selector: React.FC<SelectorProps> = ({
+export const Selector = <T extends string | number>({
   items,
   onChange,
   selectedValue,
   className,
   placeholder,
-}) => {
+  initialValue,
+}: SelectorProps<T>): JSX.Element => {
+  const { selectedItem, setSelectedItem } = useSelector<T>(initialValue!);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
-  const handleOptionClick = (selectedOption: string) => {
+  const handleOptionClick = (selectedOption: T) => {
+    setSelectedItem(selectedOption);
     onChange(selectedOption);
     setIsOpen(false);
   };
@@ -35,7 +41,7 @@ export const Selector: React.FC<SelectorProps> = ({
         <Input
           placeholder={placeholder}
           readOnly
-          value={selectedValue}
+          value={selectedValue.toString()}
           inputType="default"
         />
         <FontAwesomeIcon
@@ -44,17 +50,10 @@ export const Selector: React.FC<SelectorProps> = ({
         />
       </div>
       {isOpen && (
-        <div className={styles.selector__dropdown}>
-          {items.map((item, index) => (
-            <div
-              className={styles.selector__items}
-              key={index}
-              onClick={() => handleOptionClick(item)}
-            >
-              {item}
-            </div>
-          ))}
-        </div>
+        <Dropdown
+          items={items}
+          setOption={() => handleOptionClick(selectedItem)}
+        />
       )}
     </div>
   );

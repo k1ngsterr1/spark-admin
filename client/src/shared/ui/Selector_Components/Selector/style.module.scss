@@ -1,11 +1,12 @@
 .selector {
   &__items {
     overflow-y: auto;
-    @apply p-2;
+    cursor: pointer;
     transition: 0.3s all;
-    @apply rounded-md max-h-32;
     background-color: #e6e6e6;
     font-size: clamp(7px, 0.72912vw, 28px);
+    @apply rounded-md max-h-32;
+    @apply p-2;
     &:hover {
       @apply bg-primary text-primary-ALMOST_WHITE rounded-md;
     }
