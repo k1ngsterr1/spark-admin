@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Logo from "@assets/spark_product_logo.svg";
 import PopupGeneric from "@shared/ui/Generic_Components/PopupGeneric";
 import { useUserPopup } from "@shared/lib/contexts/AppContext";
