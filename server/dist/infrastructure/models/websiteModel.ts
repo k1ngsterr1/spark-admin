@@ -35,7 +35,7 @@ interface WebsiteCreationAttributes {
   id: string;
   name: string;
   url: string;
-  owner: string;
+  owner: number;
   users: UserItems[];
 }
 

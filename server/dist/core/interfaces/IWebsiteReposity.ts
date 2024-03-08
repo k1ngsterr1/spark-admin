@@ -3,7 +3,8 @@ import { UserItems, Website } from "infrastructure/models/websiteModel";
 export interface NewWebsiteInput {
   name: string;
   url: string;
-  owner: string;
+  owner: number;
+  ownerEmail: string;
   users: UserItems[];
 }
 

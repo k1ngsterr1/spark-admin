@@ -20,6 +20,9 @@ module.exports = {
       owner: {
         type: Sequelize.INTEGER,
       },
+      ownerEmail: {
+        type: Sequelize.STRING,
+      },
       users: {
         type: Sequelize.JSONB,
       },

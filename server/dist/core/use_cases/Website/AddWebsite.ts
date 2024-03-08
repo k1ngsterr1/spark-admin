@@ -8,12 +8,12 @@ export class AddWebsite {
   async execute({
     name,
     url,
-    ownerId,
+    owner,
     ownerEmail,
   }: {
     name: string;
     url: string;
-    ownerId: number;
+    owner: number;
     ownerEmail: string;
   }): Promise<Website> {
     if (!name || !url) {
@@ -23,11 +23,12 @@ export class AddWebsite {
     const newWebsiteDetails: NewWebsiteInput = {
       name,
       url,
-      owner: ownerEmail,
+      owner,
+      ownerEmail,
       users: [
         {
           email: ownerEmail,
-          id: ownerId,
+          id: owner,
           role: "Owner",
         },
       ],

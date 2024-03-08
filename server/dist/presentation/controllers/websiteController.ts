@@ -41,7 +41,7 @@ class WebsiteController {
     }
   }
 
-  async addUser(req, res) {
+  async addUser(req: Request, res: Response) {
     try {
       const { userEmail, userRole, websiteId } = req.body;
       const requesterID = req.user.id;
