@@ -20,9 +20,9 @@
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
     "redux": "^5.0.1",
-    "tsconfig-paths": "^4.2.0",
     "sequelize": "^6.36.0",
-    "sequelize-typescript": "^2.1.6"
+    "sequelize-typescript": "^2.1.6",
+    "tsconfig-paths": "^4.2.0"
   },
   "_moduleAliases": {
     "@core": "./core",
