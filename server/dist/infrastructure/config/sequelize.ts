@@ -13,6 +13,12 @@ const sequelize = new Sequelize({
   port: 54356,
   logging: false,
   models: [User, Website],
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
 });
 
 export default sequelize;
