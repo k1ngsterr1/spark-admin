@@ -6,6 +6,7 @@ export interface NewWebsiteInput {
   owner: number;
   ownerEmail: string;
   users: UserItems[];
+  websiteCode: string;
 }
 
 export interface IWebsiteRepository {

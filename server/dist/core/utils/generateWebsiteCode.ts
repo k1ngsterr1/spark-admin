@@ -12,3 +12,5 @@ const generateWebsiteCode = (domain: string) => {
 
   console.log(`SPARK-STUDIO-${hash}`);
 };
+
+module.exports = generateWebsiteCode;

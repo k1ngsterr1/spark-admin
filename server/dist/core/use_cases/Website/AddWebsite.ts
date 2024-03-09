@@ -2,6 +2,8 @@ import { NewWebsiteInput } from "core/interfaces/IWebsiteReposity";
 import { Website } from "infrastructure/models/websiteModel";
 import { WebsiteRepository } from "infrastructure/repositories/WebsiteRepository";
 
+const websiteCodeGenerator = require("@core/utils/generateWebsiteCode");
+
 export class AddWebsite {
   constructor(private websiteRepository: WebsiteRepository) {}
 
@@ -20,6 +22,8 @@ export class AddWebsite {
       throw new Error("Заполните необходимые поля!");
     }
 
+    const code = websiteCodeGenerator(url);
+
     const newWebsiteDetails: NewWebsiteInput = {
       name,
       url,
@@ -32,6 +36,7 @@ export class AddWebsite {
           role: "Owner",
         },
       ],
+      websiteCode: code,
     };
 
     const newWebsite = await this.websiteRepository.create(newWebsiteDetails);
