@@ -1,11 +1,7 @@
 import bcryptjs from "bcryptjs";
 import { IUserRepository } from "core/interfaces/IUserRepositry";
 import { IJWTService } from "core/interfaces/IJWTService";
-<<<<<<< HEAD
 import { JWTService } from "core/use_cases/User/JWTService";
-import { UserResponse } from "core/utils/types"
-=======
-import { JWTService } from "./JWTService";
 
 export type UserResponse = {
   id: number;
@@ -13,7 +9,6 @@ export type UserResponse = {
   email: string;
   role: string;
 };
->>>>>>> 4232f39e8b4e895dd8e4c45a4a5a08b47590b929
 
 export class LoginUser {
   constructor(

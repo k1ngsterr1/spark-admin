@@ -8,9 +8,9 @@ export class VerifyService {
   async execute({
     id,
     code
-  }: UserVerification {
-    id: string,
-    code: number
+  }: {
+    id: number,
+    code: string
   }): Promise<User> {
     const user = await this.userRepository.findByPk(id);
     if (!user) {

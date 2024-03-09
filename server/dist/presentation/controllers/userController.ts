@@ -74,11 +74,9 @@ class UserController {
 
   async verifyUser(req: Request, res: Response): Promise<void> {
     try {
-      const request: UserVerification = {
-        id: req.cookies.user.id,
-        code: req.body.code,
-      }
-      const verifyUser = await this.verifyService.execute(request);
+      const id = req.cookies.user.id;
+      const code = req.body.code;
+      const verifyUser = await this.verifyService.execute({id, code});
       res
         .status(201)
         .json({ message: "User verified successfully", verifyUser });

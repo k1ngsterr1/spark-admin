@@ -1,12 +1,7 @@
-<<<<<<< HEAD
 import { IJWTService } from "@core/interfaces/IJWTService";
-import jwt from "jsonwebtoken";
 import { UserPayload } from "@core/utils/types";
 import { User } from "@infrastructure/models/userModel";
-=======
-import { IJWTService } from "core/interfaces/IJWTService";
 import jwt from "jsonwebtoken";
->>>>>>> 4232f39e8b4e895dd8e4c45a4a5a08b47590b929
 
 export class JWTService implements IJWTService {
   private accessTokenSecret = process.env.JWT_SECRET_ACCESS;

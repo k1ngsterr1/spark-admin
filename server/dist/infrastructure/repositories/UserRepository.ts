@@ -19,8 +19,4 @@ export class UserRepository implements IUserRepository {
   async findOne(options: { where: { email: string } }): Promise<User | null> {
     return sequelize.getRepository(User).findOne(options);
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 4232f39e8b4e895dd8e4c45a4a5a08b47590b929
