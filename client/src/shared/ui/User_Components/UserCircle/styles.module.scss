@@ -1,0 +1,16 @@
+.container {
+  @apply bg-primary;
+  border-radius: 100%;
+  padding: clamp(12.5px, 1.302vw, 50px);
+  &__text {
+    @apply text-primary-ALMOST_WHITE font-bold;
+    font-size: clamp(11.5px, 1.19784vw, 46px);
+  }
+  &__surname {
+    font-size: clamp(11.5px, 1.19784vw, 46px);
+    @apply font-bold;
+  }
+  &__id {
+    font-size: clamp(9px, 0.93744vw, 36px);
+  }
+}
