@@ -1,0 +1,36 @@
+@import "../../../shared/styles/mixins.scss";
+
+
+.registration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__content {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__logo {
+    margin-top: clamp(46px, 4.79136vw, 184px);
+    width: clamp(68px, 7.08288vw, 272px);
+    height: clamp(68px, 7.08288vw, 272px);
+  }
+  &__form {
+    @apply mt-6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: clamp(9px, 0.93744vw, 36px);
+  }
+  .confirmation_input {
+    @apply mt-28;
+    display: flex;
+    flex-direction: row;
+    gap: clamp(8px,0.83328vw,32px);
+  }
+}

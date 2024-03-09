@@ -1,0 +1,12 @@
+.userpick {
+  display: flex;
+  justify-content: space-around;
+  @apply bg-primary-ALMOST_WHITE p-3 rounded-md mt-2;
+  width: 45%;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    @apply bg-primary-TRANSPARENT;
+    cursor: pointer;
+  }
+}

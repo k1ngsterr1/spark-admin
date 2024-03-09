@@ -1,0 +1,13 @@
+.option_list {
+  position: absolute;
+  top: clamp(19px, 1.9790400000000001vw, 76px);
+  left: clamp(-32px, -3.33312vw, -128px);
+  width: clamp(150px, 15.624vw, 600px);
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  @apply p-2;
+  @apply bg-gray-100;
+  @apply rounded-md;
+  @apply shadow-md;
+}

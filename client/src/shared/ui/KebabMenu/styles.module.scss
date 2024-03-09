@@ -1,0 +1,37 @@
+.button_kebab {
+  position: absolute;
+  @apply p-3;
+  @apply top-1;
+  @apply right-1;
+}
+
+.kebab_menu {
+  transition: 0.3s all;
+  @apply text-primary;
+
+  &:hover {
+    @apply text-primary-dark;
+  }
+}
+
+.kebab_opened {
+  position: absolute;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @apply right-4;
+  @apply rounded-md;
+  @apply shadow-md;
+  @apply bg-primary-ALMOST_WHITE;
+
+  span {
+    @apply pl-3;
+    @apply pr-3;
+    transition: 0.3s all;
+
+    &:hover {
+      @apply text-primary;
+    }
+  }
+}

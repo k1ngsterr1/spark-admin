@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden !important;
+}
+
+@mixin text-orange(
+  $margin: 0,
+  $text-size: 1rem,
+  $orange-text-size: 1rem,
+  $font-weight: 500
+) {
+  .text_with_detail {
+    margin-top: $margin;
+    font-size: $text-size;
+    font-weight: $font-weight;
+    font-weight: 500;
+  }
+  .text_orange {
+    @apply text-primary;
+    font-size: $text-size;
+    font-weight: $font-weight;
+    transition: 0.3s ease-in-out;
+    &:hover {
+      @apply text-primary-dark;
+    }
+  }
+}

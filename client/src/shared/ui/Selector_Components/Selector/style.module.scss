@@ -1,0 +1,31 @@
+.selector {
+  position: relative;
+  @apply text-primary;
+  &__items {
+    overflow-y: auto;
+    cursor: pointer;
+    transition: 0.3s all;
+    background-color: #e6e6e6;
+    font-size: clamp(7px, 0.72912vw, 28px);
+    @apply rounded-md max-h-32;
+    @apply p-2;
+    &:hover {
+      @apply bg-primary text-primary-ALMOST_WHITE rounded-md;
+    }
+  }
+  &__icon {
+    position: absolute;
+    right: clamp(8px, 0.83328vw, 32px);
+    bottom: clamp(8px, 0.83328vw, 32px);
+    height: clamp(8px, 0.83328vw, 32px);
+    width: clamp(8px, 0.83328vw, 32px);
+    z-index: 10;
+  }
+  &__dropdown {
+    background-color: #e6e6e6;
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    @apply rounded-md;
+  }
+}

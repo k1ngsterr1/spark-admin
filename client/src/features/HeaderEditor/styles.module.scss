@@ -1,0 +1,24 @@
+.header_edit {
+  position: sticky;
+  width: 100%;
+  height: clamp(50px, 5.208vw, 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @apply bg-white;
+  @apply pt-4;
+  @apply pb-4;
+
+  &__content {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__logo {
+      width: clamp(32px, 3.33312vw, 128px);
+      height: clamp(32px, 3.33312vw, 128px);
+      cursor: pointer;
+    }
+  }
+}

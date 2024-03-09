@@ -1,0 +1,32 @@
+.overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.website_popup {
+  width: clamp(250px, 26.04vw, 1000px);
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @apply p-8;
+  @apply rounded-md;
+  @apply bg-white;
+
+  &__text {
+    @apply text-2xl;
+    @apply mt-4;
+    @apply mb-4;
+  }
+
+  &__logo {
+    width: clamp(40px, 4.1664vw, 160px);
+    height: clamp(40px, 4.1664vw, 160px);
+  }
+}

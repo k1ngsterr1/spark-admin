@@ -1,0 +1,10 @@
+.users {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__main {
+    @apply font-bold;
+    font-size: clamp(17px, 1.77072vw, 68px);
+  }
+}

@@ -1,0 +1,44 @@
+//text
+
+@mixin text-orange(
+  $text-size: 1rem,
+  $orange-text-size: 1rem,
+  $font-weight: 500,
+  $font-weight-orange: 600
+) {
+  .text_with_detail {
+    font-size: $text-size;
+    font-weight: $font-weight;
+    font-weight: 500;
+  }
+  .text_orange {
+    @apply text-primary;
+    font-size: $text-size;
+    font-weight: $font-weight-orange;
+    transition: 0.3s ease-in-out;
+    &:hover {
+      @apply text-primary-dark;
+    }
+  }
+}
+//Emai-confirmation
+
+.text-user {
+  @include text-orange(
+  $text-size: clamp(10px,1.0416vw,40px),
+  $orange-text-size: clamp(10px,1.0416vw,40px)  ,
+  $font-weight: 500,
+  $font-weight-orange: 600);
+  margin-top: clamp(8px,0.83328vw,32px);
+  }
+
+.text-mail {
+  @include text-orange(
+  $text-size: clamp(10px,1.0416vw,40px),
+  $orange-text-size: clamp(10px,1.0416vw,40px)  ,
+  $font-weight: 500,
+  $font-weight-orange: 700);
+  line-height:  clamp(16px,1.66656vw,64px);
+  text-align: center;
+  margin-top: clamp(16px,1.66656vw,64px);
+}
