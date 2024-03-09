@@ -1,5 +1,3 @@
-console.log("HUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUI")
-
 import { ChangePasswordService } from "../../core/use_cases/User/ChangePassword";
 import { JWTService } from "../../core/use_cases/User/JWTService";
 import { Request, Response } from "express";
@@ -47,10 +45,10 @@ class UserController {
     }
   }
 
-  async login(req: Request, res: Response): Promise<void> {
+  async login(req: Request, res: Response, next: any): Promise<void> {
     try {
       const { user, accessToken, refreshToken } = await this.loginUserUseCase.execute(req.body);
-      authenticateToken(req,res);
+      res.cookie('user', user, { maxAge: process.env.COOKIE_LIFESPAN, httpOnly: true });
       res.cookie('refreshToken', refreshToken, { maxAge: process.env.COOKIE_LIFESPAN, httpOnly: true });
       res.status(200).json({
         message: "Пользователь вошёл успешно",
@@ -58,6 +56,7 @@ class UserController {
         accessToken,
         refreshToken,
       });
+      next();
     } catch (error) {
       if (
         error.message === "Пользователь не найден!" ||
@@ -76,6 +75,7 @@ class UserController {
     try {
       const id = req.cookies.user.id;
       const code = req.body.code;
+      console.log(id, code);
       const verifyUser = await this.verifyService.execute({id, code});
       res
         .status(201)
@@ -86,15 +86,17 @@ class UserController {
     }
   }
 
-  async changeUserPassword(req: Request, res: Response): Promise<void> {
+  async changeUserPassword(req: Request, res: Response, next: any): Promise<void> {
     try {
-      const { userID, oldPassword, newPassword } = req.body;
+      const id = req.cookies.user.id;
+      const { oldPassword, newPassword } = req.body;
       await this.changePasswordService.execute(
-        userID,
+        id,
         oldPassword,
         newPassword
       );
       res.status(200).json({ message: "Password changed successfully" });
+      next();
     } catch (error) {
       res
         .status(500)

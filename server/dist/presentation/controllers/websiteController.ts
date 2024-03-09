@@ -32,9 +32,6 @@ class WebsiteController {
       const url = req.body.url;
       const ownerId = user.id;
       const ownerEmail = user.email;
-      if(await this.addWebsiteUseCase.execute({ name, url, ownerId, ownerEmail }) === undefined){
-        console.log("-----------------------------------------------------------");
-      }
       const newWebsite = await this.addWebsiteUseCase.execute({ name, url, ownerId, ownerEmail });
       res.status(201).json({ message: "Веб-сайт успешно добавлен" });
     } catch (error) {

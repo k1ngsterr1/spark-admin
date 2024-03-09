@@ -4,6 +4,7 @@ import { JWTService } from "../User/JWTService";
 import { WebsiteRepository } from "infrastructure/repositories/WebsiteRepository";
 import authenticateToken from "infrastructure/middleware/authMiddleware";
 import { NewWebsiteInput } from "@core/utils/types";
+import { validURL } from "@core/utils/validators";
 
 export class AddWebsite {
   constructor(
@@ -24,6 +25,7 @@ export class AddWebsite {
     if (!name || !url) {
       throw new Error("Заполните необходимые поля!");
     }
+    await validURL(url);
     const newWebsiteDetails: NewWebsiteInput = {
       name: name,
       url: url,
@@ -36,10 +38,7 @@ export class AddWebsite {
         },
       ],
     };
-    if(await this.websiteRepository.create(JSON.stringify(newWebsiteDetails)) === undefined) {
-      console.log(newWebsiteDetails);
-    }
-    const newWebsite = await this.websiteRepository.create(JSON.stringify(newWebsiteDetails));
+    const newWebsite = await this.websiteRepository.create(newWebsiteDetails);
     return newWebsite;
   }
 }

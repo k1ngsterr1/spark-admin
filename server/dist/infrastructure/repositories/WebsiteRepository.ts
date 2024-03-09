@@ -5,9 +5,6 @@ import { json } from "sequelize";
 
 export class WebsiteRepository implements IWebsiteRepository {
   async create(websiteDetails): Promise<Website> {
-    if(await sequelize.getRepository(Website).create(websiteDetails) === undefined) {
-      console.log("ERRRRRRRR");
-    }
     return await sequelize.getRepository(Website).create(websiteDetails);
   }
 

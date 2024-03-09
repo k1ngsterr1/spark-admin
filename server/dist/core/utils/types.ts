@@ -6,6 +6,13 @@ export enum UserRole {
   Editor = "editor",
 };
 
+export interface NewUserInput {
+  username: string;
+  email: string;
+  password: string;
+  verificationCode: string;
+}
+
 export type UserResponse = {
   id: number;
   username: string;

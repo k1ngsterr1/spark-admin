@@ -1,14 +1,16 @@
+import { validPassword } from "@core/utils/validators";
+import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { IUserRepository } from "core/interfaces/IUserRepositry";
 
 export class ChangePasswordService {
-  constructor(private userRepository: IUserRepository) {}
+  constructor(private userRepository: UserRepository) {}
 
   async execute(
-    userID: number,
+    id: number,
     oldPassword: string,
     newPassword: string
-  ): Promise<void> {
-    const user = await this.userRepository.findByPk(userID);
+  ): Promise<boolean> {
+    const user = await this.userRepository.findByPk(id);
 
     if (!user) {
       throw new Error("Пользователь не найден!");
@@ -20,12 +22,8 @@ export class ChangePasswordService {
       throw new Error("Старый пароль не совпадает!");
     }
 
-    const passwordChanged = await this.userRepository.changePassword(
-      userID,
-      newPassword
-    );
-    user.password = newPassword;
-    await user.save();
-    return;
+    await validPassword(newPassword);
+    
+    return await this.userRepository.changePassword(user, newPassword);
   }
 }

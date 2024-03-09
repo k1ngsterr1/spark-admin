@@ -5,7 +5,7 @@ const express = require("express");
 
 const JWT_SECRET = process.env.JWT_SECRET_ACCESS;
 
-const authenticateToken = (req, res) => {
+const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
@@ -17,6 +17,7 @@ const authenticateToken = (req, res) => {
   try {
     const decodedUser = jwt.verify(token, JWT_SECRET);
     res.cookie('user', decodedUser, { maxAge: process.env.COOKIE_LIFESPAN, httpOnly: true });
+    next();
   } catch (error) {
     console.error(error);
     return res.status(403).json({ error: "Invalid or expired token." });
