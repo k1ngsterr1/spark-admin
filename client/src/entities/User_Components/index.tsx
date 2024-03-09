@@ -7,7 +7,13 @@ export const UserTab = () => {
   return (
     <div className={`flex  ${styles.container}`}>
       <div className="flex-col">
-        <UserCircle name="AA" id="1324345" surname="Artyom Andreev" margin="" />
+        <UserCircle
+          name="AA"
+          id="1324345"
+          surname="Artyom Andreev"
+          margin=""
+          value="29"
+        />
       </div>
     </div>
   );

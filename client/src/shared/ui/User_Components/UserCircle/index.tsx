@@ -1,6 +1,5 @@
 import React from "react";
-import { SiteValue } from "../SiteValue";
-import { faEarth } from "@fortawesome/free-solid-svg-icons";
+// import { faEarth } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./styles.module.scss";
 
@@ -8,6 +7,7 @@ interface UserCircleProps {
   margin: string;
   name: string;
   id: string;
+  value: string;
   surname: string;
 }
 
@@ -16,6 +16,7 @@ export const UserCircle: React.FC<UserCircleProps> = ({
   name,
   id,
   surname,
+  value,
 }) => {
   return (
     <div className={`${"flex items-center"} ${margin}`}>
@@ -25,7 +26,7 @@ export const UserCircle: React.FC<UserCircleProps> = ({
       <div className="flex flex-col ml-3">
         <p className={styles.container__surname}>{surname}</p>
         <p className={styles.container__id}>id: {id}</p>
-        <SiteValue icon={faEarth} value="29" margin="" />
+        <p className={styles.container__id}>Кол-во сайтов: {value}</p>
       </div>
     </div>
   );
