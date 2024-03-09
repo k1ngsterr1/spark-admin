@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: "railway"
+      POSTGRES_PASSWORD: "monorail.proxy.rlwy.net"
+      POSTGRES_DB: "DgEedgB4dEd*GD-G-5AG1FfAF6gc23E4"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
