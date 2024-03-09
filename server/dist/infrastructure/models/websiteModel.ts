@@ -5,7 +5,6 @@ import {
   DataType,
   CreatedAt,
   UpdatedAt,
-  AutoIncrement,
   PrimaryKey,
   Unique,
   Default,
