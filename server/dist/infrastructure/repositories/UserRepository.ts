@@ -4,8 +4,6 @@ import sequelize from "infrastructure/config/sequelize";
 import { Repository } from "sequelize-typescript";
 import { NewUserInput } from "@core/utils/types";
 
-const { check, validationResult } = require('express-validator');
-
 export class UserRepository implements IUserRepository {
   async create(userDetails: NewUserInput): Promise<User> {
     return sequelize.getRepository(User).create(userDetails);

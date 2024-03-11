@@ -13,6 +13,13 @@ export interface NewUserInput {
   verificationCode: string;
 }
 
+export type AddWebsiteRequest = {
+  name: string,
+  url: string,
+  id: number,
+  email: string
+}
+
 export type UserResponse = {
   id: number;
   username: string;

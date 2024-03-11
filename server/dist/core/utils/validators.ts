@@ -27,5 +27,11 @@ export async function validURL(url: string): Promise<boolean> {
     if(!url){
         throw new Error("URL must not be empty");
     }
+    if(!validator.isURL(url, { 
+        protocols: ['https'],
+        require_valid_protocol: true,
+        validate_length: true,
+        allow_underscores: false
+    }))
     return true;
 }

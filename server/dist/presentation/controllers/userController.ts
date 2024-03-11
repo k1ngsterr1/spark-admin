@@ -7,8 +7,6 @@ import { LoginUser } from "core/use_cases/User/LoginUser";
 import { VerifyService } from "core/use_cases/User/VerifyUser";
 import { ChangeUserRoleService } from "core/use_cases/User/ChangeUserRole";
 import EmailService from "core/use_cases/User/EmailVerification";
-import { access } from "fs";
-import authenticateToken from "@infrastructure/middleware/authMiddleware";
 
 class UserController {
   private createUserUseCase: CreateUser;
@@ -48,7 +46,6 @@ class UserController {
   async login(req: Request, res: Response, next: any): Promise<void> {
     try {
       const { user, accessToken, refreshToken } = await this.loginUserUseCase.execute(req.body);
-      res.cookie('user', user, { maxAge: process.env.COOKIE_LIFESPAN, httpOnly: true });
       res.cookie('refreshToken', refreshToken, { maxAge: process.env.COOKIE_LIFESPAN, httpOnly: true });
       res.status(200).json({
         message: "Пользователь вошёл успешно",
@@ -73,6 +70,9 @@ class UserController {
 
   async verifyUser(req: Request, res: Response): Promise<void> {
     try {
+      if(req.cookie.refreshToken !== null){
+
+      }
       const id = req.cookies.user.id;
       const code = req.body.code;
       console.log(id, code);

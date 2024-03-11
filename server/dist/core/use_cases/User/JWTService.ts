@@ -7,11 +7,7 @@ export class JWTService implements IJWTService {
   private accessTokenSecret = process.env.JWT_SECRET_ACCESS;
   private refreshTokenSecret = process.env.JWT_SECRET_REFRESH;
 
-  generateAccessToken(user: {
-    id: number;
-    email: string;
-    role: string;
-  }): string {
+  generateAccessToken(user: UserPayload): string {
     return jwt.sign(
       { id: user.id, email: user.email, role: user.role },
       this.accessTokenSecret,
@@ -19,11 +15,7 @@ export class JWTService implements IJWTService {
     );
   }
 
-  generateRefreshToken(user: {
-    id: number;
-    email: string;
-    role: string;
-  }): string {
+  generateRefreshToken(user: UserPayload): string {
     return jwt.sign(
       { id: user.id, email: user.email, role: user.role },
       this.refreshTokenSecret,

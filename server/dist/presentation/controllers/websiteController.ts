@@ -8,7 +8,8 @@ import { GetWebsite } from "@core/use_cases/Website/GetWebsite";
 
 import sequelize from "infrastructure/config/sequelize";
 import { JWTService } from "@core/use_cases/User/JWTService";
-import { UserPayload } from "@core/utils/types";
+import { AddWebsiteRequest, UserPayload } from "@core/utils/types";
+import refresh from "@infrastructure/middleware/authMiddleware";
 
 class WebsiteController {
   private WebsiteRepository: WebsiteRepository;
@@ -22,17 +23,22 @@ class WebsiteController {
     this.addWebsiteUseCase = new AddWebsite(this.WebsiteRepository);
     this.getWebsitesByOwner = new GetWebsites(this.WebsiteRepository);
     this.getWebsiteByName = new GetWebsite(this.WebsiteRepository);
-    this.jwtService = new JWTService()
+    this.jwtService = new JWTService();
   }
 
   async addWebsite(req: Request, res: Response) {
     try {
-      const user = req.cookies.user;
-      const name = req.body.name;
-      const url = req.body.url;
-      const ownerId = user.id;
-      const ownerEmail = user.email;
-      const newWebsite = await this.addWebsiteUseCase.execute({ name, url, ownerId, ownerEmail });
+      if(await (req.cookies.access) === undefined){
+        throw new Error("Please reload page!");
+      }
+      const user = this.jwtService.getAccessPayload(req.cookies.access);
+      const website: AddWebsiteRequest = {
+        name: req.body.name,
+        url: req.body.url,
+        id: user.id,
+        email: user.email
+      };
+      const newWebsite = await this.addWebsiteUseCase.execute(website);
       res.status(201).json({ message: "Веб-сайт успешно добавлен" });
     } catch (error) {
       console.error("Ошибка с созданием веб-сайта:", error);
@@ -42,7 +48,10 @@ class WebsiteController {
 
   async getWebsites(req: Request, res: Response) {
     try {
-      const userID: number = res.cookie.user.id;
+      if(res.cookie.access === undefined){
+        throw new Error("Please reload page!");
+      }
+      const userID: number = res.cookie.access;
       const websites = await this.getWebsitesByOwner.execute(userID);
       return res.status(201).json(websites);
     } catch (error) {
@@ -77,8 +86,11 @@ class WebsiteController {
 
   async addUser(req, res) {
     try {
+      if(req.cookies.access == undefined){
+        throw new Error("Please reload page!");
+      }
       const { userEmail, userRole, websiteId } = req.body;
-      const requesterID = req.user.id;
+      const owner = this.jwtService.getAccessPayload(await req.cookies.access);
 
       const userRepository = sequelize.getRepository(User);
       const websiteRepository = sequelize.getRepository(Website);
@@ -88,7 +100,8 @@ class WebsiteController {
         return res.status(404).json({ message: "Website not found" });
       }
 
-      const isOwner = website.owner === requesterID;
+      const isOwner = website.owner === owner.id;
+      console.log(isOwner);
 
       if (!isOwner) {
         return res

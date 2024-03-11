@@ -1,33 +1,18 @@
-import jwt from "jsonwebtoken";
-import { serialize } from "v8";
+import { JWTService } from "@core/use_cases/User/JWTService";
+import { UserPayload } from "@core/utils/types";
 
-const express = require("express");
-
-const JWT_SECRET = process.env.JWT_SECRET_ACCESS;
-
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-
-  console.log("token:", token, "header:", authHeader);
-
-  if (token == null) {
-    return res.status(401).json({ message: "No token provided" });
+export default async function authenticateToken(req, res, next){
+  const jwtService = new JWTService();
+  if(req.cookies.refreshToken === undefined){
+    await res.status(403).json({ message: "Login Required!"});
+    throw new Error("Login Required");
   }
-  try {
-    const decodedUser = jwt.verify(token, JWT_SECRET);
-    res.cookie('user', decodedUser, { maxAge: process.env.COOKIE_LIFESPAN, httpOnly: true });
-    next();
-  } catch (error) {
-    console.error(error);
-    return res.status(403).json({ error: "Invalid or expired token." });
+  const payload = jwtService.getRefreshPayload(req.cookies.refreshToken);
+  const user: UserPayload = {
+    id: payload.id,
+    email: payload.email,
+    role: payload.role
   }
-};
-
-const app = express();
-
-app.get("/protected", authenticateToken, (req, res) => {
-  res.json({ message: "This is a protected route" });
-});
-
-export default authenticateToken;
+  await res.cookie('access', jwtService.generateAccessToken(user), { maxAge: process.env.ACCESS_COOKIE_LIFETIME, httpOnly: true });
+  await next();
+}

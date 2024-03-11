@@ -2,8 +2,7 @@ import { IWebsiteRepository } from "core/interfaces/IWebsiteReposity";
 import { Website } from "infrastructure/models/websiteModel";
 import { JWTService } from "../User/JWTService";
 import { WebsiteRepository } from "infrastructure/repositories/WebsiteRepository";
-import authenticateToken from "infrastructure/middleware/authMiddleware";
-import { NewWebsiteInput } from "@core/utils/types";
+import { AddWebsiteRequest, NewWebsiteInput } from "@core/utils/types";
 import { validURL } from "@core/utils/validators";
 
 export class AddWebsite {
@@ -11,29 +10,17 @@ export class AddWebsite {
     private websiteRepository: WebsiteRepository,
   ) {}
 
-  async execute({
-    name,
-    url,
-    ownerId,
-    ownerEmail
-  }: {
-    name: string;
-    url: string;
-    ownerId: number;
-    ownerEmail: string;
-  }): Promise<Website> {
-    if (!name || !url) {
-      throw new Error("Заполните необходимые поля!");
-    }
+  async execute(website: AddWebsiteRequest): Promise<Website> {
+    const {name, url, id, email} = website;
     await validURL(url);
     const newWebsiteDetails: NewWebsiteInput = {
       name: name,
       url: url,
-      owner: ownerId,
+      owner: id,
       users: [
         {
-          email: ownerEmail,
-          id: ownerId,
+          email: email,
+          id: id,
           role: "Owner",
         },
       ],
