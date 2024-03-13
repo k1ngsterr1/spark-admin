@@ -9,9 +9,8 @@ export class AddWebsite {
   constructor(
     private websiteRepository: WebsiteRepository,
   ) {}
-
-  async execute(website: AddWebsiteRequest): Promise<Website> {
-    const {name, url, id, email} = website;
+  async execute(request: AddWebsiteRequest): Promise<Website> {
+    const {name, url, id, email} = request;
     await validURL(url);
     const newWebsiteDetails: NewWebsiteInput = {
       name: name,
