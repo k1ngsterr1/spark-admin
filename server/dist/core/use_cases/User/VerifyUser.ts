@@ -1,6 +1,5 @@
 import { IUserRepository } from "core/interfaces/IUserRepositry";
 import { User } from "infrastructure/models/userModel";
-import { UserVerification } from "@core/utils/types";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 
 export class VerifyService {

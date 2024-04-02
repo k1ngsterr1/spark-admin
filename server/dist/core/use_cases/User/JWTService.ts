@@ -1,6 +1,5 @@
 import { IJWTService } from "@core/interfaces/IJWTService";
 import { UserPayload } from "@core/utils/types";
-import { User } from "@infrastructure/models/userModel";
 import jwt from "jsonwebtoken";
 
 export class JWTService implements IJWTService {

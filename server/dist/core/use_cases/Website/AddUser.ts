@@ -1,4 +1,4 @@
-import { AddUserRequest } from "@core/utils/types";
+import { AddUserRequest } from "@core/utils/Website/Request";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
 

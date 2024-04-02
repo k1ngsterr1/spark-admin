@@ -2,9 +2,10 @@ import { IWebsiteRepository } from "core/interfaces/IWebsiteReposity";
 import { Website } from "infrastructure/models/websiteModel";
 import { JWTService } from "../User/JWTService";
 import { WebsiteRepository } from "infrastructure/repositories/WebsiteRepository";
-import { AddWebsiteRequest, NewWebsiteInput } from "@core/utils/types";
+import { NewWebsiteInput } from "@core/utils/types";
 import { validURL } from "@core/utils/validators";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import { AddWebsiteRequest } from "@core/utils/Website/Request";
 
 export class AddWebsite {
   private websiteRepository: WebsiteRepository;

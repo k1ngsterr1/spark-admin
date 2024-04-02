@@ -4,6 +4,7 @@ import { User } from "infrastructure/models/userModel";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { validEmail, validPassword } from "@core/utils/validators";
 import EmailService from "./EmailVerification";
+import { RegisterRequest } from "@core/utils/User/Request";
 
 const verificationCodeGenerator = require("@core/utils/generateCode");
 
@@ -15,17 +16,8 @@ export class CreateUser {
     this.emailService = new EmailService();
   }
 
-  async execute({
-    username,
-    email,
-    password,
-    passwordConfirmation,
-  }: {
-    username: string;
-    email: string;
-    password: string;
-    passwordConfirmation: string;
-  }): Promise<User> {
+  async execute(request: RegisterRequest): Promise<User> {
+    const { username, email, password, passwordConfirmation } = request;
     if (!email || !username || !password) {
       throw new Error("Заполните необходимые поля!");
     }

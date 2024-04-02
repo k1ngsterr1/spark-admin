@@ -1,4 +1,4 @@
-import { ChangeRoleRequest } from "@core/utils/types";
+import { ChangeRoleRequest } from "@core/utils/User/Request";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { IUserRepository } from "core/interfaces/IUserRepositry";
 import { User } from "infrastructure/models/userModel";

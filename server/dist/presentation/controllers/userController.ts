@@ -7,7 +7,7 @@ import { LoginUser } from "core/use_cases/User/LoginUser";
 import { VerifyService } from "core/use_cases/User/VerifyUser";
 import { ChangeUserRoleService } from "core/use_cases/User/ChangeUserRole";
 import EmailService from "core/use_cases/User/EmailVerification";
-import { ChangePasswordRequest, ChangeRoleRequest } from "@core/utils/types";
+import { ChangePasswordRequest, ChangeRoleRequest } from "@core/utils/User/Request";
 
 class UserController {
   private createUserUseCase: CreateUser;

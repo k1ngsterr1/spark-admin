@@ -1,9 +1,8 @@
 import { WebsiteRepository } from "../../../infrastructure/repositories/WebsiteRepository";
 import { IWebsiteRepository } from "core/interfaces/IWebsiteReposity";
-import { Website } from "infrastructure/models/websiteModel";
 
 export class GetWebsites {
-  private websiteRepository: WebsiteRepository;
+  private websiteRepository: IWebsiteRepository;
   constructor() {
     this.websiteRepository = new WebsiteRepository();
   }

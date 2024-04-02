@@ -3,6 +3,7 @@ import { IUserRepository } from "core/interfaces/IUserRepositry";
 import { IJWTService } from "core/interfaces/IJWTService";
 import { JWTService } from "core/use_cases/User/JWTService";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import { LoginRequest } from "@core/utils/User/Request";
 
 export type UserResponse = {
   id: number;
@@ -19,17 +20,12 @@ export class LoginUser {
     this.jwtService = new JWTService();
   }
 
-  async execute({
-    email,
-    password,
-  }: {
-    email: string;
-    password: string;
-  }): Promise<{
+  async execute(request: LoginRequest): Promise<{
     user: UserResponse;
     accessToken: string;
     refreshToken: string;
   }> {
+    const { email, password } = request;
     const user = await this.userRepository.findOne({ where: { email } });
 
     if (!user) {

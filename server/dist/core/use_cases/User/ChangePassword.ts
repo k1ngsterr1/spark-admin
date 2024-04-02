@@ -1,4 +1,4 @@
-import { ChangePasswordRequest } from "@core/utils/types";
+import { ChangePasswordRequest } from "@core/utils/User/Request";
 import { validPassword } from "@core/utils/validators";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { IUserRepository } from "core/interfaces/IUserRepositry";

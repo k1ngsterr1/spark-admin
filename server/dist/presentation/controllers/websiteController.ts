@@ -4,9 +4,9 @@ import { AddWebsite } from "core/use_cases/Website/AddWebsite";
 import { GetWebsites } from "@core/use_cases/Website/GetWebsites";
 import { GetWebsite } from "@core/use_cases/Website/GetWebsite";
 import { JWTService } from "@core/use_cases/User/JWTService";
-import { AddUserRequest, AddWebsiteRequest } from "@core/utils/types";
 import { AddUser } from "@core/use_cases/Website/AddUser";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import { AddUserRequest, AddWebsiteRequest } from "@core/utils/Website/Request";
 
 class WebsiteController {
   private WebsiteRepository: WebsiteRepository;
