@@ -2,9 +2,10 @@ import { IWebsiteRepository } from "core/interfaces/IWebsiteReposity";
 import { Website } from "infrastructure/models/websiteModel";
 import sequelize from "infrastructure/config/sequelize";
 import { json } from "sequelize";
+import { NewWebsiteInput } from "@core/utils/types";
 
 export class WebsiteRepository implements IWebsiteRepository {
-  async create(websiteDetails): Promise<Website> {
+  async create(websiteDetails: NewWebsiteInput): Promise<Website> {
     return await sequelize.getRepository(Website).create(websiteDetails);
   }
 

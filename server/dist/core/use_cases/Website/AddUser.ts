@@ -3,10 +3,12 @@ import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
 
 export class AddUser {
-  constructor(
-    private websiteRepository: WebsiteRepository,
-    private userRepository: UserRepository
-  ) {}
+  private websiteRepository: WebsiteRepository;
+  private userRepository: UserRepository
+  constructor() {
+    this.userRepository = new UserRepository();
+    this.websiteRepository = new WebsiteRepository();
+  }
 
   async execute(request: AddUserRequest): Promise<void> {
     const { email, role, websiteID, requesterID } = request;
@@ -26,21 +28,16 @@ export class AddUser {
     if (!isOwner) {
       throw new Error("You are not the owner of this website");
     }
-    const userToAdd = await this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: { email: email },
     });
 
-    if (!userToAdd) {
+    if (!user) {
       throw new Error("User not found");
     }
 
-    const newUserItem = {
-      id: userToAdd.id,
-      email: email,
-      role: role,
-    };
+    user.websiteId = website.id;
+    await user.save();
 
-    website.users = [...website.users, newUserItem];
-    await website.save();
   }
 }

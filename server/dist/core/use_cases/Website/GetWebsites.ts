@@ -3,7 +3,10 @@ import { IWebsiteRepository } from "core/interfaces/IWebsiteReposity";
 import { Website } from "infrastructure/models/websiteModel";
 
 export class GetWebsites {
-  constructor(private websiteRepository: IWebsiteRepository) {}
+  private websiteRepository: WebsiteRepository;
+  constructor() {
+    this.websiteRepository = new WebsiteRepository();
+  }
 
   async execute(ownerId: number) {
     const websites = await this.websiteRepository.findByOwner(ownerId);

@@ -2,7 +2,10 @@ import { WebsiteRepository } from "../../../infrastructure/repositories/WebsiteR
 import { Website } from "infrastructure/models/websiteModel";
 
 export class GetWebsite {
-  constructor(private websiteRepository: WebsiteRepository) {}
+  private websiteRepository: WebsiteRepository;
+  constructor() {
+    this.websiteRepository = new WebsiteRepository();
+  }
 
   async execute(ownerId: number, name: string) {
     const website = await this.websiteRepository.findWebsiteByName(ownerId, name);

@@ -1,9 +1,22 @@
-import { UserItems } from "@infrastructure/models/websiteModel";
+import { User } from "@infrastructure/models/userModel";
+import { Website } from "@infrastructure/models/websiteModel";
+
+export interface UserAttributes {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  role: string;
+  verificationCode: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 
 export enum UserRole {
   Owner = "owner",
   Admin = "admin",
   Editor = "editor",
+  User = "user"
 };
 
 export interface NewUserInput {
@@ -18,6 +31,13 @@ export type AddUserRequest = {
   role: string,
   websiteID: string,
   requesterID: number
+}
+
+export interface WebsiteAttributes {
+  id: string;
+  name: string;
+  url: string;
+  owner: number;
 }
 
 export type AddWebsiteRequest = {
@@ -49,7 +69,6 @@ export interface NewWebsiteInput {
   name: string;
   url: string;
   owner: number;
-  users: UserItems[];
 }
 
 export interface NewUserInput {
@@ -57,4 +76,22 @@ export interface NewUserInput {
   email: string;
   password: string;
   verificationCode: string;
+}
+
+export interface NewPageInput {
+  websiteId: string;
+  url: string;
+  name: string;
+  type: string;
+}
+
+export interface PageAttributes{
+  id: number;
+  websiteId: string;
+  website: Website;
+  url: string;
+  name: string;
+  type: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

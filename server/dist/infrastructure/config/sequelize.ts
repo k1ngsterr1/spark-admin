@@ -1,3 +1,4 @@
+import { Page } from "@infrastructure/models/pageModel";
 import { User } from "infrastructure/models/userModel";
 import { Website } from "infrastructure/models/websiteModel";
 import { Sequelize } from "sequelize-typescript";
@@ -12,7 +13,7 @@ const sequelize = new Sequelize({
   storage: ":memory:",
   port: 5432,
   logging: false,
-  models: [User, Website],
+  models: [User, Website, Page],
 });
 
 export default sequelize;

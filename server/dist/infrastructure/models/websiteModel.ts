@@ -9,50 +9,28 @@ import {
   PrimaryKey,
   Unique,
   Default,
-  BeforeCreate,
-  BeforeUpdate,
+  HasMany
 } from "sequelize-typescript";
 
 import { v4 as uuidv4 } from "uuid";
-
-export interface UserItems {
-  email: string;
-  id?: number;
-  role: string;
-}
-
-interface PagesItems{
-  url: string;
-  name: string;
-  type: string;
-}
+import { Page } from "./pageModel";
+import { User } from "./userModel";
 
 interface WebsiteAttributes {
   id: string;
   name: string;
   url: string;
   owner: number;
-  pages: PagesItems[];
-  users: UserItems[];
+  pages: Page[];
+  users: User[];
   createdAt?: Date;
   updatedAt?: Date;
-}
-
-interface WebsiteCreationAttributes {
-  id: string;
-  name: string;
-  url: string;
-  owner: number;
-  users: UserItems[];
 }
 
 @Table({
   tableName: "websites",
 })
-export class Website extends Model<
-  WebsiteAttributes,
-  WebsiteCreationAttributes
-> {
+export class Website extends Model<WebsiteAttributes> {
   @PrimaryKey
   @Default(uuidv4)
   @Unique
@@ -61,6 +39,12 @@ export class Website extends Model<
     defaultValue: DataType.UUIDV4,
   })
   id?: string;
+
+  @HasMany(() => User)
+  users!: User[];
+
+  @HasMany(() => Page)
+  pages!: Page[];
 
   @Column(DataType.STRING)
   name!: string;
@@ -71,12 +55,6 @@ export class Website extends Model<
 
   @Column(DataType.INTEGER)
   owner!: number;
-
-  @Column(DataType.JSONB)
-  users!: UserItems[];
-
-  @Column(DataType.JSONB)
-  pages!: PagesItems[];
 
   @CreatedAt
   createdAt?: Date;

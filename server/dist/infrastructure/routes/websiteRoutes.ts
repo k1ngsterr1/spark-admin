@@ -8,6 +8,5 @@ router.post("/add", auth, (req, res) => websiteController.addWebsite(req, res));
 router.post("/add-user", auth, (req, res) => websiteController.addUserToWebsite(req, res));
 router.get("/", auth, (req, res) => websiteController.getWebsites(req, res));
 router.get("/get-website", auth, (req, res) => websiteController.getWebsite(req,res));
-router.get("/get-pages", (req, res) => websiteController.getWebsitePages(req, res));
 
 export default router;
