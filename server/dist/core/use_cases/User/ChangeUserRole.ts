@@ -1,19 +1,19 @@
+import { ChangeRoleRequest } from "@core/utils/types";
+import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { IUserRepository } from "core/interfaces/IUserRepositry";
 import { User } from "infrastructure/models/userModel";
 
 export class ChangeUserRoleService {
-  constructor(private userRepository: IUserRepository) {}
+  private userRepository: IUserRepository;
+  constructor() {
+    this.userRepository = new UserRepository();
+  }
 
-  async execute({
-    userID,
-    newRole,
-  }: {
-    userID: string;
-    newRole: string;
-  }): Promise<User> {
-    const user = await this.userRepository.findByPk(userID);
+  async execute(request: ChangeRoleRequest): Promise<User> {
+    const { userId, newRole } = request;
+    const user = await this.userRepository.findByPk(userId);
 
-    if (!userID || !user) {
+    if (!userId || !user) {
       throw new Error("Пользователь не найден");
     }
 
@@ -21,6 +21,6 @@ export class ChangeUserRoleService {
 
     await user.save();
 
-    return;
+    return user;
   }
 }

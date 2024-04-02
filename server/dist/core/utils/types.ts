@@ -47,6 +47,17 @@ export type AddWebsiteRequest = {
   email: string
 }
 
+export type ChangeRoleRequest = {
+  userId: number;
+  newRole: string;
+}
+
+export type ChangePasswordRequest = {
+  id: number,
+  oldPassword: string,
+  newPassword: string
+}
+
 export type UserResponse = {
   id: number;
   username: string;

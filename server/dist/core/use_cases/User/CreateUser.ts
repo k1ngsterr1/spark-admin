@@ -3,14 +3,17 @@ import { IEmailService } from "core/interfaces/IEmailService";
 import { User } from "infrastructure/models/userModel";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { validEmail, validPassword } from "@core/utils/validators";
+import EmailService from "./EmailVerification";
 
 const verificationCodeGenerator = require("@core/utils/generateCode");
 
 export class CreateUser {
-  constructor(
-    private userRepository: UserRepository,
-    private emailService: IEmailService
-  ) {}
+  private userRepository: UserRepository;
+  private emailService: IEmailService;
+  constructor() {
+    this.userRepository = new UserRepository();
+    this.emailService = new EmailService();
+  }
 
   async execute({
     username,

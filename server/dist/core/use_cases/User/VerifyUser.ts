@@ -1,9 +1,13 @@
 import { IUserRepository } from "core/interfaces/IUserRepositry";
 import { User } from "infrastructure/models/userModel";
 import { UserVerification } from "@core/utils/types";
+import { UserRepository } from "@infrastructure/repositories/UserRepository";
 
 export class VerifyService {
-  constructor(private userRepository: IUserRepository) {}
+  private userRepository: IUserRepository;
+  constructor() {
+    this.userRepository = new UserRepository();
+  }
 
   async execute({
     id,

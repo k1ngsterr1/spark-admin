@@ -1,15 +1,16 @@
+import { ChangePasswordRequest } from "@core/utils/types";
 import { validPassword } from "@core/utils/validators";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { IUserRepository } from "core/interfaces/IUserRepositry";
 
 export class ChangePasswordService {
-  constructor(private userRepository: UserRepository) {}
+  private userRepository: UserRepository;
+  constructor() {
+    this.userRepository = new UserRepository();
+  }
 
-  async execute(
-    id: number,
-    oldPassword: string,
-    newPassword: string
-  ): Promise<boolean> {
+  async execute(request: ChangePasswordRequest): Promise<boolean> {
+    const { id, oldPassword, newPassword } = request;
     const user = await this.userRepository.findByPk(id);
 
     if (!user) {

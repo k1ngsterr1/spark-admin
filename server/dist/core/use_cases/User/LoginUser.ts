@@ -2,6 +2,7 @@ import bcryptjs from "bcryptjs";
 import { IUserRepository } from "core/interfaces/IUserRepositry";
 import { IJWTService } from "core/interfaces/IJWTService";
 import { JWTService } from "core/use_cases/User/JWTService";
+import { UserRepository } from "@infrastructure/repositories/UserRepository";
 
 export type UserResponse = {
   id: number;
@@ -11,10 +12,12 @@ export type UserResponse = {
 };
 
 export class LoginUser {
-  constructor(
-    private userRepository: IUserRepository,
-    private jwtService: IJWTService
-  ) {}
+  private userRepository: IUserRepository;
+  private jwtService: IJWTService;
+  constructor() {
+    this.userRepository = new UserRepository(); 
+    this.jwtService = new JWTService();
+  }
 
   async execute({
     email,

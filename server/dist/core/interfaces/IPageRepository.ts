@@ -3,4 +3,5 @@ import { Page } from "@infrastructure/models/pageModel";
 
 export interface IPageRepository {
   create?(pageDetails: NewPageInput): Promise<Page>;
+  findByWebsiteId?(websiteId: string): Promise<Page[]>;
 }

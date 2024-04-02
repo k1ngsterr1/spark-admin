@@ -7,4 +7,9 @@ export class PageRepository implements IPageRepository {
     async create(pageDetails: NewPageInput): Promise<Page>{
         return sequelize.getRepository(Page).create(pageDetails);
     }
+    async findByWebsiteId(websiteId: string): Promise<Page[]>{
+        return sequelize.getRepository(Page).findAll({
+            where: { websiteId: websiteId}
+        })
+    }
 }
