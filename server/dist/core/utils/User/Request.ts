@@ -17,3 +17,7 @@ export type LoginRequest = {
     email: string;
     password: string;
 }
+export type VerifyRequest = {
+    id: number;
+    code: string;
+}

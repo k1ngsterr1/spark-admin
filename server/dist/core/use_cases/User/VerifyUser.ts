@@ -1,6 +1,7 @@
 import { IUserRepository } from "core/interfaces/IUserRepositry";
 import { User } from "infrastructure/models/userModel";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import { VerifyRequest } from "@core/utils/User/Request";
 
 export class VerifyService {
   private userRepository: IUserRepository;
@@ -8,13 +9,8 @@ export class VerifyService {
     this.userRepository = new UserRepository();
   }
 
-  async execute({
-    id,
-    code
-  }: {
-    id: number,
-    code: string
-  }): Promise<User> {
+  async execute(request: VerifyRequest): Promise<User> {
+    const { id, code } = request;
     const user = await this.userRepository.findByPk(id);
     if (!user) {
       throw new Error("Пользователь не найден");

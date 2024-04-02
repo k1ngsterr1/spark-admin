@@ -7,32 +7,34 @@ import { LoginUser } from "core/use_cases/User/LoginUser";
 import { VerifyService } from "core/use_cases/User/VerifyUser";
 import { ChangeUserRoleService } from "core/use_cases/User/ChangeUserRole";
 import EmailService from "core/use_cases/User/EmailVerification";
-import { ChangePasswordRequest, ChangeRoleRequest } from "@core/utils/User/Request";
+import { ChangePasswordRequest, ChangeRoleRequest, LoginRequest, RegisterRequest } from "@core/utils/User/Request";
 
 class UserController {
   private createUserUseCase: CreateUser;
   private loginUserUseCase: LoginUser;
-  private userRepository: UserRepository;
-  private emailService: EmailService;
-  private changePasswordService: ChangePasswordService;
   private changeUserRoleService: ChangeUserRoleService;
   private verifyService: VerifyService;
   private jwtService: JWTService;
+  private changeUserPasswordService: ChangePasswordService;
 
   constructor() {
-    this.userRepository = new UserRepository();
-    this.emailService = new EmailService();
     this.jwtService = new JWTService();
     this.changeUserRoleService = new ChangeUserRoleService();
-    this.changePasswordService = new ChangePasswordService();
     this.verifyService = new VerifyService();
     this.loginUserUseCase = new LoginUser();
     this.createUserUseCase = new CreateUser();
+    this.changeUserPasswordService = new ChangePasswordService();
   }
 
   async createUser(req: Request, res: Response): Promise<void> {
     try {
-      const newUser = await this.createUserUseCase.execute(req.body);
+      const request: RegisterRequest = {
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        passwordConfirmation: req.body.passwordConfirmation
+      }
+      const newUser = await this.createUserUseCase.execute(request);
       res
         .status(201)
         .json({ message: "User created successfully", user: newUser });
@@ -43,7 +45,11 @@ class UserController {
 
   async login(req: Request, res: Response, next: any): Promise<void> {
     try {
-      const { user, accessToken, refreshToken } = await this.loginUserUseCase.execute(req.body);
+      const request: LoginRequest = {
+        email: req.body.email,
+        password: req.body.password
+      }
+      const { user, accessToken, refreshToken } = await this.loginUserUseCase.execute(request);
       res.cookie('refreshToken', refreshToken, { maxAge: process.env.COOKIE_LIFESPAN, httpOnly: true });
       res.status(200).json({
         message: "Пользователь вошёл успешно",
@@ -71,10 +77,11 @@ class UserController {
       if(req.cookie.refreshToken !== null){
 
       }
-      const id = req.cookies.user.id;
-      const code = req.body.code;
-      console.log(id, code);
-      const verifyUser = await this.verifyService.execute({id, code});
+      const request: Request = {
+        id: req.body.id,
+        code: req.body.code,
+      }
+      const verifyUser = await this.verifyService.execute(request);
       res
         .status(201)
         .json({ message: "User verified successfully", verifyUser });
@@ -92,6 +99,7 @@ class UserController {
         oldPassword: req.body.oldPassword,
         newPassword: req.body.newPassword
       }
+      await this.changeUserPasswordService.execute(request);
       res.status(200).json({ message: "Password changed successfully" });
       next();
     } catch (error) {
