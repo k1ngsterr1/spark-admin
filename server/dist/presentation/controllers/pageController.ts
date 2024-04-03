@@ -31,9 +31,10 @@ class PageController{
   }
   async getPages(req: Request, res: Response): Promise<void>{
     try{
+      const user = this.jwtService.getAccessPayload(req.cookies.access);
       const websiteId: string = req.params.websiteId;
 
-      const pages = await this.getPagesByWebsiteId.execute(websiteId);
+      const pages = await this.getPagesByWebsiteId.execute(websiteId, user.id);
 
       res.status(200).json(pages);
     } catch(error){

@@ -9,7 +9,7 @@ export class PageRepository implements IPageRepository {
     }
     async findByWebsiteId(websiteId: string): Promise<Page[]>{
         return sequelize.getRepository(Page).findAll({
-            where: { websiteId: websiteId}
+            where: { websiteId: websiteId }
         })
     }
 }
