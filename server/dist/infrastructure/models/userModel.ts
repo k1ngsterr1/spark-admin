@@ -49,10 +49,14 @@ export class User extends Model<UserAttributes> {
   @Column(DataType.ENUM(...Object.values(UserRole) as string[]))
   role!: string;
 
+  @Default(false)
+  @Column(DataType.BOOLEAN)
+  isSparkAdmin?: boolean;
+
   @Column(DataType.STRING)
   verificationCode!: string;
 
-  @Default("false")
+  @Default(false)
   @Column(DataType.BOOLEAN)
   isVerified!: boolean;
 

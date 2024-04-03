@@ -9,8 +9,6 @@ import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { AddUserRequest, AddWebsiteRequest } from "@core/utils/Website/Request";
 
 class WebsiteController {
-  private WebsiteRepository: WebsiteRepository;
-  private UserRepository: UserRepository;
   private addWebsiteUseCase: AddWebsite;
   private getWebsitesByOwner: GetWebsites;
   private getWebsiteByName: GetWebsite;
@@ -18,8 +16,6 @@ class WebsiteController {
   private addUser: AddUser;
 
   constructor() {
-    this.WebsiteRepository = new WebsiteRepository();
-    this.UserRepository = new UserRepository();
     this.addWebsiteUseCase = new AddWebsite();
     this.getWebsitesByOwner = new GetWebsites();
     this.getWebsiteByName = new GetWebsite();
@@ -36,7 +32,6 @@ class WebsiteController {
       const request: AddWebsiteRequest = {
         name: req.body.name,
         url: req.body.url,
-        id: user.id,
         email: user.email
       };
       const newWebsite = await this.addWebsiteUseCase.execute(request);
@@ -49,9 +44,6 @@ class WebsiteController {
 
   async getWebsites(req: Request, res: Response) {
     try {
-      if(req.cookies.access === undefined){
-        throw new Error("Please reload page!");
-      }
       const user = this.jwtService.getAccessPayload(req.cookies.access);
 
       const id: number = user.id;
@@ -66,9 +58,6 @@ class WebsiteController {
 
   async getWebsite(req: Request, res: Response){
     try{
-      if(req.cookies.access === undefined){
-        throw new Error("Please reload page!");
-      }
       const user = this.jwtService.getAccessPayload(req.cookies.access);
       const id: number = user.id;
       const name: string = req.body.name;

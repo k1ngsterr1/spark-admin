@@ -1,13 +1,33 @@
 import { User } from "@infrastructure/models/userModel";
 import { Website } from "@infrastructure/models/websiteModel";
-
+//Attributes
 export interface UserAttributes {
   id: number;
+  websiteId: string;
+  website: Website;
   username: string;
   email: string;
   password: string;
   role: string;
+  isSparkAdmin: boolean;
   verificationCode: string;
+  isVerified: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+export interface WebsiteAttributes {
+  id: string;
+  name: string;
+  url: string;
+  owner: number;
+}
+export interface PageAttributes{
+  id: number;
+  websiteId: string;
+  website: Website;
+  url: string;
+  name: string;
+  type: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -26,37 +46,6 @@ export interface NewUserInput {
   verificationCode: string;
 }
 
-export type AddUserRequest = {
-  email: string,
-  role: string,
-  websiteID: string,
-  requesterID: number
-}
-
-export interface WebsiteAttributes {
-  id: string;
-  name: string;
-  url: string;
-  owner: number;
-}
-
-export type AddWebsiteRequest = {
-  name: string,
-  url: string,
-  id: number,
-  email: string
-}
-
-export type ChangeRoleRequest = {
-  userId: number;
-  newRole: string;
-}
-
-export type ChangePasswordRequest = {
-  id: number,
-  oldPassword: string,
-  newPassword: string
-}
 
 export type UserResponse = {
   id: number;
@@ -82,27 +71,9 @@ export interface NewWebsiteInput {
   owner: number;
 }
 
-export interface NewUserInput {
-  username: string;
-  email: string;
-  password: string;
-  verificationCode: string;
-}
-
 export interface NewPageInput {
   websiteId: string;
   url: string;
   name: string;
   type: string;
-}
-
-export interface PageAttributes{
-  id: number;
-  websiteId: string;
-  website: Website;
-  url: string;
-  name: string;
-  type: string;
-  createdAt?: Date;
-  updatedAt?: Date;
 }

@@ -1,4 +1,7 @@
+import { User } from '@infrastructure/models/userModel';
+import { Website } from '@infrastructure/models/websiteModel';
 import validator from 'validator';
+import { UserRole } from './types';
 
 export async function validEmail(email: string): Promise<boolean> {
     if(!validator.isEmail(email)){
@@ -33,5 +36,15 @@ export async function validURL(url: string): Promise<boolean> {
         validate_length: true,
         allow_underscores: false
     }))
+    return true;
+}
+
+export async function validWebsiteUser(user: User): Promise<boolean> {
+    if(user.isSparkAdmin === true){
+        return true;
+    }
+    if(user.role === UserRole.Editor || user.role === UserRole.Owner || user.role === UserRole.Admin){
+        return true;
+    }
     return true;
 }

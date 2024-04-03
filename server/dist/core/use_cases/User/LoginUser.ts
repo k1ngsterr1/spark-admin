@@ -12,7 +12,7 @@ export type UserResponse = {
   role: string;
 };
 
-export class LoginUser {
+export class Login {
   private userRepository: IUserRepository;
   private jwtService: IJWTService;
   constructor() {

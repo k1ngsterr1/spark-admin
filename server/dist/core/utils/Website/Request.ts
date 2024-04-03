@@ -7,6 +7,5 @@ export type AddUserRequest = {
 export type AddWebsiteRequest = {
     name: string,
     url: string,
-    id: number,
     email: string
 }

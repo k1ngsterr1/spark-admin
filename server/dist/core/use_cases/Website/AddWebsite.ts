@@ -3,7 +3,7 @@ import { Website } from "infrastructure/models/websiteModel";
 import { JWTService } from "../User/JWTService";
 import { WebsiteRepository } from "infrastructure/repositories/WebsiteRepository";
 import { NewWebsiteInput } from "@core/utils/types";
-import { validURL } from "@core/utils/validators";
+import { validEmail, validURL } from "@core/utils/validators";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { AddWebsiteRequest } from "@core/utils/Website/Request";
 
@@ -15,14 +15,21 @@ export class AddWebsite {
     this.websiteRepository = new WebsiteRepository();
   }
   async execute(request: AddWebsiteRequest): Promise<Website> {
-    const {name, url, id, email} = request;
+    const {name, url, email} = request;
     await validURL(url);
+    await validEmail(email);
+
+    const user = await this.userRepository.findByEmail(email);
+
+    if(user == null){
+      throw new Error("User not found");
+    }
     const newWebsiteDetails: NewWebsiteInput = {
       name: name,
       url: url,
-      owner: id
+      owner: user.id
     };
-    const user = await this.userRepository.findByEmail(email);
+
     const newWebsite = await this.websiteRepository.create(newWebsiteDetails);
 
     user.websiteId = newWebsite.id;

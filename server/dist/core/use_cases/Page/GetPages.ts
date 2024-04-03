@@ -10,6 +10,9 @@ export class GetPages {
 
   async execute(websiteId: string): Promise<Page[]> {
     const pages = await this.pageRepository.findByWebsiteId(websiteId);
+    if(pages == null){
+      throw new Error("Incorrect website ID");
+    }
     return pages;
   }
 }

@@ -3,15 +3,16 @@ import { JWTService } from "../../core/use_cases/User/JWTService";
 import { Request, Response } from "express";
 import { CreateUser } from "core/use_cases/User/CreateUser";
 import { UserRepository } from "infrastructure/repositories/UserRepository";
-import { LoginUser } from "core/use_cases/User/LoginUser";
+
 import { VerifyService } from "core/use_cases/User/VerifyUser";
 import { ChangeUserRoleService } from "core/use_cases/User/ChangeUserRole";
 import EmailService from "core/use_cases/User/EmailVerification";
 import { ChangePasswordRequest, ChangeRoleRequest, LoginRequest, RegisterRequest } from "@core/utils/User/Request";
+import { Login } from "@core/use_cases/User/LoginUser";
 
 class UserController {
   private createUserUseCase: CreateUser;
-  private loginUserUseCase: LoginUser;
+  private loginLogic: Login;
   private changeUserRoleService: ChangeUserRoleService;
   private verifyService: VerifyService;
   private jwtService: JWTService;
@@ -21,7 +22,7 @@ class UserController {
     this.jwtService = new JWTService();
     this.changeUserRoleService = new ChangeUserRoleService();
     this.verifyService = new VerifyService();
-    this.loginUserUseCase = new LoginUser();
+    this.loginLogic = new Login();
     this.createUserUseCase = new CreateUser();
     this.changeUserPasswordService = new ChangePasswordService();
   }
@@ -49,7 +50,7 @@ class UserController {
         email: req.body.email,
         password: req.body.password
       }
-      const { user, accessToken, refreshToken } = await this.loginUserUseCase.execute(request);
+      const { user, accessToken, refreshToken } = await this.loginLogic.execute(request);
       res.cookie('refreshToken', refreshToken, { maxAge: process.env.COOKIE_LIFESPAN, httpOnly: true });
       res.status(200).json({
         message: "Пользователь вошёл успешно",
@@ -74,9 +75,6 @@ class UserController {
 
   async verifyUser(req: Request, res: Response): Promise<void> {
     try {
-      if(req.cookie.refreshToken !== null){
-
-      }
       const request: Request = {
         id: req.body.id,
         code: req.body.code,
