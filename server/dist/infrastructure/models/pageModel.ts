@@ -7,7 +7,6 @@ import {
     UpdatedAt,
     AutoIncrement,
     PrimaryKey,
-    Unique,
     BelongsTo,
     ForeignKey,
 } from "sequelize-typescript";
@@ -20,7 +19,6 @@ import { PageAttributes } from "@core/utils/types";
 export class Page extends Model<PageAttributes>{
     @PrimaryKey
     @AutoIncrement
-    @Unique
     @Column(DataType.INTEGER)
     id!: number;
 

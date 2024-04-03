@@ -20,10 +20,23 @@ export class WebsiteRepository implements IWebsiteRepository {
       where: { owner: ownerId },
       include: [
         {
-          model: Page,
+          model: sequelize.getRepository(Page),
+          attributes: [
+            'id', 
+            'url', 
+            'name', 
+            'type'
+          ]
         },
         {
-          model: User,
+          model: sequelize.getRepository(User),
+          attributes: [
+            'id',
+            'username',
+            'email',
+            'role',
+            'isVerified'
+          ]
         }
       ]
     });

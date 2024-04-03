@@ -1,3 +1,4 @@
+import { Page } from "@infrastructure/models/pageModel";
 import { User } from "@infrastructure/models/userModel";
 import { Website } from "@infrastructure/models/websiteModel";
 //Attributes
@@ -17,9 +18,13 @@ export interface UserAttributes {
 }
 export interface WebsiteAttributes {
   id: string;
+  users: User[];
+  pages: Page[];
   name: string;
   url: string;
   owner: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 export interface PageAttributes{
   id: number;

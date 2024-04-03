@@ -15,17 +15,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { Page } from "./pageModel";
 import { User } from "./userModel";
-
-interface WebsiteAttributes {
-  id: string;
-  name: string;
-  url: string;
-  owner: number;
-  pages: Page[];
-  users: User[];
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+import { WebsiteAttributes } from "@core/utils/types";
 
 @Table({
   tableName: "websites",

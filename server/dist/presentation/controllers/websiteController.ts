@@ -46,9 +46,8 @@ class WebsiteController {
     try {
       const user = this.jwtService.getAccessPayload(req.cookies.access);
 
-      const id: number = user.id;
-
-      const websites = await this.getWebsitesByOwner.execute(id);
+      const websites = await this.getWebsitesByOwner.execute(user.id);
+      
       return res.status(201).json(websites);
     } catch (error) {
       console.error("Ошибка с получением сайтов:", error);
