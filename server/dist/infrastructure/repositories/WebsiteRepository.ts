@@ -3,6 +3,8 @@ import { Website } from "infrastructure/models/websiteModel";
 import sequelize from "infrastructure/config/sequelize";
 import { json } from "sequelize";
 import { NewWebsiteInput } from "@core/utils/types";
+import { Page } from "@infrastructure/models/pageModel";
+import { User } from "@infrastructure/models/userModel";
 
 export class WebsiteRepository implements IWebsiteRepository {
   async create(websiteDetails: NewWebsiteInput): Promise<Website> {
@@ -16,6 +18,14 @@ export class WebsiteRepository implements IWebsiteRepository {
   async findByOwner(ownerId: number): Promise<Website[]> {
     return await sequelize.getRepository(Website).findAll({
       where: { owner: ownerId },
+      include: [
+        {
+          model: Page,
+        },
+        {
+          model: User,
+        }
+      ]
     });
   }
 

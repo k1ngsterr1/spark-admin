@@ -59,9 +59,9 @@ class WebsiteController {
   async getWebsite(req: Request, res: Response){
     try{
       const user = this.jwtService.getAccessPayload(req.cookies.access);
-      const id: number = user.id;
-      const name: string = req.body.name;
-      const website = await this.getWebsiteByName.execute(id, name);
+      const url: string = req.body.url;
+
+      const website = await this.getWebsiteByName.execute(user.id, url);
       return res.status(200).json(website);
     } catch (error) {
       console.error("Ошибка с получением сайта:", error);
@@ -71,9 +71,7 @@ class WebsiteController {
 
   async addUserToWebsite(req, res) {
     try {
-      if(req.cookies.access == undefined){
-        throw new Error("Please reload page!");
-      }
+
       const { userEmail, userRole, websiteID } = req.body;
       const user = this.jwtService.getAccessPayload(req.cookies.access);
 
