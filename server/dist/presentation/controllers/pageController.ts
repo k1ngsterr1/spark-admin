@@ -23,8 +23,8 @@ class PageController{
             name: req.body.name,
             type: req.body.type
         }
-        const page = this.addPageToWebsite.execute(request);
-        res.status(201).json(page);
+        await this.addPageToWebsite.execute(request);
+        res.status(201).json({ message: "Страница добавлена" });
     } catch(error){
         res.status(500).json({message: "Ошибка добавления страницы для вебсайта", error: error.message});
     }

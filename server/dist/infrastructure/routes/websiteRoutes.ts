@@ -1,12 +1,13 @@
 import websiteController from "presentation/controllers/websiteController";
-import auth from "@infrastructure/middleware/authMiddleware"
+import pageRoutes from "./pageRoutes";
 
 const express = require("express");
 const router = express.Router();
 
-router.post("/add", auth, (req, res) => websiteController.addWebsite(req, res));
-router.post("/add-user", auth, (req, res) => websiteController.addUserToWebsite(req, res));
-router.get("/", auth, (req, res) => websiteController.getWebsites(req, res));
-router.get("/get-website", auth, (req, res) => websiteController.getWebsite(req,res));
+router.post("/add", (req, res) => websiteController.addWebsite(req, res));
+router.post("/add-user", (req, res) => websiteController.addUserToWebsite(req, res));
+router.get("/", (req, res) => websiteController.getWebsites(req, res));
+router.get("/get-website", (req, res) => websiteController.getWebsite(req,res));
+router.use("/pages", pageRoutes);
 
 export default router;
