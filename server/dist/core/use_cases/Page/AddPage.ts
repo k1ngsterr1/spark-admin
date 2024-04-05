@@ -1,14 +1,17 @@
+import { IPageRepository } from "@core/interfaces/IPageRepository";
+import { IUserRepository } from "@core/interfaces/IUserRepositry";
+import { IWebsiteRepository } from "@core/interfaces/IWebsiteReposity";
 import { NewPageRequest } from "@core/utils/Page/Request";
-import { NewPageInput } from "@core/utils/types";
+import { NewPageInput, WebsiteCommand } from "@core/utils/types";
 import { validURL, validWebsiteUser } from "@core/utils/validators";
 import { PageRepository } from "@infrastructure/repositories/PageRepository";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
 
 export class AddPage {
-  private pageRepository: PageRepository;
-  private userRepository: UserRepository;
-  private websiteRepository: WebsiteRepository;
+  private pageRepository: IPageRepository;
+  private userRepository: IUserRepository;
+  private websiteRepository: IWebsiteRepository;
   constructor() {
     this.pageRepository = new PageRepository();
     this.userRepository = new UserRepository();
@@ -27,7 +30,7 @@ export class AddPage {
     if(user === null){
       throw new Error("User not found");
     }
-    await validWebsiteUser(user);
+    await validWebsiteUser(user, WebsiteCommand.update);
 
     const newPage: NewPageInput = {
       websiteId: websiteId,

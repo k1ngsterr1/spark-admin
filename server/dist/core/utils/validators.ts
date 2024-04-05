@@ -1,7 +1,7 @@
 import { User } from '@infrastructure/models/userModel';
 import { Website } from '@infrastructure/models/websiteModel';
 import validator from 'validator';
-import { UserRole } from './types';
+import { UserRole, WebsiteCommand } from './types';
 
 export async function validEmail(email: string): Promise<boolean> {
     if(!validator.isEmail(email)){
@@ -39,12 +39,15 @@ export async function validURL(url: string): Promise<boolean> {
     return true;
 }
 
-export async function validWebsiteUser(user: User): Promise<boolean> {
+export async function validWebsiteUser(user: User, command: string): Promise<boolean> {
     if(user.isSparkAdmin === true){
         return true;
     }
-    if(user.role === UserRole.Editor || user.role === UserRole.Owner || user.role === UserRole.Admin){
-        return true;
+    if(command == WebsiteCommand.update){
+        return (user.role === UserRole.Editor || user.role === UserRole.Owner || user.role === UserRole.Admin)
+    }
+    if(command == WebsiteCommand.delete){
+        return (user.role === UserRole.Owner);
     }
     return true;
 }

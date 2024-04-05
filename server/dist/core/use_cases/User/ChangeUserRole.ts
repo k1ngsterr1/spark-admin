@@ -16,6 +16,9 @@ export class ChangeUserRoleService {
     if (!userId || !user) {
       throw new Error("Пользователь не найден");
     }
+    if(user.isSparkAdmin !== true){
+      throw new Error("У вас нет таких полномочий");
+    }
 
     user.role = newRole;
 

@@ -99,7 +99,6 @@ class UserController {
       }
       await this.changeUserPasswordService.execute(request);
       res.status(200).json({ message: "Password changed successfully" });
-      next();
     } catch (error) {
       res
         .status(500)

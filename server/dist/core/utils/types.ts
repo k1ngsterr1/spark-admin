@@ -82,3 +82,10 @@ export interface NewPageInput {
   name: string;
   type: string;
 }
+
+export enum WebsiteCommand {
+  update = "Update",
+  create = "Create",
+  delete = "Delete",
+  get = "Get",
+}

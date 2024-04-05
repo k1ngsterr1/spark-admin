@@ -10,6 +10,14 @@ export class PageRepository implements IPageRepository {
     async findByWebsiteId(websiteId: string): Promise<Page[]>{
         return sequelize.getRepository(Page).findAll({
             where: { websiteId: websiteId }
+        });
+    }
+    async deletePageByUrl(websiteId: string, url: string): Promise<void>{
+        sequelize.getRepository(Page).destroy({
+            where: {
+                websiteId: websiteId,
+                url: url
+            }
         })
     }
 }

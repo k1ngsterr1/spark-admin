@@ -42,11 +42,11 @@ export class WebsiteRepository implements IWebsiteRepository {
     });
   }
 
-  async findWebsiteByName(ownerId: number, name: string): Promise<Website | null> {
+  async findByUrl(ownerId: number, url: string): Promise<Website | null> {
     return sequelize.getRepository(Website).findOne({
       where: { 
         owner: ownerId,
-        name: name
+        url: url
       },
     });
   }
