@@ -9,8 +9,6 @@ const generateWebsiteCode = (domain: string) => {
     .digest("hex");
 
   return `SPARK-STUDIO-${hash}`;
-
-  console.log(`SPARK-STUDIO-${hash}`);
 };
 
 module.exports = generateWebsiteCode;

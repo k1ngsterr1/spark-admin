@@ -1,5 +1,5 @@
 import bcryptjs from "bcryptjs";
-import { IUserRepository } from "core/interfaces/IUserRepositry";
+import { IUserRepository } from "@core/interfaces/IUserRepository";
 import { IJWTService } from "core/interfaces/IJWTService";
 import { JWTService } from "./JWTService";
 

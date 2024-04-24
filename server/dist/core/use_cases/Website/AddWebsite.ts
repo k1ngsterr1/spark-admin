@@ -1,4 +1,4 @@
-import { NewWebsiteInput } from "core/interfaces/IWebsiteReposity";
+import { NewWebsiteInput } from "@core/interfaces/IWebsiteRepository";
 import { Website } from "infrastructure/models/websiteModel";
 import { WebsiteRepository } from "infrastructure/repositories/WebsiteRepository";
 

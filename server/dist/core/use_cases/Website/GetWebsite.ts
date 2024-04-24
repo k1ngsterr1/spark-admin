@@ -1,5 +1,5 @@
 import { WebsiteRepository } from "../../../infrastructure/repositories/WebsiteRepository";
-import { IWebsiteRepository } from "core/interfaces/IWebsiteReposity";
+import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
 import { Website } from "infrastructure/models/websiteModel";
 
 export class GetWebsite {

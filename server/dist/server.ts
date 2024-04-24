@@ -1,4 +1,5 @@
 const express = require("express");
+const cheerio = require("cheerio");
 const dotenv = require("dotenv").config({ path: ".env" });
 const bcryptjs = require("bcryptjs");
 

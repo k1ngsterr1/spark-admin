@@ -1,4 +1,4 @@
-import { IUserRepository } from "core/interfaces/IUserRepositry";
+import { IUserRepository } from "@core/interfaces/IUserRepository";
 
 export class ChangePasswordService {
   constructor(private userRepository: IUserRepository) {}

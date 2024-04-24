@@ -11,6 +11,7 @@ export interface NewWebsiteInput {
 
 export interface IWebsiteRepository {
   create?(userDetails: NewWebsiteInput): Promise<Website>;
+  fetchHTMLContent?(url: string): Promise<boolean>;
   findByPk?(primaryKey: string | number): Promise<Website | null>;
   findByOwner?(ownerId: number): Promise<Website[]>;
   addUserToWebsite?(websiteId: string, userItem: UserItems): Promise<void>;

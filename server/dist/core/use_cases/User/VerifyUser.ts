@@ -1,4 +1,4 @@
-import { IUserRepository } from "core/interfaces/IUserRepositry";
+import { IUserRepository } from "@core/interfaces/IUserRepository";
 import { User } from "infrastructure/models/userModel";
 
 export class VerifyService {

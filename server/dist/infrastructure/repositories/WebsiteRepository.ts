@@ -1,7 +1,7 @@
 import {
   IWebsiteRepository,
   NewWebsiteInput,
-} from "core/interfaces/IWebsiteReposity";
+} from "@core/interfaces/IWebsiteRepository";
 import { Website } from "infrastructure/models/websiteModel";
 import sequelize from "infrastructure/config/sequelize";
 

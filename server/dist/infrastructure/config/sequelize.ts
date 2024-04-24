@@ -5,9 +5,9 @@ import { Sequelize } from "sequelize-typescript";
 const sequelize = new Sequelize({
   repositoryMode: true,
   database: "railway",
-  host: process.env.DB_HOST,
-  username: process.env.DB_USER,
-  password: process.env.DB_PASS,
+  host: "roundhouse.proxy.rlwy.net",
+  username: "postgres",
+  password: "bIoUQpjtlfIStcQQuETdjRvAxilBSEYR",
   dialect: "postgres",
   storage: ":memory:",
   port: 42856,
