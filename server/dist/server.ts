@@ -13,7 +13,7 @@ import authenticateToken from "infrastructure/middleware/authMiddleware";
 import websiteRoutes from "infrastructure/routes/websiteRoutes";
 
 const app = express();
-const port = process.env.PORT;
+const port = 4000;
 
 app.use(express.json());
 

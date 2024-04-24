@@ -4,8 +4,8 @@ export class CheckWebsite {
   constructor(private websiteRepository: IWebsiteRepository) {}
 
   async execute(url: string) {
-    const websites = await this.websiteRepository.fetchHTMLContent(url);
-
-    // const isVerified = ?
+    const websiteContent = await this.websiteRepository.fetchHTMLContent(url);
+    const verifiedContent = await this.websiteRepository.metaTagChecker(websiteContent)
+    
   }
 }
