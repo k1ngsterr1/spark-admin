@@ -4,6 +4,7 @@ import { User } from "infrastructure/models/userModel";
 import { Website } from "infrastructure/models/websiteModel";
 import { AddWebsite } from "core/use_cases/Website/AddWebsite";
 import { GetWebsite } from "core/use_cases/Website/GetWebsite";
+import { CheckWebsite } from "@core/use_cases/Website/CheckWebsite";
 
 import sequelize from "infrastructure/config/sequelize";
 
@@ -11,9 +12,11 @@ class WebsiteController {
   private websiteRepository: WebsiteRepository;
   private addWebsiteUseCase: AddWebsite;
   private getWebsiteByOwner: GetWebsite;
+  private checkWebsiteUseCase: CheckWebsite;
 
   constructor() {
     this.websiteRepository = new WebsiteRepository();
+    this.checkWebsiteUseCase = new CheckWebsite(this.websiteRepository);
     this.addWebsiteUseCase = new AddWebsite(this.websiteRepository);
     this.getWebsiteByOwner = new GetWebsite(this.websiteRepository);
   }
@@ -61,6 +64,7 @@ class WebsiteController {
           .status(403)
           .json({ message: "You are not the owner of this website" });
       }
+
       const userToAdd = await userRepository.findOne({
         where: { email: userEmail },
       });
@@ -83,6 +87,14 @@ class WebsiteController {
       res.status(500).json({ error: "Failed to add user" });
     }
   }
+
+  // async checkWebsite(req: Request, res: Response) {
+  //   try {
+  //     const {
+
+  //     };
+  //   } catch (error) {}
+  // }
 }
 
 export default new WebsiteController();

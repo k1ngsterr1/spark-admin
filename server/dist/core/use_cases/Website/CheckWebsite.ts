@@ -5,7 +5,8 @@ export class CheckWebsite {
 
   async execute(url: string) {
     const websiteContent = await this.websiteRepository.fetchHTMLContent(url);
-    const verifiedContent = await this.websiteRepository.metaTagChecker(websiteContent)
-    
+    const verifiedContent = await this.websiteRepository.metaTagChecker(
+      websiteContent
+    );
   }
 }

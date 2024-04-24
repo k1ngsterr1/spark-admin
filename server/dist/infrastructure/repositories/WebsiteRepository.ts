@@ -6,7 +6,7 @@ import { Website } from "infrastructure/models/websiteModel";
 import sequelize from "infrastructure/config/sequelize";
 
 import cheerio from "cheerio";
-import axios from 'axios'
+import axios from "axios";
 
 export class WebsiteRepository implements IWebsiteRepository {
   async create(websiteDetails: NewWebsiteInput): Promise<Website> {
@@ -23,15 +23,14 @@ export class WebsiteRepository implements IWebsiteRepository {
     });
   }
 
-   async fetchHTMLContent(url: string): Promise<any> {
+  async fetchHTMLContent(url: string): Promise<any> {
     try {
-      const response = await axios.get(url)
-      const $ = cheerio.load(response.data)
+      const response = await axios.get(url);
+      const $ = cheerio.load(response.data);
 
-      return response.data
+      return response.data;
     } catch (error) {
-      console.error('There was an error with fetching website:', error)
+      console.error("There was an error with fetching website:", error);
     }
-    
   }
 }
