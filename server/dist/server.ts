@@ -27,8 +27,8 @@ const corsOptions = {
 };
 
 app.use(express.json());
-app.use(cors());
-app.options("*", cors());
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 // Routes:
 app.use("/api/auth", authRoutes);
