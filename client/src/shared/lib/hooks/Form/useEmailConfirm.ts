@@ -5,9 +5,10 @@ interface IData {
     input2: string;
     input3: string;
     input4: string;
+    input5: string;
 }
 
-export async function createPOst(data: IData): Promise<void | string> {
+export async function useEmailConfirm(data: IData): Promise<void | string> {
     try {
         const response = await axios.post('https://spark-admin-production.up.railway.app/api/verify', data);
         console.log('Data created:', response.data);
