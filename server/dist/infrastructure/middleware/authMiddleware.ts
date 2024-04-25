@@ -1,7 +1,7 @@
 import { JWTService } from "@core/use_cases/User/JWTService";
 import { UserPayload } from "@core/utils/types";
 
-export default function authenticateToken(req, res, next){
+export default async function authenticateToken(req, res, next){
   const jwtService = new JWTService();
   if(req.cookies.refreshToken === undefined){
     res.status(403).json({ message: "Login Required!"});
