@@ -1,40 +1,61 @@
-import {
-  IWebsiteRepository,
-  NewWebsiteInput,
-} from "@core/interfaces/IWebsiteRepository";
+import { IWebsiteRepository } from "core/interfaces/IWebsiteReposity";
 import { Website } from "infrastructure/models/websiteModel";
 import sequelize from "infrastructure/config/sequelize";
-
+import { json } from "sequelize";
+import { NewWebsiteInput } from "@core/utils/types";
+import { Page } from "@infrastructure/models/pageModel";
+import { User } from "@infrastructure/models/userModel";
+import { ErrorDetails } from "@core/utils/utils";
 import cheerio from "cheerio";
-import axios from "axios";
 
 export class WebsiteRepository implements IWebsiteRepository {
-  // Создание веб-сайта
-  async create(websiteDetails: NewWebsiteInput): Promise<Website> {
-    return sequelize.getRepository(Website).create(websiteDetails);
+  async create(websiteDetails: NewWebsiteInput, errors: ErrorDetails[]): Promise<Website> {
+    try{
+      const website = await sequelize.getRepository(Website).create(websiteDetails);
+      return website;
+    }catch(error){
+      errors.push(new ErrorDetails(500, error.message));
+      return;
+    }
   }
 
-  // Поиска по id
   async findByPk(primaryKey: string | number): Promise<Website | null> {
-    return sequelize.getRepository(Website).findByPk(primaryKey);
+    return await sequelize.getRepository(Website).findByPk(primaryKey);
   }
 
-  // Поиск по id овнера
   async findByOwner(ownerId: number): Promise<Website[]> {
-    return sequelize.getRepository(Website).findAll({
+    return await sequelize.getRepository(Website).findAll({
       where: { owner: ownerId },
+      include: [
+        {
+          model: sequelize.getRepository(Page),
+          attributes: [
+            'id', 
+            'url', 
+            'name', 
+            'type'
+          ]
+        },
+        {
+          model: sequelize.getRepository(User),
+          attributes: [
+            'id',
+            'username',
+            'email',
+            'role',
+            'isVerified'
+          ]
+        }
+      ]
     });
   }
 
-  // Поиск сайта по url
-  async findByUrl(urlString: string): Promise<Website> {
-    try {
-      return await sequelize
-        .getRepository(Website)
-        .findOne({ where: { url: urlString } });
-    } catch (error) {
-      console.error("Невозможно найти веб-сайт URL:", error);
-      throw error;
-    }
+  async findByUrl(ownerId: number, url: string): Promise<Website | null> {
+    return sequelize.getRepository(Website).findOne({
+      where: { 
+        owner: ownerId,
+        url: url
+      },
+    });
   }
 }

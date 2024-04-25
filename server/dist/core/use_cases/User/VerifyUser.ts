@@ -1,34 +1,33 @@
-import { IUserRepository } from "@core/interfaces/IUserRepository";
+import { IUserRepository } from "core/interfaces/IUserRepositry";
 import { User } from "infrastructure/models/userModel";
+import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import { VerifyRequest } from "@core/utils/User/Request";
 
 export class VerifyService {
-  constructor(private userRepository: IUserRepository) {}
+  private userRepository: IUserRepository;
+  constructor() {
+    this.userRepository = new UserRepository();
+  }
 
-  async execute({
-    userCode,
-    userID,
-  }: {
-    userCode: string;
-    userID: number;
-  }): Promise<User> {
-    const user = await this.userRepository.findByPk(userID);
-
+  async execute(request: VerifyRequest): Promise<User> {
+    const { id, code } = request;
+    const user = await this.userRepository.findByPk(id);
     if (!user) {
       throw new Error("Пользователь не найден");
     }
 
-    if (!userCode || !userID) {
+    if (!code || !id) {
       throw new Error("Неверный код или ID");
     }
 
-    if (userCode !== user.verificationCode) {
+    if (code !== user.verificationCode) {
       throw new Error("Неверный код");
     }
 
-    if ((await user).verificationCode === userCode) {
-      (await user).isVerified = true;
-      (await user).verificationCode = null;
-      (await user).save;
+    if (user.verificationCode === code) {
+      user.isVerified = true;
+      user.verificationCode = null;
+      user.save();
     }
 
     return;

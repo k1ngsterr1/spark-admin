@@ -1,20 +1,20 @@
+import { IWebsiteRepository } from "@core/interfaces/IWebsiteReposity";
 import { WebsiteRepository } from "../../../infrastructure/repositories/WebsiteRepository";
-import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
-import { Website } from "infrastructure/models/websiteModel";
-
-// Получение веб-сайта по id владельца
+import { Website } from "@infrastructure/models/websiteModel";
 
 export class GetWebsite {
-  constructor(private websiteRepository: IWebsiteRepository) {}
+  private websiteRepository: IWebsiteRepository;
+  constructor() {
+    this.websiteRepository = new WebsiteRepository();
+  }
 
-  async execute(ownerId: number) {
-    const websites = await this.websiteRepository.findByOwner(ownerId);
-    return websites.map((website) => ({
-      name: website.name,
-      url: website.url,
-      owner: website.owner,
-      usersCount: website.users.length,
-      id: website.id,
-    }));
+  async execute(ownerId: number, url: string): Promise<Website> {
+    const website = await this.websiteRepository.findByUrl(ownerId, url);
+
+    if(website === null){
+      throw new Error("No website found");
+    }
+
+    return website;
   }
 }

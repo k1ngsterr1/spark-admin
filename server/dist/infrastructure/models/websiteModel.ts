@@ -5,47 +5,22 @@ import {
   DataType,
   CreatedAt,
   UpdatedAt,
+  AutoIncrement,
   PrimaryKey,
   Unique,
   Default,
-  BeforeCreate,
-  BeforeUpdate,
+  HasMany,
 } from "sequelize-typescript";
 
 import { v4 as uuidv4 } from "uuid";
-
-export interface UserItems {
-  email: string;
-  id?: number;
-  role: string;
-}
-
-interface WebsiteAttributes {
-  id: string;
-  name: string;
-  url: string;
-  owner: number;
-  websiteCode: string;
-  users: UserItems[];
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-interface WebsiteCreationAttributes {
-  id: string;
-  name: string;
-  url: string;
-  owner: number;
-  users: UserItems[];
-}
+import { Page } from "./pageModel";
+import { User } from "./userModel";
+import { WebsiteAttributes } from "@core/utils/types";
 
 @Table({
   tableName: "websites",
 })
-export class Website extends Model<
-  WebsiteAttributes,
-  WebsiteCreationAttributes
-> {
+export class Website extends Model<WebsiteAttributes> {
   @PrimaryKey
   @Default(uuidv4)
   @Unique
@@ -55,6 +30,12 @@ export class Website extends Model<
   })
   id?: string;
 
+  @HasMany(() => User)
+  users!: User[];
+
+  @HasMany(() => Page)
+  pages!: Page[];
+
   @Column(DataType.STRING)
   name!: string;
 
@@ -62,19 +43,19 @@ export class Website extends Model<
   @Column(DataType.STRING)
   url!: string;
 
+  @Unique
+  @Column(DataType.STRING)
+  websiteCode!: string;
+
   @Column(DataType.INTEGER)
   owner!: number;
 
   @Unique
   @Column(DataType.STRING)
-  websiteCode!: string;
-
-  @Unique
-  @Column(DataType.STRING)
   websiteSignature!: string;
 
-  @Column(DataType.JSONB)
-  users!: UserItems[];
+  // @Column(DataType.JSONB)
+  // users!: UserItems[];
 
   @CreatedAt
   createdAt?: Date;

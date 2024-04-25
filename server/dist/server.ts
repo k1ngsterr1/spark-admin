@@ -1,43 +1,23 @@
 const express = require("express");
-const cheerio = require("cheerio");
 const dotenv = require("dotenv").config({ path: ".env" });
-const bcryptjs = require("bcryptjs");
-
-import sequelize from "infrastructure/config/sequelize";
+const cookieParser = require('cookie-parser');
 
 // imports
-import { User } from "infrastructure/models/userModel";
-import { Website } from "infrastructure/models/websiteModel";
 import authRoutes from "infrastructure/routes/authRoutes";
-import authenticateToken from "infrastructure/middleware/authMiddleware";
 import websiteRoutes from "infrastructure/routes/websiteRoutes";
-
+import auth from "@infrastructure/middleware/authMiddleware";
 const app = express();
-const cors = require("cors");
+
 const port = process.env.PORT;
 
-// Allowed All Cors Origins
-const corsOptions = {
-  origin: function (origin, callback) {
-    callback(null, true);
-  },
-  credentials: true,
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allowedHeaders: ["Authorization", "Content-Type"],
-};
-
 app.use(express.json());
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.use(cookieParser());
 
 // Routes:
+app.post("/access", auth);
 app.use("/api/auth", authRoutes);
-app.use("/api/website", authenticateToken, websiteRoutes);
-
-app.get("/", (req: any, res: any) => {
-  res.send("Hello World!");
-});
+app.use("/api/website", websiteRoutes);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });

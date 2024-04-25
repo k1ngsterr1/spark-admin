@@ -11,36 +11,29 @@ import {
   Default,
   BeforeCreate,
   BeforeUpdate,
+  ForeignKey,
+  BelongsTo,
 } from "sequelize-typescript";
 
 import bcryptjs from "bcryptjs";
-
-interface UserAttributes {
-  id: number;
-  username: string;
-  email: string;
-  password: string;
-  role: string;
-  verificationCode: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-interface UserCreationAttributes {
-  username: string;
-  email: string;
-  password: string;
-  role?: string;
-}
+import { Website } from "./websiteModel";
+import { UserAttributes, UserRole } from "@core/utils/types";
 
 @Table({
   tableName: "users",
 })
-export class User extends Model<UserAttributes, UserCreationAttributes> {
+export class User extends Model<UserAttributes> {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
   id!: number;
+
+  @ForeignKey(() => Website)
+  @Column(DataType.UUID)
+  websiteId!: string;
+
+  @BelongsTo(() => Website)
+  website!: Website;
 
   @Column(DataType.STRING)
   username!: string;
@@ -53,13 +46,17 @@ export class User extends Model<UserAttributes, UserCreationAttributes> {
   password!: string;
 
   @Default("user")
-  @Column(DataType.STRING)
+  @Column(DataType.ENUM(...Object.values(UserRole) as string[]))
   role!: string;
+
+  @Default(false)
+  @Column(DataType.BOOLEAN)
+  isSparkAdmin?: boolean;
 
   @Column(DataType.STRING)
   verificationCode!: string;
 
-  @Default("false")
+  @Default(false)
   @Column(DataType.BOOLEAN)
   isVerified!: boolean;
 

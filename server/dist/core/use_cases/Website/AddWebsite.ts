@@ -1,30 +1,45 @@
-import { NewWebsiteInput } from "@core/interfaces/IWebsiteRepository";
+import { IWebsiteRepository } from "core/interfaces/IWebsiteReposity";
 import { Website } from "infrastructure/models/websiteModel";
+import { JWTService } from "../User/JWTService";
 import { WebsiteRepository } from "infrastructure/repositories/WebsiteRepository";
+import { NewWebsiteInput } from "@core/utils/types";
+import { validEmail, validURL } from "@core/utils/validators";
+import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import { AddWebsiteRequest } from "@core/utils/Website/Request";
+import { ErrorDetails } from "@core/utils/utils";
 
 const websiteCodeGenerator = require("@core/utils/generateWebsiteCode");
 
-// Добавление веб-сайта и генерация специального и уникального кода
 export class AddWebsite {
-  constructor(private websiteRepository: WebsiteRepository) {}
-
-  async execute({
-    name,
-    url,
-    owner,
-    ownerEmail,
-  }: {
-    name: string;
-    url: string;
-    owner: number;
-    ownerEmail: string;
-  }): Promise<Website> {
-    if (!name || !url) {
-      throw new Error("Заполните необходимые поля!");
+  private websiteRepository: WebsiteRepository;
+  private userRepository: UserRepository;
+  constructor() {
+    this.userRepository = new UserRepository();
+    this.websiteRepository = new WebsiteRepository();
+  }
+  async execute(
+    request: AddWebsiteRequest,
+    errors: ErrorDetails[]
+  ): Promise<Website> {
+    const { name, url, email } = request;
+    const isValidUrl = await validURL(url);
+    const isValidEmail = validEmail(email);
+    if (!isValidUrl) {
+      errors.push(new ErrorDetails(400, "Invalid URL"));
+      return;
+    }
+    if (!isValidEmail) {
+      errors.push(new ErrorDetails(400, "Invalid Email"));
+      return;
     }
 
-    const { code, signature } = websiteCodeGenerator(url);
+    const { code, codeSignature } = websiteCodeGenerator(url);
+    const { user, signature } = await this.userRepository.findByEmail(email);
 
+    if (user == null) {
+      errors.push(new ErrorDetails(404, "User not found"));
+      return;
+    }
     console.log("code & signature", code, signature);
 
     const newWebsiteDetails: NewWebsiteInput = {
@@ -40,10 +55,16 @@ export class AddWebsite {
         },
       ],
       websiteCode: code,
-      websiteCodeSignature: signature,
     };
 
-    const newWebsite = await this.websiteRepository.create(newWebsiteDetails);
+    const newWebsite = await this.websiteRepository.create(
+      newWebsiteDetails,
+      errors
+    );
+
+    user.websiteId = newWebsite.id;
+    await user.save();
+
     return newWebsite;
   }
 }

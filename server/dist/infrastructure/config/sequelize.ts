@@ -11,6 +11,11 @@ const sequelize = new Sequelize({
   dialect: "postgres",
   storage: ":memory:",
   port: 42856,
+  // database: process.env.DB_NAME,
+  // host: process.env.DB_HOST,
+  // username: process.env.DB_USER,
+  // password: process.env.DB_PASS,
+  // port: 5432,
   logging: false,
   models: [User, Website],
   dialectOptions: {

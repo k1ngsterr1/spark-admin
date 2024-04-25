@@ -1,123 +1,105 @@
 import { Request, Response } from "express";
-import { WebsiteRepository } from "../../infrastructure/repositories/WebsiteRepository";
-import { User } from "infrastructure/models/userModel";
-import { Website } from "infrastructure/models/websiteModel";
 import { AddWebsite } from "core/use_cases/Website/AddWebsite";
-import { GetWebsite } from "core/use_cases/Website/GetWebsite";
+import { GetWebsites } from "@core/use_cases/Website/GetWebsites";
+import { GetWebsite } from "@core/use_cases/Website/GetWebsite";
+import { JWTService } from "@core/use_cases/User/JWTService";
 import { CheckWebsite } from "@core/use_cases/Website/CheckWebsite";
-
-import sequelize from "infrastructure/config/sequelize";
+import { AddUser } from "@core/use_cases/Website/AddUser";
+import { AddUserRequest, AddWebsiteRequest } from "@core/utils/Website/Request";
+import { ErrorDetails } from "@core/utils/utils";
 import WebsiteService from "@services/websiteService";
+import { Website } from "@infrastructure/models/websiteModel";
 
 class WebsiteController {
-  private websiteRepository: WebsiteRepository;
-  private websiteService: WebsiteService;
   private addWebsiteUseCase: AddWebsite;
-  private getWebsiteByOwner: GetWebsite;
+  private getWebsitesByOwner: GetWebsites;
+  private getWebsiteByName: GetWebsite;
+  private jwtService: JWTService;
+  private addUser: AddUser;
+  private websiteService: WebsiteService;
   private checkWebsiteUseCase: CheckWebsite;
 
   constructor() {
-    this.websiteRepository = new WebsiteRepository();
     this.websiteService = new WebsiteService();
+    this.addWebsiteUseCase = new AddWebsite();
+    this.getWebsitesByOwner = new GetWebsites();
+    this.getWebsiteByName = new GetWebsite();
+    this.addUser = new AddUser();
+    this.jwtService = new JWTService();
     this.checkWebsiteUseCase = new CheckWebsite(this.websiteService);
-    this.addWebsiteUseCase = new AddWebsite(this.websiteRepository);
-    this.getWebsiteByOwner = new GetWebsite(this.websiteRepository);
   }
 
-  // Добавление веб-сайтов
   async addWebsite(req: Request, res: Response) {
+    let errors: ErrorDetails[] = [];
     try {
-      const newWebsite = await this.addWebsiteUseCase.execute(req.body);
-      res.status(201).json({ message: "Веб-сайт успешно добавлен" });
+      if(await (req.cookies.access) === undefined){
+        errors.push(new ErrorDetails(401, "Unauthorized"));
+      }
+      const user = this.jwtService.getAccessPayload(req.cookies.access);
+      const request: AddWebsiteRequest = {
+        name: req.body.name,
+        url: req.body.url,
+        email: user.email
+      };
+      const newWebsite = await this.addWebsiteUseCase.execute(request, errors);
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json(current_error.details);
+        return;
+      }
+      res.status(201).json({ message: "Веб-сайт успешно добавлен", website: newWebsite});
     } catch (error) {
-      console.error("Ошибка с созданием веб-сайта:", error, {
-        requestBody: req.body,
-      });
-      console.log(req.body, this.websiteRepository);
-      return res.status(500).json({
-        error: "Ошибка с созданием веб-сайта",
-        details: error.message,
-      });
+      return res.status(500).json({ error: "Ошибка с созданием веб-сайта" });
     }
   }
 
-  // Получение веб-сайтов
   async getWebsites(req: Request, res: Response) {
     try {
-      const userID: number = req.user.userId;
+      const user = this.jwtService.getAccessPayload(req.cookies.access);
 
-      if (!req.user || !req.user.userId) {
-        console.log("ID пользователя не существует.", { user: req.user });
-        return res
-          .status(400)
-          .json({ message: "ID пользователя не существует." });
-      }
-
-      const websites = await this.getWebsiteByOwner.execute(userID);
+      const websites = await this.getWebsitesByOwner.execute(user.id);
+      
       return res.status(201).json(websites);
     } catch (error) {
-      console.error("Ошибка с получением сайтов:", error, {
-        userId: req.user.id,
-      });
-      return res
-        .status(500)
-        .json({ error: "Ошибка с получением сайтов", details: error.message });
+      console.error("Ошибка с получением сайтов:", error);
+      return res.status(500).json({ error: "Ошибка с получением сайтов" });
     }
   }
 
-  // Добавление пользователя в список пользователей веб-сайта
-  async addUser(req: Request, res: Response) {
+  async getWebsite(req: Request, res: Response){
+    try{
+      const user = this.jwtService.getAccessPayload(req.cookies.access);
+      const url: string = req.body.url;
+
+      const website = await this.getWebsiteByName.execute(user.id, url);
+      return res.status(200).json(website);
+    } catch (error) {
+      console.error("Ошибка с получением сайта:", error);
+      return res.status(500).json({ error: "Ошибка с получением сайта" });
+    }
+  }
+
+  async addUserToWebsite(req, res) {
     try {
-      const { userEmail, userRole, websiteId } = req.body;
-      const requesterID = req.user.id;
 
-      const userRepository = sequelize.getRepository(User);
-      const websiteRepository = sequelize.getRepository(Website);
-      const website = await websiteRepository.findByPk(websiteId);
+      const { userEmail, userRole, websiteID } = req.body;
+      const user = this.jwtService.getAccessPayload(req.cookies.access);
 
-      if (!website) {
-        return res.status(404).json({ message: "Веб-сайт не найден!" });
-      }
-
-      const isOwner = website.owner === requesterID;
-
-      if (!isOwner) {
-        return res
-          .status(403)
-          .json({ message: "Вы не владелец этого веб-сайта" });
-      }
-
-      const userToAdd = await userRepository.findOne({
-        where: { email: userEmail },
-      });
-
-      if (!userToAdd) {
-        return res
-          .status(404)
-          .json({ message: "Пользователь для добавления не найден" });
-      }
-
-      const newUserItem = {
-        id: userToAdd.id,
+      const request: AddUserRequest = {
         email: userEmail,
         role: userRole,
-      };
+        websiteID: websiteID,
+        requesterID: user.id
+      }
 
-      website.users = [...website.users, newUserItem];
-      await website.save();
-      res
-        .status(200)
-        .json({ message: "Пользователь успешно добавлен", website });
+      const website = await this.addUser.execute(request);
+
+      res.status(200).json({ message: "User added successfully", website });
     } catch (error) {
-      console.error("Ошибка с добавлением пользователя:", error);
-      res.status(500).json({
-        error: "Ошибка с добавлением пользователя",
-        details: error.message,
-      });
+      console.error("Error adding user:", error);
+      res.status(500).json({ error: "Failed to add user" });
     }
   }
-
-  // Проверка веб-сайта на наличие нашего мета-тэга
   async checkWebsite(req: Request, res: Response) {
     try {
       const url: string = req.body.url.match(

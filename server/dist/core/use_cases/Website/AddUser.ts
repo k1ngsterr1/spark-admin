@@ -1,37 +1,43 @@
-import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
+import { AddUserRequest } from "@core/utils/Website/Request";
+import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
 
-// Добавление пользователя в сайт
 export class AddUser {
-  constructor(private websiteRepository: IWebsiteRepository) {}
+  private websiteRepository: WebsiteRepository;
+  private userRepository: UserRepository
+  constructor() {
+    this.userRepository = new UserRepository();
+    this.websiteRepository = new WebsiteRepository();
+  }
 
-  async execute({
-    email,
-    role,
-    websiteId,
-    requesterID,
-  }: {
-    email: string;
-    role: string;
-    websiteId: string;
-    requesterID: number;
-  }): Promise<void> {
-    if (!email || !role || !websiteId) {
+  async execute(request: AddUserRequest): Promise<void> {
+    const { email, role, websiteID, requesterID } = request;
+    if (!email || !role || !websiteID) {
       throw new Error("Заполните необходимые поля!");
     }
 
-    const website = await this.websiteRepository.findByPk(websiteId);
+    const website = await this.websiteRepository.findByPk(websiteID);
 
     if (!website) {
-      throw new Error("Веб-сайт не найден");
+      throw new Error("Website not found!");
     }
 
-    if (website.owner !== requesterID) {
-      throw new Error("Вы не владелец веб-сайта");
-    }
+    const isOwner = website.owner === requesterID;
+    console.log(isOwner);
 
-    await this.websiteRepository.addUserToWebsite(websiteId, {
-      email,
-      role,
+    if (!isOwner) {
+      throw new Error("You are not the owner of this website");
+    }
+    const user = await this.userRepository.findOne({
+      where: { email: email },
     });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    user.websiteId = website.id;
+    await user.save();
+
   }
 }
