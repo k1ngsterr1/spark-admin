@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
-import { WebsiteRepository } from "../../infrastructure/repositories/WebsiteRepository";
 import { AddWebsite } from "core/use_cases/Website/AddWebsite";
 import { GetWebsites } from "@core/use_cases/Website/GetWebsites";
 import { GetWebsite } from "@core/use_cases/Website/GetWebsite";
 import { JWTService } from "@core/use_cases/User/JWTService";
 import { AddUser } from "@core/use_cases/Website/AddUser";
-import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { AddUserRequest, AddWebsiteRequest } from "@core/utils/Website/Request";
+import { ErrorDetails } from "@core/utils/utils";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
@@ -24,9 +23,10 @@ class WebsiteController {
   }
 
   async addWebsite(req: Request, res: Response) {
+    let errors: ErrorDetails[] = [];
     try {
       if(await (req.cookies.access) === undefined){
-        throw new Error("Please reload page!");
+        errors.push(new ErrorDetails(401, "Unauthorized"));
       }
       const user = this.jwtService.getAccessPayload(req.cookies.access);
       const request: AddWebsiteRequest = {
@@ -34,10 +34,14 @@ class WebsiteController {
         url: req.body.url,
         email: user.email
       };
-      const newWebsite = await this.addWebsiteUseCase.execute(request);
+      const newWebsite = await this.addWebsiteUseCase.execute(request, errors);
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json(current_error.details);
+        return;
+      }
       res.status(201).json({ message: "Веб-сайт успешно добавлен", website: newWebsite});
     } catch (error) {
-      console.error("Ошибка с созданием веб-сайта:", error);
       return res.status(500).json({ error: "Ошибка с созданием веб-сайта" });
     }
   }

@@ -5,7 +5,7 @@ import { UserRole, WebsiteCommand } from './types';
 
 export async function validEmail(email: string): Promise<boolean> {
     if(!validator.isEmail(email)){
-        throw new Error("Invalid email");
+        return false;
     }
     return true;
 }
@@ -28,7 +28,7 @@ export async function validPassword(password: string): Promise<boolean> {
 
 export async function validURL(url: string): Promise<boolean> {
     if(!url){
-        throw new Error("URL must not be empty");
+        return false;
     }
     if(!validator.isURL(url, { 
         protocols: ['https'],
