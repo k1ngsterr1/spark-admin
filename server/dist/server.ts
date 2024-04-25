@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 import authRoutes from "infrastructure/routes/authRoutes";
 import websiteRoutes from "infrastructure/routes/websiteRoutes";
 import auth from "@infrastructure/middleware/authMiddleware";
+
 const app = express();
 
 // Allowed All Cors Origins
