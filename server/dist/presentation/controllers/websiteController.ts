@@ -25,12 +25,16 @@ class WebsiteController {
   async addWebsite(req: Request, res: Response) {
     try {
       const newWebsite = await this.addWebsiteUseCase.execute(req.body);
-
       res.status(201).json({ message: "Веб-сайт успешно добавлен" });
     } catch (error) {
-      console.error("Ошибка с созданием веб-сайта:", error);
+      console.error("Ошибка с созданием веб-сайта:", error, {
+        requestBody: req.body,
+      });
       console.log(req.body, this.websiteRepository);
-      return res.status(500).json({ error: "Ошибка с созданием веб-сайта" });
+      return res.status(500).json({
+        error: "Ошибка с созданием веб-сайта",
+        details: error.message,
+      });
     }
   }
 
@@ -41,8 +45,12 @@ class WebsiteController {
       const websites = await this.getWebsiteByOwner.execute(userID);
       return res.status(201).json(websites);
     } catch (error) {
-      console.error("Ошибка с получением сайтов:", error);
-      return res.status(500).json({ error: "Ошибка с получением сайтов" });
+      console.error("Ошибка с получением сайтов:", error, {
+        userId: req.user.id,
+      });
+      return res
+        .status(500)
+        .json({ error: "Ошибка с получением сайтов", details: error.message });
     }
   }
 
@@ -57,7 +65,7 @@ class WebsiteController {
       const website = await websiteRepository.findByPk(websiteId);
 
       if (!website) {
-        return res.status(404).json({ message: "Website not found" });
+        return res.status(404).json({ message: "Веб-сайт не найден!" });
       }
 
       const isOwner = website.owner === requesterID;
@@ -65,7 +73,7 @@ class WebsiteController {
       if (!isOwner) {
         return res
           .status(403)
-          .json({ message: "You are not the owner of this website" });
+          .json({ message: "Вы не владелец этого веб-сайта" });
       }
 
       const userToAdd = await userRepository.findOne({
@@ -73,7 +81,9 @@ class WebsiteController {
       });
 
       if (!userToAdd) {
-        return res.status(404).json({ message: "User not found" });
+        return res
+          .status(404)
+          .json({ message: "Пользователь для добавления не найден" });
       }
 
       const newUserItem = {
@@ -84,10 +94,15 @@ class WebsiteController {
 
       website.users = [...website.users, newUserItem];
       await website.save();
-      res.status(200).json({ message: "User added successfully", website });
+      res
+        .status(200)
+        .json({ message: "Пользователь успешно добавлен", website });
     } catch (error) {
-      console.error("Error adding user:", error);
-      res.status(500).json({ error: "Failed to add user" });
+      console.error("Ошибка с добавлением пользователя:", error);
+      res.status(500).json({
+        error: "Ошибка с добавлением пользователя",
+        details: error.message,
+      });
     }
   }
 
@@ -97,7 +112,15 @@ class WebsiteController {
       const url: string = req.body;
       const checkWebsite = await this.checkWebsiteUseCase.execute(url);
       return res.status(201).json({ message: "Сайт был успешно проверен!" });
-    } catch (error) {}
+    } catch (error) {
+      console.error("Ошибка с проверкой веб-сайта:", error, { url: req.body });
+      res
+        .status(500)
+        .json({
+          error: "Ошибка с проверкой веб-сайта",
+          details: error.message,
+        });
+    }
   }
 }
 
