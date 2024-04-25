@@ -4,7 +4,9 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/add", (req, res) => websiteController.addWebsite(req, res));
-router.post("/check-website");
+router.post("/check-website", (req, res) =>
+  websiteController.checkWebsite(req, res)
+);
 router.post("/add-user", (req, res) => websiteController.addUser(req, res));
 router.get("/", (req, res) => websiteController.getWebsites(req, res));
 

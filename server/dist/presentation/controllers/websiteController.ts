@@ -21,6 +21,7 @@ class WebsiteController {
     this.getWebsiteByOwner = new GetWebsite(this.websiteRepository);
   }
 
+  // Добавление веб-сайтов
   async addWebsite(req: Request, res: Response) {
     try {
       const newWebsite = await this.addWebsiteUseCase.execute(req.body);
@@ -33,6 +34,7 @@ class WebsiteController {
     }
   }
 
+  // Получение веб-сайтов
   async getWebsites(req: Request, res: Response) {
     try {
       const userID: number = req.user.id;
@@ -44,6 +46,7 @@ class WebsiteController {
     }
   }
 
+  // Добавление пользователя в список пользователей веб-сайта
   async addUser(req: Request, res: Response) {
     try {
       const { userEmail, userRole, websiteId } = req.body;
@@ -88,13 +91,14 @@ class WebsiteController {
     }
   }
 
-  // async checkWebsite(req: Request, res: Response) {
-  //   try {
-  //     const {
-
-  //     };
-  //   } catch (error) {}
-  // }
+  // Проверка веб-сайта на наличие нашего мета-тэга
+  async checkWebsite(req: Request, res: Response) {
+    try {
+      const url: string = req.body;
+      const checkWebsite = await this.checkWebsiteUseCase.execute(url);
+      return res.status(201).json({ message: "Сайт был успешно проверен!" });
+    } catch (error) {}
+  }
 }
 
 export default new WebsiteController();
