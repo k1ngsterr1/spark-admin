@@ -17,18 +17,18 @@ const cors = require("cors");
 const port = process.env.PORT;
 
 // Allowed All Cors Origins
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     callback(null, true);
-//   },
-//   credentials: true,
-//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   allowedHeaders: ["Authorization", "Content-Type"],
-// };
+const corsOptions = {
+  origin: function (origin, callback) {
+    callback(null, true);
+  },
+  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: ["Authorization", "Content-Type"],
+};
 
 app.use(express.json());
 app.use(cors());
-// app.options("*", cors());
+app.options("*", cors());
 
 // Routes:
 app.use("/api/auth", authRoutes);
