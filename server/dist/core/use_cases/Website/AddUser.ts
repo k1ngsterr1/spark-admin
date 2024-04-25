@@ -1,5 +1,6 @@
 import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
 
+// Добавление пользователя в сайт
 export class AddUser {
   constructor(private websiteRepository: IWebsiteRepository) {}
 
@@ -21,11 +22,11 @@ export class AddUser {
     const website = await this.websiteRepository.findByPk(websiteId);
 
     if (!website) {
-      throw new Error("Website not found");
+      throw new Error("Веб-сайт не найден");
     }
 
     if (website.owner !== requesterID) {
-      throw new Error("You are not the owner of this website");
+      throw new Error("Вы не владелец веб-сайта");
     }
 
     await this.websiteRepository.addUserToWebsite(websiteId, {

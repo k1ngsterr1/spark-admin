@@ -114,12 +114,10 @@ class WebsiteController {
       return res.status(201).json({ message: "Сайт был успешно проверен!" });
     } catch (error) {
       console.error("Ошибка с проверкой веб-сайта:", error, { url: req.body });
-      res
-        .status(500)
-        .json({
-          error: "Ошибка с проверкой веб-сайта",
-          details: error.message,
-        });
+      res.status(500).json({
+        error: "Ошибка с проверкой веб-сайта",
+        details: error.message,
+      });
     }
   }
 }
