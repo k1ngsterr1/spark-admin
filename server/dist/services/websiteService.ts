@@ -21,6 +21,8 @@ class WebsiteService {
 
     return metaContent === expectedCode;
   }
+
+  // async getUniqueIdentifierForWebsite(url: string): Promise<string> {}
 }
 
 export default WebsiteService;

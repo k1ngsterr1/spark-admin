@@ -8,6 +8,8 @@ import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { AddWebsiteRequest } from "@core/utils/Website/Request";
 import { ErrorDetails } from "@core/utils/utils";
 
+const websiteCodeGenerator = require("@core/utils/generateWebsiteCode");
+
 export class AddWebsite {
   private websiteRepository: WebsiteRepository;
   private userRepository: UserRepository;
@@ -15,36 +17,53 @@ export class AddWebsite {
     this.userRepository = new UserRepository();
     this.websiteRepository = new WebsiteRepository();
   }
-  async execute(request: AddWebsiteRequest, errors: ErrorDetails[]): Promise<Website> {
-    const {name, url, email} = request;
+  async execute(
+    request: AddWebsiteRequest,
+    errors: ErrorDetails[]
+  ): Promise<Website> {
+    const { name, url, email } = request;
     const isValidUrl = await validURL(url);
-    const isValidEmail =  validEmail(email);
-    if(!isValidUrl){
+    const isValidEmail = validEmail(email);
+    if (!isValidUrl) {
       errors.push(new ErrorDetails(400, "Invalid URL"));
       return;
     }
-    if(!isValidEmail){
+    if (!isValidEmail) {
       errors.push(new ErrorDetails(400, "Invalid Email"));
       return;
     }
 
-    const user = await this.userRepository.findByEmail(email);
+    const { user, signature } = await this.userRepository.findByEmail(email);
 
-    if(user == null){
+    if (user == null) {
       errors.push(new ErrorDetails(404, "User not found"));
       return;
     }
+    console.log("code & signature", code, signature);
+
     const newWebsiteDetails: NewWebsiteInput = {
-      name: name,
-      url: url,
-      owner: user.id
+      name,
+      url,
+      owner,
+      ownerEmail,
+      users: [
+        {
+          email: ownerEmail,
+          id: owner,
+          role: "Owner",
+        },
+      ],
+      websiteCode: code,
     };
 
-    const newWebsite = await this.websiteRepository.create(newWebsiteDetails, errors);
+    const newWebsite = await this.websiteRepository.create(
+      newWebsiteDetails,
+      errors
+    );
 
     user.websiteId = newWebsite.id;
     await user.save();
-    
+
     return newWebsite;
   }
 }

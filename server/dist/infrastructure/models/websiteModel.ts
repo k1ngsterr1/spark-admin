@@ -9,7 +9,7 @@ import {
   PrimaryKey,
   Unique,
   Default,
-  HasMany
+  HasMany,
 } from "sequelize-typescript";
 
 import { v4 as uuidv4 } from "uuid";
@@ -42,13 +42,20 @@ export class Website extends Model<WebsiteAttributes> {
   @Unique
   @Column(DataType.STRING)
   url!: string;
-  
+
   @Unique
   @Column(DataType.STRING)
   websiteCode!: string;
 
   @Column(DataType.INTEGER)
   owner!: number;
+
+  @Unique
+  @Column(DataType.STRING)
+  websiteSignature!: string;
+
+  // @Column(DataType.JSONB)
+  // users!: UserItems[];
 
   @CreatedAt
   createdAt?: Date;
