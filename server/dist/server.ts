@@ -28,7 +28,7 @@ const port = 4000;
 
 app.use(express.json());
 app.use(cors());
-app.options("*", cors());
+// app.options("*", cors());
 
 // Routes:
 app.use("/api/auth", authRoutes);
