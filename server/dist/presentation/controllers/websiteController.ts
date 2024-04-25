@@ -124,11 +124,22 @@ class WebsiteController {
         /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
       );
 
-      const expectedCode = req.body.code;
-      const checkWebsite = await this.checkWebsiteUseCase.execute(
-        url,
+      const expectedCode: string = req.body.code;
+      const stringifyUrl = url.toString();
+
+      const website: Website = await this.websiteRepository.findByUrl(url);
+      const existingURL: string = website?.url;
+
+      const checkWebsite: boolean = await this.checkWebsiteUseCase.execute(
+        stringifyUrl,
         expectedCode
       );
+
+      if (website === null || undefined) {
+        return res
+          .status(404)
+          .json({ message: "Веб-сайта с данной ссылкой не существует :(" });
+      }
 
       if (url === null) {
         return res.status(400).json({ message: "Введите корректную ссылку" });

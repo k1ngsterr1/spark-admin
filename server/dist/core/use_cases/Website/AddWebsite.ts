@@ -4,6 +4,8 @@ import { WebsiteRepository } from "infrastructure/repositories/WebsiteRepository
 
 const websiteCodeGenerator = require("@core/utils/generateWebsiteCode");
 
+// Добавление веб-сайта и генерация специального и уникального кода
+
 export class AddWebsite {
   constructor(private websiteRepository: WebsiteRepository) {}
 

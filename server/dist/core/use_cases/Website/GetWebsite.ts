@@ -2,12 +2,13 @@ import { WebsiteRepository } from "../../../infrastructure/repositories/WebsiteR
 import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
 import { Website } from "infrastructure/models/websiteModel";
 
+// Получение веб-сайта по id владельца
+
 export class GetWebsite {
   constructor(private websiteRepository: IWebsiteRepository) {}
 
   async execute(ownerId: number) {
     const websites = await this.websiteRepository.findByOwner(ownerId);
-
     return websites.map((website) => ({
       name: website.name,
       url: website.url,

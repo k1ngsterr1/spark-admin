@@ -25,4 +25,16 @@ export class WebsiteRepository implements IWebsiteRepository {
       where: { owner: ownerId },
     });
   }
+
+  // Поиск сайта по url
+  async findByUrl(urlString: string): Promise<Website> {
+    try {
+      return await sequelize
+        .getRepository(Website)
+        .findOne({ where: { url: urlString } });
+    } catch (error) {
+      console.error("Невозможно найти веб-сайт URL:", error);
+      throw error;
+    }
+  }
 }
