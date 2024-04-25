@@ -3,9 +3,12 @@ import { AddWebsite } from "core/use_cases/Website/AddWebsite";
 import { GetWebsites } from "@core/use_cases/Website/GetWebsites";
 import { GetWebsite } from "@core/use_cases/Website/GetWebsite";
 import { JWTService } from "@core/use_cases/User/JWTService";
+import { CheckWebsite } from "@core/use_cases/Website/CheckWebsite";
 import { AddUser } from "@core/use_cases/Website/AddUser";
 import { AddUserRequest, AddWebsiteRequest } from "@core/utils/Website/Request";
 import { ErrorDetails } from "@core/utils/utils";
+import WebsiteService from "@services/websiteService";
+import { Website } from "@infrastructure/models/websiteModel";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
@@ -13,13 +16,17 @@ class WebsiteController {
   private getWebsiteByName: GetWebsite;
   private jwtService: JWTService;
   private addUser: AddUser;
+  private websiteService: WebsiteService;
+  private checkWebsiteUseCase: CheckWebsite;
 
   constructor() {
+    this.websiteService = new WebsiteService();
     this.addWebsiteUseCase = new AddWebsite();
     this.getWebsitesByOwner = new GetWebsites();
     this.getWebsiteByName = new GetWebsite();
     this.addUser = new AddUser();
     this.jwtService = new JWTService();
+    this.checkWebsiteUseCase = new CheckWebsite(this.websiteService);
   }
 
   async addWebsite(req: Request, res: Response) {
@@ -91,6 +98,58 @@ class WebsiteController {
     } catch (error) {
       console.error("Error adding user:", error);
       res.status(500).json({ error: "Failed to add user" });
+    }
+  }
+  async checkWebsite(req: Request, res: Response) {
+    try {
+      const url: string = req.body.url.match(
+        /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+      );
+
+      const expectedCode: string = req.body.code;
+      const stringifyUrl = url.toString();
+
+      const website: Website = await this.websiteRepository.findByUrl(url);
+      const existingURL: string = website?.url;
+
+      const checkWebsite: boolean = await this.checkWebsiteUseCase.execute(
+        stringifyUrl,
+        expectedCode
+      );
+
+      if (website === null || undefined) {
+        return res
+          .status(404)
+          .json({ message: "Веб-сайта с данной ссылкой не существует :(" });
+      }
+
+      if (url === null) {
+        return res.status(400).json({ message: "Введите корректную ссылку" });
+      }
+
+      if (!expectedCode) {
+        return res
+          .status(400)
+          .json({ message: "Пожалуйста введите код верификации" });
+      }
+
+      if (!url) {
+        return res
+          .status(400)
+          .json({ message: "Введите URL сайта, который хотите подключить" });
+      }
+
+      if (checkWebsite === false) {
+        return res.status(422).json({ message: "Сайт не был подтвержден" });
+      }
+
+      return res.status(201).json({ message: "Сайт был успешно проверен!" });
+    } catch (error) {
+      console.error("Ошибка с проверкой веб-сайта:", error, { url: req.body });
+      res.status(500).json({
+        error: "Ошибка с проверкой веб-сайта",
+        details: error.message,
+      });
     }
   }
 }

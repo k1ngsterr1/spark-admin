@@ -3,6 +3,9 @@ import pageRoutes from "./pageRoutes";
 
 const express = require("express");
 const router = express.Router();
+// Проверка JWT токена
+router.use(authenticateToken);
+router.use(advancedLogger);
 
 router.post("/add", (req, res) => websiteController.addWebsite(req, res));
 router.post("/add-user", (req, res) => websiteController.addUserToWebsite(req, res));

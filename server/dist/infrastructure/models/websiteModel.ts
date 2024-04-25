@@ -42,6 +42,10 @@ export class Website extends Model<WebsiteAttributes> {
   @Unique
   @Column(DataType.STRING)
   url!: string;
+  
+  @Unique
+  @Column(DataType.STRING)
+  websiteCode!: string;
 
   @Column(DataType.INTEGER)
   owner!: number;
