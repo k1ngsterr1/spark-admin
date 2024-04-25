@@ -5,7 +5,7 @@ const express = require("express");
 const router = express.Router();
 
 // Проверка JWT токена
-router.user(authenticateToken);
+router.use(authenticateToken);
 
 // Добавление веб-сайта
 router.post("/add", (req, res) => websiteController.addWebsite(req, res));
