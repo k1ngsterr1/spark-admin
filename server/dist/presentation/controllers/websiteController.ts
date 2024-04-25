@@ -44,9 +44,14 @@ class WebsiteController {
   // Получение веб-сайтов
   async getWebsites(req: Request, res: Response) {
     try {
-      const userID: number = req.user.id;
+      const userID: number = req.user.userId;
 
-      console.log("userID:", userID);
+      if (!req.user || !req.user.userId) {
+        console.log("ID пользователя не существует.", { user: req.user });
+        return res
+          .status(400)
+          .json({ message: "ID пользователя не существует." });
+      }
 
       const websites = await this.getWebsiteByOwner.execute(userID);
       return res.status(201).json(websites);
