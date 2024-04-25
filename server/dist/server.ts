@@ -16,8 +16,19 @@ const app = express();
 const cors = require("cors");
 const port = 4000;
 
+// Allowed All Cors Origins
+const corsOptions = {
+  origin: function (origin, callback) {
+    callback(null, true);
+  },
+  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: ["Authorization", "Content-Type"],
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 // Routes:
 app.use("/api/auth", authRoutes);
