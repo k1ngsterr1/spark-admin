@@ -6,9 +6,10 @@ import Input from "@shared/ui/Inputs/DefaultInport";
 import PasswordInput from "@shared/ui/Inputs/PasswordInput";
 import MiniText from "@shared/ui/MiniText/index";
 import Heading from "@shared/ui/Heading/index";
-import {useRegister}  from '@shared/lib/hooks/Form/useRegister'; // Adjust path as necessary
+import {useRegister}  from '@shared/lib/hooks/Form/useRegister';
 
 import styles from "../styles/styles.module.scss";
+
 import SparkLogo from "@assets/spark_product_logo.svg";
 
 const Form = () => {
@@ -16,17 +17,30 @@ const Form = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
+    let isValid = true;
+    setPasswordError('');
+    setConfirmPasswordError('');
+
     if (password !== confirmPassword) {
-      alert("Passwords do not match.");
-      return;
+      setConfirmPasswordError("Пароли не совпадают");
+      isValid = false;
     }
 
-    const result = await useRegister({ username, email, password, confirmPassword });
-    if (typeof result === 'string') {
-      alert(result); 
+    if (password.length < 6) {
+      setPasswordError("Пароль должен содержать не менее 6 символов");
+      isValid = false;
+    }
+
+    if (isValid) {
+      const result = await useRegister({ username, email, password, confirmPassword });
+      if (typeof result === 'string') {
+        alert(result);
+      }
     }
   };
 
@@ -62,6 +76,7 @@ const Form = () => {
             type='password'
             required
           />
+          {passwordError && <div className={styles.error}>{passwordError}</div>}
           <PasswordInput
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
@@ -70,6 +85,7 @@ const Form = () => {
             type='password'
             required
           />
+          {confirmPasswordError && <div className={styles.error}>{confirmPasswordError}</div>}
           <Button
             text="Зарегистрироваться"
             buttonType="regular"

@@ -26,6 +26,7 @@ const LoginForm = () => {
   };
   return (
     <section className={styles.registration}>
+      
       <div className={styles.registration__content}>
         <div className={styles.registration__logo}>
           <SparkLogo />

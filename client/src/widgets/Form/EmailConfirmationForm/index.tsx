@@ -3,9 +3,10 @@ import Input from "@shared/ui/Inputs/DefaultInport";
 import Heading from "@shared/ui/Heading/index";
 import MiniText from "@shared/ui/MiniText";
 
+
 import styles from "../styles/styles.module.scss";
-// import "../EmailConfirmationForm/styles.scss";
 import "../../../shared/styles/mixins.scss";
+
 import SparkLogo from "@assets/spark_product_logo.svg";
 
 const EmailConfirm = () => {
