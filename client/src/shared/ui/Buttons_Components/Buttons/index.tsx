@@ -9,6 +9,7 @@ import styles from "./styles.module.scss";
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   margin?: string;
   text: string;
+  href?: string;
   buttonType:
     | "regular"
     | "transparent"
@@ -23,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   text,
   buttonType,
   functionType,
+  href,
   ...rest
 }) => {
   const buttonClass = `${styles.button} ${styles[`button--${buttonType}`]} ${
@@ -40,7 +42,7 @@ const Button: React.FC<ButtonProps> = ({
     }
   };
 
-  return (
+  return ( 
     <button className={buttonClass} onClick={handleClick} {...rest}>
       {text}
     </button>

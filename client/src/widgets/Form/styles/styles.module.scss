@@ -33,4 +33,22 @@
     flex-direction: row;
     gap: clamp(8px,0.83328vw,32px);
   }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .error {
+    @apply text-red-500 mt-2;
+    font-size: clamp(9px, 0.93744vw, 36px);
+    animation: fadeIn 0.5s ease-out;
+  }
+  
 }
