@@ -1,12 +1,11 @@
-import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
+import WebsiteService from "@services/websiteService";
 
 export class CheckWebsite {
-  constructor(private websiteRepository: IWebsiteRepository) {}
+  constructor(private websiteService: WebsiteService) {}
+  // Проверка веб-сайта на наличие нашего тэга
+  async execute(url: string, expectedCode: string): Promise<boolean> {
+    const html = await this.websiteService.fetchHTMLContent(url);
 
-  async execute(url: string) {
-    const websiteContent = await this.websiteRepository.fetchHTMLContent(url);
-    const verifiedContent = await this.websiteRepository.metaTagChecker(
-      websiteContent
-    );
+    return this.websiteService.checkMetaTag(html, expectedCode);
   }
 }

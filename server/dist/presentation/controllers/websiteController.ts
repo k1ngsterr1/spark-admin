@@ -7,16 +7,19 @@ import { GetWebsite } from "core/use_cases/Website/GetWebsite";
 import { CheckWebsite } from "@core/use_cases/Website/CheckWebsite";
 
 import sequelize from "infrastructure/config/sequelize";
+import WebsiteService from "@services/websiteService";
 
 class WebsiteController {
   private websiteRepository: WebsiteRepository;
+  private websiteService: WebsiteService;
   private addWebsiteUseCase: AddWebsite;
   private getWebsiteByOwner: GetWebsite;
   private checkWebsiteUseCase: CheckWebsite;
 
   constructor() {
     this.websiteRepository = new WebsiteRepository();
-    this.checkWebsiteUseCase = new CheckWebsite(this.websiteRepository);
+    this.websiteService = new WebsiteService();
+    this.checkWebsiteUseCase = new CheckWebsite(this.websiteService);
     this.addWebsiteUseCase = new AddWebsite(this.websiteRepository);
     this.getWebsiteByOwner = new GetWebsite(this.websiteRepository);
   }
@@ -42,6 +45,9 @@ class WebsiteController {
   async getWebsites(req: Request, res: Response) {
     try {
       const userID: number = req.user.id;
+
+      console.log("userID:", userID);
+
       const websites = await this.getWebsiteByOwner.execute(userID);
       return res.status(201).json(websites);
     } catch (error) {
@@ -109,8 +115,36 @@ class WebsiteController {
   // Проверка веб-сайта на наличие нашего мета-тэга
   async checkWebsite(req: Request, res: Response) {
     try {
-      const url: string = req.body;
-      const checkWebsite = await this.checkWebsiteUseCase.execute(url);
+      const url: string = req.body.url.match(
+        /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+      );
+
+      const expectedCode = req.body.code;
+      const checkWebsite = await this.checkWebsiteUseCase.execute(
+        url,
+        expectedCode
+      );
+
+      if (url === null) {
+        return res.status(400).json({ message: "Введите корректную ссылку" });
+      }
+
+      if (!expectedCode) {
+        return res
+          .status(400)
+          .json({ message: "Пожалуйста введите код верификации" });
+      }
+
+      if (!url) {
+        return res
+          .status(400)
+          .json({ message: "Введите URL сайта, который хотите подключить" });
+      }
+
+      if (checkWebsite === false) {
+        return res.status(422).json({ message: "Сайт не был подтвержден" });
+      }
+
       return res.status(201).json({ message: "Сайт был успешно проверен!" });
     } catch (error) {
       console.error("Ошибка с проверкой веб-сайта:", error, { url: req.body });

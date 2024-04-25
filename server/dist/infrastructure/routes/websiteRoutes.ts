@@ -1,3 +1,4 @@
+import advancedLogger from "@infrastructure/middleware/advancedLogger";
 import authenticateToken from "@infrastructure/middleware/authMiddleware";
 import websiteController from "presentation/controllers/websiteController";
 
@@ -6,6 +7,7 @@ const router = express.Router();
 
 // Проверка JWT токена
 router.use(authenticateToken);
+router.use(advancedLogger);
 
 // Добавление веб-сайта
 router.post("/add", (req, res) => websiteController.addWebsite(req, res));
