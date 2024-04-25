@@ -1,9 +1,8 @@
-import fetch from "node-fetch";
-
 export async function useGetWebsites() {
   const jwtToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJuYW1lIjoiQXJ0ZW0gQW5kcmVldiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzEzOTY5NjIyLCJleHAiOjE3MTQwNTYwMjJ9.hiNPY7kRFbohEdZRMvK9TykmdnpcaHn0Ak78_wZ_LbY";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiUnVzbGFuIE1ha2htYXRvdiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzE0MDYzNjg0LCJleHAiOjE3MTQxNTAwODR9.TyK_pBshrGk1E9N0YVkpV5nspl8S-MyImLAUNc36zuY";
   const url = "https://spark-admin-production.up.railway.app/api/website";
+
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -11,17 +10,9 @@ export async function useGetWebsites() {
       "Content-Type": "application/json",
     },
   });
-  const sites = await response.json();
 
-  async function fetchData() {
-    try {
-      const sites = await useGetWebsites();
-      console.log("Полученные сайты:", sites);
-    } catch (error) {
-      console.error("Ошибка при получении сайтов:", error);
-    }
+  if (!response.ok) {
+    throw new Error("Failed to fetch data");
   }
-
-  fetchData();
-  return sites;
+  return response.json();
 }
