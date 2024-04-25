@@ -5,7 +5,6 @@ import { WebsiteRepository } from "infrastructure/repositories/WebsiteRepository
 const websiteCodeGenerator = require("@core/utils/generateWebsiteCode");
 
 // Добавление веб-сайта и генерация специального и уникального кода
-
 export class AddWebsite {
   constructor(private websiteRepository: WebsiteRepository) {}
 
@@ -24,7 +23,9 @@ export class AddWebsite {
       throw new Error("Заполните необходимые поля!");
     }
 
-    const code = websiteCodeGenerator(url);
+    const { code, signature } = websiteCodeGenerator(url);
+
+    console.log("code & signature", code, signature);
 
     const newWebsiteDetails: NewWebsiteInput = {
       name,
@@ -39,6 +40,7 @@ export class AddWebsite {
         },
       ],
       websiteCode: code,
+      websiteCodeSignature: signature,
     };
 
     const newWebsite = await this.websiteRepository.create(newWebsiteDetails);

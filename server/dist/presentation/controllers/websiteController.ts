@@ -131,7 +131,7 @@ class WebsiteController {
       const existingURL: string = website?.url;
 
       const checkWebsite: boolean = await this.checkWebsiteUseCase.execute(
-        stringifyUrl,
+        existingURL,
         expectedCode
       );
 
@@ -151,7 +151,7 @@ class WebsiteController {
           .json({ message: "Пожалуйста введите код верификации" });
       }
 
-      if (!url) {
+      if (!url || !existingURL) {
         return res
           .status(400)
           .json({ message: "Введите URL сайта, который хотите подключить" });

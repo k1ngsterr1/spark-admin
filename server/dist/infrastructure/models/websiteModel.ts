@@ -69,6 +69,10 @@ export class Website extends Model<
   @Column(DataType.STRING)
   websiteCode!: string;
 
+  @Unique
+  @Column(DataType.STRING)
+  websiteSignature!: string;
+
   @Column(DataType.JSONB)
   users!: UserItems[];
 
