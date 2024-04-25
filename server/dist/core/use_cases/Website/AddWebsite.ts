@@ -33,6 +33,7 @@ export class AddWebsite {
       return;
     }
 
+    const { code, codeSignature } = websiteCodeGenerator(url);
     const { user, signature } = await this.userRepository.findByEmail(email);
 
     if (user == null) {

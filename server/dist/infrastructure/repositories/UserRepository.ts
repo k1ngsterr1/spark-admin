@@ -26,12 +26,15 @@ export class UserRepository implements IUserRepository {
     await user.save();
     return true;
   }
-  async findByWebsiteId(websiteId: string, userId: number): Promise<User | null>{
+  async findByWebsiteId(
+    websiteId: string,
+    userId: number
+  ): Promise<User | null> {
     return sequelize.getRepository(User).findOne({
       where: {
         id: userId,
-        websiteId: websiteId
-      }
+        websiteId: websiteId,
+      },
     });
   }
 }

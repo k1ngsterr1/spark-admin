@@ -14,9 +14,9 @@ const generateWebsiteCodeAndSignature = (domain: string) => {
   const signer = crypto.createSign("sha256");
   signer.update(baseString);
   signer.end();
-  const signature = signer.sign(privateKey, "base64");
+  const codeSignature = signer.sign(privateKey, "base64");
 
-  return { code, signature };
+  return { code, codeSignature };
 };
 
 export default generateWebsiteCodeAndSignature;
