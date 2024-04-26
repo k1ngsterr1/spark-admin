@@ -1,16 +1,14 @@
+import { NewUserInput } from "@core/utils/types";
+import { ErrorDetails } from "@core/utils/utils";
+import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import { User } from "infrastructure/models/userModel";
-
-export interface NewUserInput {
-  username: string;
-  email: string;
-  password: string;
-  verificationCode: string;
-}
 
 export interface IUserRepository {
   create(userDetails: NewUserInput): Promise<User>;
   findByEmail(email: string): Promise<User | null>;
   findByPk?(primaryKey: string | number): Promise<User | null>;
   findOne(options: { where: { email: string } }): Promise<User | null>;
-  changePassword?(userId: number, newPassword: string): Promise<boolean>;
+  changeUserPassword?(user: User, newPassword: string): Promise<boolean>;
+  isValidPassword?(password: string): Promise<boolean>;
+  getUserFromWebsite(websiteId: string, userId: number): Promise<UserToWebsite | null>
 }

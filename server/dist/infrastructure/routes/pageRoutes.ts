@@ -5,6 +5,7 @@ const express = require("express");
 const router = express.Router();
 
 router.use(authenticateToken);
+
 /**
  * @swagger
  * components:
@@ -12,10 +13,10 @@ router.use(authenticateToken);
  *     bearerAuth:
  *       type: http
  *       scheme: bearer
- * /api/pages/add:
+ * /api/page/add:
  *   post:
- *     summary: Add a new page for a website
- *     description: Add a new page for a website with website id, url, name and type.
+ *     summary: Добавление страницы для вебсайта
+ *     description: Добавление страницы для вебсайта с использованием website ID, url, name and type.
  *     tags:
  *       - Pages
  *     security:
@@ -34,18 +35,82 @@ router.use(authenticateToken);
  *             properties:
  *               websiteId: 
  *                 type: string
- *                 example: 
- *               newPassword:
+ *                 example: 0bae8a7c-af38-49f4-a6a7-351853cb7448
+ *               url:
  *                 type: string
- *                 example: newP@ssw0rd2
+ *                 example: https://sparkstudio.kz/
+ *               name:
+ *                 type: string
+ *                 example: Spark Studio
+ *               type:
+ *                 type: string
+ *                 example: Main Page
  *     responses:
  *       200:
- *         description: User login successfully.
+ *         description: Страница успешно добавлена
  *       400:
- *         description: Login failed.
+ *         description: Не удалось добавить страницу
  */
 router.post("/add", (req, res) => pageController.addPage(req, res));
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ * /api/page/get-pages/{websiteId}:
+ *   get:
+ *     summary: Получение списка страниц для вебсайта
+ *     description: Получение списка страниц для вебсайта через вебсайт ID.
+ *     tags:
+ *       - Pages
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: websiteId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Unique identifier of the website
+ *     responses:
+ *       200:
+ *         description: Страницы вебсайт успешно получен
+ *       400:
+ *         description: Не удалось получить страницы вебсайта
+ */
 router.get("/get-pages/:websiteId", (req, res) => pageController.getPages(req, res));
-router.delete("/delete/:websiteId", (req, res) => pageController.deletePages(req, res));
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ * /api/page/delete-page/{websiteId}:
+ *   delete:
+ *     summary: Удаление страницы для вебсайта
+ *     description: Удаление страницы с вебсайта через вебсайт ID.
+ *     tags:
+ *       - Pages
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: websiteId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Уникальный идентификатор вебсайта
+ *     responses:
+ *       200:
+ *         description: Страница успешно удалена
+ *       400:
+ *         description: Не удалось удалить страницу
+ */
+router.delete("/delete-page/:websiteId", (req, res) => pageController.deletePages(req, res));
 
 export default router;

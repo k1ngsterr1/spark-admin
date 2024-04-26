@@ -1,4 +1,6 @@
 import { AddUserRequest } from "@core/utils/Website/Request";
+import { UserRole } from "@core/utils/types";
+import { ErrorDetails } from "@core/utils/utils";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
 
@@ -10,32 +12,35 @@ export class AddUser {
     this.websiteRepository = new WebsiteRepository();
   }
 
-  async execute(request: AddUserRequest): Promise<void> {
+  async execute(request: AddUserRequest, errors: ErrorDetails[]): Promise<void> {
     const { email, role, websiteID, requesterID } = request;
     if (!email || !role || !websiteID) {
-      throw new Error("Заполните необходимые поля!");
+      errors.push(new ErrorDetails(403, "Введите все поля"));
+      return;
     }
 
-    const website = await this.websiteRepository.findByPk(websiteID);
+    const website = await this.websiteRepository.findByPk(websiteID, errors);
 
     if (!website) {
-      throw new Error("Website not found!");
+      errors.push(new ErrorDetails(404, "Вебсайта с таким ID нету"));
+      return;
     }
 
     const isOwner = website.owner === requesterID;
-    console.log(isOwner);
 
     if (!isOwner) {
-      throw new Error("You are not the owner of this website");
+      errors.push(new ErrorDetails(403, "Вы не владелец этого вебсайта"));
+      return;
     }
     const user = await this.userRepository.findOne({
       where: { email: email },
     });
 
     if (!user) {
-      throw new Error("User not found");
+      errors.push(new ErrorDetails(403, "Пользователя с такой электронной почтой не существует"));
+      return;
     }
 
-    await this.websiteRepository.addUser(websiteID, user.id);
+    await this.websiteRepository.addUser(websiteID, user.id, null, role);
   }
 }

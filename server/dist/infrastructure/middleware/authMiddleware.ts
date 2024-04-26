@@ -17,7 +17,6 @@ const authenticateToken = async (req, res, next) => {
   try {
     const decodedUser = await jwt.verify(token, JWT_SECRET_ACCESS);
     req.user = decodedUser;
-
     next();
   } catch (error) {
     console.error(error);

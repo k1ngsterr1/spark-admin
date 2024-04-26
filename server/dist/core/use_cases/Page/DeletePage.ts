@@ -1,5 +1,5 @@
 import { IPageRepository } from "@core/interfaces/IPageRepository";
-import { IUserRepository } from "@core/interfaces/IUserRepositry";
+import { IUserRepository } from "@core/interfaces/IUserRepository";
 import { WebsiteCommand } from "@core/utils/types";
 import { validURL, validWebsiteUser } from "@core/utils/validators";
 import { PageRepository } from "@infrastructure/repositories/PageRepository";
@@ -13,12 +13,18 @@ export class DeletePage {
     this.userRepository = new UserRepository();
   }
   async execute(websiteId: string, userId: number, url: string): Promise<void> {
-    const user = await this.userRepository.findByWebsiteId(websiteId, userId);
+    const user = await this.userRepository.getUserFromWebsite(websiteId, userId);
     if(user === null){
         throw new Error("User not found");
     }
-    await validURL(url);
-    await validWebsiteUser(user, WebsiteCommand.delete);
+    const isValidUrl = await validURL(url);
+    const isValidUser = await validWebsiteUser(user, WebsiteCommand.delete);
+    if(!isValidUrl){
+      throw new Error("Invalid URL");
+    }
+    if(!isValidUser){
+      throw new Error("Not enough rights");
+    }
 
     await this.pageRepository.deletePageByUrl(websiteId, url);
   }

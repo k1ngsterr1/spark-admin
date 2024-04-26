@@ -1,4 +1,3 @@
-
 import userController from "presentation/controllers/userController";
 
 const express = require("express");
@@ -9,10 +8,10 @@ import auth from "@infrastructure/middleware/authMiddleware";
  * @swagger
  * /api/auth/register:
  *   post:
- *     summary: Register a new user
- *     description: Register a new user with a username, email and password.
+ *     summary: Регистрация нового пользователя
+ *     description: Регистрация нового пользователя с именем пользователя, электронной почтой и паролем.
  *     tags:
- *       - Authentication
+ *       - Аутентификация
  *     requestBody:
  *       required: true
  *       content:
@@ -39,9 +38,9 @@ import auth from "@infrastructure/middleware/authMiddleware";
  *                 example: newP@ssw0rd
  *     responses:
  *       201:
- *         description: User registered successfully.
+ *         description: Пользователь успешно зарегистрирован.
  *       400:
- *         description: Registration failed.
+ *         description: Регистрация не удалась.
  */
 router.post("/register", (req, res) => userController.createUser(req, res));
 
@@ -49,10 +48,10 @@ router.post("/register", (req, res) => userController.createUser(req, res));
  * @swagger
  * /api/auth/login:
  *   post:
- *     summary: Login user
- *     description: Login a user with an email and password.
+ *     summary: Вход пользователя
+ *     description: Вход пользователя с использованием электронной почты и пароля.
  *     tags:
- *       - Authentication
+ *       - Аутентификация
  *     requestBody:
  *       required: true
  *       content:
@@ -71,9 +70,9 @@ router.post("/register", (req, res) => userController.createUser(req, res));
  *                 example: newP@ssw0rd
  *     responses:
  *       200:
- *         description: User login successfully.
+ *         description: Пользователь успешно вошел в систему.
  *       400:
- *         description: Login failed.
+ *         description: Вход в систему не удался.
  */
 router.post("/login", (req, res, next) => userController.login(req, res, next));
 
@@ -86,10 +85,10 @@ router.post("/login", (req, res, next) => userController.login(req, res, next));
  *       scheme: bearer
  * /api/auth/change-password:
  *   post:
- *     summary: Change user password
- *     description: Change a user password with an old password and a new password.
+ *     summary: Изменение пароля пользователя
+ *     description: Изменение пароля пользователя, используя старый и новый пароли.
  *     tags:
- *       - Authentication
+ *       - Аутентификация
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -110,9 +109,9 @@ router.post("/login", (req, res, next) => userController.login(req, res, next));
  *                 example: newP@ssw0rd2
  *     responses:
  *       200:
- *         description: User login successfully.
+ *         description: Пароль успешно изменен.
  *       400:
- *         description: Login failed.
+ *         description: Изменение пароля не удалось.
  */
 router.post("/change-password", auth, (req, res) => userController.changeUserPassword(req, res));
 
@@ -123,12 +122,12 @@ router.post("/change-password", auth, (req, res) => userController.changeUserPas
  *     bearerAuth:
  *       type: http
  *       scheme: bearer
- * /api/auth/change-password:
+ * /api/auth/verify:
  *   post:
- *     summary: Change user password
- *     description: Change a user password with an old password and a new password.
+ *     summary: Подтверждение пользователя
+ *     description: Подтверждение пользователя с использованием ID и кода.
  *     tags:
- *       - Authentication
+ *       - Аутентификация
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -138,20 +137,20 @@ router.post("/change-password", auth, (req, res) => userController.changeUserPas
  *           schema:
  *             type: object
  *             required:
- *               - oldPassword
- *               - newPassword
+ *               - id
+ *               - code
  *             properties:
- *               oldPassword: 
+ *               id: 
+ *                 type: number
+ *                 example: 1
+ *               code:
  *                 type: string
- *                 example: newP@ssw0rd1
- *               newPassword:
- *                 type: string
- *                 example: newP@ssw0rd2
+ *                 example: AA7RQ
  *     responses:
  *       200:
- *         description: User login successfully.
+ *         description: Пользователь успешно подтвержден.
  *       400:
- *         description: Login failed.
+ *         description: Подтверждение не удалось.
  */
 router.post("/verify", (req, res) => userController.verifyUser(req, res));
 

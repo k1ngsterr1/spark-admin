@@ -1,6 +1,6 @@
 import { Website } from "@infrastructure/models/websiteModel";
 import { WebsiteRepository } from "../../../infrastructure/repositories/WebsiteRepository";
-import { IWebsiteRepository } from "core/interfaces/IWebsiteReposity";
+import { IWebsiteRepository } from "core/interfaces/IWebsiteRepository";
 
 export class GetWebsites {
   private websiteRepository: IWebsiteRepository;

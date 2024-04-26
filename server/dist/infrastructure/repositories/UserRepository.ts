@@ -1,8 +1,10 @@
-import { IUserRepository } from "core/interfaces/IUserRepositry";
+import { IUserRepository } from "core/interfaces/IUserRepository";
 import { User } from "infrastructure/models/userModel";
 import sequelize from "infrastructure/config/sequelize";
 import { NewUserInput } from "@core/utils/types";
 import { where } from "sequelize";
+import { Website } from "@infrastructure/models/websiteModel";
+import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 
 export class UserRepository implements IUserRepository {
   async create(userDetails: NewUserInput): Promise<User> {
@@ -26,15 +28,19 @@ export class UserRepository implements IUserRepository {
     await user.save();
     return true;
   }
-  async findByWebsiteId(
-    websiteId: string,
-    userId: number
-  ): Promise<User | null> {
-    return sequelize.getRepository(User).findOne({
-      where: {
-        id: userId,
-        websiteId: websiteId,
-      },
-    });
+
+  async getUserFromWebsite(websiteId: string, userId: number): Promise<UserToWebsite | null>{
+    try{
+      const userToWebsite = await sequelize.getRepository(UserToWebsite).findOne({
+        where:{
+          userId: userId,
+          websiteId: websiteId,
+        }
+      });
+      return userToWebsite;
+    }catch(error){
+      console.log(error);
+      return;
+    }
   }
 }

@@ -9,6 +9,7 @@ import { AddUserRequest, AddWebsiteRequest } from "@core/utils/Website/Request";
 import { ErrorDetails } from "@core/utils/utils";
 import WebsiteService from "@services/websiteService";
 import { Website } from "@infrastructure/models/websiteModel";
+import { GetWebsiteUsers } from "@core/use_cases/Website/GetWebsiteUsers";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
@@ -18,6 +19,7 @@ class WebsiteController {
   private addUser: AddUser;
   private websiteService: WebsiteService;
   private checkWebsiteUseCase: CheckWebsite;
+  private websiteUsers: GetWebsiteUsers;
 
   constructor() {
     this.websiteService = new WebsiteService();
@@ -26,6 +28,7 @@ class WebsiteController {
     this.getWebsiteByName = new GetWebsite();
     this.addUser = new AddUser();
     this.jwtService = new JWTService();
+    this.websiteUsers = new GetWebsiteUsers();
     this.checkWebsiteUseCase = new CheckWebsite(this.websiteService);
   }
 
@@ -80,23 +83,53 @@ class WebsiteController {
   }
 
   async addUserToWebsite(req, res) {
+    let errors: ErrorDetails[] = [];
     try {
       const { userEmail, userRole, websiteID } = req.body;
-      const user = this.jwtService.getAccessPayload(req.cookies.access);
 
       const request: AddUserRequest = {
         email: userEmail,
         role: userRole,
         websiteID: websiteID,
-        requesterID: user.id,
+        requesterID: req.user.id,
       };
 
-      const website = await this.addUser.execute(request);
+      await this.addUser.execute(request, errors);
+      
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json(current_error.details);
+        return;
+      }
 
-      res.status(200).json({ message: "User added successfully", website });
+      res.status(200).json({ message: "User added successfully" });
     } catch (error) {
       console.error("Error adding user:", error);
       res.status(500).json({ error: "Failed to add user" });
+    }
+  }
+
+  async getWebsiteUsers(req: Request, res: Response): Promise<void>{
+    let errors: ErrorDetails[] = [];
+    try{
+      const websiteID: string = req.params.websiteID;
+      if(websiteID === undefined){
+        errors.push(new ErrorDetails(403, "Вебсайт ID не указан"));
+      }
+
+      const users = await this.websiteUsers.execute(websiteID, errors);
+
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json(current_error.details);
+        return;
+      }
+
+      res.status(200).json({ message: "Пользователи были успешно получены", users: users });
+
+    } catch(error){
+      console.log(error);
+      res.status(500).json({ message: "Ошибка при получение пользователей вебсайта", error: error});
     }
   }
 

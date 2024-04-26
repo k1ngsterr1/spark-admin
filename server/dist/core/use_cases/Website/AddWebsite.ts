@@ -1,20 +1,23 @@
-import { IWebsiteRepository } from "core/interfaces/IWebsiteReposity";
+import { IWebsiteRepository } from "core/interfaces/IWebsiteRepository";
 import { Website } from "infrastructure/models/websiteModel";
 import { JWTService } from "../User/JWTService";
 import { WebsiteRepository } from "infrastructure/repositories/WebsiteRepository";
-import { NewWebsiteInput } from "@core/utils/types";
+import { NewWebsiteInput, UserRole } from "@core/utils/types";
 import { validEmail, validURL } from "@core/utils/validators";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
-import { AddWebsiteRequest } from "@core/utils/Website/Request";
+import { AddWebsiteRequest, ChangeUserRoleRequest } from "@core/utils/Website/Request";
 import { ErrorDetails } from "@core/utils/utils";
 import websiteCodeGenerator from "@core/utils/generateWebsiteCode"
+import { ChangeUserRole } from "./ChangeUserRole";
 
 export class AddWebsite {
-  private websiteRepository: WebsiteRepository;
+  private websiteRepository: IWebsiteRepository;
   private userRepository: UserRepository;
+  private changeUserRole: ChangeUserRole;
   constructor() {
     this.userRepository = new UserRepository();
     this.websiteRepository = new WebsiteRepository();
+    this.changeUserRole = new ChangeUserRole();
   }
   async execute(
     request: AddWebsiteRequest,
@@ -56,7 +59,7 @@ export class AddWebsite {
     );
     console.log(errors);
 
-    this.websiteRepository.addUser(newWebsite.id, user.id, user.id);
+    await this.websiteRepository.addUser(newWebsite.id, user.id, user.id, UserRole.Owner);
 
     return newWebsite;
   }
