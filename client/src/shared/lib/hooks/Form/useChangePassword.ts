@@ -8,7 +8,7 @@ interface IData {
 
 export async function useChangePassword(data: IData): Promise<string | void> {
     try {
-        const response = await axios.post('https://spark-admin-production.up.railway.app/api/change-password', data);
+        const response = await axios.post('https://spark-admin-production.up.railway.app/api/auth/change-password', data);
         console.log('Data created:', response.data);
         window.location.href = '/login';
     } catch (error: any) {
