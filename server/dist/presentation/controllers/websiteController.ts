@@ -29,6 +29,7 @@ class WebsiteController {
     this.checkWebsiteUseCase = new CheckWebsite(this.websiteService);
   }
 
+  //Adding a website
   async addWebsite(req: Request, res: Response) {
     let errors: ErrorDetails[] = [];
     try {

@@ -3,6 +3,7 @@ import { Website } from '@infrastructure/models/websiteModel';
 import validator from 'validator';
 import { UserRole, WebsiteCommand } from './types';
 
+//Validates an email address
 export async function validEmail(email: string): Promise<boolean> {
     if(!validator.isEmail(email)){
         return false;
@@ -10,6 +11,7 @@ export async function validEmail(email: string): Promise<boolean> {
     return true;
 }
 
+//Validates a password
 export async function validPassword(password: string): Promise<boolean> {
     if(!(validator.isLength(password, {min: 8, max: 16}))){
         throw new Error("Length of password must be between 8 and 16 characters");
@@ -26,6 +28,7 @@ export async function validPassword(password: string): Promise<boolean> {
     return true;
 }
 
+//Validates an url
 export async function validURL(url: string): Promise<boolean> {
     if(!url){
         return false;
@@ -39,6 +42,7 @@ export async function validURL(url: string): Promise<boolean> {
     return true;
 }
 
+//Valiadates a website user
 export async function validWebsiteUser(user: User, command: string): Promise<boolean> {
     if(user.isSparkAdmin === true){
         return true;
