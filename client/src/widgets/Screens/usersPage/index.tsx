@@ -1,6 +1,7 @@
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import styles from "./styles.module.scss";
 import Heading from "@shared/ui/Heading";
+import { KebabMenu } from "@shared/ui/KebabMenu/index";
 
 interface UsersProps {
   users: [];
@@ -18,16 +19,24 @@ export const Users: React.FC<UsersProps> = ({ users }) => {
         />
       </div>
       <div className={styles.users__box}>
-        {/* <ul>
+        {/* <div>
           {users.map((user) => (
-            <li key={user.id}>
+            <section key={user.id}>
               <div>Name: {user.name}</div>
               <div>URL: {user.url}</div>
               <div>Owner: {user.owner}</div>
               <div>Users Count: {user.usersCount}</div>
-            </li>
+            </section>
           ))}
-        </ul> */}
+        </div> */}
+        <div className={styles.user_container}>
+          <div className={styles.user_container__rounder}></div>
+          <div className={styles.user_container__items}>
+            <p className={styles.user_container__user}>UserName</p>
+            <span className="text-primary">Role</span>
+          </div>
+          <KebabMenu />
+        </div>
       </div>
     </div>
   );
