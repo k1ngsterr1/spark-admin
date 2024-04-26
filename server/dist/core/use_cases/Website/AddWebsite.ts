@@ -17,30 +17,35 @@ export class AddWebsite {
     this.userRepository = new UserRepository();
     this.websiteRepository = new WebsiteRepository();
   }
+
   async execute(
     request: AddWebsiteRequest,
     errors: ErrorDetails[]
   ): Promise<Website> {
-    const { name, url, email } = request;
+    const { name, url, owner, ownerEmail } = request;
+
     const isValidUrl = await validURL(url);
-    const isValidEmail = validEmail(email);
+    const isValidEmail = validEmail(ownerEmail);
+
     if (!isValidUrl) {
-      errors.push(new ErrorDetails(400, "Invalid URL"));
+      errors.push(new ErrorDetails(400, "Неверная URL"));
       return;
     }
+
     if (!isValidEmail) {
-      errors.push(new ErrorDetails(400, "Invalid Email"));
+      errors.push(new ErrorDetails(400, "Неверный Email"));
       return;
     }
 
     const { code, codeSignature } = websiteCodeGenerator(url);
-    const { user, signature } = await this.userRepository.findByEmail(email);
+    // const { user, signature } = await this.userRepository.findByEmail(email);
 
-    if (user == null) {
-      errors.push(new ErrorDetails(404, "User not found"));
-      return;
-    }
-    console.log("code & signature", code, signature);
+    // if (user == null) {
+    //   errors.push(new ErrorDetails(404, "Пользователь не найден"));
+    //   return;
+    // }
+
+    console.log("code & signature", code, codeSignature);
 
     const newWebsiteDetails: NewWebsiteInput = {
       name,
@@ -62,8 +67,8 @@ export class AddWebsite {
       errors
     );
 
-    user.websiteId = newWebsite.id;
-    await user.save();
+    // user.websiteId = newWebsite.id;
+    // await user.save();
 
     return newWebsite;
   }

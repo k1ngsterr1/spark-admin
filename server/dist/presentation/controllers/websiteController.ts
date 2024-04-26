@@ -32,22 +32,28 @@ class WebsiteController {
   async addWebsite(req: Request, res: Response) {
     let errors: ErrorDetails[] = [];
     try {
-      if(await (req.cookies.access) === undefined){
-        errors.push(new ErrorDetails(401, "Unauthorized"));
+      if ((await req.cookies.access) === undefined) {
+        errors.push(new ErrorDetails(401, "Вы неавторизованны"));
       }
+
       const user = this.jwtService.getAccessPayload(req.cookies.access);
+
       const request: AddWebsiteRequest = {
         name: req.body.name,
         url: req.body.url,
-        email: user.email
+        owner: req.user.userId,
+        ownerEmail: user.email,
       };
+
       const newWebsite = await this.addWebsiteUseCase.execute(request, errors);
       if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json(current_error.details);
         return;
       }
-      res.status(201).json({ message: "Веб-сайт успешно добавлен", website: newWebsite});
+      res
+        .status(201)
+        .json({ message: "Веб-сайт успешно добавлен", website: newWebsite });
     } catch (error) {
       return res.status(500).json({ error: "Ошибка с созданием веб-сайта" });
     }
@@ -58,7 +64,7 @@ class WebsiteController {
       const user = this.jwtService.getAccessPayload(req.cookies.access);
 
       const websites = await this.getWebsitesByOwner.execute(user.id);
-      
+
       return res.status(201).json(websites);
     } catch (error) {
       console.error("Ошибка с получением сайтов:", error);
@@ -66,8 +72,8 @@ class WebsiteController {
     }
   }
 
-  async getWebsite(req: Request, res: Response){
-    try{
+  async getWebsite(req: Request, res: Response) {
+    try {
       const user = this.jwtService.getAccessPayload(req.cookies.access);
       const url: string = req.body.url;
 
@@ -81,7 +87,6 @@ class WebsiteController {
 
   async addUserToWebsite(req, res) {
     try {
-
       const { userEmail, userRole, websiteID } = req.body;
       const user = this.jwtService.getAccessPayload(req.cookies.access);
 
@@ -89,8 +94,8 @@ class WebsiteController {
         email: userEmail,
         role: userRole,
         websiteID: websiteID,
-        requesterID: user.id
-      }
+        requesterID: user.id,
+      };
 
       const website = await this.addUser.execute(request);
 
@@ -110,19 +115,19 @@ class WebsiteController {
       const stringifyUrl = url.toString();
 
       // ! Засунуть в use_case
-      const website: Website = await this.websiteRepository.findByUrl(url);
-      const existingURL: string = website?.url;
+      // const website: Website = await this.websiteRepository.findByUrl(url);
+      // const existingURL: string = website?.url;
 
       const checkWebsite: boolean = await this.checkWebsiteUseCase.execute(
-        existingURL,
+        url,
         expectedCode
       );
 
-      if (website === null || undefined) {
-        return res
-          .status(404)
-          .json({ message: "Веб-сайта с данной ссылкой не существует :(" });
-      }
+      // if (website === null || undefined) {
+      //   return res
+      //     .status(404)
+      //     .json({ message: "Веб-сайта с данной ссылкой не существует :(" });
+      // }
 
       if (url === null) {
         return res.status(400).json({ message: "Введите корректную ссылку" });
@@ -134,7 +139,7 @@ class WebsiteController {
           .json({ message: "Пожалуйста введите код верификации" });
       }
 
-      if (!url || !existingURL) {
+      if (!url) {
         return res
           .status(400)
           .json({ message: "Введите URL сайта, который хотите подключить" });

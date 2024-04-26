@@ -1,3 +1,4 @@
+import { Page } from "@infrastructure/models/pageModel";
 import { User } from "infrastructure/models/userModel";
 import { Website } from "infrastructure/models/websiteModel";
 import { Sequelize } from "sequelize-typescript";
@@ -7,17 +8,17 @@ const sequelize = new Sequelize({
   database: "railway",
   host: "roundhouse.proxy.rlwy.net",
   username: "postgres",
-  password: "bIoUQpjtlfIStcQQuETdjRvAxilBSEYR",
+  password: "LISSmoVkwMDbQcKjPAZgBJFYIVEmxJwh",
   dialect: "postgres",
   storage: ":memory:",
-  port: 42856,
+  port: 30830,
   // database: process.env.DB_NAME,
   // host: process.env.DB_HOST,
   // username: process.env.DB_USER,
   // password: process.env.DB_PASS,
   // port: 5432,
   logging: false,
-  models: [User, Website],
+  models: [User, Website, Page],
   dialectOptions: {
     ssl: {
       require: true,
