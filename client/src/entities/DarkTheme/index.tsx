@@ -7,13 +7,12 @@ import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.scss";
 
 export const ThemeButton = () => {
-  const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme();
   
 
   return (
     <button
-      className={styles.button}
+      className={`${styles.button} dark:hover:bg-gray-800`}
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
     >
       <FontAwesomeIcon

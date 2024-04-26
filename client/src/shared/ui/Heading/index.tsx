@@ -8,7 +8,7 @@ interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
 
 const Heading: React.FC<HeadingProps> = ({ margin, text, ...rest }) => {
   return (
-    <h1 className={`${styles.heading} ${margin}`} {...rest}>
+    <h1 className={`${styles.heading} ${margin} dark:text-white`} {...rest}>
       {text}
     </h1>
   );
