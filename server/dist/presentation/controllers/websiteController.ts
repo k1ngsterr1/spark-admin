@@ -63,7 +63,7 @@ class WebsiteController {
     try {
       const user = this.jwtService.getAccessPayload(req.cookies.access);
 
-      const websites = await this.getWebsitesByOwner.execute(user.id);
+      const websites = await this.getWebsitesByOwner.execute(req.user.id);
 
       return res.status(201).json(websites);
     } catch (error) {
