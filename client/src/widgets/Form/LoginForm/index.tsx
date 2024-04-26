@@ -38,9 +38,9 @@ const LoginForm = () => {
           />
           <PasswordInput placeholder="Пароль" type='password' margin="mt-3" 
           value={password}
-          onChange={e => setPassword(e.target.value)}                      />
+          onChange={e => setPassword(e.target.value)}
+          />
           <ErrorDisplay message={passwordError}/>
-
           <MiniText
             margin="mt-2"
             href="change-password"

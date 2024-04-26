@@ -5,6 +5,8 @@ interface IData {
     password: string;
 }
 
+
+
 export async function useLogin(data: IData): Promise<string | void> {
     try {
         const response = await axios.post('https://spark-admin-production.up.railway.app/api/auth/login', data);

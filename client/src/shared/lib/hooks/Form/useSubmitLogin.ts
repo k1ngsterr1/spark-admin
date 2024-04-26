@@ -15,8 +15,10 @@ export const useSubmitLogin = () => {
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault(); 
   
-      const result = await useLogin({  email, password });
+      const result = await useLogin({  email, password  });
       if (typeof result === 'string') {
+        setPasswordError(result);
+
       }
     };
 

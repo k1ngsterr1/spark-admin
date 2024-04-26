@@ -15,9 +15,6 @@ export async function useRegister(data: IData): Promise<string | void> {
             }
         });
         console.log('Data created:', response.data);
-        console.log(data);
-
-
         window.location.href = '/login';
     } catch (error: any) {
         console.error('Failed to create data:', error);
