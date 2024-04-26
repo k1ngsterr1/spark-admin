@@ -1,5 +1,7 @@
 import websiteController from "presentation/controllers/websiteController";
 import pageRoutes from "./pageRoutes";
+import authenticateToken from "@infrastructure/middleware/authMiddleware";
+import advancedLogger from "@infrastructure/middleware/advancedLogger";
 
 const express = require("express");
 const router = express.Router();

@@ -12,12 +12,13 @@ import {
   BeforeCreate,
   BeforeUpdate,
   ForeignKey,
-  BelongsTo,
+  BelongsToMany,
 } from "sequelize-typescript";
 
 import bcryptjs from "bcryptjs";
 import { Website } from "./websiteModel";
 import { UserAttributes, UserRole } from "@core/utils/types";
+import UserToWebsite from "./userToWebsiteModel";
 
 @Table({
   tableName: "users",
@@ -28,12 +29,8 @@ export class User extends Model<UserAttributes> {
   @Column(DataType.INTEGER)
   id!: number;
 
-  @ForeignKey(() => Website)
-  @Column(DataType.UUID)
-  websiteId!: string;
-
-  @BelongsTo(() => Website)
-  website!: Website;
+  @BelongsToMany(() => Website, () => UserToWebsite)
+  websites!: Website;
 
   @Column(DataType.STRING)
   username!: string;

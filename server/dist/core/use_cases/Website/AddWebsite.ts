@@ -34,27 +34,20 @@ export class AddWebsite {
     }
 
     const { code, codeSignature } = websiteCodeGenerator(url);
-    const { user, signature } = await this.userRepository.findByEmail(email);
+    const user = await this.userRepository.findByEmail(email);
 
     if (user == null) {
       errors.push(new ErrorDetails(404, "User not found"));
       return;
     }
-    console.log("code & signature", code, signature);
 
     const newWebsiteDetails: NewWebsiteInput = {
-      name,
-      url,
-      owner,
-      ownerEmail,
-      users: [
-        {
-          email: ownerEmail,
-          id: owner,
-          role: "Owner",
-        },
-      ],
+      name: name,
+      url: url,
+      owner: user.id,
+      ownerEmail: user.email,
       websiteCode: code,
+      websiteCodeSignature: codeSignature
     };
 
     const newWebsite = await this.websiteRepository.create(
@@ -62,8 +55,7 @@ export class AddWebsite {
       errors
     );
 
-    user.websiteId = newWebsite.id;
-    await user.save();
+    this.websiteRepository.addUser(newWebsite.id, user.id, user.id);
 
     return newWebsite;
   }
