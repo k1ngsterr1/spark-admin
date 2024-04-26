@@ -4,10 +4,10 @@ import path from "path";
 
 const privateKeyPath = path.join(__dirname, "../config/keys/private.pem");
 
-const generateWebsiteCodeAndSignature = (domain: string) => {
+const generateWebsiteCodeAndSignature = (url: string) => {
   const privateKey = fs.readFileSync(privateKeyPath, "utf8");
   const timestamp = new Date().getTime().toString();
-  const baseString = `${domain}-${timestamp}`;
+  const baseString = `${url}-${timestamp}`;
   const hash = crypto.createHash("sha256").update(baseString).digest("hex");
   const code = `SPARK-STUDIO-${hash}`;
 

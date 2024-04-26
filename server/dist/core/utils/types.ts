@@ -76,6 +76,7 @@ export interface NewWebsiteInput {
   ownerEmail: string;
   users: any[];
   websiteCode: string;
+  websiteSignature: string;
 }
 
 export interface NewPageInput {

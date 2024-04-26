@@ -37,7 +37,8 @@ export class AddWebsite {
       return;
     }
 
-    const { code, codeSignature } = websiteCodeGenerator(url);
+    const { code, codeSignature } = await websiteCodeGenerator(url);
+
     // const { user, signature } = await this.userRepository.findByEmail(email);
 
     // if (user == null) {
@@ -45,8 +46,7 @@ export class AddWebsite {
     //   return;
     // }
 
-    console.log("code & signature", code, codeSignature);
-
+    // ! Ошибка находится здесь
     const newWebsiteDetails: NewWebsiteInput = {
       name,
       url,
@@ -60,6 +60,7 @@ export class AddWebsite {
         },
       ],
       websiteCode: code,
+      websiteSignature: codeSignature,
     };
 
     const newWebsite = await this.websiteRepository.create(

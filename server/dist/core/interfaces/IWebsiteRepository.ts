@@ -1,11 +1,11 @@
-import { UserItems, Website } from "infrastructure/models/websiteModel";
+import { Website } from "infrastructure/models/websiteModel";
 
 export interface NewWebsiteInput {
   name: string;
   url: string;
   owner: number;
   ownerEmail: string;
-  users: UserItems[];
+  users: any[];
   websiteCode: string;
   websiteCodeSignature: string;
 }
@@ -16,5 +16,5 @@ export interface IWebsiteRepository {
   metaTagChecker?(htmlContent: any): Promise<any>;
   findByPk?(primaryKey: string | number): Promise<Website | null>;
   findByOwner?(ownerId: number): Promise<Website[]>;
-  addUserToWebsite?(websiteId: string, userItem: UserItems): Promise<void>;
+  addUserToWebsite?(websiteId: string, userItem: any): Promise<void>;
 }
