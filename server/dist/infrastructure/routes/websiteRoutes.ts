@@ -18,6 +18,8 @@ router.get("/", (req, res) => websiteController.getWebsites(req, res));
 router.get("/get-website", (req, res) =>
   websiteController.getWebsites(req, res)
 );
+router.get("/get-users/:websiteID", (req, res) => websiteController.getWebsiteUsers(req, res));
+
 router.use("/pages", pageRoutes);
 
 export default router;

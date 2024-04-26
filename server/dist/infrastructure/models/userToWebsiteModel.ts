@@ -1,12 +1,17 @@
-import { Table, Column, Model, ForeignKey, CreatedAt, UpdatedAt, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, ForeignKey, CreatedAt, UpdatedAt, DataType, Default, HasOne, AutoIncrement, PrimaryKey } from 'sequelize-typescript';
 import { User } from './userModel';
 import { Website } from './websiteModel';
-import { UserToWebsiteAttributes } from '@core/utils/types';
+import { UserRole, UserToWebsiteAttributes } from '@core/utils/types';
 
 @Table({
     tableName: 'websites-users',
 })
 export default class UserToWebsite extends Model<UserToWebsiteAttributes> {
+    @PrimaryKey
+    @AutoIncrement
+    @Column(DataType.INTEGER)
+    id!: number;
+
     @ForeignKey(() => User)
     @Column(DataType.INTEGER)
     userId!: number;
@@ -15,8 +20,22 @@ export default class UserToWebsite extends Model<UserToWebsiteAttributes> {
     @Column(DataType.STRING)
     websiteId!: string;
 
+    @HasOne(() => User, 'userId')
+    user?: User;
+
+    @HasOne(() => Website, 'websiteId')
+    website?: Website;
+
     @Column(DataType.INTEGER)
-    owner!: number;
+    owner?: number;
+
+    @Default("user")
+    @Column(DataType.ENUM(...Object.values(UserRole) as string[]))
+    role!: string;
+
+    @Default(false)
+    @Column(DataType.BOOLEAN)
+    isSparkAdmin?: boolean;
 
     @CreatedAt
     @Column

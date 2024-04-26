@@ -1,7 +1,7 @@
 import { Page } from "@infrastructure/models/pageModel";
 import { IPageRepository } from "@core/interfaces/IPageRepository";
 import { PageRepository } from "@infrastructure/repositories/PageRepository";
-import { IUserRepository } from "@core/interfaces/IUserRepositry";
+import { IUserRepository } from "@core/interfaces/IUserRepository";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 
 export class GetPages {
@@ -17,7 +17,7 @@ export class GetPages {
     if(pages === null){
       throw new Error("Incorrect website ID");
     }
-    const user = await this.userRepository.findByWebsiteId(websiteId, userId);
+    const user = await this.userRepository.getUserFromWebsite(websiteId, userId);
     if(user === null){
       throw new Error("User not found");
     }

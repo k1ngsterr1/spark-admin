@@ -1,4 +1,4 @@
-import { IUserRepository } from "core/interfaces/IUserRepositry";
+import { IUserRepository } from "core/interfaces/IUserRepository";
 import { IEmailService } from "core/interfaces/IEmailService";
 import { User } from "infrastructure/models/userModel";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";

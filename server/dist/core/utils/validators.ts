@@ -2,6 +2,7 @@ import { User } from "@infrastructure/models/userModel";
 import { Website } from "@infrastructure/models/websiteModel";
 import validator from "validator";
 import { UserRole, WebsiteCommand } from "./types";
+import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 
 // Валидация почты
 export async function validEmail(email: string): Promise<boolean> {
@@ -48,7 +49,7 @@ export async function validURL(url: string): Promise<boolean> {
 
 // Валидация веб-сайт юзера
 export async function validWebsiteUser(
-  user: User,
+  user: UserToWebsite,
   command: string
 ): Promise<boolean> {
   if (user.isSparkAdmin === true) {

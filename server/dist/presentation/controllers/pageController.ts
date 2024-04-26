@@ -3,6 +3,7 @@ import { DeletePage } from "@core/use_cases/Page/DeletePage";
 import { GetPages } from "@core/use_cases/Page/GetPages";
 import { JWTService } from "@core/use_cases/User/JWTService";
 import { NewPageRequest } from "@core/utils/Page/Request";
+import { ErrorDetails } from "@core/utils/utils";
 import { Request, Response } from "express"
 
 class PageController{
@@ -17,6 +18,7 @@ class PageController{
     this.jwtService = new JWTService();
   }
   async addPage(req: Request, res: Response): Promise<void>{
+    let errors: ErrorDetails[] = [];
     try{
       const request: NewPageRequest = {
             websiteId: req.body.websiteId,
@@ -25,7 +27,12 @@ class PageController{
             name: req.body.name,
             type: req.body.type
         }
-        await this.addPageToWebsite.execute(request);
+        await this.addPageToWebsite.execute(request, errors);
+        if(errors.length > 0){
+          const current_error = errors[0];
+          res.status(current_error.code).json(current_error.details);
+          return; 
+        }
         res.status(201).json({ message: "Страница добавлена" });
     } catch(error){
         res.status(500).json({message: "Ошибка добавления страницы для вебсайта", error: error.message});
@@ -41,7 +48,7 @@ class PageController{
 
       res.status(200).json(pages);
     } catch(error){
-      res.status(200).json({message: "Ошибка с получением страниц", error: error.message});
+      res.status(500).json({message: "Ошибка с получением страниц", error: error.message});
     }
   }
   async deletePages(req: Request, res: Response): Promise<void>{

@@ -1,8 +1,9 @@
 import { IPageRepository } from "@core/interfaces/IPageRepository";
-import { IUserRepository } from "@core/interfaces/IUserRepositry";
-import { IWebsiteRepository } from "@core/interfaces/IWebsiteReposity";
+import { IUserRepository } from "@core/interfaces/IUserRepository";
+import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
 import { NewPageRequest } from "@core/utils/Page/Request";
 import { NewPageInput, WebsiteCommand } from "@core/utils/types";
+import { ErrorDetails } from "@core/utils/utils";
 import { validURL, validWebsiteUser } from "@core/utils/validators";
 import { PageRepository } from "@infrastructure/repositories/PageRepository";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
@@ -17,20 +18,30 @@ export class AddPage {
     this.userRepository = new UserRepository();
     this.websiteRepository = new WebsiteRepository();
   }
-  async execute(request: NewPageRequest): Promise<void> {
+  async execute(request: NewPageRequest, errors: ErrorDetails[]): Promise<void> {
     const { websiteId, userId, url, name, type } = request;
-    await validURL(url);
+    const isValidUrl = await validURL(url);
+    if(!isValidUrl) {
+      errors.push(new ErrorDetails(400, "Invalid URL"));
+      return;
+    }
 
-    const website = await this.websiteRepository.findByPk(websiteId);
-    const user = await this.userRepository.findByWebsiteId(websiteId, userId);
+    const website = await this.websiteRepository.findByPk(websiteId, errors);
+    const user = await this.userRepository.getUserFromWebsite(websiteId, userId);
 
     if(website === null){
-      throw new Error("Website not found");
+      errors.push(new ErrorDetails(404, "Website not found"));
+      return;
     }
     if(user === null){
-      throw new Error("User not found");
+      errors.push(new ErrorDetails(404, "User not found"));
+      return;
     }
-    await validWebsiteUser(user, WebsiteCommand.update);
+    const isValidUser = await validWebsiteUser(user, WebsiteCommand.update);
+    if(!isValidUser){
+      errors.push(new ErrorDetails(400, "Invalid User"));
+      return;
+    }
 
     const newPage: NewPageInput = {
       websiteId: websiteId,

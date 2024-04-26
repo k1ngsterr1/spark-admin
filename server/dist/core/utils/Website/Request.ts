@@ -1,3 +1,5 @@
+import { UserRole } from "../types";
+
 export type AddUserRequest = {
   email: string;
   role: string;
@@ -10,3 +12,8 @@ export type AddWebsiteRequest = {
   ownerID: number;
   ownerEmail: string;
 };
+export type ChangeUserRoleRequest = {
+  websiteID: string;
+  email: string;
+  role: string;
+}

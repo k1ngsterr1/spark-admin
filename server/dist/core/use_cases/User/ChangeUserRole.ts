@@ -1,6 +1,6 @@
 import { ChangeRoleRequest } from "@core/utils/User/Request";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
-import { IUserRepository } from "core/interfaces/IUserRepositry";
+import { IUserRepository } from "core/interfaces/IUserRepository";
 import { User } from "infrastructure/models/userModel";
 
 export class ChangeUserRoleService {

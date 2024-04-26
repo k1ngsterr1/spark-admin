@@ -1,4 +1,4 @@
-import { IUserRepository } from "core/interfaces/IUserRepositry";
+import { IUserRepository } from "core/interfaces/IUserRepository";
 import { User } from "infrastructure/models/userModel";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { VerifyRequest } from "@core/utils/User/Request";

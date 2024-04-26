@@ -41,6 +41,7 @@ export interface UserToWebsiteAttributes {
   websiteId: string;
   userId: number;
   owner: number;
+  role: string;
 }
 
 export enum UserRole {
