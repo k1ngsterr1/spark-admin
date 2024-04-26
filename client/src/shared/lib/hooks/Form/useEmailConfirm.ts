@@ -10,7 +10,7 @@ interface IData {
 
 export async function useEmailConfirm(data: IData): Promise<void | string> {
     try {
-        const response = await axios.post('https://spark-admin-production.up.railway.app/api/verify', data);
+        const response = await axios.post('https://spark-admin-production.up.railway.app/api/auth/verify', data);
         console.log('Data created:', response.data);
         window.location.href = '/login';
     } catch (error: unknown | any) {

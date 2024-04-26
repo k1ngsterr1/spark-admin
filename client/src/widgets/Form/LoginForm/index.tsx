@@ -21,7 +21,6 @@ const LoginForm = () => {
 
     const result = await useLogin({  email, password });
     if (typeof result === 'string') {
-      alert(result); 
     }
   };
   return (

@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState,FormEvent } from 'react';
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import PasswordInput from "@shared/ui/Inputs/PasswordInput";
 import MiniText from "@shared/ui/MiniText/index";
 import Heading from "@shared/ui/Heading/index";
 import {useRegister}  from '@shared/lib/hooks/Form/useRegister';
+import { ErrorDisplay } from '@shared/ui/Error';
 
 import styles from "../styles/styles.module.scss";
 
@@ -16,30 +17,36 @@ const Form = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let isValid = true;
     setPasswordError('');
     setConfirmPasswordError('');
 
-    if (password !== confirmPassword) {
+    if (password !== passwordConfirmation) {
       setConfirmPasswordError("Пароли не совпадают");
       isValid = false;
     }
 
-    if (password.length < 6) {
-      setPasswordError("Пароль должен содержать не менее 6 символов");
+    if (password.length < 8) {
+      setPasswordError("Пароль должен содержать не менее 8 символов");
+      isValid = false;
+    }
+
+    const specialChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    if (!specialChar.test(password)) {
+      setPasswordError("Пароль должен содержать хотя бы один специальный символ");
       isValid = false;
     }
 
     if (isValid) {
-      const result = await useRegister({ username, email, password, confirmPassword });
+      const result = await useRegister({ username, email, password, passwordConfirmation });
       if (typeof result === 'string') {
-        alert(result);
+        setPasswordError(result);
       }
     }
   };
@@ -59,6 +66,7 @@ const Form = () => {
             type="text"
             inputType="default"
             required
+            name='username'
           />
           <Input
             value={email}
@@ -67,6 +75,7 @@ const Form = () => {
             type="email"
             inputType="default"
             required
+            name='email'
           />
           <PasswordInput
             value={password}
@@ -75,17 +84,19 @@ const Form = () => {
             margin="mt-3"
             type='password'
             required
+            name='password'
           />
-          {passwordError && <div className={styles.error}>{passwordError}</div>}
+          <ErrorDisplay message={passwordError}/>
           <PasswordInput
-            value={confirmPassword}
-            onChange={e => setConfirmPassword(e.target.value)}
+            value={passwordConfirmation}
+            onChange={e => setPasswordConfirmation(e.target.value)}
             placeholder="Подтвердить пароль"
             margin="mt-3"
             type='password'
             required
+            name='passwordConfirmation'
           />
-          {confirmPasswordError && <div className={styles.error}>{confirmPasswordError}</div>}
+          <ErrorDisplay message={confirmPasswordError}/>
           <Button
             text="Зарегистрироваться"
             buttonType="regular"
@@ -105,3 +116,4 @@ const Form = () => {
 };
 
 export default Form;
+
