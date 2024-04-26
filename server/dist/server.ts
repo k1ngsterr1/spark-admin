@@ -7,8 +7,15 @@ const cookieParser = require("cookie-parser");
 import authRoutes from "infrastructure/routes/authRoutes";
 import websiteRoutes from "infrastructure/routes/websiteRoutes";
 import auth from "@infrastructure/middleware/authMiddleware";
+import pageRoutes from "@infrastructure/routes/pageRoutes";
+import userRoutes from "@infrastructure/routes/userRoutes";
+import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
+import { accessToken } from "@infrastructure/middleware/authMiddleware";
 
 const app = express();
+
+// Создание сваггер роута
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { explorer: true }));
 
 // Разрешены все Origins
 const corsOptions = {
@@ -30,8 +37,32 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Routes:
-app.post("/access", auth);
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ * /access:
+ *   post:
+ *     summary: Generate a new access token for a user.
+ *     description: Generate a new access token for a user with a valid refresh token.
+ *     tags:
+ *       - Access Token
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       201:
+ *         description: Access token generated successfully.
+ *       400:
+ *         description: Access token failed to generate.
+ */
+app.post("/access", (req, res) => accessToken(req, res));
 app.use("/api/auth", authRoutes);
+app.use("/api/page", pageRoutes);
+app.use("api/user", userRoutes);
 app.use("/api/website", websiteRoutes);
 
 app.listen(port, () => {

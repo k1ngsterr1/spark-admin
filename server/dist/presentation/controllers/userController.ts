@@ -91,9 +91,8 @@ class UserController {
 
   async changeUserPassword(req: Request, res: Response, next: any): Promise<void> {
     try {
-      const user = this.jwtService.getAccessPayload(req.cookies.access);
       const request: ChangePasswordRequest = {
-        id: user.id,
+        id: req.user.id,
         oldPassword: req.body.oldPassword,
         newPassword: req.body.newPassword
       }
