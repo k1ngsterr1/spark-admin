@@ -36,8 +36,6 @@ export class AddUser {
       throw new Error("User not found");
     }
 
-    user.websiteId = website.id;
-    await user.save();
-
+    await this.websiteRepository.addUser(websiteID, user.id);
   }
 }

@@ -26,7 +26,7 @@ export interface WebsiteAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
-export interface PageAttributes {
+export interface PageAttributes{
   id: number;
   websiteId: string;
   website: Website;
@@ -36,13 +36,19 @@ export interface PageAttributes {
   createdAt?: Date;
   updatedAt?: Date;
 }
+export interface UserToWebsiteAttributes{
+  id: number;
+  websiteId: string;
+  userId: number;
+  owner: number;
+}
 
 export enum UserRole {
   Owner = "owner",
   Admin = "admin",
   Editor = "editor",
-  User = "user",
-}
+  User = "user"
+};
 
 export interface NewUserInput {
   username: string;
@@ -50,6 +56,7 @@ export interface NewUserInput {
   password: string;
   verificationCode: string;
 }
+
 
 export type UserResponse = {
   id: number;
@@ -67,15 +74,15 @@ export type UserPayload = {
 export type UserVerification = {
   id: number;
   code: string;
-};
+}
 
 export interface NewWebsiteInput {
   name: string;
   url: string;
   owner: number;
   ownerEmail: string;
-  users: any[];
   websiteCode: string;
+  websiteCodeSignature: string;
 }
 
 export interface NewPageInput {

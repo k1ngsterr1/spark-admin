@@ -10,12 +10,14 @@ import {
   Unique,
   Default,
   HasMany,
+  BelongsToMany,
 } from "sequelize-typescript";
 
 import { v4 as uuidv4 } from "uuid";
 import { Page } from "./pageModel";
 import { User } from "./userModel";
 import { WebsiteAttributes } from "@core/utils/types";
+import UserToWebsite from "./userToWebsiteModel";
 
 @Table({
   tableName: "websites",
@@ -30,7 +32,7 @@ export class Website extends Model<WebsiteAttributes> {
   })
   id?: string;
 
-  @HasMany(() => User)
+  @BelongsToMany(() => User, () => UserToWebsite)
   users!: User[];
 
   @HasMany(() => Page)
@@ -53,9 +55,6 @@ export class Website extends Model<WebsiteAttributes> {
   @Unique
   @Column(DataType.STRING)
   websiteSignature!: string;
-
-  // @Column(DataType.JSONB)
-  // users!: UserItems[];
 
   @CreatedAt
   createdAt?: Date;
