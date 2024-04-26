@@ -5,24 +5,21 @@ import Input from "@shared/ui/Inputs/DefaultInport";
 import PasswordInput from "@shared/ui/Inputs/PasswordInput";
 import MiniText from "@shared/ui/MiniText/index";
 import Heading from "@shared/ui/Heading/index";
-import { useState } from "react";
+import {useSubmitLogin} from "@shared/lib/hooks/Form/useSubmitLogin";
+import { ErrorDisplay } from '@shared/ui/Error';
+
 
 import styles from "../styles/styles.module.scss";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
-import { useLogin } from "@shared/lib/hooks/Form/useLogin";
+
+
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleSubmit = async (event) => {
-    event.preventDefault(); 
+  const { email, setEmail, password, setPassword, passwordError, setPasswordError,handleSubmit } = useSubmitLogin();
 
-    const result = await useLogin({  email, password });
-    if (typeof result === 'string') {
-    }
-  };
+
   return (
     <section className={styles.registration}>
       
@@ -42,6 +39,8 @@ const LoginForm = () => {
           <PasswordInput placeholder="Пароль" type='password' margin="mt-3" 
           value={password}
           onChange={e => setPassword(e.target.value)}                      />
+          <ErrorDisplay message={passwordError}/>
+
           <MiniText
             margin="mt-2"
             href="change-password"

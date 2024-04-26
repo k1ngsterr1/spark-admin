@@ -17,14 +17,8 @@ export async function useRegister(data: IData): Promise<string | void> {
         console.log('Data created:', response.data);
         console.log(data);
 
-        // const { username, email, id, accessToken } = response.data;
 
-        // localStorage.setItem('username', username);
-        // localStorage.setItem('email', email);
-        // localStorage.setItem('userId', id); 
-        // localStorage.setItem('accessToken', accessToken);
-
-        window.location.href = '/email-confirmation';
+        window.location.href = '/login';
     } catch (error: any) {
         console.error('Failed to create data:', error);
         if (error.response) {

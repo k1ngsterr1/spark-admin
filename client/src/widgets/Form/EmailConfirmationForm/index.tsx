@@ -5,29 +5,36 @@ import Input from "@shared/ui/Inputs/DefaultInport";
 import Heading from "@shared/ui/Heading/index";
 import MiniText from "@shared/ui/MiniText";
 import { useEmailConfirm } from "@shared/lib/hooks/Form/useEmailConfirm";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
+import { useUserData } from "@shared/lib/hooks/Form/useGetData";
 
 import styles from "../styles/styles.module.scss";
 import "../../../shared/styles/mixins.scss";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
 
-const EmailConfirm = () => {
-const [input1, setInput1] = useState('');
-const [input2, setInput2] = useState('');
-const [input3, setInput3] = useState('');
-const [input4, setInput4] = useState('');
-const [input5, setInput5] = useState('');
 
-const handleSubmit = async (event) => {
+
+const EmailConfirm = () => {
+  const [input1, setInput1] = useState('');
+  const [input2, setInput2] = useState('');
+  const [input3, setInput3] = useState('');
+  const [input4, setInput4] = useState('');
+  const [input5, setInput5] = useState('');
+  const userData = useUserData();
+
+
+
+
+const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
   event.preventDefault();
 
   const result = await useEmailConfirm({ input1, input2, input3, input4, input5 });
   if (typeof result === 'string') {
-    alert(result);
   }
- }
+}
   
+
 return (
   <section className={styles.registration}>
     <div className={styles.registration__content}>
@@ -38,14 +45,14 @@ return (
       <div className="text-user">
         <span className="text_with_detail">
           Аккаунт:
-          <span className="text_orange"> smth</span>
+          <span className="text_orange ml-2">{userData.username || 'Неизвестно'}</span>
         </span>
       </div>
       <div className="text-mail">
         <span className="text_with_detail">
           Письмо с подтверждением отправлено на почту
           <div>
-            <span className="text_orange">ruslanmakmhatom@gmail.com</span>
+            <span className="text_orange">{userData.email || 'Неизвестно'}</span>
           </div>
         </span>
       </div>
