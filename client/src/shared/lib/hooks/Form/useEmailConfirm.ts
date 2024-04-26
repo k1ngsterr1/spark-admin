@@ -10,9 +10,11 @@ interface IData {
 
 export async function useEmailConfirm(data: IData): Promise<void | string> {
     try {
-        const response = await axios.post('https://spark-admin-production.up.railway.app/api/verify', data);
+        const response = await axios.post('https://spark-admin-production.up.railway.app/api/auth/verify', data);
         console.log('Data created:', response.data);
-        window.location.href = '/login';
+        window.location.href = '/websites';
+
+
     } catch (error: unknown | any) {
         console.error('Failed to create data:', error);
         if (error.response) {
