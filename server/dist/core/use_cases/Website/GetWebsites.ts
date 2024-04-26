@@ -11,8 +11,8 @@ export class GetWebsites {
   async execute(ownerId: number): Promise<Website[]> {
     const websites = await this.websiteRepository.findByOwner(ownerId);
 
-    if(websites === null){
-      throw new Error("No website founds")
+    if (websites === null) {
+      throw new Error("Веб-сайты не найдены!");
     }
 
     return websites;

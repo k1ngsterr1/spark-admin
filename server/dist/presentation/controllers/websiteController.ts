@@ -36,15 +36,17 @@ class WebsiteController {
       const request: AddWebsiteRequest = {
         name: req.body.name,
         url: req.body.url,
-        owner: req.user.userId,
+        ownerID: req.user.userId,
         ownerEmail: req.body.email,
       };
       const newWebsite = await this.addWebsiteUseCase.execute(request, errors);
+
       if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json(current_error.details);
         return;
       }
+
       res
         .status(201)
         .json({ message: "Веб-сайт успешно добавлен", website: newWebsite });
@@ -55,27 +57,25 @@ class WebsiteController {
 
   async getWebsites(req: Request, res: Response) {
     try {
-      const user = this.jwtService.getAccessPayload(req.cookies.access);
+      const userID: number = req.user.id;
 
-      const websites = await this.getWebsitesByOwner.execute(user.id);
+      if (!req.user || !req.user.id) {
+        console.log("ID пользователя не существует.", { user: req.user });
+        return res
+          .status(400)
+          .json({ message: "ID пользователя не существует." });
+      }
+
+      const websites = await this.getWebsitesByOwner.execute(userID);
 
       return res.status(201).json(websites);
     } catch (error) {
-      console.error("Ошибка с получением сайтов:", error);
-      return res.status(500).json({ error: "Ошибка с получением сайтов" });
-    }
-  }
-
-  async getWebsite(req: Request, res: Response) {
-    try {
-      const user = this.jwtService.getAccessPayload(req.cookies.access);
-      const url: string = req.body.url;
-
-      const website = await this.getWebsiteByName.execute(user.id, url);
-      return res.status(200).json(website);
-    } catch (error) {
-      console.error("Ошибка с получением сайта:", error);
-      return res.status(500).json({ error: "Ошибка с получением сайта" });
+      console.error("Ошибка с получением сайтов:", error, {
+        userId: req.user.id,
+      });
+      return res
+        .status(500)
+        .json({ error: "Ошибка с получением сайтов", details: error.message });
     }
   }
 

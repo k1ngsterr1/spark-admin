@@ -21,7 +21,7 @@ export class AddWebsite {
     request: AddWebsiteRequest,
     errors: ErrorDetails[]
   ): Promise<Website> {
-    const { name, url, ownerEmail } = request;
+    const { name, url, ownerID, ownerEmail } = request;
     const isValidUrl = await validURL(url);
     const isValidEmail = validEmail(ownerEmail);
 
@@ -29,6 +29,7 @@ export class AddWebsite {
       errors.push(new ErrorDetails(400, "Неправильная URL"));
       return;
     }
+
     if (!isValidEmail) {
       errors.push(new ErrorDetails(400, "Неправильный email"));
       return;
@@ -46,14 +47,14 @@ export class AddWebsite {
     const user = await this.userRepository.findByEmail(ownerEmail);
 
     if (user == null) {
-      errors.push(new ErrorDetails(404, "User not found"));
+      errors.push(new ErrorDetails(404, "Пользователь не был найден"));
       return;
     }
 
     const newWebsiteDetails: NewWebsiteInput = {
       name: name,
       url: url,
-      owner: request.owner,
+      owner: request.ownerID,
       ownerEmail: request.ownerEmail,
       websiteCode: code,
       websiteSignature: codeSignature,

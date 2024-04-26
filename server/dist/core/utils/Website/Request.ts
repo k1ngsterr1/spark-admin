@@ -7,6 +7,6 @@ export type AddUserRequest = {
 export type AddWebsiteRequest = {
   name: string;
   url: string;
-  owner: number;
+  ownerID: number;
   ownerEmail: string;
 };

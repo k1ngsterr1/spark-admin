@@ -31,23 +31,22 @@ export async function validPassword(password: string): Promise<boolean> {
 // Проверка валидности URL
 export async function validURL(url: string): Promise<boolean> {
   if (!url) {
-    return false; // Returns false if the URL is not provided.
+    return false;
   }
-  // Check if the URL is valid according to the defined rules.
   if (
     validator.isURL(url, {
-      protocols: ["https"], // Requires that the URL starts with "https"
+      protocols: ["https"],
       require_valid_protocol: true,
       validate_length: true,
-      allow_underscores: false, // Does not allow underscores in the URL
+      allow_underscores: false,
     })
   ) {
-    return true; // Returns true because the URL is valid.
+    return true;
   }
-  return false; // Returns false if the URL does not meet the validation rules.
+  return false;
 }
 
-//Valiadates a website user
+// Валидация веб-сайт юзера
 export async function validWebsiteUser(
   user: User,
   command: string

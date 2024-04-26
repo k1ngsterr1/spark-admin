@@ -16,7 +16,7 @@ router.post("/add-user", (req, res) =>
 );
 router.get("/", (req, res) => websiteController.getWebsites(req, res));
 router.get("/get-website", (req, res) =>
-  websiteController.getWebsite(req, res)
+  websiteController.getWebsites(req, res)
 );
 router.use("/pages", pageRoutes);
 
