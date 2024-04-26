@@ -10,7 +10,7 @@ import auth from "@infrastructure/middleware/authMiddleware";
 
 const app = express();
 
-// Allowed All Cors Origins
+// Разрешены все Origins
 const corsOptions = {
   origin: function (origin, callback) {
     callback(null, true);
