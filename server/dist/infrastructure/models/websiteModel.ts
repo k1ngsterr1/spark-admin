@@ -53,7 +53,7 @@ export class Website extends Model<WebsiteAttributes> {
   owner!: number;
 
   @Unique
-  @Column(DataType.STRING)
+  @Column(DataType.STRING(400))
   websiteSignature!: string;
 
   @CreatedAt

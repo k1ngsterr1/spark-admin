@@ -18,10 +18,9 @@ class PageController{
   }
   async addPage(req: Request, res: Response): Promise<void>{
     try{
-      const user = this.jwtService.getAccessPayload(req.cookies.access);
       const request: NewPageRequest = {
             websiteId: req.body.websiteId,
-            userId: user.id,
+            userId: req.user.id,
             url: req.body.url,
             name: req.body.name,
             type: req.body.type

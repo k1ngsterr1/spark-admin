@@ -89,7 +89,7 @@ class UserController {
     }
   }
 
-  async changeUserPassword(req: Request, res: Response, next: any): Promise<void> {
+  async changeUserPassword(req: Request, res: Response): Promise<void> {
     try {
       const request: ChangePasswordRequest = {
         id: req.user.id,

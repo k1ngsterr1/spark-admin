@@ -114,7 +114,7 @@ router.post("/login", (req, res, next) => userController.login(req, res, next));
  *       400:
  *         description: Login failed.
  */
-router.post("/change-password", auth, (req, res, next) => userController.changeUserPassword(req, res, next));
+router.post("/change-password", auth, (req, res) => userController.changeUserPassword(req, res));
 
 /**
  * @swagger
