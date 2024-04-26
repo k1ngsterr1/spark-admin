@@ -1,13 +1,17 @@
 .sites_section {
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin: auto;
+  height: clamp(125px, 13.02vw, 500px);
+  width: 40%;
+  margin-right: auto;
   @apply mt-8;
+  @apply ml-16;
+  @apply bg-primary-ALMOST_WHITE;
+
+  &__name {
+    font-size: clamp(16px, 1.66656vw, 64px);
+  }
 
   &__row {
-    width: 90%;
+    // width: 90%;
     display: flex;
     justify-content: space-between;
     align-items: center;

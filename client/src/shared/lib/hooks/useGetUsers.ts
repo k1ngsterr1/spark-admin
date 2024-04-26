@@ -1,8 +1,8 @@
-//функция для получения вебсайтов
-export async function useGetWebsites() {
+//функция для получения юзеров
+export async function useGetUsers() {
   const jwtToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhcnRlbS5hbmRyZWV2MjAwMDEyQG1haWwucnUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNDExNzY0OSwiZXhwIjoxNzE0MjA0MDQ5fQ.IMxKymCDF4tgRLF2yFTK7QHJn6E7JqYQ8FN4fsyAoBs";
-  const url = "https://spark-admin-production.up.railway.app/api/website";
+  const url = "https://spark-admin-production.up.railway.app/api/users";
 
   //отравка GET запроса
   const response = await fetch(url, {
@@ -13,9 +13,10 @@ export async function useGetWebsites() {
     },
   });
 
-  // выброс ошибки
+  // выброс отшибки
   if (!response.ok) {
     throw new Error("Failed to fetch data");
   }
+
   return response.json();
 }

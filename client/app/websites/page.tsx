@@ -20,7 +20,7 @@ const WebsitesPage: React.FC<DashboardProps> = async () => {
       <main className="flex flex-col w-full">
         <Header />
         <WebsitePopup />
-        <Dashboard sites={sites} />
+        <Dashboard sites={data} />
       </main>
     </div>
   );

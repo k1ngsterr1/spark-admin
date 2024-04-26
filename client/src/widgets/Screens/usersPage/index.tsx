@@ -1,16 +1,12 @@
-"use client";
-import React, { useState } from "react";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
-import UserPick from "@shared/ui/UserPick";
-
 import styles from "./styles.module.scss";
 import Heading from "@shared/ui/Heading";
 
-export const Users = () => {
-  const [users, setUsers] = useState<
-    { login: string; role: string; site: string }[]
-  >([]);
+interface UsersProps {
+  users: [];
+}
 
+export const Users: React.FC<UsersProps> = ({ users }) => {
   return (
     <div className={styles.users}>
       <div className="flex w-[90%] justify-between items-center m-auto ">
@@ -22,14 +18,16 @@ export const Users = () => {
         />
       </div>
       <div className={styles.users__box}>
-        {users.map((user, index) => (
-          <UserPick
-            key={index}
-            login={user.login}
-            role={user.role}
-            site={user.site}
-          />
-        ))}
+        {/* <ul>
+          {users.map((user) => (
+            <li key={user.id}>
+              <div>Name: {user.name}</div>
+              <div>URL: {user.url}</div>
+              <div>Owner: {user.owner}</div>
+              <div>Users Count: {user.usersCount}</div>
+            </li>
+          ))}
+        </ul> */}
       </div>
     </div>
   );

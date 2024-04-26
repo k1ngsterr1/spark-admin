@@ -53,9 +53,9 @@ export const Menu = () => {
           margin="mt-4"
         />
       </nav>
-      <MenuButton
+      <NavButton
         icon={faArrowRightToBracket}
-        href="/websites"
+        href="/login"
         text="Выйти"
         margin="mb-8"
       />

@@ -8,7 +8,6 @@ interface DashboardProps {
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
-  console.log("zhopa");
   return (
     <div className="flex flex-col">
       <div className="flex w-[90%] justify-between items-center m-auto">
@@ -23,10 +22,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
         <ul>
           {sites.map((site) => (
             <li key={site.id}>
-              <div>Name: {site.name}</div>
-              <div>URL: {site.url}</div>
-              <div>Owner: {site.owner}</div>
-              <div>Users Count: {site.usersCount}</div>
+              <span className={styles.sites_section__name}>{site.name}</span>
+              <div className={styles.sites_section__row}>
+                <span>Редактировать Сайт</span>
+                <span>URL: {site.url}</span>
+              </div>
             </li>
           ))}
         </ul>
