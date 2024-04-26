@@ -29,23 +29,19 @@ class WebsiteController {
     this.checkWebsiteUseCase = new CheckWebsite(this.websiteService);
   }
 
+  // Добавление веб-сайтов
   async addWebsite(req: Request, res: Response) {
     let errors: ErrorDetails[] = [];
     try {
-      if ((await req.cookies.access) === undefined) {
-        errors.push(new ErrorDetails(401, "Вы неавторизованны"));
-      }
-
-      const user = this.jwtService.getAccessPayload(req.cookies.access);
-
       const request: AddWebsiteRequest = {
         name: req.body.name,
         url: req.body.url,
         owner: req.user.userId,
-        ownerEmail: user.email,
+        ownerEmail: req.body.ownerEmail,
       };
 
       const newWebsite = await this.addWebsiteUseCase.execute(request, errors);
+
       if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json(current_error.details);
@@ -105,6 +101,7 @@ class WebsiteController {
       res.status(500).json({ error: "Failed to add user" });
     }
   }
+
   async checkWebsite(req: Request, res: Response) {
     try {
       const url: string = req.body.url.match(
