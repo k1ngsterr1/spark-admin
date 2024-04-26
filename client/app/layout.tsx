@@ -1,6 +1,7 @@
 import { AppProvider } from "@shared/lib/contexts/AppContext";
 import "../src/shared/styles/global.scss";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { ThemeProvider } from "next-themes";
 
 export const metadata = {
   title: "Next.js",
@@ -14,9 +15,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <AppProvider>
-        <body>{children}</body>
-      </AppProvider>
+      <ThemeProvider>
+        <AppProvider>
+          <body>{children}</body>
+        </AppProvider>
+      </ThemeProvider>
     </html>
   );
 }
