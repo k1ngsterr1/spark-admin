@@ -18,7 +18,6 @@ export const useSubmitLogin = () => {
       const result = await useLogin({  email, password  });
       if (typeof result === 'string') {
         setPasswordError(result);
-
       }
     };
 

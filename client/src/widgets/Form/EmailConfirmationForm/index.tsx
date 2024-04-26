@@ -4,9 +4,8 @@ import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import Heading from "@shared/ui/Heading/index";
 import MiniText from "@shared/ui/MiniText";
-import { useEmailConfirm } from "@shared/lib/hooks/Form/useEmailConfirm";
-import { useState, FormEvent } from "react";
-import { useUserData } from "@shared/lib/hooks/Form/useGetData";
+import { ErrorDisplay } from "@shared/ui/Error/index";
+import useSubmitEmail from "@shared/lib/hooks/Form/useSubmitEmail";
 
 import styles from "../styles/styles.module.scss";
 import "../../../shared/styles/mixins.scss";
@@ -16,24 +15,8 @@ import SparkLogo from "@assets/spark_product_logo.svg";
 
 
 const EmailConfirm = () => {
-  const [input1, setInput1] = useState('');
-  const [input2, setInput2] = useState('');
-  const [input3, setInput3] = useState('');
-  const [input4, setInput4] = useState('');
-  const [input5, setInput5] = useState('');
-  const userData = useUserData();
-
-
-
-
-const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-
-  const result = await useEmailConfirm({ input1, input2, input3, input4, input5 });
-  if (typeof result === 'string') {
-  }
-}
   
+  const {input1, setInput1, input2, setInput2, input3, setInput3, input4, setInput4, input5, setInput5, userData, emailError,handleSubmit} = useSubmitEmail();
 
 return (
   <section className={styles.registration}>
@@ -63,6 +46,7 @@ return (
           <Input inputType="email" maxLength={1} autoComplete="off" value={input3} onChange={e => setInput3(e.target.value)} type="text"/>
           <Input inputType="email" maxLength={1} autoComplete="off" value={input4} onChange={e => setInput4(e.target.value)} type="text"/>
           <Input inputType="email" maxLength={1} autoComplete="off" value={input5} onChange={e => setInput5(e.target.value)} type="text"/>
+          <ErrorDisplay message={emailError}/>
         </div>
         <Button text="Подтвердить" buttonType="regular" margin="mt-16" />
         <MiniText
