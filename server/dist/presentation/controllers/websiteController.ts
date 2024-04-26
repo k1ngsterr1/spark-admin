@@ -36,8 +36,8 @@ class WebsiteController {
       const request: AddWebsiteRequest = {
         name: req.body.name,
         url: req.body.url,
-        ownerID: req.user.userId,
-        ownerEmail: req.body.email,
+        ownerID: req.user.id,
+        ownerEmail: req.user.email,
       };
       const newWebsite = await this.addWebsiteUseCase.execute(request, errors);
 

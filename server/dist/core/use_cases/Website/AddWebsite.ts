@@ -7,8 +7,7 @@ import { validEmail, validURL } from "@core/utils/validators";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { AddWebsiteRequest } from "@core/utils/Website/Request";
 import { ErrorDetails } from "@core/utils/utils";
-
-const websiteCodeGenerator = require("@core/utils/generateWebsiteCode");
+import websiteCodeGenerator from "@core/utils/generateWebsiteCode"
 
 export class AddWebsite {
   private websiteRepository: WebsiteRepository;
@@ -23,27 +22,17 @@ export class AddWebsite {
   ): Promise<Website> {
     const { name, url, ownerID, ownerEmail } = request;
     const isValidUrl = await validURL(url);
-    const isValidEmail = validEmail(ownerEmail);
+    const isValidEmail = await validEmail(ownerEmail);
 
     if (!isValidUrl) {
       errors.push(new ErrorDetails(400, "Неправильная URL"));
       return;
     }
-
     if (!isValidEmail) {
       errors.push(new ErrorDetails(400, "Неправильный email"));
       return;
     }
-
-    // const { user, signature } = await this.userRepository.findByEmail(email);
-
-    // if (user == null) {
-    //   errors.push(new ErrorDetails(404, "Пользователь не найден"));
-    //   return;
-    // }
-
-    // ! Ошибка находится здесь
-    const { code, codeSignature } = websiteCodeGenerator(url);
+    const { code, codeSignature } = await websiteCodeGenerator(url);
     const user = await this.userRepository.findByEmail(ownerEmail);
 
     if (user == null) {
@@ -54,8 +43,8 @@ export class AddWebsite {
     const newWebsiteDetails: NewWebsiteInput = {
       name: name,
       url: url,
-      owner: request.ownerID,
-      ownerEmail: request.ownerEmail,
+      owner: ownerID,
+      ownerEmail: ownerEmail,
       websiteCode: code,
       websiteSignature: codeSignature,
       websiteCodeSignature: codeSignature,
@@ -65,6 +54,7 @@ export class AddWebsite {
       newWebsiteDetails,
       errors
     );
+    console.log(errors);
 
     this.websiteRepository.addUser(newWebsite.id, user.id, user.id);
 
