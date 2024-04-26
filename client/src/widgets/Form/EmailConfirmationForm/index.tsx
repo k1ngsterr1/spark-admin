@@ -1,3 +1,5 @@
+// В этом компоненте находится UI часть для отправки специального кода для подтверждения почты
+
 'use client'
 
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
