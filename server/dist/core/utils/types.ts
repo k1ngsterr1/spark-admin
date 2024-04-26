@@ -36,6 +36,12 @@ export interface PageAttributes {
   createdAt?: Date;
   updatedAt?: Date;
 }
+export interface UserToWebsiteAttributes {
+  id: number;
+  websiteId: string;
+  userId: number;
+  owner: number;
+}
 
 export enum UserRole {
   Owner = "owner",
@@ -74,9 +80,9 @@ export interface NewWebsiteInput {
   url: string;
   owner: number;
   ownerEmail: string;
-  users: any[];
   websiteCode: string;
   websiteSignature: string;
+  websiteCodeSignature: string;
 }
 
 export interface NewPageInput {

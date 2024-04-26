@@ -17,27 +17,22 @@ export class AddWebsite {
     this.userRepository = new UserRepository();
     this.websiteRepository = new WebsiteRepository();
   }
-
   async execute(
     request: AddWebsiteRequest,
     errors: ErrorDetails[]
   ): Promise<Website> {
-    const { name, url, owner, ownerEmail } = request;
-
+    const { name, url, ownerEmail } = request;
     const isValidUrl = await validURL(url);
     const isValidEmail = validEmail(ownerEmail);
 
     if (!isValidUrl) {
-      errors.push(new ErrorDetails(400, "Неверная URL"));
+      errors.push(new ErrorDetails(400, "Неправильная URL"));
       return;
     }
-
     if (!isValidEmail) {
-      errors.push(new ErrorDetails(400, "Неверный Email"));
+      errors.push(new ErrorDetails(400, "Неправильный email"));
       return;
     }
-
-    const { code, codeSignature } = await websiteCodeGenerator(url);
 
     // const { user, signature } = await this.userRepository.findByEmail(email);
 
@@ -47,20 +42,22 @@ export class AddWebsite {
     // }
 
     // ! Ошибка находится здесь
+    const { code, codeSignature } = websiteCodeGenerator(url);
+    const user = await this.userRepository.findByEmail(ownerEmail);
+
+    if (user == null) {
+      errors.push(new ErrorDetails(404, "User not found"));
+      return;
+    }
+
     const newWebsiteDetails: NewWebsiteInput = {
-      name,
-      url,
-      owner,
-      ownerEmail,
-      users: [
-        {
-          email: ownerEmail,
-          id: owner,
-          role: "Owner",
-        },
-      ],
+      name: name,
+      url: url,
+      owner: request.owner,
+      ownerEmail: request.ownerEmail,
       websiteCode: code,
       websiteSignature: codeSignature,
+      websiteCodeSignature: codeSignature,
     };
 
     const newWebsite = await this.websiteRepository.create(
@@ -68,8 +65,7 @@ export class AddWebsite {
       errors
     );
 
-    // user.websiteId = newWebsite.id;
-    // await user.save();
+    this.websiteRepository.addUser(newWebsite.id, user.id, user.id);
 
     return newWebsite;
   }

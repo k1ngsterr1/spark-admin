@@ -7,6 +7,7 @@ import { Page } from "@infrastructure/models/pageModel";
 import { User } from "@infrastructure/models/userModel";
 import { ErrorDetails } from "@core/utils/utils";
 import cheerio from "cheerio";
+import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 
 export class WebsiteRepository implements IWebsiteRepository {
   async create(websiteDetails: NewWebsiteInput, errors: ErrorDetails[]): Promise<Website> {
@@ -24,30 +25,24 @@ export class WebsiteRepository implements IWebsiteRepository {
   }
 
   async findByOwner(ownerId: number): Promise<Website[]> {
-    return await sequelize.getRepository(Website).findAll({
-      where: { owner: ownerId },
+    const websites = await sequelize.getRepository(Website).findAll({
       include: [
         {
-          model: sequelize.getRepository(Page),
-          attributes: [
-            'id', 
-            'url', 
-            'name', 
-            'type'
-          ]
+          model: sequelize.getRepository(User),
+          attributes: ['id', 'email', 'username', 'isVerified'],
+          through: {
+            where: {
+              owner: ownerId,
+            }
+          }
         },
         {
-          model: sequelize.getRepository(User),
-          attributes: [
-            'id',
-            'username',
-            'email',
-            'role',
-            'isVerified'
-          ]
+          model: sequelize.getRepository(Page),
+          attributes: ['id', 'url', 'name', 'type']
         }
       ]
-    });
+    })
+    return websites;
   }
 
   async findByUrl(ownerId: number, url: string): Promise<Website | null> {
@@ -56,6 +51,14 @@ export class WebsiteRepository implements IWebsiteRepository {
         owner: ownerId,
         url: url
       },
+    });
+  }
+  
+  async addUser(websiteId: string, userId: number, owner?: number): Promise<UserToWebsite>{
+    return await sequelize.getRepository(UserToWebsite).create({
+      websiteId: websiteId,
+      userId: userId,
+      owner: owner
     });
   }
 }
