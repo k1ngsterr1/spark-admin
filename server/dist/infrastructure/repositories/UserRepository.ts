@@ -7,8 +7,14 @@ import sequelize from "infrastructure/config/sequelize";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 
 export class UserRepository implements IUserRepository {
-  // Создать
+  // Создать пользователя
   async create(userDetails: NewUserInput): Promise<User> {
+    const existingUser = await this.findByEmail(userDetails.email);
+
+    if (existingUser) {
+      throw new Error("Аккаунт с такой почтой уже существует!");
+    }
+
     return sequelize.getRepository(User).create(userDetails);
   }
 

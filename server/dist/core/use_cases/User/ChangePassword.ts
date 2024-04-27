@@ -27,7 +27,7 @@ export class ChangePasswordService {
     await this.userRepository.saveVerificationCode(user, verificationCode);
 
     // Отправление кода подтверждения
-    await this.emailService.sendPasswordResetEmail(
+    this.emailService.sendPasswordResetEmail(
       user.email,
       user.username,
       verificationCode
