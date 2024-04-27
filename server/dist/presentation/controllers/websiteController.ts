@@ -95,25 +95,25 @@ class WebsiteController {
       };
 
       await this.addUser.execute(request, errors);
-      
+
       if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json(current_error.details);
         return;
       }
 
-      res.status(200).json({ message: "User added successfully" });
+      res.status(200).json({ message: "Пользователь добавлен успешно!" });
     } catch (error) {
-      console.error("Error adding user:", error);
-      res.status(500).json({ error: "Failed to add user" });
+      console.error("Ошибка с добавлением пользователя:", error);
+      res.status(500).json({ error: "Ошибка с добавлением пользователя" });
     }
   }
 
-  async getWebsiteUsers(req: Request, res: Response): Promise<void>{
+  async getWebsiteUsers(req: Request, res: Response): Promise<void> {
     let errors: ErrorDetails[] = [];
-    try{
+    try {
       const websiteID: string = req.params.websiteID;
-      if(websiteID === undefined){
+      if (websiteID === undefined) {
         errors.push(new ErrorDetails(403, "Вебсайт ID не указан"));
       }
 
@@ -125,11 +125,15 @@ class WebsiteController {
         return;
       }
 
-      res.status(200).json({ message: "Пользователи были успешно получены", users: users });
-
-    } catch(error){
+      res
+        .status(200)
+        .json({ message: "Пользователи были успешно получены", users: users });
+    } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Ошибка при получение пользователей вебсайта", error: error});
+      res.status(500).json({
+        message: "Ошибка при получение пользователей вебсайта",
+        error: error,
+      });
     }
   }
 
