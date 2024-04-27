@@ -21,7 +21,7 @@ export class ChangePasswordService {
       throw new Error("User not found.");
     }
 
-    const verificationCode = generateVerificationCode(5);
+    const verificationCode = verificationCodeGenerator(5);
 
     // Сохранение кода подтверждения
     await this.userRepository.saveVerificationCode(user, verificationCode);
