@@ -52,8 +52,8 @@ const EmailConfirm = () => {
                 type="text"
               />
             ))}
-            <ErrorDisplay message={emailError}/>
           </div>
+          <ErrorDisplay message={emailError}/>
           <Button text="Подтвердить" buttonType="regular" margin="mt-16" />
           <MiniText
             linktext="Отправить еще раз"

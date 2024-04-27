@@ -23,7 +23,6 @@ export async function useLogin(data: IData): Promise<string | void> {
         
         localStorage.setItem('userData', JSON.stringify(userData));
         
-        console.log(response.data.user);
 
     } catch (error: unknown | any) {
         console.error('Failed to create data:', error);

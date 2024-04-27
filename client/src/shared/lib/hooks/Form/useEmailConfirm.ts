@@ -14,6 +14,7 @@ export async function useEmailConfirm(data: IData): Promise<void | string> {
             data,
             {
                 headers: {
+                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${accessToken}`
                 }
             }
