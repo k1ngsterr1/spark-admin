@@ -13,6 +13,7 @@ export class DeletePage {
     this.userRepository = new UserRepository();
   }
   async execute(websiteId: string, userId: number, url: string): Promise<void> {
+    console.log(websiteId, userId, url);
     const user = await this.userRepository.getUserFromWebsite(websiteId, userId);
     if(user === null){
         throw new Error("User not found");

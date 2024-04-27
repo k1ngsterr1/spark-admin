@@ -61,14 +61,14 @@ export class WebsiteRepository implements IWebsiteRepository {
 
   async findByOwner(ownerId: number): Promise<Website[]> {
     const websites = await sequelize.getRepository(Website).findAll({
+      where: {
+        owner: ownerId
+      },
       include: [
         {
           model: sequelize.getRepository(User),
           attributes: ['id', 'email', 'username', 'isVerified', 'role'],
           through: {
-            where: {
-              owner: ownerId,
-            },
             attributes: [
               'role',
               'isSparkAdmin'

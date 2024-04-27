@@ -13,12 +13,12 @@ router.use(authenticateToken);
  *     bearerAuth:
  *       type: http
  *       scheme: bearer
- * /api/page/add:
+ * /api/website/page/add:
  *   post:
  *     summary: Добавление страницы для вебсайта
  *     description: Добавление страницы для вебсайта с использованием website ID, url, name and type.
  *     tags:
- *       - Pages
+ *       - Страницы
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -60,12 +60,12 @@ router.post("/add", (req, res) => pageController.addPage(req, res));
  *     bearerAuth:
  *       type: http
  *       scheme: bearer
- * /api/page/get-pages/{websiteId}:
+ * /api/website/page/get-pages/{websiteId}:
  *   get:
  *     summary: Получение списка страниц для вебсайта
  *     description: Получение списка страниц для вебсайта через вебсайт ID.
  *     tags:
- *       - Pages
+ *       - Страницы
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -74,7 +74,7 @@ router.post("/add", (req, res) => pageController.addPage(req, res));
  *         required: true
  *         schema:
  *           type: string
- *         description: Unique identifier of the website
+ *         description: Уникальный идентификатор вебсайта
  *     responses:
  *       200:
  *         description: Страницы вебсайт успешно получен
@@ -90,12 +90,12 @@ router.get("/get-pages/:websiteId", (req, res) => pageController.getPages(req, r
  *     bearerAuth:
  *       type: http
  *       scheme: bearer
- * /api/page/delete-page/{websiteId}:
+ * /api/website/page/delete-page/{websiteId}:
  *   delete:
  *     summary: Удаление страницы для вебсайта
  *     description: Удаление страницы с вебсайта через вебсайт ID.
  *     tags:
- *       - Pages
+ *       - Страницы
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -105,6 +105,18 @@ router.get("/get-pages/:websiteId", (req, res) => pageController.getPages(req, r
  *         schema:
  *           type: string
  *         description: Уникальный идентификатор вебсайта
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - url:
+ *             properties:
+ *               url: 
+ *                 type: string
+ *                 example: https://sparkstudio.kz/
  *     responses:
  *       200:
  *         description: Страница успешно удалена
