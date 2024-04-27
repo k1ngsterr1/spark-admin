@@ -5,6 +5,7 @@ import { IUserRepository } from "@core/interfaces/IUserRepository";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { validWebsiteUser } from "@core/utils/validators";
 import { WebsiteCommand } from "@core/utils/types";
+import { ErrorDetails } from "@core/utils/utils";
 
 export class DeleteWebsite {
   private websiteRepository: IWebsiteRepository;
@@ -14,15 +15,17 @@ export class DeleteWebsite {
     this.userRepository = new UserRepository();
   }
 
-  async execute(ownerId: number, url: string): Promise<Website> {
+  async execute(ownerId: number, url: string, error: ErrorDetails[]): Promise<Website> {
     const website = await this.websiteRepository.findByUrl(ownerId, url);
     const user = await this.userRepository.getUserFromWebsite(website.id, ownerId);
     if(website === null){
-      throw new Error("No website found");
+      error.push(new ErrorDetails(404, "Вебсайта с таким URL не существует"));
+      return;
     }
     const isValidUser = await validWebsiteUser(user, WebsiteCommand.delete);
     if(!isValidUser){
-      throw new Error("Not enough rights");
+      error.push(new ErrorDetails(403, "У вас недостаточно прав."));
+      return;
     }
 
     await website.destroy();
