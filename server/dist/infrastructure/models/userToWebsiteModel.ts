@@ -1,4 +1,4 @@
-import { Table, Column, Model, ForeignKey, CreatedAt, UpdatedAt, DataType, Default, HasOne, AutoIncrement, PrimaryKey } from 'sequelize-typescript';
+import { Table, Column, Model, ForeignKey, CreatedAt, UpdatedAt, DataType, Default, AutoIncrement, PrimaryKey, BelongsTo } from 'sequelize-typescript';
 import { User } from './userModel';
 import { Website } from './websiteModel';
 import { UserRole, UserToWebsiteAttributes } from '@core/utils/types';
@@ -13,17 +13,17 @@ export default class UserToWebsite extends Model<UserToWebsiteAttributes> {
     id!: number;
 
     @ForeignKey(() => User)
-    @Column(DataType.INTEGER)
+    @Column({ type: DataType.INTEGER, onDelete: 'CASCADE' })
     userId!: number;
 
     @ForeignKey(() => Website)
-    @Column(DataType.STRING)
+    @Column({ type: DataType.STRING, onDelete: 'CASCADE' })
     websiteId!: string;
 
-    @HasOne(() => User, 'userId')
+    @BelongsTo(() => User, 'userId')
     user?: User;
 
-    @HasOne(() => Website, 'websiteId')
+    @BelongsTo(() => Website, 'websiteId')
     website?: Website;
 
     @Column(DataType.INTEGER)

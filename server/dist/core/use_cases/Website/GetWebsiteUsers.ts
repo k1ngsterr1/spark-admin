@@ -15,6 +15,9 @@ export class GetWebsiteUsers{
     async execute(websiteId: string, errors: ErrorDetails[]): Promise<User[]>{
         try{
             const website = await this.websiteRepository.findByPk(websiteId, errors);
+            if(website === null){
+                errors.push(new ErrorDetails(404, "Вебсайта с таким ID не существует."));
+            }
             return website.users;
         }catch(error){
             console.log(error);

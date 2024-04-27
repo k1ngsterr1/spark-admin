@@ -50,6 +50,8 @@ router.use(authenticateToken);
  *         description: Страница успешно добавлена
  *       400:
  *         description: Не удалось добавить страницу
+ *       500:
+ *         description: Произошла ошибка при добавление страницы
  */
 router.post("/add", (req, res) => pageController.addPage(req, res));
 
@@ -80,6 +82,8 @@ router.post("/add", (req, res) => pageController.addPage(req, res));
  *         description: Страницы вебсайт успешно получен
  *       400:
  *         description: Не удалось получить страницы вебсайта
+ *       500:
+ *         description: Произошла ошибка при получение страниц
  */
 router.get("/get-pages/:websiteId", (req, res) => pageController.getPages(req, res));
 
@@ -122,6 +126,8 @@ router.get("/get-pages/:websiteId", (req, res) => pageController.getPages(req, r
  *         description: Страница успешно удалена
  *       400:
  *         description: Не удалось удалить страницу
+ *       500:
+ *         description: Произошла ошибка при удаление страницы
  */
 router.delete("/delete-page/:websiteId", (req, res) => pageController.deletePages(req, res));
 

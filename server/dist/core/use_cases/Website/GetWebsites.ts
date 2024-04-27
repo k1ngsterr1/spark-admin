@@ -1,6 +1,7 @@
 import { Website } from "@infrastructure/models/websiteModel";
 import { WebsiteRepository } from "../../../infrastructure/repositories/WebsiteRepository";
 import { IWebsiteRepository } from "core/interfaces/IWebsiteRepository";
+import { ErrorDetails } from "@core/utils/utils";
 
 export class GetWebsites {
   private websiteRepository: IWebsiteRepository;
@@ -8,11 +9,12 @@ export class GetWebsites {
     this.websiteRepository = new WebsiteRepository();
   }
 
-  async execute(ownerId: number): Promise<Website[]> {
+  async execute(ownerId: number, errors: ErrorDetails[]): Promise<Website[]> {
     const websites = await this.websiteRepository.findByOwner(ownerId);
 
     if (websites === null) {
-      throw new Error("Веб-сайты не найдены!");
+      errors.push(new ErrorDetails(404, "У этого пользователя нету вебсайтов."));
+      return;
     }
 
     return websites;

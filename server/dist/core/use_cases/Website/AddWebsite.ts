@@ -23,44 +23,49 @@ export class AddWebsite {
     request: AddWebsiteRequest,
     errors: ErrorDetails[]
   ): Promise<Website> {
-    const { name, url, ownerID, ownerEmail } = request;
-    const isValidUrl = await validURL(url);
-    const isValidEmail = await validEmail(ownerEmail);
+    try{
+      const { name, url, ownerID, ownerEmail } = request;
+      const isValidUrl = await validURL(url);
+      const isValidEmail = await validEmail(ownerEmail);
 
-    if (!isValidUrl) {
-      errors.push(new ErrorDetails(400, "Неправильная URL"));
-      return;
+      if (!isValidUrl) {
+        errors.push(new ErrorDetails(400, "Неправильная URL"));
+        return;
+      }
+      if (!isValidEmail) {
+        errors.push(new ErrorDetails(400, "Неправильный email"));
+        return;
+      }
+      const { code, codeSignature } = await websiteCodeGenerator(url);
+      const user = await this.userRepository.findByEmail(ownerEmail);
+
+      if (user == null) {
+        errors.push(new ErrorDetails(404, "Пользователь не был найден"));
+        return;
+      }
+
+      const newWebsiteDetails: NewWebsiteInput = {
+        name: name,
+        url: url,
+        owner: ownerID,
+        ownerEmail: ownerEmail,
+        websiteCode: code,
+        websiteSignature: codeSignature,
+        websiteCodeSignature: codeSignature,
+      };
+
+      const newWebsite = await this.websiteRepository.create(
+        newWebsiteDetails,
+        errors
+      );
+      console.log(errors);
+
+      await this.websiteRepository.addUser(newWebsite.id, user.id, user.id, UserRole.Owner);
+
+      return newWebsite;
+    } catch(error){
+      console.log(error);
+      errors.push(new ErrorDetails(500, "Произошла непредвиденная ошибка при создание вебсайта."));
     }
-    if (!isValidEmail) {
-      errors.push(new ErrorDetails(400, "Неправильный email"));
-      return;
-    }
-    const { code, codeSignature } = await websiteCodeGenerator(url);
-    const user = await this.userRepository.findByEmail(ownerEmail);
-
-    if (user == null) {
-      errors.push(new ErrorDetails(404, "Пользователь не был найден"));
-      return;
-    }
-
-    const newWebsiteDetails: NewWebsiteInput = {
-      name: name,
-      url: url,
-      owner: ownerID,
-      ownerEmail: ownerEmail,
-      websiteCode: code,
-      websiteSignature: codeSignature,
-      websiteCodeSignature: codeSignature,
-    };
-
-    const newWebsite = await this.websiteRepository.create(
-      newWebsiteDetails,
-      errors
-    );
-    console.log(errors);
-
-    await this.websiteRepository.addUser(newWebsite.id, user.id, user.id, UserRole.Owner);
-
-    return newWebsite;
   }
 }
