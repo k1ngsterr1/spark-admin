@@ -99,6 +99,30 @@ class UserController {
     }
   }
 
+  // Инициация смены пароля
+  async initiatePasswordChange(req: Request, res: Response): Promise<void> {
+    try {
+      const userID = req.user.id;
+
+      if (!userID) {
+        return res
+          .status(404)
+          .json({ message: "ID пользователя не существует :(" });
+      }
+
+      await this.changeUserPasswordService.initiatePasswordChange(userID);
+
+      res
+        .status(200)
+        .json({ message: "Специальный код был высланан на вашу почту" });
+    } catch (error) {
+      res.status(500).json({
+        message: "Ошибка с инициацией изменения пароля:",
+        error: error.message,
+      });
+    }
+  }
+
   // Смена пароля юзера
   async changeUserPassword(req: Request, res: Response): Promise<void> {
     try {

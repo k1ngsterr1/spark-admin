@@ -27,7 +27,7 @@ import auth from "@infrastructure/middleware/authMiddleware";
  *               username:
  *                 type: string
  *                 example: john_doe
- *               email: 
+ *               email:
  *                 type: string
  *                 example: example@gmail.com
  *               password:
@@ -62,7 +62,7 @@ router.post("/register", (req, res) => userController.createUser(req, res));
  *               - email
  *               - password
  *             properties:
- *               email: 
+ *               email:
  *                 type: string
  *                 example: example@gmail.com
  *               password:
@@ -75,6 +75,10 @@ router.post("/register", (req, res) => userController.createUser(req, res));
  *         description: Вход в систему не удался.
  */
 router.post("/login", (req, res, next) => userController.login(req, res, next));
+
+router.post("/initiate-password-change", auth, (req, res) =>
+  userController.initiatePasswordChange(req, res)
+);
 
 /**
  * @swagger
@@ -101,7 +105,7 @@ router.post("/login", (req, res, next) => userController.login(req, res, next));
  *               - oldPassword
  *               - newPassword
  *             properties:
- *               oldPassword: 
+ *               oldPassword:
  *                 type: string
  *                 example: newP@ssw0rd1
  *               newPassword:
@@ -113,7 +117,9 @@ router.post("/login", (req, res, next) => userController.login(req, res, next));
  *       400:
  *         description: Изменение пароля не удалось.
  */
-router.post("/change-password", auth, (req, res) => userController.changeUserPassword(req, res));
+router.post("/change-password", auth, (req, res) =>
+  userController.changeUserPassword(req, res)
+);
 
 /**
  * @swagger
@@ -140,7 +146,7 @@ router.post("/change-password", auth, (req, res) => userController.changeUserPas
  *               - id
  *               - code
  *             properties:
- *               id: 
+ *               id:
  *                 type: number
  *                 example: 1
  *               code:
@@ -152,6 +158,6 @@ router.post("/change-password", auth, (req, res) => userController.changeUserPas
  *       400:
  *         description: Подтверждение не удалось.
  */
-router.post("/verify", (req, res) => userController.verifyUser(req, res));
+router.post("/verify", auth, (req, res) => userController.verifyUser(req, res));
 
 export default router;

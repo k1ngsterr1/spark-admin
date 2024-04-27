@@ -1,7 +1,6 @@
 import { ChangePasswordRequest } from "@core/utils/User/Request";
 import { validPassword } from "@core/utils/validators";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
-import { IUserRepository } from "core/interfaces/IUserRepository";
 import EmailService from "./EmailVerification";
 
 const verificationCodeGenerator = require("@core/utils/generateCode");
@@ -15,6 +14,7 @@ export class ChangePasswordService {
     this.emailService = new EmailService();
   }
 
+  // Инициация изменения пароля
   async initiatePasswordChange(userId: number): Promise<void> {
     const user = await this.userRepository.findByPk(userId);
     if (!user) {
@@ -27,13 +27,14 @@ export class ChangePasswordService {
     await this.userRepository.saveVerificationCode(user, verificationCode);
 
     // Отправление кода подтверждения
-    await this.emailService.sendVerificationEmail(
+    await this.emailService.sendPasswordResetEmail(
       user.email,
       user.username,
       verificationCode
     );
   }
 
+  // Основная логика смены пароля
   async execute(request: ChangePasswordRequest): Promise<boolean> {
     const { id, oldPassword, newPassword, code } = request;
     const user = await this.userRepository.findByPk(id);
