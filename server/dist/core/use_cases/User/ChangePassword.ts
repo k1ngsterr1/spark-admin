@@ -50,13 +50,6 @@ export class ChangePasswordService {
       throw new Error("Неправильный или устаревший код!");
     }
 
-    // Проверка совпадения паролей
-    // const passwordMatch = await user.verifyPassword(oldPassword);
-
-    // if (!passwordMatch) {
-    //   throw new Error("Старый пароль не совпадает!");
-    // }
-
     await validPassword(newPassword);
 
     return await this.userRepository.changePassword(user, newPassword);
