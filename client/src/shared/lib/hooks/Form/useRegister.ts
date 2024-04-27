@@ -14,6 +14,7 @@ export async function useRegister(data: IData): Promise<string | void> {
                 'Content-Type': 'application/json'  
             }
         });
+
         console.log('Data created:', response.data);
         window.location.href = '/login';
     } catch (error: any) {

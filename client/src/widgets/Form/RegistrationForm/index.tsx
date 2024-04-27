@@ -24,11 +24,11 @@ const Form = () => {
   return (
     <section className={styles.registration}>
       <div className={styles.registration__content}>
-        <div className={styles.registration__logo}>
+        <div className={styles.registration__content__logo}>
           <SparkLogo />
         </div>
         <Heading text="Добро пожаловать" margin="mt-8" />
-        <form className={styles.registration__form} onSubmit={handleSubmit}>
+        <form className={styles.registration__content__form} onSubmit={handleSubmit}>
           <Input
             value={username}
             onChange={e => setUsername(e.target.value)}
