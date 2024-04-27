@@ -15,7 +15,7 @@ export class AddUser {
   async execute(request: AddUserRequest, errors: ErrorDetails[]): Promise<void> {
     const { email, role, websiteID, requesterID } = request;
     if (!email || !role || !websiteID) {
-      errors.push(new ErrorDetails(403, "Введите все поля"));
+      errors.push(new ErrorDetails(400, "Введите все поля"));
       return;
     }
 
@@ -37,7 +37,7 @@ export class AddUser {
     });
 
     if (!user) {
-      errors.push(new ErrorDetails(403, "Пользователя с такой электронной почтой не существует"));
+      errors.push(new ErrorDetails(400, "Пользователя с такой электронной почтой не существует"));
       return;
     }
 

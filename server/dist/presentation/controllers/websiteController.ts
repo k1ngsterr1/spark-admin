@@ -33,7 +33,7 @@ class WebsiteController {
   }
 
   // Добавление веб-сайта
-  async addWebsite(req: Request, res: Response) {
+  async addWebsite(req: Request, res: Response): Promise<void> {
     let errors: ErrorDetails[] = [];
     try {
       const request: AddWebsiteRequest = {
@@ -58,31 +58,29 @@ class WebsiteController {
     }
   }
 
-  async getWebsites(req: Request, res: Response) {
+  //Получение всех вебсайтов
+  async getWebsites(req: Request, res: Response): Promise<void> {
+    let errors: ErrorDetails[] = [];
     try {
       const userID: number = req.user.id;
 
-      if (!req.user || !req.user.id) {
-        console.log("ID пользователя не существует.", { user: req.user });
-        return res
-          .status(400)
-          .json({ message: "ID пользователя не существует." });
-      }
+      const websites = await this.getWebsitesByOwner.execute(userID, errors);
 
-      const websites = await this.getWebsitesByOwner.execute(userID);
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json(current_error.details);
+        return;
+      }
 
       return res.status(201).json(websites);
     } catch (error) {
-      console.error("Ошибка с получением сайтов:", error, {
-        userId: req.user.id,
-      });
       return res
         .status(500)
         .json({ error: "Ошибка с получением сайтов", details: error.message });
     }
   }
 
-  async addUserToWebsite(req, res) {
+  async addUserToWebsite(req, res): Promise<void> {
     let errors: ErrorDetails[] = [];
     try {
       const { userEmail, userRole, websiteID } = req.body;
@@ -114,7 +112,7 @@ class WebsiteController {
     try {
       const websiteID: string = req.params.websiteID;
       if (websiteID === undefined) {
-        errors.push(new ErrorDetails(403, "Вебсайт ID не указан"));
+        errors.push(new ErrorDetails(404, "Вебсайт ID не указан."));
       }
 
       const users = await this.websiteUsers.execute(websiteID, errors);
