@@ -1,5 +1,3 @@
-import { IUserRepository } from "core/interfaces/IUserRepository";
-import { IEmailService } from "core/interfaces/IEmailService";
 import { User } from "infrastructure/models/userModel";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { validEmail, validPassword } from "@core/utils/validators";
@@ -35,8 +33,10 @@ export class CreateUser {
       username: username,
       email: email,
       password: password,
-      verificationCode: code,
     });
+
+    await this.userRepository.saveVerificationCode(newUser, code);
+
     this.emailService.sendVerificationEmail(email, username, code);
 
     return newUser;
