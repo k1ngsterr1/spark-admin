@@ -1,4 +1,11 @@
 .user_tab {
   display: flex;
   align-items: center;
+  @apply mr-4;
+
+  &__photo{
+    width: clamp(24px,2.49984vw,96px);
+    height: clamp(24px,2.49984vw,96px);
+    @apply ml-2
+  }
 }
