@@ -7,6 +7,7 @@ import MiniText from "@shared/ui/MiniText/index";
 import Heading from "@shared/ui/Heading/index";
 import {useSubmitLogin} from "@shared/lib/hooks/Form/useSubmitLogin";
 import { ErrorDisplay } from '@shared/ui/Error';
+import { useClickChangePassword } from "@shared/lib/hooks/Form/useClickChangePassword";
 
 
 import styles from "../styles/styles.module.scss";
@@ -17,6 +18,8 @@ import SparkLogo from "@assets/spark_product_logo.svg";
 
 const LoginForm = () => {
 
+  const {handleClickChangePassword} = useClickChangePassword();
+
   const { email, setEmail, password, setPassword, passwordError, setPasswordError,handleSubmit } = useSubmitLogin();
 
 
@@ -24,11 +27,11 @@ const LoginForm = () => {
     <section className={styles.registration}>
       
       <div className={styles.registration__content}>
-        <div className={styles.registration__logo}>
+        <div className={styles.registration__content__logo}>
           <SparkLogo />
         </div>
         <Heading text="Войти" margin="mt-8" />
-        <form className={styles.registration__form} onSubmit={handleSubmit}>
+        <form className={styles.registration__content__form} onSubmit={handleSubmit}>
           <Input
             placeholder={"example@gmail.com"}
             inputType="default"
@@ -44,8 +47,9 @@ const LoginForm = () => {
           <MiniText
             margin="mt-2"
             href="change-password"
-            text="Забыли ваш "
+            text="Забыли ваш"
             linktext="пароль?"
+            onClick={handleClickChangePassword}
           />
           <Button text="Войти" buttonType="regular" margin="mt-4" />
         </form>
