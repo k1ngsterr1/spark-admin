@@ -13,7 +13,28 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+  
+  &__mail {
+    @apply mt-4;
+    @apply text-lg;
+    text-align: center;
+
+    &__text {
+      font-weight: 500;
+    }
+
+    &__text_orange {
+      @apply text-primary;
+      font-weight: 700;
+      transition: 0.3s ease-in-out;
+      @apply text-lg;
+      &:hover {
+        @apply text-primary-dark;
+      }
+    }
+
   }
+
   &__logo {
     margin-top: clamp(46px, 4.79136vw, 184px);
     width: clamp(68px, 7.08288vw, 272px);
@@ -45,4 +66,5 @@
     }
   }
   
+}
 }

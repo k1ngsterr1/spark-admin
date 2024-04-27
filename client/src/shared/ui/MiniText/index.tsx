@@ -6,6 +6,7 @@ interface MiniTextProps {
   href: string;
   text: string;
   linktext: string;
+  onClick?: () => void
 }
 
 const MiniText: React.FC<MiniTextProps> = ({
@@ -13,11 +14,12 @@ const MiniText: React.FC<MiniTextProps> = ({
   href,
   text,
   linktext,
+  onClick
 }) => {
   return (
     <div className={styles.mini_text} style={{ margin }}>
       <span>{text} </span>
-      <Link href={href} className={styles.orange_text}>
+      <Link href={href} className={styles.orange_text} onClick={onClick}>
         {linktext}
       </Link>
     </div>
