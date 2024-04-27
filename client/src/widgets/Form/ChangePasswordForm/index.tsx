@@ -1,12 +1,11 @@
 'use client'
 
-import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons/index";
+import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import PasswordInput from "@shared/ui/Inputs/PasswordInput";
 import Heading from "@shared/ui/Heading/index";
-import { useChangePassword } from "@shared/lib/hooks/Form/useChangePassword";
-import { useState , FormEvent} from "react";
 import Input from "@shared/ui/Inputs/DefaultInport";
-import {useUserData} from "@shared/lib/hooks/Form/useGetData";
+import { useSubmitChangePassword } from "@shared/lib/hooks/Form/useSubmitChangePassword";
+import { ErrorDisplay } from "@shared/ui/Error/index";
 
 
 import styles from "../styles/styles.module.scss";
@@ -14,19 +13,9 @@ import styles from "../styles/styles.module.scss";
 import SparkLogo from "@assets/spark_product_logo.svg";
 
 const ChangePassword = () => {
-  const [newPassword, setNewPassword] = useState('');
-  const [code, setCode] = useState('');
 
-  const userData = useUserData()
+const {code, setCode, userData, newPassword, setNewPassword, handleSubmit, passwordError} = useSubmitChangePassword();
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); 
-
-    const result = await useChangePassword({  code, newPassword });
-    if (typeof result === 'string') {
-      alert(result); 
-    }
-  };
   return (
     <section className={styles.registration}>
       <div className={styles.registration__content}>
@@ -36,7 +25,7 @@ const ChangePassword = () => {
         <Heading text="Сменить пароль" margin="mt-8" />
         <div className={styles.registration__content__mail}>
           <span className={styles.registration__content__mail__text}>
-            Письмо с подтверждением отправлено на почту
+            Письмо со специальным кодом отправлено на почту
             <div>
               <span className={styles.registration__content__mail__text_orange}>{userData.email || 'Неизвестно'}</span>
             </div>
@@ -49,14 +38,11 @@ const ChangePassword = () => {
             type="text"
             value={code}
             onChange={e => setCode(e.target.value)}
+            name="code"
           />        
-          <PasswordInput placeholder="Новый пароль" margin="mt-3" value={newPassword} onChange={e => setNewPassword(e.target.value)}/>
-          <ButtonLink
-            text="Сменить пароль"
-            buttonType="regular"
-            margin="mt-8"
-            href="login"
-          />
+          <PasswordInput placeholder="Новый пароль" margin="mt-3" name="newPassword" value={newPassword} onChange={e => setNewPassword(e.target.value)}/>
+          <ErrorDisplay message={passwordError}/>
+          <Button text="Сменить пароль" buttonType="regular" margin="mt-4" />
         </form>
       </div>
     </section>

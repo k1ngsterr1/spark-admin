@@ -14,6 +14,7 @@ export async function useChangePassword(data: IData): Promise<string | void> {
         const response = await axios.post('https://spark-admin-production.up.railway.app/api/auth/change-password', data,
             {
                 headers: {
+                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${accessToken}`
                 }
             }
