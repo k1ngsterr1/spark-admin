@@ -33,7 +33,6 @@ export const Selector = <T extends string | number>({
     setSelectedItem(selectedOption);
     onChange(selectedOption);
     setIsOpen(false);
-    console.log(selectedItem);
   };
 
   return (
@@ -53,7 +52,7 @@ export const Selector = <T extends string | number>({
       {isOpen && (
         <Dropdown
           items={items}
-          className={styles.selector__dropdown}
+          className={`${styles.selector__dropdown} dark:bg-dark-lighter`}
           setOption={handleOptionClick}
         />
       )}

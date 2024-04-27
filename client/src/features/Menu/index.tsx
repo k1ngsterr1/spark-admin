@@ -16,7 +16,7 @@ import styles from "./styles.module.scss";
 
 export const Menu = () => {
   return (
-    <aside className={styles.menu}>
+    <aside className={`${styles.menu} dark:bg-dark-super`}>
       <div className={styles.menu__logo}>
         <SparkLogo />
       </div>

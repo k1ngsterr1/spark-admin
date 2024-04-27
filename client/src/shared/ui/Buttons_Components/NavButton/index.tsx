@@ -23,7 +23,7 @@ export const NavButton: React.FC<NavButtonProps> = ({
       <FontAwesomeIcon
         icon={icon}
         className={styles.nav_button__icon}
-        size="2xl"
+        size="lg"
       />
       <span className={`${styles.nav_button__text} dark:text-white`}>{text}</span>
     </Link>
@@ -42,7 +42,7 @@ export const MenuButton: React.FC<NavButtonProps> = ({
       <FontAwesomeIcon
         icon={icon}
         className={styles.nav_button__icon}
-        size="2xl"
+        size="xl"
       />
       <span className={`${styles.nav_button__text} dark:text-white`}>{text}</span>
     </button>

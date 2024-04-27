@@ -25,6 +25,11 @@ const config: Config = {
           LIGHT: "#FFF3EF",
           dark: "#008BA3",
         },
+        dark: {
+          super: '#16151B',
+          lighter: '#2B2934',
+          upper: '#3A3846',
+        },
         secondary: {
           DEFAULT: "#1A1A1A", // Light theme color
           dark: "#008BA3", // Dark theme variant

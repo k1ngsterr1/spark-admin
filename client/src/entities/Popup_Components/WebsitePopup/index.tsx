@@ -21,7 +21,7 @@ export const WebsitePopup = () => {
 
   return (
     <div className={styles.overlay} onClick={toggleWebPopup}>
-      <div className={styles.website_popup} onClick={handlePopupClick}>
+      <div className={`${styles.website_popup} dark:bg-dark-lighter`} onClick={handlePopupClick}>
         <div className={styles.website_popup__logo}>
           <Logo />
         </div>
