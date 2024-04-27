@@ -53,11 +53,10 @@ class PageController{
   }
   async deletePages(req: Request, res: Response): Promise<void>{
     try{
-      const user = this.jwtService.getAccessPayload(req.cookies.access);
       const websiteId: string = req.params.websiteId;
       const url: string = req.body.url;
-
-      await this.deletePageByWebsiteId.execute(websiteId, user.id, url);
+      console.log("hus=", websiteId);
+      await this.deletePageByWebsiteId.execute(websiteId, req.user.id, url);
       res.status(200).json({ message: "Страница была удалена" });
     } catch(error){
       res.status(500).json({ message: "Ошибка удаление страницы" , error: error.message})

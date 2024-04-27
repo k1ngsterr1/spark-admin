@@ -61,7 +61,6 @@ app.use(cookieParser());
  */
 app.post("/access", (req, res) => accessToken(req, res));
 app.use("/api/auth", authRoutes);
-app.use("/api/page", pageRoutes);
 app.use("api/user", userRoutes);
 app.use("/api/website", websiteRoutes);
 
