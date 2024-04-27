@@ -113,8 +113,8 @@ export class EmailService implements IEmailService {
     const mailOptions: nodemailer.SendMailOptions = {
       from: "info@sparkstudio.kz",
       to: email,
-      subject: "Ваш код для подтверждения",
-      text: `Ваш код для подтверждения: ${code}`,
+      subject: "Код подтверждения Spark Admin",
+      text: `Ваш код подтверждения: ${code}`,
       html: emailTemplate,
     };
 
@@ -200,7 +200,7 @@ export class EmailService implements IEmailService {
       <a href="https://ibb.co.com/rsfwrBW"><img src="https://i.ibb.co.com/Ry4DwX5/spark-product-logo.png" alt="spark-product-logo" border="0" width="128px" height="128px" ></a>
       <div class="content">
         <p>Здравствуйте, <strong>${name}</strong></p>
-        <p>Пожалуйста подтвердите используйте этот код, чтобы изменить ваш пароль для Spark Admin. Ваш код:</p>
+        <p>Пожалуйста подтвердите ваш аккаунт, чтобы полноценно пользоваться Spark Admin. Ваш код:</p>
         <div class="code">${code}</div>
       </div>
       <div class="footer">
@@ -214,8 +214,8 @@ export class EmailService implements IEmailService {
     const mailOptions: nodemailer.SendMailOptions = {
       from: "info@sparkstudio.kz",
       to: email,
-      subject: "Ваш код для сменый пароля",
-      text: `Ваш код для сменый пароля: ${code}`,
+      subject: "Код сброса пароля Spark Admin",
+      text: `Ваш код для сброса пароля: ${code}`,
       html: emailTemplate,
     };
 
