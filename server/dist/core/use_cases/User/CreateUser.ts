@@ -10,7 +10,7 @@ const verificationCodeGenerator = require("@core/utils/generateCode");
 
 export class CreateUser {
   private userRepository: UserRepository;
-  private emailService: IEmailService;
+  private emailService: EmailService;
   constructor() {
     this.userRepository = new UserRepository();
     this.emailService = new EmailService();

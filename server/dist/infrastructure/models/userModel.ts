@@ -43,7 +43,7 @@ export class User extends Model<UserAttributes> {
   password!: string;
 
   @Default("user")
-  @Column(DataType.ENUM(...Object.values(UserRole) as string[]))
+  @Column(DataType.ENUM(...(Object.values(UserRole) as string[])))
   role!: string;
 
   @Default(false)
@@ -51,7 +51,10 @@ export class User extends Model<UserAttributes> {
   isSparkAdmin?: boolean;
 
   @Column(DataType.STRING)
-  verificationCode!: string;
+  verificationCode?: string;
+
+  @Column(DataType.DATE)
+  verificationCodeExpires?: Date;
 
   @Default(false)
   @Column(DataType.BOOLEAN)
