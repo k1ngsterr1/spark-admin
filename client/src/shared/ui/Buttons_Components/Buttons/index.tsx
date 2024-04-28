@@ -1,5 +1,8 @@
 "use client";
-import { useWebPopup } from "@shared/lib/contexts/AppContext";
+import {
+  useWebPopup,
+  useWebVerifyPopup,
+} from "@shared/lib/contexts/AppContext";
 import { useUserPopup } from "@shared/lib/contexts/AppContext";
 import { FunctionTypes } from "@shared/lib/hooks/useFunctions";
 import Link from "next/link";
@@ -31,6 +34,7 @@ const Button: React.FC<ButtonProps> = ({
     margin ? margin : ""
   }`;
   const { toggleWebPopup } = useWebPopup();
+  const { toggleWebVerifyPopup } = useWebVerifyPopup();
   const { toggleUserPopup } = useUserPopup();
 
   const handleClick = () => {
@@ -40,9 +44,13 @@ const Button: React.FC<ButtonProps> = ({
     if (functionType === "userPopup") {
       toggleUserPopup();
     }
+
+    if (functionType === "verifyPopup") {
+      toggleWebVerifyPopup();
+    }
   };
 
-  return ( 
+  return (
     <button className={buttonClass} onClick={handleClick} {...rest}>
       {text}
     </button>

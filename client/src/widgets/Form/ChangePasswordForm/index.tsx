@@ -14,7 +14,7 @@ import SparkLogo from "@assets/spark_product_logo.svg";
 
 const ChangePassword = () => {
 
-const {code, setCode, userData, newPassword, setNewPassword, handleSubmit, passwordError} = useSubmitChangePassword();
+const {code, setCode, userData, newPassword, setNewPassword, handleSubmit, backendError, passwordError} = useSubmitChangePassword();
 
   return (
     <section className={styles.registration}>
@@ -39,7 +39,8 @@ const {code, setCode, userData, newPassword, setNewPassword, handleSubmit, passw
             value={code}
             onChange={e => setCode(e.target.value)}
             name="code"
-          />        
+          />    
+          <ErrorDisplay message={backendError}/>
           <PasswordInput placeholder="Новый пароль" margin="mt-3" name="newPassword" value={newPassword} onChange={e => setNewPassword(e.target.value)}/>
           <ErrorDisplay message={passwordError}/>
           <Button text="Сменить пароль" buttonType="regular" margin="mt-4" />

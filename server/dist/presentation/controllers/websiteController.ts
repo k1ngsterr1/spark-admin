@@ -6,14 +6,18 @@ import { CheckWebsite } from "@core/use_cases/Website/CheckWebsite";
 import { AddUser } from "@core/use_cases/Website/AddUser";
 import { AddUserRequest, AddWebsiteRequest } from "@core/utils/Website/Request";
 import { ErrorDetails } from "@core/utils/utils";
-import WebsiteService from "@services/websiteService";
 import { GetWebsiteUsers } from "@core/use_cases/Website/GetWebsiteUsers";
 import { GetWebsiteElements } from "@core/use_cases/Website/GetWebsiteElements";
+import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
+import { GetWebsitesCode } from "@core/use_cases/Website/GetWebsiteCode";
+import WebsiteService from "@services/websiteService";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
+  private websiteRepository: WebsiteRepository;
   private getWebsitesByOwner: GetWebsites;
   private getWebsiteByName: GetWebsite;
+  private getWebsiteCodeUseCase: GetWebsitesCode;
   private addUser: AddUser;
   private websiteService: WebsiteService;
   private checkWebsiteUseCase: CheckWebsite;
@@ -22,12 +26,17 @@ class WebsiteController {
 
   constructor() {
     this.websiteService = new WebsiteService();
+    this.getWebsiteCodeUseCase = new GetWebsitesCode();
+    this.websiteRepository = new WebsiteRepository();
     this.addWebsiteUseCase = new AddWebsite();
     this.getWebsitesByOwner = new GetWebsites();
     this.getWebsiteByName = new GetWebsite();
     this.addUser = new AddUser();
     this.websiteUsers = new GetWebsiteUsers();
-    this.checkWebsiteUseCase = new CheckWebsite(this.websiteService);
+    this.checkWebsiteUseCase = new CheckWebsite(
+      this.websiteService,
+      this.websiteRepository
+    );
     this.getWebsiteElements = new GetWebsiteElements();
   }
 
@@ -41,6 +50,7 @@ class WebsiteController {
         ownerID: req.user.id,
         ownerEmail: req.user.email,
       };
+
       const newWebsite = await this.addWebsiteUseCase.execute(request, errors);
 
       if (errors.length > 0) {
@@ -79,6 +89,7 @@ class WebsiteController {
     }
   }
 
+  // Добавление пользователей в веб-сайт
   async addUserToWebsite(req, res): Promise<void> {
     let errors: ErrorDetails[] = [];
     try {
@@ -106,6 +117,7 @@ class WebsiteController {
     }
   }
 
+  // Получение пользователей веб-сайта
   async getWebsiteUsers(req: Request, res: Response): Promise<void> {
     let errors: ErrorDetails[] = [];
     try {
@@ -155,59 +167,83 @@ class WebsiteController {
     }
   }
 
-  // async checkWebsite(req: Request, res: Response) {
-  //   try {
-  //     const url: string = req.body.url.match(
-  //       /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
-  //     );
+  // Получение кода верификации для веб-сайта
+  async getWebsiteCode(req: Request, res: Response): Promise<any> {
+    let errors: ErrorDetails[] = [];
+    try {
+      const { url } = req.body;
+      const ownerId = req.user.id;
 
-  //     const expectedCode: string = req.body.code;
-  //     const stringifyUrl = url.toString();
+      const code = await this.getWebsiteCodeUseCase.execute(
+        ownerId,
+        url,
+        errors
+      );
 
-  //     // ! Засунуть в use_case
-  //     // const website: Website = await this.websiteRepository.findByUrl(url);
-  //     const existingURL: string = website?.url;
+      if (code) {
+        return res.status.json({ code });
+      } else {
+        const lastError = errors[errors.length - 1];
+        return res.status(lastError.code).json({ message: lastError.details });
+      }
+    } catch (error) {
+      errors.push(
+        new ErrorDetails(
+          500,
+          `Ошибка с получением кода веб-сайта: ${error.message}`
+        )
+      );
+    }
+  }
 
-  //     const checkWebsite: boolean = await this.checkWebsiteUseCase.execute(
-  //       existingURL,
-  //       expectedCode
-  //     );
+  // Проверка веб-сайта
+  async checkWebsite(req: Request, res: Response) {
+    try {
+      const url: string = req.body.url.match(
+        /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+      );
 
-  //     if (website === null || undefined) {
-  //       return res
-  //         .status(404)
-  //         .json({ message: "Веб-сайта с данной ссылкой не существует :(" });
-  //     }
+      const expectedCode: string = req.body.code;
+      const stringifyUrl = url.toString();
 
-  //     if (url === null) {
-  //       return res.status(400).json({ message: "Введите корректную ссылку" });
-  //     }
+      // ! Засунуть в use_case
 
-  //     if (!expectedCode) {
-  //       return res
-  //         .status(400)
-  //         .json({ message: "Пожалуйста введите код верификации" });
-  //     }
+      const result = await this.checkWebsiteUseCase.execute(url, expectedCode);
 
-  //     if (!url || !existingURL) {
-  //       return res
-  //         .status(400)
-  //         .json({ message: "Введите URL сайта, который хотите подключить" });
-  //     }
+      if (url === null) {
+        return res.status(400).json({ message: "Введите корректную ссылку" });
+      }
 
-  //     if (checkWebsite === false) {
-  //       return res.status(422).json({ message: "Сайт не был подтвержден" });
-  //     }
+      if (!result.exists) {
+        return res
+          .status(404)
+          .json({ message: "Веб-сайта с данной ссылкой не существует :(" });
+      }
+      if (!result.isValid) {
+        return res.status(422).json({ message: "Сайт не был подтвержден" });
+      }
 
-  //     return res.status(201).json({ message: "Сайт был успешно проверен!" });
-  //   } catch (error) {
-  //     console.error("Ошибка с проверкой веб-сайта:", error, { url: req.body });
-  //     res.status(500).json({
-  //       error: "Ошибка с проверкой веб-сайта",
-  //       details: error.message,
-  //     });
-  //   }
-  // }
+      if (!expectedCode) {
+        return res
+          .status(400)
+          .json({ message: "Пожалуйста введите код верификации" });
+      }
+
+      if (!url) {
+        return res
+          .status(400)
+          .json({ message: "Введите URL сайта, который хотите подключить" });
+      }
+
+      return res.status(201).json({ message: "Сайт был успешно проверен!" });
+    } catch (error) {
+      console.error("Ошибка с проверкой веб-сайта:", error, { url: req.body });
+      res.status(500).json({
+        error: "Ошибка с проверкой веб-сайта",
+        details: error.message,
+      });
+    }
+  }
 }
 
 export default new WebsiteController();

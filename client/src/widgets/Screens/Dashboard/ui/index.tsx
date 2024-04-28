@@ -10,11 +10,18 @@ export const Dashboard = () => {
     <div className="flex flex-col">
       <div className="flex w-[90%] justify-between items-center m-auto ">
         <Heading text="Ваши Сайты" />
-        <Button
-          text="Добавить сайт"
-          buttonType="regular--small"
-          functionType="webPopup"
-        />
+        <div className="flex items-center-justify-center gap-4">
+          <Button
+            text="Добавить сайт"
+            buttonType="regular--small"
+            functionType="webPopup"
+          />
+          <Button
+            text="Верифицировать сайт"
+            buttonType="regular--small"
+            functionType="verifyPopup"
+          />
+        </div>
       </div>
       <section className={styles.sites_section}>
         {/* {websites.map((website) => (

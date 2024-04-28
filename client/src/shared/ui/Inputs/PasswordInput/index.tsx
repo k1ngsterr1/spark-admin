@@ -21,14 +21,14 @@ const PasswordInputProp: React.FC<PasswordInputProps> = ({
     <>
       <div className={styles.input_container}>
         <input
-          className={`${styles.password_input} ${margin}`}
+          className={`${styles.password_input} dark:text-white ${margin}`}
           required
           {...rest}
           type={visible ? "text" : "password"}
         />
         <div
           onClick={() => setVisible(!visible)}
-          className={styles.show_password}
+          className={`${styles.show_password} dark:text-white`}
         >
           {visible ? (
             <FontAwesomeIcon icon={faEye} />

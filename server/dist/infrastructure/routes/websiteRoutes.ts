@@ -6,6 +6,7 @@ import authenticateToken from "@infrastructure/middleware/authMiddleware";
 
 const express = require("express");
 const router = express.Router();
+
 // Проверка JWT токена
 router.use(authenticateToken);
 router.use(advancedLogger);
@@ -35,7 +36,7 @@ router.use(advancedLogger);
  *               - name
  *               - url
  *             properties:
- *               name: 
+ *               name:
  *                 type: string
  *                 example: Spark Studio
  *               url:
@@ -47,7 +48,7 @@ router.use(advancedLogger);
  *       400:
  *         description: Не удалось добавить страницу
  *       500:
- *         description: Произошла ошибка при добавлении вебсайта
+ *         description: Произошла ошибка при добавлении вебсайsта
  */
 router.post("/add", (req, res) => websiteController.addWebsite(req, res));
 
@@ -73,17 +74,17 @@ router.post("/add", (req, res) => websiteController.addWebsite(req, res));
  *           schema:
  *             type: object
  *             required:
- *               - userEmail 
- *               - userRole 
+ *               - userEmail
+ *               - userRole
  *               - websiteID
  *             properties:
- *               userEmail: 
+ *               userEmail:
  *                 type: string
  *                 example: example@gmail.com
  *               userRole:
  *                 userRole: string
  *                 example: editor
- *               websiteID: 
+ *               websiteID:
  *                 type: string
  *                 example: 0bae8a7c-af38-49f4-a6a7-351853cb7448
  *     responses:
@@ -122,31 +123,15 @@ router.post("/add-user", (req, res) =>
  *         description: Произошла ошибка при получение вебсайтов
  */
 router.get("/", (req, res) => websiteController.getWebsites(req, res));
-/**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- * /api/website/:
- *   get:
- *     summary: Получение всех вебсайтов у пользователя
- *     description: Получение всех вебсайтов у пользователя через ID пользователя
- *     tags:
- *       - Вебсайт
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Вебсайты успешно получены
- *       400:
- *         description: Не удалось получить вебсайты
- *       500:
- *         description: Произошла ошибка при получение вебсайтов
- */
 
-router.get("/", (req, res) => websiteController.getWebsites(req, res));
+router.post("/check-website", (req, res) =>
+  websiteController.checkWebsite(req, res)
+);
+
+router.get("/get-code", (req, res) =>
+  websiteController.getWebsiteCode(req, res)
+);
+
 /**
  * @swagger
  * components:
@@ -177,7 +162,9 @@ router.get("/", (req, res) => websiteController.getWebsites(req, res));
  *       500:
  *         description: Произошла ошибка при получение пользователей вебсайта
  */
-router.get("/get-users/:websiteID", (req, res) => websiteController.getWebsiteUsers(req, res));
+router.get("/get-users/:websiteID", (req, res) =>
+  websiteController.getWebsiteUsers(req, res)
+);
 
 router.post("/get-elements", (req, res) => websiteController.getElementsFromWebsite(req, res));
 

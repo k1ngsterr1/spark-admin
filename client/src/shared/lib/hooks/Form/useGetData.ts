@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 interface IUserData {
   username: string | null;
@@ -7,14 +7,18 @@ interface IUserData {
 }
 
 export const useUserData = (): IUserData => {
-  const [userData, setUserData] = useState<IUserData>({ username: null, email: null, accessToken: null});
+  const [userData, setUserData] = useState<IUserData>({
+    username: null,
+    email: null,
+    accessToken: null,
+  });
 
   useEffect(() => {
-    const data = localStorage.getItem('userData');
+    const data = localStorage.getItem("userData");
     if (data) {
       setUserData(JSON.parse(data));
     }
   }, []);
 
   return userData;
-}
+};
