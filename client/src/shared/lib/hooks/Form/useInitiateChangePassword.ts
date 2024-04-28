@@ -19,7 +19,7 @@ export async function initiateChangePassword(): Promise<void | string> {
 
     console.log("Data created:", response.data);
     window.location.href = "/change-password";
-  } catch (error: any) {
+  } catch (error: any | unknown) {
     console.error("Failed to create data:", error);
     if (error.response) {
       return error.response.data.message;
