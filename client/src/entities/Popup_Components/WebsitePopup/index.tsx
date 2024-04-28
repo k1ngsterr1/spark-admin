@@ -30,7 +30,7 @@ export const WebsitePopup = () => {
         <div className={styles.website_popup__logo}>
           <Logo />
         </div>
-        <span className={styles.website_popup__text}>Добавьте ваш сайт</span>
+        <span className={styles.website_popup__text}>Добавьте веб-сайт</span>
         <form onSubmit={addWebsite} className="flex flex-col items-center">
           <InputProp
             placeholder="Имя сайта"

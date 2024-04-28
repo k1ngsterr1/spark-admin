@@ -29,6 +29,14 @@ export const useWebPopup = () => {
   return context;
 };
 
+export const useWebVerifyPopup = () => {
+  const context = useContext(AppContext);
+  if (context === undefined) {
+    throw new Error("usePopup must be used within a AppProvider");
+  }
+  return context;
+};
+
 export const useUserPopup = () => {
   const context = useContext(AppContext);
   if (context === undefined) {
