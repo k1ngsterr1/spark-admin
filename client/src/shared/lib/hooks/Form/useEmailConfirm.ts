@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useUserData } from "./useGetData";
 
 interface IData {
   code: string[];
@@ -6,7 +7,8 @@ interface IData {
 
 export async function useEmailConfirm(data: IData): Promise<void | string> {
   try {
-    const userData = JSON.parse(localStorage.getItem("userData"));
+    const userData = useUserData();
+
     const accessToken = userData.accessToken;
 
     const response = await axios.post(
@@ -14,6 +16,7 @@ export async function useEmailConfirm(data: IData): Promise<void | string> {
       data,
       {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
       }

@@ -5,7 +5,6 @@
 import { useState, FormEvent } from "react";
 import { useUserData } from "@shared/lib/hooks/Form/useGetData";
 import { useEmailConfirm } from "@shared/lib/hooks/Form/useEmailConfirm";
-import { CodePopup } from "@entities/Popup_Components/CodePopup";
 
 export default function useSubmitEmail() {
   const [code, setCode] = useState<string[]>(["", "", "", "", ""]);

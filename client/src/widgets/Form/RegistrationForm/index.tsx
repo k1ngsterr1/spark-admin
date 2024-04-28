@@ -24,9 +24,8 @@ const Form = () => {
     passwordConfirmation,
     setPasswordConfirmation,
     passwordError,
-    setPasswordError,
+    backendError,
     confirmPasswordError,
-    setConfirmPasswordError,
     handleSubmit,
   } = useSubmitRegister();
 
@@ -78,6 +77,8 @@ const Form = () => {
             required
             name="passwordConfirmation"
           />
+          <ErrorDisplay message={confirmPasswordError} />
+          <ErrorDisplay message={backendError} />
           <ErrorDisplay message={confirmPasswordError} />
           <Button
             text="Зарегистрироваться"
