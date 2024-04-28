@@ -48,6 +48,7 @@ class WebsiteController {
         ownerID: req.user.id,
         ownerEmail: req.user.email,
       };
+
       const newWebsite = await this.addWebsiteUseCase.execute(request, errors);
 
       if (errors.length > 0) {
