@@ -77,7 +77,6 @@ const Form = () => {
             required
             name="passwordConfirmation"
           />
-          <ErrorDisplay message={confirmPasswordError} />
           <ErrorDisplay message={backendError} />
           <ErrorDisplay message={confirmPasswordError} />
           <Button

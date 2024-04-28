@@ -5,20 +5,17 @@ interface IData {
     code: string;
 }
 
-export async function useChangePassword(data: IData): Promise<string | void> {
+export async function changePassword(data: IData): Promise<string | void> {
     try {
-
         const userData = JSON.parse(localStorage.getItem('userData'));
         const accessToken = userData.accessToken;
 
-        const response = await axios.post('https://spark-admin-production.up.railway.app/api/auth/change-password', data,
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${accessToken}`
-                }
+        const response = await axios.post('https://spark-admin-production.up.railway.app/api/auth/change-password', data, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`
             }
-        );
+        });
         console.log('Data created:', response.data);
 
         window.location.href = '/login';
