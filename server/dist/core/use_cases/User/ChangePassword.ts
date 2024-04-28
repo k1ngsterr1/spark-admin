@@ -18,7 +18,7 @@ export class ChangePasswordService {
   async initiatePasswordChange(userId: number): Promise<void> {
     const user = await this.userRepository.findByPk(userId);
     if (!user) {
-      throw new Error("User not found.");
+      throw new Error("Пользователь не найден.");
     }
 
     const verificationCode = verificationCodeGenerator(5);
