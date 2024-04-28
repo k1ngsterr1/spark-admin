@@ -141,9 +141,7 @@ export class WebsiteRepository implements IWebsiteRepository {
           "Веб-сайт не найден, пожалуйста добавьте его в нашу базу данных."
         );
       } else if (website.owner !== ownerId) {
-        throw new Error(
-          "Unauthorized access: You are not the owner of this website."
-        );
+        throw new Error("Вы не владелец этого веб-сайта.");
       } else {
         return website.websiteCode;
       }
