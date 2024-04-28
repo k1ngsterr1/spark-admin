@@ -9,6 +9,7 @@ import websiteRoutes from "infrastructure/routes/websiteRoutes";
 import auth from "@infrastructure/middleware/authMiddleware";
 import pageRoutes from "@infrastructure/routes/pageRoutes";
 import userRoutes from "@infrastructure/routes/userRoutes";
+import Redis from "@infrastructure/config/redis"
 import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
 import { accessToken } from "@infrastructure/middleware/authMiddleware";
 
