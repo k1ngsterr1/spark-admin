@@ -132,17 +132,20 @@ export class WebsiteRepository implements IWebsiteRepository {
     try {
       const website = await sequelize.getRepository(Website).findOne({
         where: {
-          owner: ownerId,
           url: url,
         },
       });
 
-      if (website && website.websiteCode) {
-        return website.websiteCode;
-      } else {
+      if (!website) {
         throw new Error(
-          "Данного веб-сайта не существует в нашей базе данных, пожалуйста добавьте его"
+          "Веб-сайт не найден, пожалуйста добавьте его в нашу базу данных."
         );
+      } else if (website.owner !== ownerId) {
+        throw new Error(
+          "Unauthorized access: You are not the owner of this website."
+        );
+      } else {
+        return website.websiteCode;
       }
     } catch (error) {
       errors.push(new ErrorDetails(500, error.message));

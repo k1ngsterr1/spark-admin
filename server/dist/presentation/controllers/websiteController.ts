@@ -159,8 +159,20 @@ class WebsiteController {
         errors
       );
 
-      return code;
-    } catch (error) {}
+      if (code) {
+        return res.status.json({ code });
+      } else {
+        const lastError = errors[errors.length - 1];
+        return res.status(lastError.code).json({ message: lastError.details });
+      }
+    } catch (error) {
+      errors.push(
+        new ErrorDetails(
+          500,
+          `Ошибка с получением кода веб-сайта: ${error.message}`
+        )
+      );
+    }
   }
 
   // Проверка веб-сайта

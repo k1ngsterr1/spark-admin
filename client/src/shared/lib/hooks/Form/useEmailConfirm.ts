@@ -8,7 +8,6 @@ interface IData {
 export async function useEmailConfirm(data: IData): Promise<void | string> {
   try {
     const userData = useUserData();
-
     const accessToken = userData.accessToken;
 
     const response = await axios.post(
