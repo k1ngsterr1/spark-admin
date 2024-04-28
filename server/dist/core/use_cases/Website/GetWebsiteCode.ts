@@ -3,7 +3,7 @@ import { WebsiteRepository } from "../../../infrastructure/repositories/WebsiteR
 import { IWebsiteRepository } from "core/interfaces/IWebsiteRepository";
 import { ErrorDetails } from "@core/utils/utils";
 
-export class GetWebsites {
+export class GetWebsitesCode {
   private websiteRepository: IWebsiteRepository;
   constructor() {
     this.websiteRepository = new WebsiteRepository();

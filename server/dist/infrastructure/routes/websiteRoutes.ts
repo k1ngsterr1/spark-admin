@@ -128,6 +128,10 @@ router.post("/check-website", (req, res) =>
   websiteController.checkWebsite(req, res)
 );
 
+router.post("/get-code", (req, res) =>
+  websiteController.getWebsiteCode(req, res)
+);
+
 /**
  * @swagger
  * components:

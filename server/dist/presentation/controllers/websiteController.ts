@@ -7,10 +7,10 @@ import { CheckWebsite } from "@core/use_cases/Website/CheckWebsite";
 import { AddUser } from "@core/use_cases/Website/AddUser";
 import { AddUserRequest, AddWebsiteRequest } from "@core/utils/Website/Request";
 import { ErrorDetails } from "@core/utils/utils";
-import WebsiteService from "@services/websiteService";
-import { Website } from "@infrastructure/models/websiteModel";
 import { GetWebsiteUsers } from "@core/use_cases/Website/GetWebsiteUsers";
 import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
+import { GetWebsitesCode } from "@core/use_cases/Website/GetWebsiteCode";
+import WebsiteService from "@services/websiteService";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
@@ -18,6 +18,7 @@ class WebsiteController {
   private getWebsitesByOwner: GetWebsites;
   private getWebsiteByName: GetWebsite;
   private jwtService: JWTService;
+  private getWebsiteCodeUseCase: GetWebsitesCode;
   private addUser: AddUser;
   private websiteService: WebsiteService;
   private checkWebsiteUseCase: CheckWebsite;
@@ -25,6 +26,7 @@ class WebsiteController {
 
   constructor() {
     this.websiteService = new WebsiteService();
+    this.getWebsiteCodeUseCase = new GetWebsitesCode();
     this.websiteRepository = new WebsiteRepository();
     this.addWebsiteUseCase = new AddWebsite();
     this.getWebsitesByOwner = new GetWebsites();
@@ -87,6 +89,7 @@ class WebsiteController {
     }
   }
 
+  // Добавление пользователей в веб-сайт
   async addUserToWebsite(req, res): Promise<void> {
     let errors: ErrorDetails[] = [];
     try {
@@ -114,6 +117,7 @@ class WebsiteController {
     }
   }
 
+  // Получение пользователей веб-сайта
   async getWebsiteUsers(req: Request, res: Response): Promise<void> {
     let errors: ErrorDetails[] = [];
     try {
@@ -142,6 +146,24 @@ class WebsiteController {
     }
   }
 
+  // Получение кода верификации для веб-сайта
+  async getWebsiteCode(req: Request, res: Response): Promise<any> {
+    let errors: ErrorDetails[] = [];
+    try {
+      const { url } = req.body;
+      const ownerId = req.user.id;
+
+      const code = await this.getWebsiteCodeUseCase.execute(
+        ownerId,
+        url,
+        errors
+      );
+
+      return code;
+    } catch (error) {}
+  }
+
+  // Проверка веб-сайта
   async checkWebsite(req: Request, res: Response) {
     try {
       const url: string = req.body.url.match(
