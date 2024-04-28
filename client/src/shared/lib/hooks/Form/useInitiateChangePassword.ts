@@ -5,7 +5,6 @@ import { useUserData } from "./useGetData";
 export async function initiateChangePassword(): Promise<void | string> {
   try {
     const userData = useUserData();
-
     const accessToken = userData.accessToken;
 
     const response = await axios.post(
