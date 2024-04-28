@@ -179,6 +179,8 @@ router.get("/", (req, res) => websiteController.getWebsites(req, res));
  */
 router.get("/get-users/:websiteID", (req, res) => websiteController.getWebsiteUsers(req, res));
 
+router.post("/get-elements", (req, res) => websiteController.getElementsFromWebsite(req, res));
+
 router.use("/page", pageRoutes);
 
 export default router;

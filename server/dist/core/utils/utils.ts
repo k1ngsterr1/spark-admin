@@ -6,3 +6,9 @@ export class ErrorDetails {
         this.details = details;
     }
 }
+export class ElementDetails {
+    public buttons: string[];
+    constructor(buttons: string[]) {
+        this.buttons = buttons;
+    }
+}
