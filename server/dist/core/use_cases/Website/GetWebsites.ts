@@ -10,10 +10,12 @@ export class GetWebsites {
   }
 
   async execute(ownerId: number, errors: ErrorDetails[]): Promise<Website[]> {
-    const websites = await this.websiteRepository.findByOwner(ownerId);
+    const websites = await this.websiteRepository.findByOwner(ownerId, errors);
 
     if (websites === null) {
-      errors.push(new ErrorDetails(404, "У этого пользователя нету вебсайтов."));
+      errors.push(
+        new ErrorDetails(404, "У этого пользователя нету вебсайтов.")
+      );
       return;
     }
 

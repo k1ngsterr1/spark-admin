@@ -10,95 +10,143 @@ import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
 
 export class WebsiteRepository implements IWebsiteRepository {
-  async create(websiteDetails: NewWebsiteInput, errors: ErrorDetails[]): Promise<Website> {
-    try{
-      const website = await sequelize.getRepository(Website).create(websiteDetails);
+  // Создать веб-сайт
+  async create(
+    websiteDetails: NewWebsiteInput,
+    errors: ErrorDetails[]
+  ): Promise<Website> {
+    try {
+      const website = await sequelize
+        .getRepository(Website)
+        .create(websiteDetails);
       return website;
-    }catch(error){
+    } catch (error) {
       errors.push(new ErrorDetails(500, error.message));
       return;
     }
   }
 
-  async findByPk(primaryKey: string | number, errors: ErrorDetails[]): Promise<Website | null> {
-    try{
-      return await sequelize.getRepository(Website).findByPk(
-        primaryKey,
-        {
-          include: [
-            {
-              model: sequelize.getRepository(Page),
-              attributes: [
-                "url",
-                "name",
-                "type"
-              ]
+  // Найти по ID сайта
+  async findByPk(
+    primaryKey: string | number,
+    errors: ErrorDetails[]
+  ): Promise<Website | null> {
+    try {
+      return await sequelize.getRepository(Website).findByPk(primaryKey, {
+        include: [
+          {
+            model: sequelize.getRepository(Page),
+            attributes: ["url", "name", "type"],
+          },
+          {
+            model: sequelize.getRepository(User),
+            attributes: ["id", "username", "email", "role", "isVerified"],
+            through: {
+              attributes: ["role", "isSparkAdmin"],
             },
-            {
-              model: sequelize.getRepository(User),
-              attributes: [
-                "id",
-                "username",
-                "email",
-                "role",
-                "isVerified",
-              ],
-              through: {
-                attributes: [
-                  'role',
-                  'isSparkAdmin'
-                ]
-              }
+          },
+        ],
+      });
+    } catch (error) {
+      errors.push(new ErrorDetails(500, error.message));
+      return null;
+    }
+  }
+  // Найти по ID владельца
+  async findByOwner(
+    ownerId: number,
+    errors: ErrorDetails[]
+  ): Promise<Website[]> {
+    try {
+      const websites = await sequelize.getRepository(Website).findAll({
+        where: {
+          owner: ownerId,
+        },
+        include: [
+          {
+            model: sequelize.getRepository(User),
+            attributes: ["id", "email", "username", "isVerified", "role"],
+            through: {
+              attributes: ["role", "isSparkAdmin"],
             },
-          ],
-        }
-      );
-    } catch(error) {
+          },
+          {
+            model: sequelize.getRepository(Page),
+            attributes: ["id", "url", "name", "type"],
+          },
+        ],
+      });
+      return websites;
+    } catch (error) {
       errors.push(new ErrorDetails(500, error.message));
       return null;
     }
   }
 
-  async findByOwner(ownerId: number): Promise<Website[]> {
-    const websites = await sequelize.getRepository(Website).findAll({
-      where: {
-        owner: ownerId
-      },
-      include: [
-        {
-          model: sequelize.getRepository(User),
-          attributes: ['id', 'email', 'username', 'isVerified', 'role'],
-          through: {
-            attributes: [
-              'role',
-              'isSparkAdmin'
-            ]
-          }
+  // Найти по URL
+  async findByUrl(
+    ownerId: number,
+    url: string,
+    errors: ErrorDetails[]
+  ): Promise<Website | null> {
+    try {
+      return sequelize.getRepository(Website).findOne({
+        where: {
+          owner: ownerId,
+          url: url,
         },
-        {
-          model: sequelize.getRepository(Page),
-          attributes: ['id', 'url', 'name', 'type']
-        }
-      ]
-    })
-    return websites;
+      });
+    } catch (error) {
+      errors.push(new ErrorDetails(500, error.message));
+      return null;
+    }
   }
 
-  async findByUrl(ownerId: number, url: string): Promise<Website | null> {
-    return sequelize.getRepository(Website).findOne({
-      where: { 
-        owner: ownerId,
-        url: url
-      },
-    });
+  // Добавить пользователя в веб-сайт
+  async addUser(
+    websiteId: string,
+    userId: number,
+    owner?: number,
+    role?: string,
+    errors?: ErrorDetails[]
+  ): Promise<UserToWebsite> {
+    try {
+      return await sequelize.getRepository(UserToWebsite).create({
+        websiteId: websiteId,
+        userId: userId,
+        owner: owner,
+        role: role,
+      });
+    } catch (error) {
+      errors.push(new ErrorDetails(500, error.message));
+      return null;
+    }
   }
-  
-  async addUser(websiteId: string, userId: number, owner?: number, role?: string): Promise<UserToWebsite>{
-    return await sequelize.getRepository(UserToWebsite).create({
-      websiteId: websiteId,
-      userId: userId,
-      owner: owner,
-      role: role,
-    });
+
+  // Найти код по URL веб-сайта
+  async getCodeByUrl(
+    ownerId: number,
+    url: string,
+    errors: ErrorDetails[]
+  ): Promise<string> {
+    try {
+      const website = await sequelize.getRepository(Website).findOne({
+        where: {
+          owner: ownerId,
+          url: url,
+        },
+      });
+
+      if (website && website.websiteCode) {
+        return website.websiteCode;
+      } else {
+        throw new Error(
+          "Данного веб-сайта не существует в нашей базе данных, пожалуйста добавьте его"
+        );
+      }
+    } catch (error) {
+      errors.push(new ErrorDetails(500, error.message));
+      return null;
+    }
   }
 }
