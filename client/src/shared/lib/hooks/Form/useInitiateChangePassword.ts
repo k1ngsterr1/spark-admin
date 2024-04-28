@@ -1,11 +1,11 @@
 import axios from "axios";
 
+import { useUserData } from "./useGetData";
+
 export async function initiateChangePassword(): Promise<void | string> {
     try {
-        const userData = JSON.parse(localStorage.getItem('userData'));
-        if (!userData || !userData.accessToken) {
-            throw new Error('No access token found');
-        }
+        const userData = useUserData();
+        
         const accessToken = userData.accessToken;
 
         const response = await axios.post('https://spark-admin-production.up.railway.app/api/auth/initiate-password-change', {}, {

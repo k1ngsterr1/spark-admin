@@ -18,7 +18,7 @@ import SparkLogo from "@assets/spark_product_logo.svg";
 
 const Form = () => {
 
-  const { username, setUsername, email, setEmail, password, setPassword, passwordConfirmation, setPasswordConfirmation, passwordError, setPasswordError, confirmPasswordError, setConfirmPasswordError, handleSubmit } = useSubmitRegister();
+  const { username, setUsername, email, setEmail, password, setPassword, passwordConfirmation, setPasswordConfirmation, passwordError, backendError, confirmPasswordError, handleSubmit } = useSubmitRegister();
 
 
   return (
@@ -67,6 +67,7 @@ const Form = () => {
             name='passwordConfirmation'
           />
           <ErrorDisplay message={confirmPasswordError}/>
+          <ErrorDisplay message={backendError}/>
           <Button
             text="Зарегистрироваться"
             buttonType="regular"

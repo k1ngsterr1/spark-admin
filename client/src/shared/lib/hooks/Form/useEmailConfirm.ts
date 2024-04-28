@@ -4,9 +4,13 @@ interface IData {
     code: string[];
 }
 
+import { useUserData } from './useGetData';
+
 export async function useEmailConfirm(data: IData): Promise<void | string> {
     try {
-        const userData = JSON.parse(localStorage.getItem('userData'));
+
+        const userData = useUserData();
+
         const accessToken = userData.accessToken;
 
         const response = await axios.post(
