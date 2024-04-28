@@ -10,9 +10,11 @@ import { ErrorDetails } from "@core/utils/utils";
 import WebsiteService from "@services/websiteService";
 import { Website } from "@infrastructure/models/websiteModel";
 import { GetWebsiteUsers } from "@core/use_cases/Website/GetWebsiteUsers";
+import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
+  private websiteRepository: WebsiteRepository;
   private getWebsitesByOwner: GetWebsites;
   private getWebsiteByName: GetWebsite;
   private jwtService: JWTService;
@@ -23,13 +25,17 @@ class WebsiteController {
 
   constructor() {
     this.websiteService = new WebsiteService();
+    this.websiteRepository = new WebsiteRepository();
     this.addWebsiteUseCase = new AddWebsite();
     this.getWebsitesByOwner = new GetWebsites();
     this.getWebsiteByName = new GetWebsite();
     this.addUser = new AddUser();
     this.jwtService = new JWTService();
     this.websiteUsers = new GetWebsiteUsers();
-    this.checkWebsiteUseCase = new CheckWebsite(this.websiteService);
+    this.checkWebsiteUseCase = new CheckWebsite(
+      this.websiteService,
+      this.websiteRepository
+    );
   }
 
   // Добавление веб-сайта
@@ -135,59 +141,53 @@ class WebsiteController {
     }
   }
 
-  // async checkWebsite(req: Request, res: Response) {
-  //   try {
-  //     const url: string = req.body.url.match(
-  //       /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
-  //     );
+  async checkWebsite(req: Request, res: Response) {
+    try {
+      const url: string = req.body.url.match(
+        /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+      );
 
-  //     const expectedCode: string = req.body.code;
-  //     const stringifyUrl = url.toString();
+      const expectedCode: string = req.body.code;
+      const stringifyUrl = url.toString();
 
-  //     // ! Засунуть в use_case
-  //     // const website: Website = await this.websiteRepository.findByUrl(url);
-  //     const existingURL: string = website?.url;
+      // ! Засунуть в use_case
 
-  //     const checkWebsite: boolean = await this.checkWebsiteUseCase.execute(
-  //       existingURL,
-  //       expectedCode
-  //     );
+      const result = await this.checkWebsiteUseCase.execute(url, expectedCode);
 
-  //     if (website === null || undefined) {
-  //       return res
-  //         .status(404)
-  //         .json({ message: "Веб-сайта с данной ссылкой не существует :(" });
-  //     }
+      if (url === null) {
+        return res.status(400).json({ message: "Введите корректную ссылку" });
+      }
 
-  //     if (url === null) {
-  //       return res.status(400).json({ message: "Введите корректную ссылку" });
-  //     }
+      if (!result.exists) {
+        return res
+          .status(404)
+          .json({ message: "Веб-сайта с данной ссылкой не существует :(" });
+      }
+      if (!result.isValid) {
+        return res.status(422).json({ message: "Сайт не был подтвержден" });
+      }
 
-  //     if (!expectedCode) {
-  //       return res
-  //         .status(400)
-  //         .json({ message: "Пожалуйста введите код верификации" });
-  //     }
+      if (!expectedCode) {
+        return res
+          .status(400)
+          .json({ message: "Пожалуйста введите код верификации" });
+      }
 
-  //     if (!url || !existingURL) {
-  //       return res
-  //         .status(400)
-  //         .json({ message: "Введите URL сайта, который хотите подключить" });
-  //     }
+      if (!url) {
+        return res
+          .status(400)
+          .json({ message: "Введите URL сайта, который хотите подключить" });
+      }
 
-  //     if (checkWebsite === false) {
-  //       return res.status(422).json({ message: "Сайт не был подтвержден" });
-  //     }
-
-  //     return res.status(201).json({ message: "Сайт был успешно проверен!" });
-  //   } catch (error) {
-  //     console.error("Ошибка с проверкой веб-сайта:", error, { url: req.body });
-  //     res.status(500).json({
-  //       error: "Ошибка с проверкой веб-сайта",
-  //       details: error.message,
-  //     });
-  //   }
-  // }
+      return res.status(201).json({ message: "Сайт был успешно проверен!" });
+    } catch (error) {
+      console.error("Ошибка с проверкой веб-сайта:", error, { url: req.body });
+      res.status(500).json({
+        error: "Ошибка с проверкой веб-сайта",
+        details: error.message,
+      });
+    }
+  }
 }
 
 export default new WebsiteController();
