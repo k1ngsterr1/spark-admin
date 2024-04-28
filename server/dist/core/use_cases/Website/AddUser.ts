@@ -1,36 +1,46 @@
-import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
+import { AddUserRequest } from "@core/utils/Website/Request";
+import { UserRole } from "@core/utils/types";
+import { ErrorDetails } from "@core/utils/utils";
+import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
 
 export class AddUser {
-  constructor(private websiteRepository: IWebsiteRepository) {}
+  private websiteRepository: WebsiteRepository;
+  private userRepository: UserRepository
+  constructor() {
+    this.userRepository = new UserRepository();
+    this.websiteRepository = new WebsiteRepository();
+  }
 
-  async execute({
-    email,
-    role,
-    websiteId,
-    requesterID,
-  }: {
-    email: string;
-    role: string;
-    websiteId: string;
-    requesterID: number;
-  }): Promise<void> {
-    if (!email || !role || !websiteId) {
-      throw new Error("Заполните необходимые поля!");
+  async execute(request: AddUserRequest, errors: ErrorDetails[]): Promise<void> {
+    const { email, role, websiteID, requesterID } = request;
+    if (!email || !role || !websiteID) {
+      errors.push(new ErrorDetails(400, "Введите все поля"));
+      return;
     }
 
-    const website = await this.websiteRepository.findByPk(websiteId);
+    const website = await this.websiteRepository.findByPk(websiteID, errors);
 
     if (!website) {
-      throw new Error("Website not found");
+      errors.push(new ErrorDetails(404, "Вебсайта с таким ID нету"));
+      return;
     }
 
-    if (website.owner !== requesterID) {
-      throw new Error("You are not the owner of this website");
-    }
+    const isOwner = website.owner === requesterID;
 
-    await this.websiteRepository.addUserToWebsite(websiteId, {
-      email,
-      role,
+    if (!isOwner) {
+      errors.push(new ErrorDetails(403, "Вы не владелец этого вебсайта"));
+      return;
+    }
+    const user = await this.userRepository.findOne({
+      where: { email: email },
     });
+
+    if (!user) {
+      errors.push(new ErrorDetails(400, "Пользователя с такой электронной почтой не существует"));
+      return;
+    }
+
+    await this.websiteRepository.addUser(websiteID, user.id, null, role);
   }
 }

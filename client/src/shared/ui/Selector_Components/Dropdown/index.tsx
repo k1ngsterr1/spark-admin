@@ -14,10 +14,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
   className,
 }) => {
   return (
-    <div className={styles.dropdown}>
+    <div className={`${styles.dropdown} dark:bg-dark-upper`}>
       {items.map((item, index) => (
         <div
-          className={styles.items}
+          className={`${styles.items} dark:bg-dark-upper`}
           key={index}
           onClick={() => setOption(item)}
         >

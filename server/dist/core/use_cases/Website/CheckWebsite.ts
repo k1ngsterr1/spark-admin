@@ -1,11 +1,25 @@
-import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
+import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
+import WebsiteService from "@services/websiteService";
+
+// Подгрузка сайта и дальнейшая проверка веб-сайта на наличие нашего тэга
 
 export class CheckWebsite {
-  constructor(private websiteRepository: IWebsiteRepository) {}
+  constructor(
+    private websiteService: WebsiteService,
+    private WebsiteRepository
+  ) {}
+  async execute(
+    url: string,
+    expectedCode: string
+  ): Promise<{ exists: boolean; isValid: boolean }> {
+    const website = await this.WebsiteRepository.findByUrl(url);
 
-  async execute(url: string) {
-    const websites = await this.websiteRepository.fetchHTMLContent(url);
+    if (!website) {
+      return { exists: false, isValid: false };
+    }
 
-    // const isVerified = ?
+    const html = await this.websiteService.fetchHTMLContent(website.url);
+    const isValid = await this.websiteService.checkMetaTag(html, expectedCode);
+    return { exists: true, isValid };
   }
 }

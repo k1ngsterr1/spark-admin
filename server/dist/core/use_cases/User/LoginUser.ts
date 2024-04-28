@@ -1,7 +1,9 @@
 import bcryptjs from "bcryptjs";
-import { IUserRepository } from "@core/interfaces/IUserRepository";
+import { IUserRepository } from "core/interfaces/IUserRepository";
 import { IJWTService } from "core/interfaces/IJWTService";
-import { JWTService } from "./JWTService";
+import { JWTService } from "core/use_cases/User/JWTService";
+import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import { LoginRequest } from "@core/utils/User/Request";
 
 export type UserResponse = {
   id: number;
@@ -10,23 +12,20 @@ export type UserResponse = {
   role: string;
 };
 
-export class LoginUser {
-  constructor(
-    private userRepository: IUserRepository,
-    private jwtService: IJWTService
-  ) {}
+export class Login {
+  private userRepository: IUserRepository;
+  private jwtService: IJWTService;
+  constructor() {
+    this.userRepository = new UserRepository(); 
+    this.jwtService = new JWTService();
+  }
 
-  async execute({
-    email,
-    password,
-  }: {
-    email: string;
-    password: string;
-  }): Promise<{
+  async execute(request: LoginRequest): Promise<{
     user: UserResponse;
     accessToken: string;
     refreshToken: string;
   }> {
+    const { email, password } = request;
     const user = await this.userRepository.findOne({ where: { email } });
 
     if (!user) {

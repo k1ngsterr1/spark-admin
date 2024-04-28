@@ -1,86 +1,214 @@
 import { Request, Response } from "express";
-import { WebsiteRepository } from "../../infrastructure/repositories/WebsiteRepository";
-import { User } from "infrastructure/models/userModel";
-import { Website } from "infrastructure/models/websiteModel";
 import { AddWebsite } from "core/use_cases/Website/AddWebsite";
-import { GetWebsite } from "core/use_cases/Website/GetWebsite";
-
-import sequelize from "infrastructure/config/sequelize";
+import { GetWebsites } from "@core/use_cases/Website/GetWebsites";
+import { GetWebsite } from "@core/use_cases/Website/GetWebsite";
+import { JWTService } from "@core/use_cases/User/JWTService";
+import { CheckWebsite } from "@core/use_cases/Website/CheckWebsite";
+import { AddUser } from "@core/use_cases/Website/AddUser";
+import { AddUserRequest, AddWebsiteRequest } from "@core/utils/Website/Request";
+import { ErrorDetails } from "@core/utils/utils";
+import { GetWebsiteUsers } from "@core/use_cases/Website/GetWebsiteUsers";
+import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
+import { GetWebsitesCode } from "@core/use_cases/Website/GetWebsiteCode";
+import WebsiteService from "@services/websiteService";
 
 class WebsiteController {
-  private websiteRepository: WebsiteRepository;
   private addWebsiteUseCase: AddWebsite;
-  private getWebsiteByOwner: GetWebsite;
+  private websiteRepository: WebsiteRepository;
+  private getWebsitesByOwner: GetWebsites;
+  private getWebsiteByName: GetWebsite;
+  private jwtService: JWTService;
+  private getWebsiteCodeUseCase: GetWebsitesCode;
+  private addUser: AddUser;
+  private websiteService: WebsiteService;
+  private checkWebsiteUseCase: CheckWebsite;
+  private websiteUsers: GetWebsiteUsers;
 
   constructor() {
+    this.websiteService = new WebsiteService();
+    this.getWebsiteCodeUseCase = new GetWebsitesCode();
     this.websiteRepository = new WebsiteRepository();
-    this.addWebsiteUseCase = new AddWebsite(this.websiteRepository);
-    this.getWebsiteByOwner = new GetWebsite(this.websiteRepository);
+    this.addWebsiteUseCase = new AddWebsite();
+    this.getWebsitesByOwner = new GetWebsites();
+    this.getWebsiteByName = new GetWebsite();
+    this.addUser = new AddUser();
+    this.jwtService = new JWTService();
+    this.websiteUsers = new GetWebsiteUsers();
+    this.checkWebsiteUseCase = new CheckWebsite(
+      this.websiteService,
+      this.websiteRepository
+    );
   }
 
-  async addWebsite(req: Request, res: Response) {
+  // Добавление веб-сайта
+  async addWebsite(req: Request, res: Response): Promise<void> {
+    let errors: ErrorDetails[] = [];
     try {
-      const newWebsite = await this.addWebsiteUseCase.execute(req.body);
+      const request: AddWebsiteRequest = {
+        name: req.body.name,
+        url: req.body.url,
+        ownerID: req.user.id,
+        ownerEmail: req.user.email,
+      };
 
-      res.status(201).json({ message: "Веб-сайт успешно добавлен" });
+      const newWebsite = await this.addWebsiteUseCase.execute(request, errors);
+
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json(current_error.details);
+        return;
+      }
+
+      res
+        .status(201)
+        .json({ message: "Веб-сайт успешно добавлен", website: newWebsite });
     } catch (error) {
-      console.error("Ошибка с созданием веб-сайта:", error);
-      console.log(req.body, this.websiteRepository);
       return res.status(500).json({ error: "Ошибка с созданием веб-сайта" });
     }
   }
 
-  async getWebsites(req: Request, res: Response) {
+  //Получение всех вебсайтов
+  async getWebsites(req: Request, res: Response): Promise<void> {
+    let errors: ErrorDetails[] = [];
     try {
       const userID: number = req.user.id;
-      const websites = await this.getWebsiteByOwner.execute(userID);
+
+      const websites = await this.getWebsitesByOwner.execute(userID, errors);
+
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json(current_error.details);
+        return;
+      }
+
       return res.status(201).json(websites);
     } catch (error) {
-      console.error("Ошибка с получением сайтов:", error);
-      return res.status(500).json({ error: "Ошибка с получением сайтов" });
+      return res
+        .status(500)
+        .json({ error: "Ошибка с получением сайтов", details: error.message });
     }
   }
 
-  async addUser(req: Request, res: Response) {
+  // Добавление пользователей в веб-сайт
+  async addUserToWebsite(req, res): Promise<void> {
+    let errors: ErrorDetails[] = [];
     try {
-      const { userEmail, userRole, websiteId } = req.body;
-      const requesterID = req.user.id;
+      const { userEmail, userRole, websiteID } = req.body;
 
-      const userRepository = sequelize.getRepository(User);
-      const websiteRepository = sequelize.getRepository(Website);
-      const website = await websiteRepository.findByPk(websiteId);
-
-      if (!website) {
-        return res.status(404).json({ message: "Website not found" });
-      }
-
-      const isOwner = website.owner === requesterID;
-
-      if (!isOwner) {
-        return res
-          .status(403)
-          .json({ message: "You are not the owner of this website" });
-      }
-      const userToAdd = await userRepository.findOne({
-        where: { email: userEmail },
-      });
-
-      if (!userToAdd) {
-        return res.status(404).json({ message: "User not found" });
-      }
-
-      const newUserItem = {
-        id: userToAdd.id,
+      const request: AddUserRequest = {
         email: userEmail,
         role: userRole,
+        websiteID: websiteID,
+        requesterID: req.user.id,
       };
 
-      website.users = [...website.users, newUserItem];
-      await website.save();
-      res.status(200).json({ message: "User added successfully", website });
+      await this.addUser.execute(request, errors);
+
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json(current_error.details);
+        return;
+      }
+
+      res.status(200).json({ message: "Пользователь добавлен успешно!" });
     } catch (error) {
-      console.error("Error adding user:", error);
-      res.status(500).json({ error: "Failed to add user" });
+      console.error("Ошибка с добавлением пользователя:", error);
+      res.status(500).json({ error: "Ошибка с добавлением пользователя" });
+    }
+  }
+
+  // Получение пользователей веб-сайта
+  async getWebsiteUsers(req: Request, res: Response): Promise<void> {
+    let errors: ErrorDetails[] = [];
+    try {
+      const websiteID: string = req.params.websiteID;
+      if (websiteID === undefined) {
+        errors.push(new ErrorDetails(404, "Вебсайт ID не указан."));
+      }
+
+      const users = await this.websiteUsers.execute(websiteID, errors);
+
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json(current_error.details);
+        return;
+      }
+
+      res
+        .status(200)
+        .json({ message: "Пользователи были успешно получены", users: users });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        message: "Ошибка при получение пользователей вебсайта",
+        error: error,
+      });
+    }
+  }
+
+  // Получение кода верификации для веб-сайта
+  async getWebsiteCode(req: Request, res: Response): Promise<any> {
+    let errors: ErrorDetails[] = [];
+    try {
+      const { url } = req.body;
+      const ownerId = req.user.id;
+
+      const code = await this.getWebsiteCodeUseCase.execute(
+        ownerId,
+        url,
+        errors
+      );
+
+      return code;
+    } catch (error) {}
+  }
+
+  // Проверка веб-сайта
+  async checkWebsite(req: Request, res: Response) {
+    try {
+      const url: string = req.body.url.match(
+        /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+      );
+
+      const expectedCode: string = req.body.code;
+      const stringifyUrl = url.toString();
+
+      // ! Засунуть в use_case
+
+      const result = await this.checkWebsiteUseCase.execute(url, expectedCode);
+
+      if (url === null) {
+        return res.status(400).json({ message: "Введите корректную ссылку" });
+      }
+
+      if (!result.exists) {
+        return res
+          .status(404)
+          .json({ message: "Веб-сайта с данной ссылкой не существует :(" });
+      }
+      if (!result.isValid) {
+        return res.status(422).json({ message: "Сайт не был подтвержден" });
+      }
+
+      if (!expectedCode) {
+        return res
+          .status(400)
+          .json({ message: "Пожалуйста введите код верификации" });
+      }
+
+      if (!url) {
+        return res
+          .status(400)
+          .json({ message: "Введите URL сайта, который хотите подключить" });
+      }
+
+      return res.status(201).json({ message: "Сайт был успешно проверен!" });
+    } catch (error) {
+      console.error("Ошибка с проверкой веб-сайта:", error, { url: req.body });
+      res.status(500).json({
+        error: "Ошибка с проверкой веб-сайта",
+        details: error.message,
+      });
     }
   }
 }

@@ -1,5 +1,5 @@
 .overlay {
-  width: 100%;
+  width: 81%;
   height: 100%;
   background: rgba(0, 0, 0, 0.2);
   position: absolute;
@@ -20,7 +20,7 @@
   @apply bg-white;
 
   &__text {
-    @apply text-2xl;
+    @apply text-xl;
     @apply mt-4;
     @apply mb-4;
   }

@@ -1,19 +1,29 @@
-import { WebsiteRepository } from "../../../infrastructure/repositories/WebsiteRepository";
 import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
-import { Website } from "infrastructure/models/websiteModel";
+import { WebsiteRepository } from "../../../infrastructure/repositories/WebsiteRepository";
+import { Website } from "@infrastructure/models/websiteModel";
+import { ErrorDetails } from "@core/utils/utils";
 
 export class GetWebsite {
-  constructor(private websiteRepository: IWebsiteRepository) {}
+  private websiteRepository: IWebsiteRepository;
+  constructor() {
+    this.websiteRepository = new WebsiteRepository();
+  }
 
-  async execute(ownerId: number) {
-    const websites = await this.websiteRepository.findByOwner(ownerId);
+  async execute(
+    ownerId: number,
+    url: string,
+    errors: ErrorDetails[]
+  ): Promise<Website> {
+    const website = await this.websiteRepository.findByUrl(
+      ownerId,
+      url,
+      errors
+    );
 
-    return websites.map((website) => ({
-      name: website.name,
-      url: website.url,
-      owner: website.owner,
-      usersCount: website.users.length,
-      id: website.id,
-    }));
+    if (website === null) {
+      errors.push(new ErrorDetails(404, "Веб-сайт не найден!"));
+    }
+
+    return website;
   }
 }

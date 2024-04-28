@@ -11,36 +11,26 @@ import {
   Default,
   BeforeCreate,
   BeforeUpdate,
+  ForeignKey,
+  BelongsToMany,
 } from "sequelize-typescript";
 
 import bcryptjs from "bcryptjs";
-
-interface UserAttributes {
-  id: number;
-  username: string;
-  email: string;
-  password: string;
-  role: string;
-  verificationCode: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-interface UserCreationAttributes {
-  username: string;
-  email: string;
-  password: string;
-  role?: string;
-}
+import { Website } from "./websiteModel";
+import { UserAttributes, UserRole } from "@core/utils/types";
+import UserToWebsite from "./userToWebsiteModel";
 
 @Table({
   tableName: "users",
 })
-export class User extends Model<UserAttributes, UserCreationAttributes> {
+export class User extends Model<UserAttributes> {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
   id!: number;
+
+  @BelongsToMany(() => Website, () => UserToWebsite)
+  websites!: Website;
 
   @Column(DataType.STRING)
   username!: string;
@@ -53,13 +43,20 @@ export class User extends Model<UserAttributes, UserCreationAttributes> {
   password!: string;
 
   @Default("user")
-  @Column(DataType.STRING)
+  @Column(DataType.ENUM(...(Object.values(UserRole) as string[])))
   role!: string;
 
-  @Column(DataType.STRING)
-  verificationCode!: string;
+  @Default(false)
+  @Column(DataType.BOOLEAN)
+  isSparkAdmin?: boolean;
 
-  @Default("false")
+  @Column(DataType.STRING)
+  verificationCode?: string;
+
+  @Column(DataType.DATE)
+  verificationCodeExpires?: Date;
+
+  @Default(false)
   @Column(DataType.BOOLEAN)
   isVerified!: boolean;
 

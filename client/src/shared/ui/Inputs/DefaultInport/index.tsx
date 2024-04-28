@@ -11,11 +11,11 @@ const InputProp: React.FC<DefaultInputProps> = ({
   inputType,
   ...rest
 }) => {
-  const inputClass = `${styles.input} ${styles[`input--${inputType}`]} ${
+  const inputClass = `${styles.input} dark:border-primary ${styles[`input--${inputType}`]} ${
     margin ? margin : ""
   }`;
 
-  return <input className={inputClass} {...rest} required />;
+  return <input className={`${inputClass} dark:text-white`} {...rest} required />;
 };
 
 export default InputProp;
