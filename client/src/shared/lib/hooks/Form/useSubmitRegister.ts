@@ -59,12 +59,19 @@ export const useSubmitRegister = () => {
     }
   };
 
-return {
-  username, setUsername,
-  email, setEmail,
-  password, setPassword,
-  passwordConfirmation, setPasswordConfirmation,
-  passwordError, setPasswordError,
-  confirmPasswordError, setConfirmPasswordError,
-  handleSubmit
+  return {
+    username,
+    setUsername,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    passwordConfirmation,
+    setPasswordConfirmation,
+    passwordError,
+    setPasswordError,
+    confirmPasswordError,
+    setConfirmPasswordError,
+    handleSubmit,
+  };
 };

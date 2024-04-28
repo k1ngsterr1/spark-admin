@@ -1,10 +1,9 @@
 import axios from "axios";
+import { useUserData } from "./useGetData";
 
 interface IData {
   code: string[];
 }
-
-import { useUserData } from "./useGetData";
 
 export async function useEmailConfirm(data: IData): Promise<void | string> {
   try {
