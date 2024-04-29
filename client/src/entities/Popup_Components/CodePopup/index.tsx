@@ -41,13 +41,13 @@ export const CodePopup = () => {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
           />
+          <Button
+            buttonType="regular--small"
+            text="Get Code"
+            type="submit"
+            margin="mt-4"
+          />
         </form>
-        <Button
-          buttonType="regular--small"
-          text="Get Code"
-          type="submit"
-          margin="mt-4"
-        />
       </div>
     </PopupGeneric>
   );

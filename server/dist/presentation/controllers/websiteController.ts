@@ -188,7 +188,7 @@ class WebsiteController {
         res.status(current_error.code).json({ message: current_error.details });
         return;
       }
-      
+
       res.status(200).json(websiteElements);
     } catch (error) {
       console.log(error);
