@@ -3,6 +3,7 @@ import { Website } from "@infrastructure/models/websiteModel";
 import validator from "validator";
 import { UserRole, WebsiteCommand } from "./types";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
+import { ErrorDetails } from "./utils";
 
 // Валидация почты
 export async function validEmail(email: string): Promise<boolean> {
@@ -13,18 +14,22 @@ export async function validEmail(email: string): Promise<boolean> {
 }
 
 // Валидация паролей
-export async function validPassword(password: string): Promise<boolean> {
+export async function validPassword(password: string, errors: ErrorDetails[]): Promise<boolean> {
   if (!validator.isLength(password, { min: 8, max: 16 })) {
-    throw new Error("Length of password must be between 8 and 16 characters");
+    errors.push(new ErrorDetails(400, "Длина пароля должна быть от 8 до 16 символов"));
+    return false;
   }
   if (!/[!@#$%^&*()_+{}\[\]:;<>,.?~]/.test(password)) {
-    throw new Error("Password must have at least one special character");
+    errors.push(new ErrorDetails(400, "Пароль должен содержать хотя бы один специальный символ"));
+    return false;
   }
   if (!/[A-Z]/.test(password)) {
-    throw new Error("Password must have at least one uppercase character");
+    errors.push(new ErrorDetails(400, "Пароль должен содержать хотя бы одну заглавную букву"));
+    return false;
   }
   if (!/[a-z]/.test(password)) {
-    throw new Error("Password must have at least one lowecase character");
+    errors.push(new ErrorDetails(400, "Пароль должен содержать хотя бы одну строчную букву"));
+    return false;
   }
   return true;
 }

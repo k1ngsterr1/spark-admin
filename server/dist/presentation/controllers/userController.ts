@@ -11,6 +11,7 @@ import {
   RegisterRequest,
 } from "@core/utils/User/Request";
 import { Login } from "@core/use_cases/User/LoginUser";
+import { ErrorDetails } from "@core/utils/utils";
 
 class UserController {
   private createUserUseCase: CreateUser;
@@ -31,6 +32,7 @@ class UserController {
 
   // Создание пользователя
   async createUser(req: Request, res: Response): Promise<void> {
+    const errors: ErrorDetails[] = [];
     try {
       const request: RegisterRequest = {
         username: req.body.username,
@@ -38,7 +40,7 @@ class UserController {
         password: req.body.password,
         passwordConfirmation: req.body.passwordConfirmation,
       };
-      const newUser = await this.createUserUseCase.execute(request);
+      const newUser = await this.createUserUseCase.execute(request, errors);
       res
         .status(201)
         .json({ message: "Пользователь успешно создан", user: newUser });
@@ -125,14 +127,22 @@ class UserController {
 
   // Смена пароля юзера
   async changeUserPassword(req: Request, res: Response): Promise<void> {
+    const errors: ErrorDetails[] = [];
     try {
       const request: ChangePasswordRequest = {
         id: req.user.id,
         oldPassword: req.body.oldPassword,
         newPassword: req.body.newPassword,
-        code: req.body.code,
+        code: req.body.code
       };
-      await this.changeUserPasswordService.execute(request);
+
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json(current_error.details);
+        return;
+      }
+
+      await this.changeUserPasswordService.execute(request, errors);
       res.status(200).json({ message: "Пароль успешно изменен" });
     } catch (error) {
       res
