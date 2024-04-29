@@ -138,7 +138,6 @@ class UserController {
     try {
       const request: ChangePasswordRequest = {
         id: req.user.id,
-        oldPassword: req.body.oldPassword,
         newPassword: req.body.newPassword,
         code: req.body.code
       };
