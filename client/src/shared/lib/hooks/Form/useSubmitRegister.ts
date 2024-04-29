@@ -19,21 +19,19 @@ export const useSubmitRegister = () => {
     event.preventDefault();
     let isValid = true;
 
-    if (!validateEmail(email, /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/, "Неверный формат email")) {
+    if (!validateEmail('email',email, /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'EMAIL_FORMAT')) {
       isValid = false;
     }
 
-
-    if (!validateConfirmPassword(password, new RegExp(`^${passwordConfirmation}$`), "Пароли не совпадают")) {
+    if (!validateConfirmPassword('password',password, new RegExp(`^${passwordConfirmation}$`), 'PASSWORDS_NOT_MATCH')) {
       isValid = false;
     }
 
-
-    if (!validatePassword(password, /^.{8,16}$/, "Пароль должен содержать от 8 до 16 символов") ||
-        !validatePassword(password, /[A-Z]/, "Пароль должен содержать хотя бы одну заглавную букву") ||
-        !validatePassword(password, /[a-z]/, "Пароль должен содержать хотя бы одну маленькую букву") ||
-        !validatePassword(password, /[0-9]/, 'Пароль должен содержать хотя бы одну цифру') ||
-        !validatePassword(password, /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, "Пароль должен содержать хотя бы один специальный символ")) {
+    if (!validatePassword('password',password, /^.{8,16}$/, 'AMOUNT_OF_SYMBOLS') ||
+        !validatePassword('password',password, /[A-Z]/, 'CAPITAL_LETTER') ||
+        !validatePassword('password',password, /[a-z]/, 'SMALL_LETTER') ||
+        !validatePassword('password',password, /[0-9]/, 'ONE_NUMBER') ||
+        !validatePassword('password',password, /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, 'ONE_SPECIAL_SYMBOL')) {
       isValid = false;
     }
 

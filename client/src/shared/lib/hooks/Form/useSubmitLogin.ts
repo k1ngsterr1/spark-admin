@@ -16,7 +16,10 @@ export const useSubmitLogin = () => {
     event.preventDefault();
     let isValid = true;
 
-    if (!validateEmail(email, /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/, "Неверный формат email")) {
+
+
+    if (!validateEmail(email, /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    , "Неверный формат email")) {
       isValid = false;
     }
 
