@@ -1,7 +1,7 @@
 //функция для получения вебсайтов
 export async function useGetWebsites() {
   const jwtToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhcnRlbS5hbmRyZWV2MjAwMDEyQG1haWwucnUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNDExNzY0OSwiZXhwIjoxNzE0MjA0MDQ5fQ.IMxKymCDF4tgRLF2yFTK7QHJn6E7JqYQ8FN4fsyAoBs";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImVtYWlsIjoiYXJ0ZW0uYW5kcmVldjIwMDAxMkBtYWlsLnJ1Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MTQzNzI4MzAsImV4cCI6MTcxNDQ1OTIzMH0.lOEE2VUPD6BqY8fa92SyY3arfodgYNIO5TzRCZq1-1Q";
   const url = "https://spark-admin-production.up.railway.app/api/website";
 
   //отравка GET запроса
