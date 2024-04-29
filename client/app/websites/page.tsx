@@ -3,7 +3,6 @@ import { Menu } from "@features/Menu";
 import { Dashboard } from "@widgets/Screens/Dashboard/ui";
 import { WebsitePopup } from "@entities/Popup_Components/WebsitePopup";
 import { WebsiteItem } from "@shared/lib/types";
-import { ThemeProvider } from "next-themes";
 import { useGetWebsites } from "@shared/lib/hooks/useGetWebsites";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
