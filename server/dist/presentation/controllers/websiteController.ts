@@ -143,11 +143,11 @@ class WebsiteController {
     } catch (error) {
       console.log(error);
       res.status(500).json({
-        message: "Ошибка при получение пользователей вебсайта",
+        message: "Ошибка при получение пользователей вебсайта"
       });
     }
   }
-
+  
   //Получение всех вебсайтов и их пользователей
   async getAllWebsitesUsers(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
@@ -190,11 +190,9 @@ class WebsiteController {
       }
 
       res.status(200).json(websiteElements);
-    } catch (error) {
+    } catch(error){
       console.log(error);
-      res
-        .status(500)
-        .json({ message: "Не удалось получить элементы с страницы" });
+      res.status(500).json({ message: "Не удалось получить элементы с страницы"})
     }
   }
 
@@ -213,19 +211,15 @@ class WebsiteController {
 
       const metaTag = `<meta name="spark-verification" content="${code}">`;
 
-      if (code) {
-        res.status(200).json({ code: metaTag });
-      } else {
-        const lastError = errors[errors.length - 1];
-        return res.status(lastError.code).json({ message: lastError.details });
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json({ message: current_error.details });
+        return;
       }
+
+      return res.status.json({ code: metaTag });
     } catch (error) {
-      errors.push(
-        new ErrorDetails(
-          500,
-          `Ошибка с получением кода веб-сайта: ${error.message}`
-        )
-      );
+      res.status(500).json({ error: `Ошибка с получением кода веб-сайта: ${error.message}` });
     }
   }
 
