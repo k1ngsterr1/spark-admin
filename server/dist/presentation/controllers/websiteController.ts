@@ -143,41 +143,45 @@ class WebsiteController {
     } catch (error) {
       console.log(error);
       res.status(500).json({
-        message: "Ошибка при получение пользователей вебсайта"
+        message: "Ошибка при получение пользователей вебсайта",
       });
     }
   }
-  
+
   //Получение всех вебсайтов и их пользователей
-  async getAllWebsitesUsers(req: Request, res: Response): Promise<void>{
+  async getAllWebsitesUsers(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
-    try{
+    try {
       const websites = await this.allWebsitesUsers.execute(errors);
-      
+
       if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json(current_error.details);
         return;
       }
 
-      res
-        .status(200)
-        .json({ message: "Пользователи были успешно получены", websites: websites });
-    } catch(error){ 
+      res.status(200).json({
+        message: "Пользователи были успешно получены",
+        websites: websites,
+      });
+    } catch (error) {
       console.log(error);
       res.status(500).json({
-        message: "Ошибка при получение пользователей со всех вебсайтов"
+        message: "Ошибка при получение пользователей со всех вебсайтов",
       });
     }
   }
 
-  async getElementsFromWebsite(req: Request, res: Response): Promise<void>{
+  async getElementsFromWebsite(req: Request, res: Response): Promise<void> {
     let errors: ErrorDetails[] = [];
-    try{
+    try {
       const url: string = req.body.url;
       console.log(url);
 
-      const websiteElements = await this.getWebsiteElements.execute(url, errors);
+      const websiteElements = await this.getWebsiteElements.execute(
+        url,
+        errors
+      );
 
       if (errors.length > 0) {
         const current_error = errors[0];
@@ -186,9 +190,11 @@ class WebsiteController {
       }
       console.log(websiteElements);
       res.status(200).json(websiteElements);
-    } catch(error){
+    } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Не удалось получить элементы с страницы"})
+      res
+        .status(500)
+        .json({ message: "Не удалось получить элементы с страницы" });
     }
   }
 
@@ -205,8 +211,10 @@ class WebsiteController {
         errors
       );
 
+      const metaTag = `<meta name="spark-verification" content="${code}">`;
+
       if (code) {
-        res.status(200).json({ code: code });
+        res.status(200).json({ code: metaTag });
       } else {
         const lastError = errors[errors.length - 1];
         return res.status(lastError.code).json({ message: lastError.details });
@@ -230,8 +238,6 @@ class WebsiteController {
 
       const expectedCode: string = req.body.code;
       const stringifyUrl = url.toString();
-
-      // ! Засунуть в use_case
 
       const result = await this.checkWebsiteUseCase.execute(url, expectedCode);
 
