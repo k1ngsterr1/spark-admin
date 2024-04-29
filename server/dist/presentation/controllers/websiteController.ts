@@ -206,7 +206,7 @@ class WebsiteController {
       );
 
       if (code) {
-        return res.status.json({ code });
+        res.status(200).json({ code: code });
       } else {
         const lastError = errors[errors.length - 1];
         return res.status(lastError.code).json({ message: lastError.details });
