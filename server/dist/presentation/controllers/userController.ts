@@ -143,13 +143,14 @@ class UserController {
         code: req.body.code
       };
 
+      await this.changeUserPasswordService.execute(request, errors);
+
       if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json(current_error.details);
         return;
       }
 
-      await this.changeUserPasswordService.execute(request, errors);
       res.status(200).json({ message: "Пароль успешно изменен" });
     } catch (error) {
       res
