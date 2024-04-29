@@ -1,0 +1,5 @@
+.container {
+  @apply bg-primary-ALMOST_WHITE rounded-lg mt-6 w-auto;
+  padding: clamp(16px, 1.66656vw, 64px);
+  width: 100%;
+}
