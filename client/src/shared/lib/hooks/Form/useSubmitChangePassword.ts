@@ -17,7 +17,6 @@ export const useSubmitChangePassword = () => {
         event.preventDefault();
         let isValid = true;
 
-        // Enhanced password validation
         if (!validatePassword(newPassword, /^.{8,16}$/, "Пароль должен содержать от 8 до 16 символов") ||
             !validatePassword(newPassword, /[A-Z]/, 'Пароль должен содержать хотя бы одну заглавную букву') ||
             !validatePassword(newPassword, /[a-z]/, 'Пароль должен содержать хотя бы одну маленькую букву') ||

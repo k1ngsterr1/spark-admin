@@ -13,10 +13,16 @@ export const useSubmitRegister = () => {
 
   const { error: passwordError, validateField: validatePassword } = useFieldValidator();
   const { error: confirmPasswordError, validateField: validateConfirmPassword } = useFieldValidator();
+  const { error: emailError, validateField: validateEmail } = useFieldValidator();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let isValid = true;
+
+    if (!validateEmail(email, /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/, "Неверный формат email")) {
+      isValid = false;
+    }
+
 
     if (!validateConfirmPassword(password, new RegExp(`^${passwordConfirmation}$`), "Пароли не совпадают")) {
       isValid = false;
@@ -45,6 +51,6 @@ export const useSubmitRegister = () => {
     password, setPassword,
     passwordConfirmation, setPasswordConfirmation,
     passwordError, confirmPasswordError,
-    handleSubmit, backendError
+    handleSubmit, backendError, emailError
   };
 };

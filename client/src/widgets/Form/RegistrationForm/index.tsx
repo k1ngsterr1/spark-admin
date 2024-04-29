@@ -27,6 +27,7 @@ const Form = () => {
     backendError,
     confirmPasswordError,
     handleSubmit,
+    emailError
   } = useSubmitRegister();
 
   return (
@@ -58,6 +59,7 @@ const Form = () => {
             required
             name="email"
           />
+          <ErrorDisplay message={emailError} />
           <PasswordInput
             value={password}
             onChange={(e) => setPassword(e.target.value)}
