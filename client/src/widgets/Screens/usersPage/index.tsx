@@ -1,16 +1,13 @@
-"use client";
-import React, { useState } from "react";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
-import UserPick from "@shared/ui/UserPick";
-
 import styles from "./styles.module.scss";
 import Heading from "@shared/ui/Heading";
+import { KebabMenu } from "@shared/ui/KebabMenu/index";
 
-export const Users = () => {
-  const [users, setUsers] = useState<
-    { login: string; role: string; site: string }[]
-  >([]);
+interface UsersProps {
+  users: [];
+}
 
+export const Users: React.FC<UsersProps> = ({ users }) => {
   return (
     <div className={styles.users}>
       <div className="flex w-[90%] justify-between items-center m-auto ">
@@ -22,14 +19,24 @@ export const Users = () => {
         />
       </div>
       <div className={styles.users__box}>
-        {users.map((user, index) => (
-          <UserPick
-            key={index}
-            login={user.login}
-            role={user.role}
-            site={user.site}
-          />
-        ))}
+        {/* <div>
+          {users.map((user) => (
+            <section key={user.id}>
+              <div>Name: {user.name}</div>
+              <div>URL: {user.url}</div>
+              <div>Owner: {user.owner}</div>
+              <div>Users Count: {user.usersCount}</div>
+            </section>
+          ))}
+        </div> */}
+        <div className={styles.user_container}>
+          <div className={styles.user_container__rounder}></div>
+          <div className={styles.user_container__items}>
+            <p className={styles.user_container__user}>UserName</p>
+            <span className="text-primary">Role</span>
+          </div>
+          <KebabMenu />
+        </div>
       </div>
     </div>
   );
