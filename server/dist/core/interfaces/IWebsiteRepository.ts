@@ -1,7 +1,8 @@
 import { NewWebsiteInput, UserRole } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
-import { Website } from "infrastructure/models/websiteModel";
+import { Website } from "@infrastructure/models/websiteModel";
+import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
 
 export interface IWebsiteRepository {
   // Interface для создания веб-сайта
@@ -47,4 +48,7 @@ export interface IWebsiteRepository {
     role?: UserRole,
     errors?: ErrorDetails[]
   ): Promise<UserToWebsite>;
+
+  //Interface для получение всех пользователей со всех вебсайтов
+  findWebsitesUsers?(errors: ErrorDetails[]): Promise<Website[]>;
 }
