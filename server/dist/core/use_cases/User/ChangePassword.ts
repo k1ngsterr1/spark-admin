@@ -46,7 +46,7 @@ export class ChangePasswordService {
     }
 
     if(oldPassword === newPassword){
-      errors.push(new ErrorDetails(400, "Старый пороль не должен совпадать с новымю."));
+      errors.push(new ErrorDetails(400, "Старый пороль не должен совпадать с новым."));
       return;
     }
 
