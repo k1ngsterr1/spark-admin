@@ -2,6 +2,7 @@ import { ChangePasswordRequest } from "@core/utils/User/Request";
 import { validPassword } from "@core/utils/validators";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import EmailService from "./EmailVerification";
+import { ErrorDetails } from "@core/utils/utils";
 
 const verificationCodeGenerator = require("@core/utils/generateCode");
 
@@ -35,22 +36,32 @@ export class ChangePasswordService {
   }
 
   // Основная логика смены пароля
-  async execute(request: ChangePasswordRequest): Promise<boolean> {
-    const { id, newPassword, code } = request;
+  async execute(request: ChangePasswordRequest, errors: ErrorDetails[]): Promise<boolean> {
+    const { id, oldPassword, newPassword, code } = request;
     const user = await this.userRepository.findByPk(id);
 
     if (!user) {
-      throw new Error("Пользователь не найден!");
+      errors.push(new ErrorDetails(404, 'Не получилось найти пользователя'));
+      return;
+    }
+
+    if(oldPassword === newPassword){
+      errors.push(new ErrorDetails(400, "Старый пороль не должен совпадать с новым."));
+      return;
     }
 
     // Проверка валидности пароля
     const isCodeValid = await this.userRepository.verifyCode(user, code);
 
     if (!isCodeValid) {
-      throw new Error("Неправильный или устаревший код!");
+      errors.push(new ErrorDetails(400, "Неправильный или устаревший код!"));
+      return;
     }
 
-    await validPassword(newPassword);
+    const isValidPass = await validPassword(newPassword, errors);
+    if(!isValidPass){
+      return;
+    }
 
     return await this.userRepository.changePassword(user, newPassword);
   }
