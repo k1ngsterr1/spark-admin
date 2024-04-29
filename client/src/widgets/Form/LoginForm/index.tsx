@@ -22,7 +22,7 @@ const LoginForm = () => {
     password,
     setPassword,
     passwordError,
-    setPasswordError,
+    emailError,
     handleSubmit,
   } = useSubmitLogin();
 
@@ -44,6 +44,7 @@ const LoginForm = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <ErrorDisplay message={emailError} />
           <PasswordInput
             placeholder="Пароль"
             type="password"

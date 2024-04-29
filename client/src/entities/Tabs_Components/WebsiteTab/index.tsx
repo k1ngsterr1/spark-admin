@@ -3,10 +3,7 @@ import Image, { StaticImageData } from "next/image";
 
 import styles from "./styles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCalendar,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCalendar, faUser } from "@fortawesome/free-solid-svg-icons";
 import { KebabMenu } from "@shared/ui/KebabMenu";
 
 interface WebsiteTabProps {
@@ -17,7 +14,7 @@ interface WebsiteTabProps {
 
 export const WebsiteTab: React.FC<WebsiteTabProps> = ({ text, preview }) => {
   return (
-    <div className={styles.website_tab}>
+    <div className={`${styles.website_tab} dark:bg-dark-super`}>
       <div className={styles.website_tab__preview_content}>
         <Image
           src={preview}

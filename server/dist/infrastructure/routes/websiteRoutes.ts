@@ -128,7 +128,7 @@ router.post("/check-website", (req, res) =>
   websiteController.checkWebsite(req, res)
 );
 
-router.get("/get-code", (req, res) =>
+router.post("/get-code", (req, res) =>
   websiteController.getWebsiteCode(req, res)
 );
 
@@ -189,9 +189,9 @@ router.get("/get-users/:websiteID", (req, res) =>
  *       500:
  *         description: Произошла ошибка при получение пользователей со всех вебсайтов
  */
-router.get("/users", (req, res) => 
+router.get("/users", (req, res) =>
   websiteController.getAllWebsitesUsers(req, res)
-)
+);
 
 // router.post("/get-elements", (req, res) => websiteController.getElementsFromWebsite(req, res));
 

@@ -125,31 +125,37 @@ export class WebsiteRepository implements IWebsiteRepository {
 
   // Найти код по URL веб-сайта
   async getCodeByUrl(
-    ownerId: number,
-    url: string,
-    errors: ErrorDetails[]
-  ): Promise<string> {
-    try {
-      const website = await sequelize.getRepository(Website).findOne({
-        where: {
-          url: url,
-        },
-      });
+  ownerId: number,
+  url: string,
+  errors: ErrorDetails[]
+): Promise<string> {
+  try {
+    const website = await sequelize.getRepository(Website).findOne({
+      where: {
+        owner: ownerId, 
+        url: url,
+      },
+    });
 
-      if (!website) {
-        throw new Error(
-          "Веб-сайт не найден, пожалуйста добавьте его в нашу базу данных."
-        );
-      } else if (website.owner !== ownerId) {
-        throw new Error("Вы не владелец этого веб-сайта.");
-      } else {
-        return website.websiteCode;
-      }
-    } catch (error) {
-      errors.push(new ErrorDetails(500, error.message));
-      return null;
+    console.log(website.websiteCode);
+
+    if (!website) {
+      throw new Error(
+        "Веб-сайт не найден, пожалуйста добавьте его в нашу базу данных."
+      );
+    } else if (website.owner !== ownerId) {
+      const errorMsg = "Вы не владелец этого веб-сайта.";
+      errors.push(new ErrorDetails(403, errorMsg));
+      return null; // Return null if the owner does not match
+    } else {
+      return website.websiteCode;
     }
+  } catch (error) {
+    errors.push(new ErrorDetails(500, error.message));
+    return null;
   }
+  }
+
 
   async findWebsitesUsers(errors: ErrorDetails[]): Promise<Website[]>{
     try{
