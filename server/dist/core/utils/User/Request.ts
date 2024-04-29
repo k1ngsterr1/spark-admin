@@ -6,7 +6,6 @@ export type ChangeRoleRequest = {
 };
 export type ChangePasswordRequest = {
   id: number;
-  oldPassword: string;
   newPassword: string;
   code: string;
 };
