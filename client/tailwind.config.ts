@@ -11,6 +11,24 @@ const config: Config = {
 
   theme: {
     extend: {
+      boxShadow: {
+        "orange-glow": "0 0 25px #FF5722",
+      },
+      keyframes: {
+        glow: {
+          "0%, 100%": {
+            boxShadow:
+              "0 0 5px #FFA500, 0 0 15px #FFA500, 0 0 25px #FFA500, 0 0 35px #FF8C00",
+          },
+          "50%": {
+            boxShadow:
+              "0 0 10px #FFA500, 0 0 20px #FFA500, 0 0 30px #FFA500, 0 0 40px #FF8C00",
+          },
+        },
+      },
+      animation: {
+        "glow-orange": "glow 2s ease-in-out infinite",
+      },
       colors: {
         primary: {
           DEFAULT: "#FF5722",
@@ -26,9 +44,9 @@ const config: Config = {
           dark: "#008BA3",
         },
         dark: {
-          super: '#16151B',
-          lighter: '#2B2934',
-          upper: '#3A3846',
+          super: "#16151B",
+          lighter: "#2B2934",
+          upper: "#3A3846",
         },
         secondary: {
           DEFAULT: "#1A1A1A", // Light theme color
