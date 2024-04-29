@@ -10,18 +10,19 @@ export const useSubmitChangePassword = () => {
     const [code, setCode] = useState('');
     const [backendError, setBackendError] = useState('');
     const changePassword = useChangePassword();
-    const { error: passwordError, validateField: validatePassword } = useFieldValidator();
     const userData = useUserData();
+
+    const { errors, validateField } = useFieldValidator();
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         let isValid = true;
 
-        if (!validatePassword(newPassword, /^.{8,16}$/, "Пароль должен содержать от 8 до 16 символов") ||
-            !validatePassword(newPassword, /[A-Z]/, 'Пароль должен содержать хотя бы одну заглавную букву') ||
-            !validatePassword(newPassword, /[a-z]/, 'Пароль должен содержать хотя бы одну маленькую букву') ||
-            !validatePassword(newPassword, /[0-9]/, 'Пароль должен содержать хотя бы одну цифру') ||
-            !validatePassword(newPassword, /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, "Пароль должен содержать хотя бы один специальный символ")) {
+        if (!validateField('newPassword', newPassword, /^.{8,16}$/, 'AMOUNT_OF_SYMBOLS') ||
+            !validateField('newPassword', newPassword, /[A-Z]/, 'CAPITAL_LETTER') ||
+            !validateField('newPassword', newPassword, /[a-z]/, 'SMALL_LETTER') ||
+            !validateField('newPassword', newPassword, /[0-9]/, 'ONE_NUMBER') ||
+            !validateField('newPassword', newPassword, /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, 'ONE_SPECIAL_SYMBOL')) {
             isValid = false;
         }
 
@@ -33,5 +34,5 @@ export const useSubmitChangePassword = () => {
         }
     };
 
-    return { code, setCode, newPassword, setNewPassword, backendError, handleSubmit, passwordError, userData };
+    return { code, setCode, newPassword, setNewPassword, backendError, handleSubmit, errors, userData };
 };

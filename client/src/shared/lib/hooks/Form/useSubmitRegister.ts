@@ -11,27 +11,25 @@ export const useSubmitRegister = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [backendError, setBackendError] = useState('');
 
-  const { error: passwordError, validateField: validatePassword } = useFieldValidator();
-  const { error: confirmPasswordError, validateField: validateConfirmPassword } = useFieldValidator();
-  const { error: emailError, validateField: validateEmail } = useFieldValidator();
+  const { errors, validateField } = useFieldValidator();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let isValid = true;
 
-    if (!validateEmail('email',email, /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'EMAIL_FORMAT')) {
+    if (!validateField('email', email, /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'EMAIL_FORMAT')) {
       isValid = false;
     }
 
-    if (!validateConfirmPassword('password',password, new RegExp(`^${passwordConfirmation}$`), 'PASSWORDS_NOT_MATCH')) {
+    if (!validateField('passwordConfirmation', passwordConfirmation, new RegExp(`^${password}$`), 'PASSWORDS_NOT_MATCH')) {
       isValid = false;
     }
 
-    if (!validatePassword('password',password, /^.{8,16}$/, 'AMOUNT_OF_SYMBOLS') ||
-        !validatePassword('password',password, /[A-Z]/, 'CAPITAL_LETTER') ||
-        !validatePassword('password',password, /[a-z]/, 'SMALL_LETTER') ||
-        !validatePassword('password',password, /[0-9]/, 'ONE_NUMBER') ||
-        !validatePassword('password',password, /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, 'ONE_SPECIAL_SYMBOL')) {
+    if (!validateField('password',password, /^.{8,16}$/, 'AMOUNT_OF_SYMBOLS') ||
+        !validateField('password',password, /[A-Z]/, 'CAPITAL_LETTER') ||
+        !validateField('password',password, /[a-z]/, 'SMALL_LETTER') ||
+        !validateField('password',password, /[0-9]/, 'ONE_NUMBER') ||
+        !validateField('password',password, /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, 'ONE_SPECIAL_SYMBOL')) {
       isValid = false;
     }
 
@@ -48,7 +46,8 @@ export const useSubmitRegister = () => {
     email, setEmail,
     password, setPassword,
     passwordConfirmation, setPasswordConfirmation,
-    passwordError, confirmPasswordError,
-    handleSubmit, backendError, emailError
+    handleSubmit,
+    errors,
+    backendError
   };
 };
