@@ -40,6 +40,13 @@ class UserController {
         password: req.body.password,
         passwordConfirmation: req.body.passwordConfirmation,
       };
+
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json(current_error.details);
+        return;
+      }
+
       const newUser = await this.createUserUseCase.execute(request, errors);
       res
         .status(201)

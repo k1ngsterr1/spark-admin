@@ -37,11 +37,16 @@ export class ChangePasswordService {
 
   // Основная логика смены пароля
   async execute(request: ChangePasswordRequest, errors: ErrorDetails[]): Promise<boolean> {
-    const { id, newPassword, code } = request;
+    const { id, oldPassword, newPassword, code } = request;
     const user = await this.userRepository.findByPk(id);
 
     if (!user) {
       errors.push(new ErrorDetails(404, 'Не получилось найти пользователя'));
+      return;
+    }
+
+    if(oldPassword === newPassword){
+      errors.push(new ErrorDetails(400, "Старый пороль не должен совпадать с новымю."));
       return;
     }
 
