@@ -1,6 +1,8 @@
-import {initiateChangePassword} from './useInitiateChangePassword'
+import {useInitiateChangePassword} from './useInitiateChangePassword'
 
 export const useClickChangePassword = () => {
+
+  const initiateChangePassword = useInitiateChangePassword();
 
     const handleClickChangePassword = async () => {
       try {
