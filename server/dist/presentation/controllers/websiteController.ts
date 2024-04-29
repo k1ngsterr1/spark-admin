@@ -205,19 +205,15 @@ class WebsiteController {
         errors
       );
 
-      if (code) {
-        return res.status.json({ code });
-      } else {
-        const lastError = errors[errors.length - 1];
-        return res.status(lastError.code).json({ message: lastError.details });
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json({ message: current_error.details });
+        return;
       }
+
+      return res.status.json({ code: code });
     } catch (error) {
-      errors.push(
-        new ErrorDetails(
-          500,
-          `Ошибка с получением кода веб-сайта: ${error.message}`
-        )
-      );
+      res.status(500).json({ error: `Ошибка с получением кода веб-сайта: ${error.message}` });
     }
   }
 

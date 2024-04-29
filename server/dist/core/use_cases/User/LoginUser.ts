@@ -4,6 +4,7 @@ import { IJWTService } from "core/interfaces/IJWTService";
 import { JWTService } from "core/use_cases/User/JWTService";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { LoginRequest } from "@core/utils/User/Request";
+import { ErrorDetails } from "@core/utils/utils";
 
 export type UserResponse = {
   id: number;
@@ -20,7 +21,7 @@ export class Login {
     this.jwtService = new JWTService();
   }
 
-  async execute(request: LoginRequest): Promise<{
+  async execute(request: LoginRequest, errors: ErrorDetails[]): Promise<{
     user: UserResponse;
     accessToken: string;
     refreshToken: string;
@@ -29,13 +30,15 @@ export class Login {
     const user = await this.userRepository.findOne({ where: { email } });
 
     if (!user) {
-      throw new Error("Пользователь не найден!");
+      errors.push(new ErrorDetails(404, "Не удалось найти пользователя."));
+      return;
     }
 
     const isMatch: boolean = await bcryptjs.compare(password, user.password);
 
     if (!isMatch) {
-      throw new Error("Неверный пароль!");
+      errors.push(new ErrorDetails(404, "Неверный пароль!"));
+      return;
     }
 
     const userResponse: UserResponse = {
