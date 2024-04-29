@@ -58,7 +58,7 @@ class WebsiteController {
 
       if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json(current_error.details);
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
@@ -80,7 +80,7 @@ class WebsiteController {
 
       if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json(current_error.details);
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
@@ -109,7 +109,7 @@ class WebsiteController {
 
       if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json(current_error.details);
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
@@ -133,7 +133,7 @@ class WebsiteController {
 
       if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json(current_error.details);
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
@@ -156,7 +156,7 @@ class WebsiteController {
 
       if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json(current_error.details);
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
@@ -185,10 +185,10 @@ class WebsiteController {
 
       if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json(current_error.details);
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
-      console.log(websiteElements);
+      
       res.status(200).json(websiteElements);
     } catch (error) {
       console.log(error);
