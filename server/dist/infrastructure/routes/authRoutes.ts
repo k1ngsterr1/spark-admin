@@ -26,7 +26,7 @@ import auth from "@infrastructure/middleware/authMiddleware";
  *             properties:
  *               username:
  *                 type: string
- *                 example: john_doe
+ *                 example: Swagger
  *               email:
  *                 type: string
  *                 example: example@gmail.com
@@ -131,6 +131,7 @@ router.post("/initiate-password-change", auth, (req, res) =>
  *             required:
  *               - oldPassword
  *               - newPassword
+ *               - code
  *             properties:
  *               oldPassword:
  *                 type: string
@@ -138,6 +139,9 @@ router.post("/initiate-password-change", auth, (req, res) =>
  *               newPassword:
  *                 type: string
  *                 example: newP@ssw0rd2
+ *               code:
+ *                 type: string
+ *                 example: 3KYPA
  *     responses:
  *       200:
  *         description: Пароль успешно изменен.

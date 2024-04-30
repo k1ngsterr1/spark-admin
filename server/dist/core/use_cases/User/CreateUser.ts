@@ -5,6 +5,7 @@ import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { validEmail, validPassword } from "@core/utils/validators";
 import EmailService from "./EmailVerification";
 import { RegisterRequest } from "@core/utils/User/Request";
+import { ErrorDetails } from "@core/utils/utils";
 
 const verificationCodeGenerator = require("@core/utils/generateCode");
 
@@ -16,18 +17,28 @@ export class CreateUser {
     this.emailService = new EmailService();
   }
 
-  async execute(request: RegisterRequest): Promise<User> {
+  async execute(request: RegisterRequest, errors: ErrorDetails[]): Promise<User> {
     const { username, email, password, passwordConfirmation } = request;
     if (!email || !username || !password) {
-      throw new Error("Заполните необходимые поля!");
+      errors.push(new ErrorDetails(400, "Заполните необходимые поля!"));
+      return;
     }
 
     if (password !== passwordConfirmation) {
-      throw new Error("Пароли не совпадают!");
+      errors.push(new ErrorDetails(400, "Пароли не совпадают!"));
+      return;
     }
 
-    await validEmail(email);
-    await validPassword(password);
+    const isValidEmail = await validEmail(email);
+    const isValidPass = await validPassword(password, errors);
+
+    if(!isValidEmail){
+      errors.push(new ErrorDetails(400, "Неверный адрес электронной почты."));
+      return;
+    }
+    if(!isValidPass){
+      return;
+    }
 
     const code = verificationCodeGenerator(5);
 

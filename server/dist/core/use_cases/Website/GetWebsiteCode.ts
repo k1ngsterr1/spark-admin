@@ -13,7 +13,7 @@ export class GetWebsitesCode {
     ownerId: number,
     url: string,
     errors: ErrorDetails[]
-  ): Promise<Website[]> {
+  ): Promise<string | null > {
     if (!ownerId || !url) {
       errors.push(
         new ErrorDetails(400, "Пожалуйста, предоставьте все нужные данные!")
@@ -26,6 +26,16 @@ export class GetWebsitesCode {
       errors
     );
 
+
+    if (!url) {
+      errors.push(
+        new ErrorDetails(
+          400,
+          "Странно, но по какой-то причине у этого веб-сайта отсутствует код верификации."
+        )
+      );
+    }
+
     if (websiteCode === null) {
       errors.push(
         new ErrorDetails(
@@ -33,9 +43,9 @@ export class GetWebsitesCode {
           "Странно, но по какой-то причине у этого веб-сайта отсутствует код верификации."
         )
       );
-      return;
+      return websiteCode;
     }
 
-    return;
+    return websiteCode;
   }
 }

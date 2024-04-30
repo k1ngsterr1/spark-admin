@@ -128,7 +128,7 @@ router.post("/check-website", (req, res) =>
   websiteController.checkWebsite(req, res)
 );
 
-router.get("/get-code", (req, res) =>
+router.post("/get-code", (req, res) =>
   websiteController.getWebsiteCode(req, res)
 );
 
@@ -164,6 +164,33 @@ router.get("/get-code", (req, res) =>
  */
 router.get("/get-users/:websiteID", (req, res) =>
   websiteController.getWebsiteUsers(req, res)
+);
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ * /api/website/users:
+ *   get:
+ *     summary: Получение всех вебсайтов с их пользователями
+ *     description: Получение всех вебсайтов с их пользователями через access токен
+ *     tags:
+ *       - Вебсайт
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Пользователи со всех вебсайтов успешно получены
+ *       400:
+ *         description: Не удалось получить пользователей со всех вебсайтов
+ *       500:
+ *         description: Произошла ошибка при получение пользователей со всех вебсайтов
+ */
+router.get("/users", (req, res) =>
+  websiteController.getAllWebsitesUsers(req, res)
 );
 
 // router.post("/get-elements", (req, res) => websiteController.getElementsFromWebsite(req, res));
