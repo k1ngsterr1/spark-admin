@@ -12,7 +12,7 @@ export const StepIndicator: React.FC<IStepIndicatorProps> = ({
       <Step
         key={step}
         number={step}
-        margin="mt-4"
+        margin="mt-8"
         isActive={step === currentStep}
       />
     ))}

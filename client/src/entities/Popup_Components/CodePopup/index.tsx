@@ -70,6 +70,7 @@ export const CodePopup = () => {
               />
             ) : (
               <Button
+                onClick={toggleWebVerifyPopup}
                 buttonType="regular--small"
                 text="Закрыть"
                 margin="mt-4"
