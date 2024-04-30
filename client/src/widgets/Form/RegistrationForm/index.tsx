@@ -15,20 +15,13 @@ import SparkLogo from "@assets/spark_product_logo.svg";
 
 const Form = () => {
   const {
-    username,
-    setUsername,
-    email,
-    setEmail,
-    password,
-    setPassword,
-    passwordConfirmation,
-    setPasswordConfirmation,
-    passwordError,
-    backendError,
-    confirmPasswordError,
+    username, setUsername,
+    email, setEmail,
+    password, setPassword,
+    passwordConfirmation, setPasswordConfirmation,
     handleSubmit,
-    emailError
-  } = useSubmitRegister();
+    errors, backendError
+} = useSubmitRegister();
 
   return (
     <section className={styles.registration}>
@@ -59,7 +52,7 @@ const Form = () => {
             required
             name="email"
           />
-          <ErrorDisplay message={emailError} />
+          <ErrorDisplay message={errors.email || ''} />
           <PasswordInput
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -69,7 +62,7 @@ const Form = () => {
             required
             name="password"
           />
-          <ErrorDisplay message={passwordError} />
+          <ErrorDisplay message={errors.password || ''}  />
           <PasswordInput
             value={passwordConfirmation}
             onChange={(e) => setPasswordConfirmation(e.target.value)}
@@ -79,9 +72,8 @@ const Form = () => {
             required
             name="passwordConfirmation"
           />
-          <ErrorDisplay message={confirmPasswordError} />
           <ErrorDisplay message={backendError} />
-          <ErrorDisplay message={confirmPasswordError} />
+          <ErrorDisplay message={errors.passwordConfirmation || ''} />
           <Button
             text="Зарегистрироваться"
             buttonType="regular"

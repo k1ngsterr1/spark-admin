@@ -11,29 +11,25 @@ export const useSubmitRegister = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [backendError, setBackendError] = useState('');
 
-  const { error: passwordError, validateField: validatePassword } = useFieldValidator();
-  const { error: confirmPasswordError, validateField: validateConfirmPassword } = useFieldValidator();
-  const { error: emailError, validateField: validateEmail } = useFieldValidator();
+  const { errors, validateField } = useFieldValidator();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let isValid = true;
 
-    if (!validateEmail(email, /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/, "Неверный формат email")) {
+    if (!validateField('email', email, /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'EMAIL_FORMAT')) {
       isValid = false;
     }
 
-
-    if (!validateConfirmPassword(password, new RegExp(`^${passwordConfirmation}$`), "Пароли не совпадают")) {
+    if (!validateField('passwordConfirmation', passwordConfirmation, new RegExp(`^${password}$`), 'PASSWORDS_NOT_MATCH')) {
       isValid = false;
     }
 
-
-    if (!validatePassword(password, /^.{8,16}$/, "Пароль должен содержать от 8 до 16 символов") ||
-        !validatePassword(password, /[A-Z]/, "Пароль должен содержать хотя бы одну заглавную букву") ||
-        !validatePassword(password, /[a-z]/, "Пароль должен содержать хотя бы одну маленькую букву") ||
-        !validatePassword(password, /[0-9]/, 'Пароль должен содержать хотя бы одну цифру') ||
-        !validatePassword(password, /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, "Пароль должен содержать хотя бы один специальный символ")) {
+    if (!validateField('password',password, /^.{8,16}$/, 'AMOUNT_OF_SYMBOLS') ||
+        !validateField('password',password, /[A-Z]/, 'CAPITAL_LETTER') ||
+        !validateField('password',password, /[a-z]/, 'SMALL_LETTER') ||
+        !validateField('password',password, /[0-9]/, 'ONE_NUMBER') ||
+        !validateField('password',password, /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, 'ONE_SPECIAL_SYMBOL')) {
       isValid = false;
     }
 
@@ -50,7 +46,8 @@ export const useSubmitRegister = () => {
     email, setEmail,
     password, setPassword,
     passwordConfirmation, setPasswordConfirmation,
-    passwordError, confirmPasswordError,
-    handleSubmit, backendError, emailError
+    handleSubmit,
+    errors,
+    backendError
   };
 };

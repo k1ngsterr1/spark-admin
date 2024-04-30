@@ -20,7 +20,7 @@ const ChangePassword = () => {
     setNewPassword,
     handleSubmit,
     backendError,
-    passwordError,
+    errors
   } = useSubmitChangePassword();
 
   return (
@@ -59,7 +59,7 @@ const ChangePassword = () => {
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
-          <ErrorDisplay message={passwordError} />
+          <ErrorDisplay message={errors.passwordError} />
           <ErrorDisplay message={backendError} />
           <Button text="Сменить пароль" buttonType="regular" margin="mt-4" />
         </form>
