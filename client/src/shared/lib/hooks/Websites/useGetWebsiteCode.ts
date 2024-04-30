@@ -25,7 +25,7 @@ export function useGetWebsiteCode() {
           },
         }
       );
-      setCode(response.data);
+      setCode(response.data.code);
       console.log("Data created:", response.data);
     } catch (error: any | unknown) {
       console.error("Failed to create data:", error);
