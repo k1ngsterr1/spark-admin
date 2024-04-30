@@ -4,7 +4,6 @@ import { useUserData } from "./useGetData";
 
 export async function initiateChangePassword(): Promise<void | string> {
   try {
-    // !ЖОПА
     const userData = useUserData();
     const accessToken = userData.accessToken;
 
