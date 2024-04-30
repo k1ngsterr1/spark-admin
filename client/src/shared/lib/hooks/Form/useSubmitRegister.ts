@@ -37,6 +37,9 @@ export const useSubmitRegister = () => {
       const result = await useRegister({ username, email, password, passwordConfirmation });
       if (typeof result === 'string') {
         setBackendError(result);
+      const result = await useRegister({ username, email, password, passwordConfirmation });
+      if (typeof result === 'string') {
+        setBackendError(result);
       }
     }
   };
