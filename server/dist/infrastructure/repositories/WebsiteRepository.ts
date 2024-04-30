@@ -150,4 +150,35 @@ export class WebsiteRepository implements IWebsiteRepository {
       return null;
     }
   }
+
+  async findWebsitesUsers(errors: ErrorDetails[]): Promise<Website[]>{
+    try{
+      const websites = await sequelize.getRepository(Website).findAll({
+        attributes: [
+          'id',
+          'owner'
+        ],
+        include: [
+          {
+            model: sequelize.getRepository(User),
+            attributes: [
+              'username',
+              'email',
+              'isVerified'
+            ],
+            through: {
+              attributes: [
+                'role'
+              ]
+            }
+          }
+        ]
+      })
+      return websites;
+    } catch(error){
+      console.log(error);
+      errors.push(new ErrorDetails(500, 'Ошибка при получение вебсайтов с базы данных'));
+      return [];
+    }
+  }
 }

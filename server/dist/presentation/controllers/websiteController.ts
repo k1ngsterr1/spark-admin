@@ -2,27 +2,29 @@ import { Request, Response } from "express";
 import { AddWebsite } from "core/use_cases/Website/AddWebsite";
 import { GetWebsites } from "@core/use_cases/Website/GetWebsites";
 import { GetWebsite } from "@core/use_cases/Website/GetWebsite";
-import { JWTService } from "@core/use_cases/User/JWTService";
 import { CheckWebsite } from "@core/use_cases/Website/CheckWebsite";
 import { AddUser } from "@core/use_cases/Website/AddUser";
 import { AddUserRequest, AddWebsiteRequest } from "@core/utils/Website/Request";
 import { ErrorDetails } from "@core/utils/utils";
 import { GetWebsiteUsers } from "@core/use_cases/Website/GetWebsiteUsers";
+import { GetWebsiteElements } from "@core/use_cases/Website/GetWebsiteElements";
 import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
 import { GetWebsitesCode } from "@core/use_cases/Website/GetWebsiteCode";
 import WebsiteService from "@services/websiteService";
+import { AllWebsitesUsers } from "@core/use_cases/Website/GetAllWebsitesUsers";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
   private websiteRepository: WebsiteRepository;
   private getWebsitesByOwner: GetWebsites;
   private getWebsiteByName: GetWebsite;
-  private jwtService: JWTService;
   private getWebsiteCodeUseCase: GetWebsitesCode;
   private addUser: AddUser;
   private websiteService: WebsiteService;
   private checkWebsiteUseCase: CheckWebsite;
   private websiteUsers: GetWebsiteUsers;
+  private getWebsiteElements: GetWebsiteElements;
+  private allWebsitesUsers: AllWebsitesUsers;
 
   constructor() {
     this.websiteService = new WebsiteService();
@@ -32,12 +34,13 @@ class WebsiteController {
     this.getWebsitesByOwner = new GetWebsites();
     this.getWebsiteByName = new GetWebsite();
     this.addUser = new AddUser();
-    this.jwtService = new JWTService();
     this.websiteUsers = new GetWebsiteUsers();
     this.checkWebsiteUseCase = new CheckWebsite(
       this.websiteService,
       this.websiteRepository
     );
+    this.getWebsiteElements = new GetWebsiteElements();
+    this.allWebsitesUsers = new AllWebsitesUsers();
   }
 
   // Добавление веб-сайта
@@ -140,9 +143,52 @@ class WebsiteController {
     } catch (error) {
       console.log(error);
       res.status(500).json({
-        message: "Ошибка при получение пользователей вебсайта",
-        error: error,
+        message: "Ошибка при получение пользователей вебсайта"
       });
+    }
+  }
+  
+  //Получение всех вебсайтов и их пользователей
+  async getAllWebsitesUsers(req: Request, res: Response): Promise<void>{
+    const errors: ErrorDetails[] = [];
+    try{
+      const websites = await this.allWebsitesUsers.execute(errors);
+      
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json(current_error.details);
+        return;
+      }
+
+      res
+        .status(200)
+        .json({ message: "Пользователи были успешно получены", websites: websites });
+    } catch(error){ 
+      console.log(error);
+      res.status(500).json({
+        message: "Ошибка при получение пользователей со всех вебсайтов"
+      });
+    }
+  }
+
+  async getElementsFromWebsite(req: Request, res: Response): Promise<void>{
+    let errors: ErrorDetails[] = [];
+    try{
+      const url: string = req.body.url;
+      console.log(url);
+
+      const websiteElements = await this.getWebsiteElements.execute(url, errors);
+
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json(current_error.details);
+        return;
+      }
+      console.log(websiteElements);
+      res.status(200).json(websiteElements);
+    } catch(error){
+      console.log(error);
+      res.status(500).json({ message: "Не удалось получить элементы с страницы"})
     }
   }
 

@@ -1,14 +1,18 @@
-import React from "react";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
-import { useWebPopup } from "@shared/lib/contexts/AppContext";
 import Heading from "@shared/ui/Heading/index";
+import { faLink, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from "./styles.module.scss";
 
-export const Dashboard = () => {
+interface DashboardProps {
+  sites: [];
+}
+
+export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
   return (
     <div className="flex flex-col">
-      <div className="flex w-[90%] justify-between items-center m-auto ">
+      <div className="flex w-[90%] justify-between items-center m-auto">
         <Heading text="Ваши Сайты" />
         <div className="flex items-center-justify-center gap-4">
           <Button
@@ -24,15 +28,36 @@ export const Dashboard = () => {
         </div>
       </div>
       <section className={styles.sites_section}>
-        {/* {websites.map((website) => (
-          <WebsiteTab
-            key={website.id}
-            text={website.name}
-            preview={website.preview}
-            userQuantity={website.userQuantity}
-          />
-        ))} */}
+        <ul>
+          {sites.map((site) => (
+            <div key={site.id}>
+              <span className={styles.sites_section__name}>{site.name}</span>
+              <div className={styles.sites_section__row}>
+                <span className={styles.sites_section__row__click}>
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    className={styles.sites_section__row__item}
+                    size="md"
+                    color="#FF5722"
+                  />
+                  Редактировать Сайт
+                </span>
+                <a href={site.url} className={styles.sites_section__row__hover}>
+                  <FontAwesomeIcon
+                    icon={faLink}
+                    className={styles.sites_section__row__item}
+                    size="md"
+                    color="#FF5722"
+                  />
+                  {site.url}
+                </a>
+              </div>
+            </div>
+          ))}
+        </ul>
       </section>
     </div>
   );
 };
+
+export default Dashboard;

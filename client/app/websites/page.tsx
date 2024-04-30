@@ -4,6 +4,7 @@ import { Dashboard } from "@widgets/Screens/Dashboard/ui";
 import { WebsitePopup } from "@entities/Popup_Components/WebsitePopup";
 import { WebsiteItem } from "@shared/lib/types";
 import { ThemeProvider } from "next-themes";
+import { useGetWebsites } from "@shared/lib/hooks/useGetWebsites";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { CodePopup } from "@entities/Popup_Components/CodePopup";
@@ -13,7 +14,8 @@ interface DashboardProps {
   popupState: any;
 }
 
-const WebsitesPage: React.FC<DashboardProps> = () => {
+const WebsitesPage: React.FC<DashboardProps> = async () => {
+  const data = await useGetWebsites();
   return (
     <div className="flex">
       <Menu />
@@ -21,7 +23,7 @@ const WebsitesPage: React.FC<DashboardProps> = () => {
         <Header />
         <WebsitePopup />
         <CodePopup />
-        <Dashboard />
+        <Dashboard sites={data} />
       </main>
     </div>
   );

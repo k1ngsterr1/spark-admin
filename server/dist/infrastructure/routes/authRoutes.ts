@@ -80,6 +80,29 @@ router.post("/register", (req, res) => userController.createUser(req, res));
  */
 router.post("/login", (req, res, next) => userController.login(req, res, next));
 
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ * /api/auth/initiate-password-change:
+ *   post:
+ *     summary: Код для изменение пароля пользователя
+ *     description: Код для изменение пароля пользователя, используя ID пользователя
+ *     tags:
+ *       - Аутентификация
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Код успешно отправлен.
+ *       400:
+ *         description: Код для сброса пароля не удалось отправить.
+ *       500:
+ *         description: Произошла ошибка при отправке кода для сброса пароля.
+ */
 router.post("/initiate-password-change", auth, (req, res) =>
   userController.initiatePasswordChange(req, res)
 );
@@ -108,6 +131,7 @@ router.post("/initiate-password-change", auth, (req, res) =>
  *             required:
  *               - oldPassword
  *               - newPassword
+ *               - code
  *             properties:
  *               oldPassword:
  *                 type: string
@@ -115,6 +139,9 @@ router.post("/initiate-password-change", auth, (req, res) =>
  *               newPassword:
  *                 type: string
  *                 example: newP@ssw0rd2
+ *               code:
+ *                 type: string
+ *                 example: 3KYPA
  *     responses:
  *       200:
  *         description: Пароль успешно изменен.
