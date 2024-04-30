@@ -1,11 +1,10 @@
+"use client";
 import axios from "axios";
 
 interface IData {
   email: string;
   password: string;
 }
-
-``;
 
 export async function useLogin(data: IData): Promise<string | void> {
   try {

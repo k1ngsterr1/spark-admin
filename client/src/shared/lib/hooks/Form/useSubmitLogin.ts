@@ -8,14 +8,21 @@ export const useSubmitLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  
+
   const { errors, validateField } = useFieldValidator();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let isValid = true;
 
-    if (!validateField('email', email, /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'EMAIL_FORMAT')) {
+    if (
+      !validateField(
+        "email",
+        email,
+        /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        "EMAIL_FORMAT"
+      )
+    ) {
       isValid = false;
     }
 
@@ -34,6 +41,6 @@ export const useSubmitLogin = () => {
     setPassword,
     passwordError,
     handleSubmit,
-    errors
+    errors,
   };
 };
