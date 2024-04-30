@@ -1,8 +1,17 @@
 .step {
+  transition: 0.3s all;
   @apply shadow-orange-glow;
   @apply text-sm;
   @apply pt-1 pb-1;
-  @apply pr-2 pl-2;
+  @apply pr-3 pl-3;
   @apply bg-primary;
+  @apply rounded-full;
+}
+
+.step_inactive {
+  @apply text-sm;
+  @apply pt-1 pb-1;
+  @apply pr-3 pl-3;
+  @apply bg-dark-upper;
   @apply rounded-full;
 }

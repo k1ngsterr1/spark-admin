@@ -143,11 +143,11 @@ class WebsiteController {
     } catch (error) {
       console.log(error);
       res.status(500).json({
-        message: "Ошибка при получение пользователей вебсайта"
+        message: "Ошибка при получение пользователей вебсайта",
       });
     }
   }
-  
+
   //Получение всех вебсайтов и их пользователей
   async getAllWebsitesUsers(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
@@ -190,9 +190,11 @@ class WebsiteController {
       }
 
       res.status(200).json(websiteElements);
-    } catch(error){
+    } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Не удалось получить элементы с страницы"})
+      res
+        .status(500)
+        .json({ message: "Не удалось получить элементы с страницы" });
     }
   }
 
@@ -217,9 +219,11 @@ class WebsiteController {
         return;
       }
 
-      return res.status.json({ code: metaTag });
+      return res.status(200).json({ code: metaTag });
     } catch (error) {
-      res.status(500).json({ error: `Ошибка с получением кода веб-сайта: ${error.message}` });
+      res.status(500).json({
+        error: `Ошибка с получением кода веб-сайта: ${error.message}`,
+      });
     }
   }
 

@@ -28,7 +28,10 @@ export const CodePopup = () => {
         <div className={styles.website_popup__logo}>
           <Logo />
         </div>
-        <Step number={step} isActive />
+        <div className="flex items-center justify-center gap-4">
+          <Step number={step} margin="mt-4" isActive />
+          <Step number={2} margin="mt-4" isActive={false} />
+        </div>
         <span className={styles.website_popup__text}>
           получите ваш код для верификации
         </span>

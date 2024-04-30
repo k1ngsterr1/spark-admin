@@ -125,65 +125,60 @@ export class WebsiteRepository implements IWebsiteRepository {
 
   // Найти код по URL веб-сайта
   async getCodeByUrl(
-  ownerId: number,
-  url: string,
-  errors: ErrorDetails[]
-): Promise<string> {
-  try {
-    const website = await sequelize.getRepository(Website).findOne({
-      where: {
-        owner: ownerId, 
-        url: url,
-      },
-    });
+    ownerId: number,
+    url: string,
+    errors: ErrorDetails[]
+  ): Promise<string> {
+    try {
+      const website = await sequelize.getRepository(Website).findOne({
+        where: {
+          owner: ownerId,
+          url: url,
+        },
+      });
 
-    console.log(website.websiteCode);
+      console.log(ownerId);
+      console.log(url);
 
-    if (!website) {
-      throw new Error(
-        "Веб-сайт не найден, пожалуйста добавьте его в нашу базу данных."
-      );
-    } else if (website.owner !== ownerId) {
-      const errorMsg = "Вы не владелец этого веб-сайта.";
-      errors.push(new ErrorDetails(403, errorMsg));
-      return null; // Return null if the owner does not match
-    } else {
-      return website.websiteCode;
+      console.log("website code is here:", website.websiteCode);
+
+      if (!website) {
+        throw new Error(
+          "Веб-сайт не найден, пожалуйста добавьте его в нашу базу данных."
+        );
+      } else if (website.owner !== ownerId) {
+        const errorMsg = "Вы не владелец этого веб-сайта.";
+        errors.push(new ErrorDetails(403, errorMsg));
+        return null;
+      } else {
+        return website.websiteCode;
+      }
+    } catch (error) {
+      errors.push(new ErrorDetails(500, error.message));
+      return null;
     }
-  } catch (error) {
-    errors.push(new ErrorDetails(500, error.message));
-    return null;
-  }
   }
 
-
-  async findWebsitesUsers(errors: ErrorDetails[]): Promise<Website[]>{
-    try{
+  async findWebsitesUsers(errors: ErrorDetails[]): Promise<Website[]> {
+    try {
       const websites = await sequelize.getRepository(Website).findAll({
-        attributes: [
-          'id',
-          'owner'
-        ],
+        attributes: ["id", "owner"],
         include: [
           {
             model: sequelize.getRepository(User),
-            attributes: [
-              'username',
-              'email',
-              'isVerified'
-            ],
+            attributes: ["username", "email", "isVerified"],
             through: {
-              attributes: [
-                'role'
-              ]
-            }
-          }
-        ]
-      })
+              attributes: ["role"],
+            },
+          },
+        ],
+      });
       return websites;
-    } catch(error){
+    } catch (error) {
       console.log(error);
-      errors.push(new ErrorDetails(500, 'Ошибка при получение вебсайтов с базы данных'));
+      errors.push(
+        new ErrorDetails(500, "Ошибка при получение вебсайтов с базы данных")
+      );
       return [];
     }
   }

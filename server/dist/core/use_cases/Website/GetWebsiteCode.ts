@@ -13,7 +13,7 @@ export class GetWebsitesCode {
     ownerId: number,
     url: string,
     errors: ErrorDetails[]
-  ): Promise<string | null > {
+  ): Promise<string | null> {
     if (!ownerId || !url) {
       errors.push(
         new ErrorDetails(400, "Пожалуйста, предоставьте все нужные данные!")
@@ -25,7 +25,6 @@ export class GetWebsitesCode {
       url,
       errors
     );
-
 
     if (!url) {
       errors.push(
