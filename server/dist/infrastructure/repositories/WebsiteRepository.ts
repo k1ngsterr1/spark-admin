@@ -52,6 +52,7 @@ export class WebsiteRepository implements IWebsiteRepository {
       return null;
     }
   }
+
   // Найти по ID владельца
   async findByOwner(
     ownerId: number,
@@ -90,7 +91,7 @@ export class WebsiteRepository implements IWebsiteRepository {
     errors: ErrorDetails[]
   ): Promise<Website | null> {
     try {
-      console.log("working here!");
+      console.log("url is here:", url, "ownerID:", ownerId);
 
       return sequelize.getRepository(Website).findOne({
         where: {
@@ -138,9 +139,6 @@ export class WebsiteRepository implements IWebsiteRepository {
           url: url,
         },
       });
-
-      console.log(ownerId);
-      console.log(url);
 
       console.log("website code is here:", website.websiteCode);
 

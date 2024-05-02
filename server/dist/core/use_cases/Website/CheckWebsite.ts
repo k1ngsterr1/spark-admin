@@ -9,12 +9,11 @@ export class CheckWebsite {
     private websiteRepository
   ) {}
   async execute(
+    ownerId: number,
     url: string,
     expectedCode: string
   ): Promise<{ exists: boolean; isValid: boolean }> {
-    console.log("url is here:", url, "website is here:");
-
-    const website = await this.websiteRepository.findByUrl(url);
+    const website = await this.websiteRepository.findByUrl(ownerId, url);
 
     if (!website) {
       return { exists: false, isValid: false };

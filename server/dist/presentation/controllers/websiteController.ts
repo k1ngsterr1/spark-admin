@@ -230,20 +230,27 @@ class WebsiteController {
   // Проверка веб-сайта
   async checkWebsite(req: Request, res: Response) {
     try {
-      const url: string = req.body.url.match(
-        /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
-      );
+      const { url, code: expectedCode } = req.body;
+      const userID = req.user.id;
 
-      const expectedCode: string = req.body.code;
-      const stringifyUrl = url.toString();
+      // Regex to validate and extract URL
+      const validUrl =
+        url &&
+        url.match(
+          /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+        );
 
-      console.log("url:", url);
-
-      const result = await this.checkWebsiteUseCase.execute(url, expectedCode);
-
-      if (url === null) {
+      if (!validUrl) {
         return res.status(400).json({ message: "Введите корректную ссылку" });
       }
+
+      const matchedUrl = validUrl[0];
+
+      const result = await this.checkWebsiteUseCase.execute(
+        userID,
+        matchedUrl,
+        expectedCode
+      );
 
       if (!result.exists) {
         return res
@@ -261,15 +268,9 @@ class WebsiteController {
           .json({ message: "Пожалуйста введите код верификации" });
       }
 
-      if (!url) {
-        return res
-          .status(400)
-          .json({ message: "Введите URL сайта, который хотите подключить" });
-      }
-
       return res.status(201).json({ message: "Сайт был успешно проверен!" });
     } catch (error) {
-      console.error("Ошибка с проверкой веб-сайта:", error, { url: req.body });
+      console.error("Ошибка с проверкой веб-сайта:", error);
       res.status(500).json({
         error: "Ошибка с проверкой веб-сайта",
         details: error.message,
