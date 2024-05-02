@@ -6,13 +6,15 @@ import WebsiteService from "@services/websiteService";
 export class CheckWebsite {
   constructor(
     private websiteService: WebsiteService,
-    private WebsiteRepository
+    private websiteRepository
   ) {}
   async execute(
     url: string,
     expectedCode: string
   ): Promise<{ exists: boolean; isValid: boolean }> {
-    const website = await this.WebsiteRepository.findByUrl(url);
+    console.log("url is here:", url, "website is here:");
+
+    const website = await this.websiteRepository.findByUrl(url);
 
     if (!website) {
       return { exists: false, isValid: false };

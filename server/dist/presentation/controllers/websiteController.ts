@@ -237,6 +237,8 @@ class WebsiteController {
       const expectedCode: string = req.body.code;
       const stringifyUrl = url.toString();
 
+      console.log("url:", url);
+
       const result = await this.checkWebsiteUseCase.execute(url, expectedCode);
 
       if (url === null) {
@@ -248,6 +250,7 @@ class WebsiteController {
           .status(404)
           .json({ message: "Веб-сайта с данной ссылкой не существует :(" });
       }
+
       if (!result.isValid) {
         return res.status(422).json({ message: "Сайт не был подтвержден" });
       }
