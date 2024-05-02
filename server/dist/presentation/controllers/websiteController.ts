@@ -10,8 +10,8 @@ import { GetWebsiteUsers } from "@core/use_cases/Website/GetWebsiteUsers";
 import { GetWebsiteElements } from "@core/use_cases/Website/GetWebsiteElements";
 import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
 import { GetWebsitesCode } from "@core/use_cases/Website/GetWebsiteCode";
-import WebsiteService from "@services/websiteService";
 import { AllWebsitesUsers } from "@core/use_cases/Website/GetAllWebsitesUsers";
+import WebsiteService from "@services/websiteService";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
@@ -172,6 +172,7 @@ class WebsiteController {
     }
   }
 
+  // Получить элементов с веб-сайта
   async getElementsFromWebsite(req: Request, res: Response): Promise<void> {
     let errors: ErrorDetails[] = [];
     try {

@@ -158,6 +158,7 @@ export class WebsiteRepository implements IWebsiteRepository {
     }
   }
 
+  // Поиск пользователей веб-сайта
   async findWebsitesUsers(errors: ErrorDetails[]): Promise<Website[]> {
     try {
       const websites = await sequelize.getRepository(Website).findAll({
