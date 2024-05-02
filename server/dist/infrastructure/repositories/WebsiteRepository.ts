@@ -1,13 +1,12 @@
 import { Website } from "infrastructure/models/websiteModel";
-import sequelize from "infrastructure/config/sequelize";
-import { json } from "sequelize";
 import { NewWebsiteInput } from "@core/utils/types";
 import { Page } from "@infrastructure/models/pageModel";
 import { User } from "@infrastructure/models/userModel";
 import { ErrorDetails } from "@core/utils/utils";
-import cheerio from "cheerio";
-import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
+
+import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
+import sequelize from "infrastructure/config/sequelize";
 
 export class WebsiteRepository implements IWebsiteRepository {
   // Создать веб-сайт
