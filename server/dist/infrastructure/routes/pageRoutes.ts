@@ -1,5 +1,6 @@
 import authenticateToken from "@infrastructure/middleware/authMiddleware";
 import pageController from "@presentation/controllers/pageController";
+import componentRoutes from "./componentRoutes";
 
 const express = require("express");
 const router = express.Router();
@@ -130,5 +131,7 @@ router.get("/get-pages/:websiteId", (req, res) => pageController.getPages(req, r
  *         description: Произошла ошибка при удаление страницы
  */
 router.delete("/delete-page/:websiteId", (req, res) => pageController.deletePages(req, res));
+
+router.use("/component", componentRoutes);
 
 export default router;

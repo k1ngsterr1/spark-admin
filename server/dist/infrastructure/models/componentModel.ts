@@ -9,39 +9,39 @@ import {
     PrimaryKey,
     BelongsTo,
     ForeignKey,
+    Default,
 } from "sequelize-typescript";
-import { Website } from "./websiteModel";
-import { PageAttributes } from "@core/utils/types";
+import { ComponentAttributes } from "@core/utils/types";
+import { Page } from "./pageModel";
   
 @Table({
     tableName: "pages",
 })
-export class Page extends Model<PageAttributes>{
+export class Component extends Model<ComponentAttributes>{
     @PrimaryKey
     @AutoIncrement
     @Column(DataType.INTEGER)
     id!: number;
 
-    @ForeignKey(() => Website)
+    @ForeignKey(() => Page)
     @Column({
-        type: DataType.UUID,
-        onDelete: "CASCADE"
+        type: DataType.INTEGER,
+        onDelete: "CASCADE",
     })
-    @Column(DataType.UUID)
-    websiteId!: string;
+    pageId!: number;
 
-    @BelongsTo(() => Website)
-    website?: Website;
-
-    @Column(DataType.STRING)
-    url!: string;
+    @BelongsTo(() => Page)
+    page?: Page;
 
     @Column(DataType.STRING)
     name!: string;
 
     @Column(DataType.STRING)
-    type!: string;
-  
+    text!: string;
+
+    @Column(DataType.INTEGER)
+    blockId!: number;
+    
     @CreatedAt
     createdAt?: Date;
   

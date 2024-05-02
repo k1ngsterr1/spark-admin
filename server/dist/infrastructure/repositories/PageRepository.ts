@@ -5,15 +5,22 @@ import sequelize from "infrastructure/config/sequelize";
 
 export class PageRepository implements IPageRepository {
     async create(pageDetails: NewPageInput): Promise<Page>{
-        return sequelize.getRepository(Page).create(pageDetails);
+        return await sequelize.getRepository(Page).create(pageDetails);
     }
     async findByWebsiteId(websiteId: string): Promise<Page[]>{
-        return sequelize.getRepository(Page).findAll({
+        return await sequelize.getRepository(Page).findAll({
             where: { websiteId: websiteId }
         });
     }
+
+    async findByUrl(url: string): Promise<Page>{
+        return await sequelize.getRepository(Page).findOne({
+            where: { url: url }
+        });
+    }
+
     async deletePageByUrl(websiteId: string, url: string): Promise<void>{
-        sequelize.getRepository(Page).destroy({
+        await sequelize.getRepository(Page).destroy({
             where: {
                 websiteId: websiteId,
                 url: url
