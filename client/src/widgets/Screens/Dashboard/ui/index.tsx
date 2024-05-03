@@ -4,10 +4,9 @@ import WebsiteTab from "@entities/Tabs_Components/WebsiteTab/index";
 
 interface DashboardProps {
   sites: [];
-  isvalid: boolean;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ sites, isValid }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
   return (
     <div className="flex flex-col">
       <div className="flex w-[90%] justify-between items-center m-auto">
@@ -25,7 +24,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites, isValid }) => {
           />
         </div>
       </div>
-      <WebsiteTab sites={sites} isTokenValid={isValid} />
+      <WebsiteTab sites={sites} />
     </div>
   );
 };

@@ -1,25 +1,21 @@
-'use client'
-import React from "react";
-import { useTheme } from 'next-themes'
-
 import styles from "./styles.module.scss";
 
 interface UserTabProps {
-  name: string;
-  photo: string;
+  users: [];
 }
 
-export const UserTab: React.FC<UserTabProps> = ({ name, photo }) => {
-  const { theme } = useTheme()
+export const UserTab: React.FC<UserTabProps> = ({ users }) => {
 
   return (
-    <div className={styles.user_tab}>
-      <span className={styles.user_tab__name}>{name}</span>
-      <img
-        src={ theme === 'light' ? 'https://i.ibb.co.com/wS1Q77R/avatar.png' : 'https://i.ibb.co.com/KjvYd53/avatar-black.png'}
-        alt={`${name}'s profile photo`}
-        className={styles.user_tab__photo}
-      />
+    <div>
+      {users.map((user) => (
+        <section key={user.id}>
+          <div>Name: {user.username}</div>
+          <div>Owner: {user.email}</div>
+        </section>
+      ))}
     </div>
   );
 };
+
+export default UserTab;
