@@ -31,14 +31,16 @@ class WebsiteService {
       const html = await this.fetchHTMLContent(url);
       const $ = load(html);
 
-      // Using a selector to match elements similarly to how it was with Puppeteer
-      const buttons = this.getElementsWithSelector($, 'button[class*="vjs-play-control"]');
+      const elements = new ElementDetails();
 
-      return new ElementDetails(buttons);
+      elements.buttons = this.getElementsWithSelector($, '#spark-button');
+      elements.paragraphs = this.getElementsWithSelector($, '#spark-p');
+      elements.headers = this.getElementsWithSelector($, '#spark-h');
+
+      return elements;
     } catch (error) {
-      console.error('Error:', error);
-      errors.push(new ErrorDetails(500, 'Произошла ошибка при получении элементов'));
-      return new ElementDetails([]);
+      errors.push(new ErrorDetails(500, "Произошла ошибка при получении элементов"));
+      return new ElementDetails();
     }
   }
 

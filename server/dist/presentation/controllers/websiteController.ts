@@ -180,7 +180,7 @@ class WebsiteController {
   async getElementsFromWebsite(req: Request, res: Response): Promise<void> {
     let errors: ErrorDetails[] = [];
     try {
-      const url: string = req.body.url;
+      const url: string = req.params.url;
       console.log(url);
 
       const websiteElements = await this.getWebsiteElements.execute(
@@ -194,7 +194,7 @@ class WebsiteController {
         return;
       }
 
-      res.status(200).json(websiteElements);
+      res.status(200).json({ elements: websiteElements });
     } catch (error) {
       console.log(error);
       res
