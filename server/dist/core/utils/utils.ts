@@ -8,7 +8,12 @@ export class ErrorDetails {
 }
 export class ElementDetails {
     public buttons: string[];
-    constructor(buttons: string[]) {
+    public paragraphs: string[];
+    public headers: string[];
+
+    constructor(buttons: string[] = [], paragraphs: string[] = [], headers: string[] = []) {
         this.buttons = buttons;
+        this.paragraphs = paragraphs;
+        this.headers = headers;
     }
 }

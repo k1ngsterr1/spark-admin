@@ -95,6 +95,39 @@ router.get("/get-pages/:websiteId", (req, res) => pageController.getPages(req, r
  *     bearerAuth:
  *       type: http
  *       scheme: bearer
+ * /api/website/page/{url}:
+ *   get:
+ *     summary: Получение страницы
+ *     description: Получение страницы через url
+ *     tags:
+ *       - Страницы
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: url
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: https://sparkstudio.kz/main-page
+ *         description: Уникальный URL страницы
+ *     responses:
+ *       200:
+ *         description: Страница успешно удалена
+ *       400:
+ *         description: Не удалось удалить страницу
+ *       500:
+ *         description: Произошла ошибка при удаление страницы
+ */
+router.get("/:url", (req, res) => pageController.getPage(req, res));
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
  * /api/website/page/delete-page/{websiteId}:
  *   delete:
  *     summary: Удаление страницы для вебсайта
@@ -131,39 +164,6 @@ router.get("/get-pages/:websiteId", (req, res) => pageController.getPages(req, r
  *         description: Произошла ошибка при удаление страницы
  */
 router.delete("/delete-page/:websiteId", (req, res) => pageController.deletePages(req, res));
-
-/**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- * /api/website/page/{url}:
- *   get:
- *     summary: Получение страницы
- *     description: Получение страницы через url
- *     tags:
- *       - Страницы
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: url
- *         required: true
- *         schema:
- *           type: string
- *           example: https://sparkstudio.kz/main-page
- *         description: Уникальный URL страницы
- *     responses:
- *       200:
- *         description: Страница успешно удалена
- *       400:
- *         description: Не удалось удалить страницу
- *       500:
- *         description: Произошла ошибка при удаление страницы
- */
-router.get("/:url", (req, res) => pageController.getPage(req, res));
 
 router.use("/component", componentRoutes);
 
