@@ -92,6 +92,7 @@ class PageController{
 
       res.status(200).json({ page: page });
     } catch(error){
+      console.log(error);
       res.status(500).json({ message: "Произошла ошибка при получение страницы"});
     }
   }

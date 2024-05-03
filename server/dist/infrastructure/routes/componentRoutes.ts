@@ -1,6 +1,6 @@
 const express = require("express");
 import authenticateToken from "@infrastructure/middleware/authMiddleware";
-import componentController from "@presentation/controllers/ComponentController";
+import componentController from "@presentation/controllers/componentController";
 
 const router = express.Router();
 

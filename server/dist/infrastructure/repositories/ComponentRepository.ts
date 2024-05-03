@@ -7,4 +7,12 @@ export class ComponentRepository implements IComponentRepository {
     async create(componentDetails: NewComponentInput): Promise<Component>{
         return sequelize.getRepository(Component).create(componentDetails);
     }
+    async deleteById(id: number): Promise<void>{
+        await sequelize.getRepository(Component).destroy({
+            where: {
+                id: id,
+            }
+        })
+        .catch(error => console.log(error));
+    }
 }
