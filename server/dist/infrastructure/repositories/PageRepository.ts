@@ -20,14 +20,15 @@ export class PageRepository implements IPageRepository {
             include: [
                 {
                     model: sequelize.getRepository(Component),
+                    as: 'components',
                     attributes: [
                         "name",
                         "text",
                         "blockId"
-                    ],
-                    order: ['name', 'ASC']
+                    ]
                 }
-            ]
+            ],
+            order: [['components', 'name', 'ASC']],
         });
     }
 

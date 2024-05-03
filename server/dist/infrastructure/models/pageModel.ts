@@ -9,9 +9,11 @@ import {
     PrimaryKey,
     BelongsTo,
     ForeignKey,
+    HasMany,
 } from "sequelize-typescript";
 import { Website } from "./websiteModel";
 import { PageAttributes } from "@core/utils/types";
+import { Component } from "./componentModel";
   
 @Table({
     tableName: "pages",
@@ -21,6 +23,9 @@ export class Page extends Model<PageAttributes>{
     @AutoIncrement
     @Column(DataType.INTEGER)
     id!: number;
+
+    @HasMany(() => Component)
+    components!: Component[];
 
     @ForeignKey(() => Website)
     @Column({
