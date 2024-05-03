@@ -15,7 +15,7 @@ import { ComponentAttributes } from "@core/utils/types";
 import { Page } from "./pageModel";
   
 @Table({
-    tableName: "component",
+    tableName: "components",
 })
 export class Component extends Model<ComponentAttributes>{
     @PrimaryKey
