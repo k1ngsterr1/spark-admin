@@ -219,7 +219,9 @@ router.get("/users", (req, res) =>
  *       500:
  *         description: Произошла ошибка при попытке получения элементов
  */
-router.get("/get-elements/:url", (req, res) => websiteController.getElementsFromWebsite(req, res));
+router.get("/get-elements/:url", (req, res) =>
+  websiteController.getElementsFromWebsite(req, res)
+);
 
 /**
  * @swagger
@@ -252,7 +254,9 @@ router.get("/get-elements/:url", (req, res) => websiteController.getElementsFrom
  *       500:
  *         description: Серверная ошибка при попытке удаления вебсайта
  */
-router.delete("/delete", (req, res) => websiteController.deleteWebsite(req, res));
+router.delete("/delete", (req, res) =>
+  websiteController.deleteWebsite(req, res)
+);
 
 router.use("/page", pageRoutes);
 

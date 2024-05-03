@@ -14,11 +14,13 @@ import { AllWebsitesUsers } from "@core/use_cases/Website/GetAllWebsitesUsers";
 import { DeleteWebsite } from "@core/use_cases/Website/DeleteWebsite";
 
 import WebsiteService from "@services/websiteService";
+import { CheckVerification } from "@core/use_cases/Website/CheckVerification";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
   private websiteRepository: WebsiteRepository;
   private getWebsitesByOwner: GetWebsites;
+  private checkVerification: CheckVerification;
   private getWebsiteByName: GetWebsite;
   private getWebsiteCodeUseCase: GetWebsitesCode;
   private addUser: AddUser;
@@ -36,6 +38,7 @@ class WebsiteController {
     this.addWebsiteUseCase = new AddWebsite();
     this.getWebsitesByOwner = new GetWebsites();
     this.getWebsiteByName = new GetWebsite();
+    this.checkVerification = new CheckVerification();
     this.addUser = new AddUser();
     this.websiteUsers = new GetWebsiteUsers();
     this.checkWebsiteUseCase = new CheckWebsite(
@@ -181,20 +184,30 @@ class WebsiteController {
     let errors: ErrorDetails[] = [];
     try {
       const url: string = req.params.url;
-      console.log(url);
+      const userID: number = req.user.id;
 
-      const websiteElements = await this.getWebsiteElements.execute(
+      const isVerified = await this.checkVerification.execute(
+        userID,
         url,
         errors
       );
+
+      // Блок проверки верификации веб-сайтаb
+      if (isVerified === true) {
+        const websiteElements = await this.getWebsiteElements.execute(
+          url,
+          errors
+        );
+        res.status(200).json({ elements: websiteElements });
+      } else {
+        throw new Error("Ваш сайт не верифицирован!");
+      }
 
       if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json({ message: current_error.details });
         return;
       }
-
-      res.status(200).json({ elements: websiteElements });
     } catch (error) {
       console.log(error);
       res
@@ -234,6 +247,7 @@ class WebsiteController {
 
   // Проверка веб-сайта
   async checkWebsite(req: Request, res: Response) {
+    let errors: ErrorDetails[] = [];
     try {
       const { url, code: expectedCode } = req.body;
       const userID = req.user.id;
@@ -254,7 +268,8 @@ class WebsiteController {
       const result = await this.checkWebsiteUseCase.execute(
         userID,
         matchedUrl,
-        expectedCode
+        expectedCode,
+        errors
       );
 
       if (!result.exists) {
@@ -262,6 +277,8 @@ class WebsiteController {
           .status(404)
           .json({ message: "Веб-сайта с данной ссылкой не существует :(" });
       }
+
+      console.log("result.isValid:", result.isValid);
 
       if (!result.isValid) {
         return res.status(422).json({ message: "Сайт не был подтвержден" });
