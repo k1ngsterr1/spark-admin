@@ -24,7 +24,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
           />
         </div>
       </div>
-      <WebsiteTab sites={sites} />
+      {sites.map((site: any | unknown) => (
+        <WebsiteTab
+          key={site.id}
+          name={site.name}
+          url={site.url}
+          href={site.url}
+        />
+      ))}
     </div>
   );
 };

@@ -1,31 +1,37 @@
-import axios from "axios";
+"use client";
 
 import { useUserData } from "./useGetData";
-
+import { axiosInstance } from './../useInterceptor';
 export async function initiateChangePassword(): Promise<void | string> {
   try {
     // !ЖОПА
     const userData = useUserData();
     const accessToken = userData.accessToken;
 
-    const response = await axios.post(
-      "https://spark-admin-production.up.railway.app/api/auth/initiate-password-change",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+export const useInitiateChangePassword = () => {
 
-    console.log("Data created:", response.data);
-    window.location.href = "/change-password";
-  } catch (error: any | unknown) {
-    console.error("Failed to create data:", error);
-    if (error.response) {
-      return error.response.data.message;
-    } else {
-      return "An unexpected error occurred";
+  const initiateChangePassword = async (): Promise<void | string> => {
+    try {
+
+      const response = await axiosInstance.post(
+        "/api/auth/initiate-password-change",
+        {},
+      );
+
+      console.log("Data created:", response.data);
+      window.location.href = "/change-password";
+    } catch (error: any) {
+      console.error("Failed to create data:", error);
+      if (error.response) {
+        return error.response.data.message;
+      } else {
+        return "An unexpected error occurred";
+      }
     }
-  }
+  };
+
+  return initiateChangePassword;
+};
 }
+}
+

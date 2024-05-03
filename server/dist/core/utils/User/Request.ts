@@ -1,10 +1,11 @@
+import { ErrorDetails } from "../utils";
+
 export type ChangeRoleRequest = {
   userId: number;
   newRole: string;
 };
 export type ChangePasswordRequest = {
   id: number;
-  oldPassword: string;
   newPassword: string;
   code: string;
 };

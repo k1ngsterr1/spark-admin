@@ -128,7 +128,7 @@ router.post("/check-website", (req, res) =>
   websiteController.checkWebsite(req, res)
 );
 
-router.get("/get-code", (req, res) =>
+router.post("/get-code", (req, res) =>
   websiteController.getWebsiteCode(req, res)
 );
 
@@ -165,6 +165,66 @@ router.get("/get-code", (req, res) =>
 router.get("/get-users/:websiteID", (req, res) =>
   websiteController.getWebsiteUsers(req, res)
 );
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ * /api/website/users:
+ *   get:
+ *     summary: Получение всех вебсайтов с их пользователями
+ *     description: Получение всех вебсайтов с их пользователями через access токен
+ *     tags:
+ *       - Вебсайт
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Пользователи со всех вебсайтов успешно получены
+ *       400:
+ *         description: Не удалось получить пользователей со всех вебсайтов
+ *       500:
+ *         description: Произошла ошибка при получение пользователей со всех вебсайтов
+ */
+router.get("/users", (req, res) =>
+  websiteController.getAllWebsitesUsers(req, res)
+);
+
+/**
+ * @swagger
+ * /api/website/delete:
+ *   delete:
+ *     summary: Удаление вебсайта
+ *     description: Удаляет вебсайт, используя URL, предоставленный в теле запроса, через access токен.
+ *     tags:
+ *       - Вебсайт
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - url
+ *             properties:
+ *               url:
+ *                 type: string
+ *                 description: URL вебсайта, который нужно удалить
+ *                 example: https://sparkstudio.kz/
+ *     responses:
+ *       200:
+ *         description: Вебсайт успешно удален
+ *       400:
+ *         description: Ошибка в данных запроса
+ *       500:
+ *         description: Серверная ошибка при попытке удаления вебсайта
+ */
+router.delete("/delete", (req, res) => websiteController.deleteWebsite(req, res));
 
 // router.post("/get-elements", (req, res) => websiteController.getElementsFromWebsite(req, res));
 

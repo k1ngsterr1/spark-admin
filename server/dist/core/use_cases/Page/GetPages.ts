@@ -3,6 +3,7 @@ import { IPageRepository } from "@core/interfaces/IPageRepository";
 import { PageRepository } from "@infrastructure/repositories/PageRepository";
 import { IUserRepository } from "@core/interfaces/IUserRepository";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import { ErrorDetails } from "@core/utils/utils";
 
 export class GetPages {
   private pageRepository: IPageRepository;
@@ -12,14 +13,16 @@ export class GetPages {
     this.userRepository = new UserRepository();
   }
 
-  async execute(websiteId: string, userId: number): Promise<Page[]> {
+  async execute(websiteId: string, userId: number, errors: ErrorDetails[]): Promise<Page[]> {
     const pages = await this.pageRepository.findByWebsiteId(websiteId);
     if(pages === null){
-      throw new Error("Incorrect website ID");
+      errors.push(new ErrorDetails(404, "Не найдено ни одной страницы"));
+      return;
     }
     const user = await this.userRepository.getUserFromWebsite(websiteId, userId);
     if(user === null){
-      throw new Error("User not found");
+      errors.push(new ErrorDetails(404, "Не удалось найти пользователя"));
+      return;
     }
     return pages;
   }
