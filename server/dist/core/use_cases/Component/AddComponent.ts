@@ -23,12 +23,17 @@ export class AddComponent {
 
     const isValidUrl = await validURL(url);
     if(!isValidUrl) {
-        errors.push(new ErrorDetails(400, "Invalid URL"));
+        errors.push(new ErrorDetails(400, "Неправильный URL"));
         return;
     }
     const user = await this.userRepository.findByPk(userId);
+    if(user === null){
+      errors.push(new ErrorDetails(404, "Пользователь не найден."));
+      return;
+    }
+    
     if(!user.isSparkAdmin){
-      errors.push(new ErrorDetails(400, "У вас нет таких прав."));
+      errors.push(new ErrorDetails(403, "У вас нет таких прав."));
       return;
     }
     

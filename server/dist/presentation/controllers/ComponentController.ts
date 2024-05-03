@@ -42,8 +42,9 @@ class ComponentController{
     const errors: ErrorDetails[] = [];
     try{
       const id: number = req.body.id;
+      const userId: number = req.user.id;
 
-      await this.deleteComponentById.execute(id, errors);
+      await this.deleteComponentById.execute(id, userId, errors);
 
       if(errors.length > 0){
         const current_error = errors[0];

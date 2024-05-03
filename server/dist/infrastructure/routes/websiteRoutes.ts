@@ -193,6 +193,39 @@ router.get("/users", (req, res) =>
   websiteController.getAllWebsitesUsers(req, res)
 );
 
+/**
+ * @swagger
+ * /api/website/delete:
+ *   delete:
+ *     summary: Удаление вебсайта
+ *     description: Удаляет вебсайт, используя URL, предоставленный в теле запроса, через access токен.
+ *     tags:
+ *       - Вебсайт
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - url
+ *             properties:
+ *               url:
+ *                 type: string
+ *                 description: URL вебсайта, который нужно удалить
+ *                 example: https://sparkstudio.kz/
+ *     responses:
+ *       200:
+ *         description: Вебсайт успешно удален
+ *       400:
+ *         description: Ошибка в данных запроса
+ *       500:
+ *         description: Серверная ошибка при попытке удаления вебсайта
+ */
+router.delete("/delete", (req, res) => websiteController.deleteWebsite(req, res));
+
 // router.post("/get-elements", (req, res) => websiteController.getElementsFromWebsite(req, res));
 
 router.use("/page", pageRoutes);

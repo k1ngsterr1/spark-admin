@@ -15,16 +15,16 @@ export class DeleteWebsite {
     this.userRepository = new UserRepository();
   }
 
-  async execute(ownerId: number, url: string, error: ErrorDetails[]): Promise<Website> {
-    const website = await this.websiteRepository.findByUrl(ownerId, url);
+  async execute(ownerId: number, url: string, errors: ErrorDetails[]): Promise<Website> {
+    const website = await this.websiteRepository.findByUrl(ownerId, url, errors);
     const user = await this.userRepository.getUserFromWebsite(website.id, ownerId);
     if(website === null){
-      error.push(new ErrorDetails(404, "Вебсайта с таким URL не существует"));
+      errors.push(new ErrorDetails(404, "Вебсайта с таким URL не существует"));
       return;
     }
     const isValidUser = await validWebsiteUser(user, WebsiteCommand.delete);
     if(!isValidUser){
-      error.push(new ErrorDetails(403, "У вас недостаточно прав."));
+      errors.push(new ErrorDetails(403, "У вас недостаточно прав."));
       return;
     }
 
