@@ -20,7 +20,7 @@ export const Users: React.FC<UsersProps> = ({ users }) => {
         />
       </div>
       {/* <div className={styles.users__box}> */}
-      {/* <UserTab users={users} /> */}
+      <UserTab users={users} />
       {/* <div className={styles.user_container}>
           <div className={styles.user_container__rounder}></div>
           <div className={styles.user_container__items}>

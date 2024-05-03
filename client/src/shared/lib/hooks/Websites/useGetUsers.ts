@@ -1,4 +1,4 @@
-// функция для получения списка вебсайтов
+// функция для получения списка юзеров
 export async function useGetUsers() {
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImVtYWlsIjoiYXJ0ZW0uYW5kcmVldjIwMDAxMkBtYWlsLnJ1Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MTQ3MjE0NDcsImV4cCI6MTcxNDgwNzg0N30.EmXZXNgi1VRcaAxUsJyJQgicvFONpBZZGheWk1YN0Xs";
