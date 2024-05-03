@@ -1,3 +1,4 @@
+import { Component } from "@infrastructure/models/componentModel";
 import { Page } from "@infrastructure/models/pageModel";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import { User } from "infrastructure/models/userModel";
@@ -9,8 +10,8 @@ const sequelize = new Sequelize({
   database: "railway",
   host: "roundhouse.proxy.rlwy.net",
   username: "postgres",
-  password: "zcjzQLFuDKVVGVzeezuiohzbCLiSRImX",
-  port: 50777,
+  password: "VRvTUtkkzwzGlRtfpYiqsaFnafOTMwWr",
+  port: 54096,
   // database: process.env.DB_NAME,
   // host: process.env.DB_HOST,
   // username: process.env.DB_USER,
@@ -19,7 +20,7 @@ const sequelize = new Sequelize({
   dialect: "postgres",
   storage: ":memory:",
   logging: false,
-  models: [User, Website, Page, UserToWebsite],
+  models: [User, Website, Page, UserToWebsite, Component],
 });
 
 export default sequelize;

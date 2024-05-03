@@ -1,7 +1,7 @@
 import { AddPage } from "@core/use_cases/Page/AddPage";
 import { DeletePage } from "@core/use_cases/Page/DeletePage";
+import { GetPage } from "@core/use_cases/Page/GetPage";
 import { GetPages } from "@core/use_cases/Page/GetPages";
-import { JWTService } from "@core/use_cases/User/JWTService";
 import { NewPageRequest } from "@core/utils/Page/Request";
 import { ErrorDetails } from "@core/utils/utils";
 import { Request, Response } from "express"
@@ -10,12 +10,12 @@ class PageController{
   private addPageToWebsite: AddPage;
   private getPagesByWebsiteId: GetPages;
   private deletePageByWebsiteId: DeletePage;
-  private jwtService: JWTService;
+  private getPageByUrl: GetPage;
   constructor(){
     this.addPageToWebsite = new AddPage();
     this.getPagesByWebsiteId = new GetPages();
     this.deletePageByWebsiteId = new DeletePage();
-    this.jwtService = new JWTService();
+    this.getPageByUrl = new GetPage();
   }
   async addPage(req: Request, res: Response): Promise<void>{
     let errors: ErrorDetails[] = [];
@@ -44,11 +44,9 @@ class PageController{
     const errors: ErrorDetails[] = [];
     
     try{
-      const user = this.jwtService.getAccessPayload(req.cookies.access);
       const websiteId: string = req.params.websiteId;
-      console.log(websiteId);
 
-      const pages = await this.getPagesByWebsiteId.execute(websiteId, user.id, errors);
+      const pages = await this.getPagesByWebsiteId.execute(websiteId, req.user.id, errors);
 
       if(errors.length > 0){
         const current_error = errors[0];
@@ -78,6 +76,23 @@ class PageController{
       res.status(200).json({ message: "Страница была удалена" });
     } catch(error){
       res.status(500).json({ message: "Ошибка удаление страницы" , error: error.message})
+    }
+  }
+  async getPage(req: Request, res: Response): Promise<void>{
+    const errors: ErrorDetails[] = [];
+    try{
+      const url: string = req.params.url;
+      
+      const page = await this.getPageByUrl.execute(url, errors);
+
+      if(errors.length > 0){
+        const current_error = errors[0];
+        res.status(current_error.code).json({ message: current_error.details });
+      }
+
+      res.status(200).json({ page: page });
+    } catch(error){
+      res.status(500).json({ message: "Произошла ошибка при получение страницы"});
     }
   }
 }
