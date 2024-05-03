@@ -1,12 +1,10 @@
 import {
   faLink,
   faEdit,
-  faCalendar,
-  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./styles.module.scss";
-import { KebabMenu } from "@shared/ui/KebabMenu"; // Ensure this import path is correct
+import { KebabMenu } from "@shared/ui/KebabMenu"; 
 
 interface IWebsiteTabProps {
   name: string;

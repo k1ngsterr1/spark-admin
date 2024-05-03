@@ -9,7 +9,6 @@ import styles from "./styles.module.scss";
 
 export const UsersPage = async () => {
   const data = await useGetUsers();
-  console.log(data);
   return (
     <div className={styles.user}>
       <Menu />

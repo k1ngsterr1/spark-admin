@@ -1,19 +1,20 @@
 import styles from "./styles.module.scss";
 
 interface UserTabProps {
-  users: [];
+  username: string;
+  email: string;
+  role: string;
 }
 
-export const UserTab: React.FC<UserTabProps> = ({ users }) => {
+export const UserTab: React.FC<UserTabProps> = ({ username, email, role }) => {
   return (
-    <div>
-      {users.map((user) => (
-        <div key={user.id}>
-          <div>{user.username}</div>
-          <div>{user.email}</div>
-          <div>{user.role}</div>
-        </div>
-      ))}
+    <div className={styles.container}>
+          <div className={styles.container__rounder}></div>
+          <div className={styles.container__items}>
+          <div className={styles.container__user}>{username}</div>
+          <div className={styles.container__email}>{email}</div>
+          <div className={styles.container__role}>{role}</div>
+          </div>
     </div>
   );
 };

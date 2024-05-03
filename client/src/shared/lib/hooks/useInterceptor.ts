@@ -47,14 +47,12 @@ axiosInstance.interceptors.response.use(
           }
         } catch (refreshError) {
           console.error("Unable to refresh token:", refreshError);
-          // Очистить токены и обработать ошибку
           localStorage.removeItem('accessToken');
           localStorage.removeItem('refreshToken');
           return Promise.reject(refreshError);
         }
       } else {
         console.error("No refresh token available");
-        // Очистить токены и обработать ошибку
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         return Promise.reject(error);
