@@ -1,35 +1,66 @@
 "use client";
 import axios from "axios";
 
-interface IData {
-  email: string;
-  password: string;
-}
+// Создание экземпляра Axios с предустановленными конфигурациями
+export const axiosInstance = axios.create({
+  baseURL: 'https://spark-admin-production.up.railway.app'
+});
 
-// проверка jwt token
-
-export async function useIsTokenActive(data: IData): Promise<string | void> {
-  try {
-    const response = await axios.post(
-      "https://spark-admin-production.up.railway.app/access",
-      data
-    );
-
-    const accessToken = response.data.access;
-    localStorage.setItem("accessToken", accessToken);
-
-    const userData = {
-      id: response.data.user.id,
-      username: response.data.user.username,
-      email: response.data.user.email,
-      refreshToken: response.data.refreshToken,
-    };
-
-    localStorage.setItem("userData", JSON.stringify(userData));
-    return accessToken;
-  } catch (error: any) {
-    if (error.response) {
-      return error.response.data.message;
+// Добавление интерсептора для вставки JWT в заголовки каждого запроса
+axiosInstance.interceptors.request.use(
+  config => {
+    // Получение токена из локального хранилища
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
   }
-}
+);
+
+// Добавление интерсептора ответа для обработки истечения токена
+axiosInstance.interceptors.response.use(
+  response => {
+    return response
+  },
+  async error => {
+    const originalRequest = error.config;
+
+    if (error.response.status === 401 && !originalRequest._retry){
+      originalRequest._retry = true;
+      const refreshToken = localStorage.getItem('refreshToken');
+
+      if (refreshToken) {
+        try {
+          const res = await axios.post(`${axiosInstance.defaults.baseURL}/access`, {
+            refresh: refreshToken
+          });
+          if (res.status === 200) {
+            localStorage.setItem('accessToken', res.data.accessToken);
+            localStorage.setItem('refreshToken', res.data.refreshToken);
+            axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${res.data.accessToken}`;
+            originalRequest.headers['Authorization'] = `Bearer ${res.data.accessToken}`;
+            return axiosInstance(originalRequest);
+          }
+        } catch (refreshError) {
+          console.error("Unable to refresh token:", refreshError);
+          // Очистить токены и обработать ошибку
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
+          return Promise.reject(refreshError);
+        }
+      } else {
+        console.error("No refresh token available");
+        // Очистить токены и обработать ошибку
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        return Promise.reject(error);
+      }
+    }
+    return Promise.reject(error);
+    }
+)
+

@@ -6,11 +6,6 @@ interface DashboardProps {
   sites: [];
 }
 
-interface IWebsite {
-  name: string;
-  url: string;
-}
-
 export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
   return (
     <div className="flex flex-col">

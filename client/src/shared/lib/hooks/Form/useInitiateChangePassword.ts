@@ -5,11 +5,9 @@ import { axiosInstance } from './../useInterceptor';
 
 
 export const useInitiateChangePassword = () => {
-  const userData = useUserData();
 
   const initiateChangePassword = async (): Promise<void | string> => {
     try {
-      const accessToken = userData.accessToken;
 
       const response = await axiosInstance.post(
         "/api/auth/initiate-password-change",
