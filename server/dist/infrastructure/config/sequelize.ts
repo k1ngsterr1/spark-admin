@@ -8,10 +8,10 @@ import { Sequelize } from "sequelize-typescript";
 const sequelize = new Sequelize({
   repositoryMode: true,
   database: "railway",
-  host: "monorail.proxy.rlwy.net",
+  host: "viaduct.proxy.rlwy.net",
   username: "postgres",
-  password: "DcpNUPrVFSmrFxsZVVHDNMCOtsaOjYQP", 
-  port: 16769,
+  password: "YeLaFetsOyhuHGcrsYUVwhauMYYqngrW",
+  port: 53655,
   // database: process.env.DB_NAME,
   // host: process.env.DB_HOST,
   // username: process.env.DB_USER,
