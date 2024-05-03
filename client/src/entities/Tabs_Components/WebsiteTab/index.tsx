@@ -1,56 +1,46 @@
-import React from "react";
-import Image, { StaticImageData } from "next/image";
+import { faLink, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from "./styles.module.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCalendar,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
-import { KebabMenu } from "@shared/ui/KebabMenu";
 
-interface WebsiteTabProps {
-  text: string;
-  preview: StaticImageData;
-  userQuantity: number;
+interface DashboardProps {
+  sites: [];
 }
 
-export const WebsiteTab: React.FC<WebsiteTabProps> = ({ text, preview }) => {
+export const WebsiteTab: React.FC<DashboardProps> = ({ sites }) => {
   return (
-    <div className={styles.website_tab}>
-      <div className={styles.website_tab__preview_content}>
-        <Image
-          src={preview}
-          className={styles.website_tab__preview_content__preview}
-          alt={text}
-        />
-        <div className={styles.website_tab__preview_content__text_content}>
-          <span className={styles.text}>
-            Spark Studio - Студия веб-разработки
-          </span>
-          <div
-            className={styles.website_tab__preview_content__text_content__lower}
-          >
-            <div className="flex items-center gap-2">
-              <FontAwesomeIcon
-                icon={faUser}
-                className={styles.icon}
-                size="lg"
-              />
-              <span className={styles.count}>3</span>
+    <div className="flex flex-col">
+      <section className={styles.sites_section}>
+        <ul>
+          {sites.map((site) => (
+            <div key={site.id}>
+              <span className={styles.sites_section__name}>{site.name}</span>
+              <div className={styles.sites_section__row}>
+                <span className={styles.sites_section__row__click}>
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    className={styles.sites_section__row__item}
+                    size="md"
+                    color="#FF5722"
+                  />
+                  Редактировать Сайт
+                </span>
+                <a href={site.url} className={styles.sites_section__row__hover}>
+                  <FontAwesomeIcon
+                    icon={faLink}
+                    className={styles.sites_section__row__item}
+                    size="md"
+                    color="#FF5722"
+                  />
+                  {site.url}
+                </a>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <FontAwesomeIcon
-                icon={faCalendar}
-                className={styles.icon}
-                size="lg"
-              />
-              <span className={styles.count}>18.02.2024</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <KebabMenu />
+          ))}
+        </ul>
+      </section>
     </div>
   );
 };
+
+export default WebsiteTab;

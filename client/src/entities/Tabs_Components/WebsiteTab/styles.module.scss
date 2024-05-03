@@ -1,56 +1,43 @@
-.website_tab {
-  position: relative;
-  width: 100%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: 0.3s all;
-  @apply p-3;
-  @apply mt-4;
-  @apply rounded;
+.sites_section {
+  @apply p-8;
+  width: 40%;
+  margin-right: auto;
+  @apply mt-8;
+  @apply ml-16;
   @apply bg-primary-ALMOST_WHITE;
+  border-radius: 6px;
+  transition: 0.3s all;
+  &:hover {
+    @apply bg-primary-BG_LIGHT;
+    cursor: pointer;
+  }
 
-  &__preview_content {
+  &__name {
+    font-size: clamp(20px, 2.0832vw, 80px);
+    font-weight: 500;
+  }
+
+  &__row {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    margin: auto;
     @apply gap-4;
-
-    &__preview {
-      width: clamp(64px, 6.66624vw, 256px);
-      height: clamp(64px, 6.66624vw, 256px);
-      @apply rounded-md;
+    @apply mt-12;
+    &__item {
+      @apply mr-1.5;
+      align-items: center;
     }
-
-    &__text_content {
-      display: flex;
-      flex-direction: column;
-
-      &__lower {
-        display: flex;
-        flex-direction: row;
-        @apply mt-4;
-        @apply gap-8;
+    &__hover {
+      transition: 0.3s all;
+      &:hover {
+        @apply text-primary;
+      }
+    }
+    &__click {
+      &:hover {
+        cursor: pointer;
       }
     }
   }
-
-  &:hover {
-    @apply bg-primary-TRANSPARENT;
-  }
-}
-
-.text {
-  font-size: clamp(12.5px, 1.302vw, 50px);
-  @apply text-secondary;
-  @apply font-semibold;
-}
-
-.count {
-  @apply text-xl;
-  @apply text-gray-700;
-}
-
-.icon {
-  @apply text-primary;
 }
