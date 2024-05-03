@@ -1,4 +1,3 @@
-
 import { AddComponent } from "@core/use_cases/Component/AddComponent";
 import { DeleteComponent } from "@core/use_cases/Component/DeleteComponent";
 import { NewComponentRequest } from "@core/utils/Component/Request";
@@ -39,12 +38,13 @@ class ComponentController{
     }
   }
 
-  async DeleteComponent(req: Request, res: Response): Promise<void>{
+  async deleteComponent(req: Request, res: Response): Promise<void>{
     const errors: ErrorDetails[] = [];
     try{
       const id: number = req.body.id;
+      const userId: number = req.user.id;
 
-      await this.deleteComponentById.execute(id, errors);
+      await this.deleteComponentById.execute(id, userId, errors);
 
       if(errors.length > 0){
         const current_error = errors[0];

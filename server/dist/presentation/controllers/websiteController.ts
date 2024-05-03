@@ -12,6 +12,7 @@ import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepositor
 import { GetWebsitesCode } from "@core/use_cases/Website/GetWebsiteCode";
 import { AllWebsitesUsers } from "@core/use_cases/Website/GetAllWebsitesUsers";
 import WebsiteService from "@services/websiteService";
+import { DeleteWebsite } from "@core/use_cases/Website/DeleteWebsite";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
@@ -25,6 +26,7 @@ class WebsiteController {
   private websiteUsers: GetWebsiteUsers;
   private getWebsiteElements: GetWebsiteElements;
   private allWebsitesUsers: AllWebsitesUsers;
+  private deleteWebsiteByUrl: DeleteWebsite;
 
   constructor() {
     this.websiteService = new WebsiteService();
@@ -41,6 +43,7 @@ class WebsiteController {
     );
     this.getWebsiteElements = new GetWebsiteElements();
     this.allWebsitesUsers = new AllWebsitesUsers();
+    this.deleteWebsiteByUrl = new DeleteWebsite();
   }
 
   // Добавление веб-сайта
@@ -276,6 +279,26 @@ class WebsiteController {
         error: "Ошибка с проверкой веб-сайта",
         details: error.message,
       });
+    }
+  }
+
+  async deleteWebsite(req: Request, res: Response): Promise<void>{
+    const errors: ErrorDetails[] = [];
+    try{
+      const url: string = req.body.url;
+      const userId: number = req.user.id;
+
+      await this.deleteWebsiteByUrl.execute(userId, url, errors);
+
+      if(errors.length > 0){
+        const current_error = errors[0];
+        res.status(current_error.code).json({ message: current_error.details });
+        return;
+      }
+
+      res.status(200).json({ message: "Вебсайт успешно удален." });
+    }catch(error){
+      res.status(500).json({ message: "Ошибка при удаления вебсайта." });
     }
   }
 }
