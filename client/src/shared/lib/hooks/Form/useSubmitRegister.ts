@@ -1,77 +1,53 @@
-"use client";
+'use client';
 
 import { useState, FormEvent } from "react";
-import { useRegister } from "@shared/lib/hooks/Form/useRegister";
+import { useRegister } from '@shared/lib/hooks/Form/useRegister';
+import { useFieldValidator } from "./useValidate";
 
 export const useSubmitRegister = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [backendError, setBackendError] = useState('');
+
+  const { errors, validateField } = useFieldValidator();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let isValid = true;
 
-    if (password !== passwordConfirmation) {
-      setConfirmPasswordError("Пароли не совпадают");
+    if (!validateField('email', email, /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'EMAIL_FORMAT')) {
       isValid = false;
     }
 
-    if (password.length < 8) {
-      setPasswordError("Пароль должен содержать не менее 8 символов");
+    if (!validateField('passwordConfirmation', passwordConfirmation, new RegExp(`^${password}$`), 'PASSWORDS_NOT_MATCH')) {
       isValid = false;
     }
 
-    const upperCaseChar = /[A-Z]/;
-    if (!upperCaseChar.test(password)) {
-      setPasswordError("Пароль должен содержать хотя бы одну заглавную букву");
-      isValid = false;
-    }
-
-    const lowerCaseChar = /[a-z]/;
-    if (!lowerCaseChar.test(password)) {
-      setPasswordError("Пароль должен содержать хотя бы одну маленькую букву");
-      isValid = false;
-    }
-
-    const specialChar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-    if (!specialChar.test(password)) {
-      setPasswordError(
-        "Пароль должен содержать хотя бы один специальный символ"
-      );
+    if (!validateField('password',password, /^.{8,16}$/, 'AMOUNT_OF_SYMBOLS') ||
+        !validateField('password',password, /[A-Z]/, 'CAPITAL_LETTER') ||
+        !validateField('password',password, /[a-z]/, 'SMALL_LETTER') ||
+        !validateField('password',password, /[0-9]/, 'ONE_NUMBER') ||
+        !validateField('password',password, /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, 'ONE_SPECIAL_SYMBOL')) {
       isValid = false;
     }
 
     if (isValid) {
-      const result = await useRegister({
-        username,
-        email,
-        password,
-        passwordConfirmation,
-      });
-
-      if (typeof result === "string") {
-        setPasswordError(result);
+      const result = await useRegister({ username, email, password, passwordConfirmation });
+      if (typeof result === 'string') {
+        setBackendError(result);
       }
     }
   };
 
   return {
-    username,
-    setUsername,
-    email,
-    setEmail,
-    password,
-    setPassword,
-    passwordConfirmation,
-    setPasswordConfirmation,
-    passwordError,
-    setPasswordError,
-    confirmPasswordError,
-    setConfirmPasswordError,
+    username, setUsername,
+    email, setEmail,
+    password, setPassword,
+    passwordConfirmation, setPasswordConfirmation,
     handleSubmit,
+    errors,
+    backendError
   };
 };

@@ -1,18 +1,17 @@
-import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
 import WebsiteService from "@services/websiteService";
 
 // Подгрузка сайта и дальнейшая проверка веб-сайта на наличие нашего тэга
-
 export class CheckWebsite {
   constructor(
     private websiteService: WebsiteService,
-    private WebsiteRepository
+    private websiteRepository
   ) {}
   async execute(
+    ownerId: number,
     url: string,
     expectedCode: string
   ): Promise<{ exists: boolean; isValid: boolean }> {
-    const website = await this.WebsiteRepository.findByUrl(url);
+    const website = await this.websiteRepository.findByUrl(ownerId, url);
 
     if (!website) {
       return { exists: false, isValid: false };

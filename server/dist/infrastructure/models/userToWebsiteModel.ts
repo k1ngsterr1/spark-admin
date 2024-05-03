@@ -17,7 +17,7 @@ export default class UserToWebsite extends Model<UserToWebsiteAttributes> {
     userId!: number;
 
     @ForeignKey(() => Website)
-    @Column({ type: DataType.STRING, onDelete: 'CASCADE' })
+    @Column({ type: DataType.UUID, onDelete: 'CASCADE' })
     websiteId!: string;
 
     @BelongsTo(() => User, 'userId')

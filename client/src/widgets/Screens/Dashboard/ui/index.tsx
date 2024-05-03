@@ -6,6 +6,11 @@ interface DashboardProps {
   sites: [];
 }
 
+interface IWebsite {
+  name: string;
+  url: string;
+}
+
 export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
   return (
     <div className="flex flex-col">
@@ -24,7 +29,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
           />
         </div>
       </div>
-      <WebsiteTab sites={sites} />
+      {sites.map((site: any | unknown) => (
+        <WebsiteTab
+          key={site.id}
+          name={site.name}
+          url={site.url}
+          href={site.url}
+        />
+      ))}
     </div>
   );
 };

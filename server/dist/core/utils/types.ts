@@ -36,6 +36,15 @@ export interface PageAttributes {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface ComponentAttributes {
+  id: number;
+  pageId: number;
+  page: Page;
+  name: string;
+  text: string;
+  blockId: number;
+}
 export interface UserToWebsiteAttributes {
   id: number;
   websiteId: string;
@@ -90,6 +99,13 @@ export interface NewPageInput {
   url: string;
   name: string;
   type: string;
+}
+
+export interface NewComponentInput {
+  pageId: number;
+  name: string;
+  text: string;
+  blockId: number;
 }
 
 export enum WebsiteCommand {

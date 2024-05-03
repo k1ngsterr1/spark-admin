@@ -8,7 +8,8 @@ interface ICheckWebsiteData {
 }
 
 export function useGetWebsiteCode() {
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState<string>("");
+  const [code, setCode] = useState<string>("");
   const userData = useUserData();
 
   const getWebsiteCode = async (event: FormEvent<HTMLFormElement>) => {
@@ -16,7 +17,7 @@ export function useGetWebsiteCode() {
     try {
       const data: ICheckWebsiteData = { url };
       const response = await axios.post(
-        "https://spark-admin-production.up.railway.app/api/website/check-website",
+        "https://spark-admin-production.up.railway.app/api/website/get-code",
         data,
         {
           headers: {
@@ -24,11 +25,12 @@ export function useGetWebsiteCode() {
           },
         }
       );
+      setCode(response.data.code);
       console.log("Data created:", response.data);
     } catch (error: any | unknown) {
       console.error("Failed to create data:", error);
     }
   };
 
-  return { getWebsiteCode, url, setUrl };
+  return { getWebsiteCode, url, setUrl, code };
 }
