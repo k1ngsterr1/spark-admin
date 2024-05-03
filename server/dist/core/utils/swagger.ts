@@ -21,6 +21,7 @@ const options = {
     './infrastructure/routes/userRoutes.ts', 
     './infrastructure/routes/pageRoutes.ts', 
     './infrastructure/routes/websiteRoutes.ts',
+    './infrastructure/routes/componentRoutes.ts',
     './server.ts'
   ],
 };
