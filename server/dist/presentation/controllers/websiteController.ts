@@ -11,8 +11,9 @@ import { GetWebsiteElements } from "@core/use_cases/Website/GetWebsiteElements";
 import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
 import { GetWebsitesCode } from "@core/use_cases/Website/GetWebsiteCode";
 import { AllWebsitesUsers } from "@core/use_cases/Website/GetAllWebsitesUsers";
-import WebsiteService from "@services/websiteService";
 import { DeleteWebsite } from "@core/use_cases/Website/DeleteWebsite";
+
+import WebsiteService from "@services/websiteService";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
@@ -282,22 +283,23 @@ class WebsiteController {
     }
   }
 
-  async deleteWebsite(req: Request, res: Response): Promise<void>{
+  // Удалить веб-сайт
+  async deleteWebsite(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
-    try{
+    try {
       const url: string = req.body.url;
       const userId: number = req.user.id;
 
       await this.deleteWebsiteByUrl.execute(userId, url, errors);
 
-      if(errors.length > 0){
+      if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
       res.status(200).json({ message: "Вебсайт успешно удален." });
-    }catch(error){
+    } catch (error) {
       res.status(500).json({ message: "Ошибка при удаления вебсайта." });
     }
   }

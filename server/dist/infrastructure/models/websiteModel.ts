@@ -49,6 +49,9 @@ export class Website extends Model<WebsiteAttributes> {
   @Column(DataType.STRING)
   websiteCode!: string;
 
+  @Column(DataType.BOOLEAN)
+  isVerified!: boolean;
+
   @Column(DataType.INTEGER)
   owner!: number;
 

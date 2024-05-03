@@ -1,17 +1,13 @@
 "use client";
 
-import { useUserData } from "./useGetData";
-import { axiosInstance } from './../useInterceptor';
-
+import { axiosInstance } from "./../useInterceptor";
 
 export const useInitiateChangePassword = () => {
-
   const initiateChangePassword = async (): Promise<void | string> => {
     try {
-
       const response = await axiosInstance.post(
         "/api/auth/initiate-password-change",
-        {},
+        {}
       );
 
       console.log("Data created:", response.data);
@@ -28,5 +24,3 @@ export const useInitiateChangePassword = () => {
 
   return initiateChangePassword;
 };
-
-

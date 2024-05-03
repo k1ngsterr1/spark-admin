@@ -13,6 +13,8 @@ export class CheckWebsite {
   ): Promise<{ exists: boolean; isValid: boolean }> {
     const website = await this.websiteRepository.findByUrl(ownerId, url);
 
+    console.log("website is here:", ownerId, url);
+
     if (!website) {
       return { exists: false, isValid: false };
     }

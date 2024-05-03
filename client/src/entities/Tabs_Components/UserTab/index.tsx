@@ -5,15 +5,14 @@ interface UserTabProps {
 }
 
 export const UserTab: React.FC<UserTabProps> = ({ users }) => {
-
   return (
     <div>
-      {users.map((user) => (
+      {/* {users.websites.map((user) => (
         <section key={user.id}>
           <div>Name: {user.username}</div>
           <div>Owner: {user.email}</div>
         </section>
-      ))}
+      ))} */}
     </div>
   );
 };

@@ -3,64 +3,68 @@ import axios from "axios";
 
 // Создание экземпляра Axios с предустановленными конфигурациями
 export const axiosInstance = axios.create({
-  baseURL: 'https://spark-admin-production.up.railway.app'
+  baseURL: "https://spark-admin-production.up.railway.app",
 });
 
 // Добавление интерсептора для вставки JWT в заголовки каждого запроса
 axiosInstance.interceptors.request.use(
-  config => {
+  (config) => {
     // Получение токена из локального хранилища
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
-  error => {
+  (error) => {
     return Promise.reject(error);
   }
 );
 
 // Добавление интерсептора ответа для обработки истечения токена
 axiosInstance.interceptors.response.use(
-  response => {
-    return response
+  (response) => {
+    return response;
   },
-  async error => {
+  async (error) => {
     const originalRequest = error.config;
 
-    if (error.response.status === 401 && !originalRequest._retry){
+    if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      const refreshToken = localStorage.getItem('refreshToken');
+      const refreshToken = localStorage.getItem("refreshToken");
 
       if (refreshToken) {
         try {
-          const res = await axios.post(`${axiosInstance.defaults.baseURL}/access`, {
-            refresh: refreshToken
-          });
+          const res = await axios.post(
+            `${axiosInstance.defaults.baseURL}/access`,
+            {
+              refresh: refreshToken,
+            }
+          );
           if (res.status === 200) {
-            localStorage.setItem('accessToken', res.data.accessToken);
-            localStorage.setItem('refreshToken', res.data.refreshToken);
-            axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${res.data.accessToken}`;
-            originalRequest.headers['Authorization'] = `Bearer ${res.data.accessToken}`;
+            localStorage.setItem("accessToken", res.data.accessToken);
+            localStorage.setItem("refreshToken", res.data.refreshToken);
+            axiosInstance.defaults.headers.common["Authorization"] =
+              `Bearer ${res.data.accessToken}`;
+            originalRequest.headers["Authorization"] =
+              `Bearer ${res.data.accessToken}`;
             return axiosInstance(originalRequest);
           }
         } catch (refreshError) {
           console.error("Unable to refresh token:", refreshError);
           // Очистить токены и обработать ошибку
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('refreshToken');
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
           return Promise.reject(refreshError);
         }
       } else {
         console.error("No refresh token available");
         // Очистить токены и обработать ошибку
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
         return Promise.reject(error);
       }
     }
     return Promise.reject(error);
-    }
-)
-
+  }
+);
