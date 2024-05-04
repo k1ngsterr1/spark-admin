@@ -223,6 +223,10 @@ router.get("/get-elements/:url", (req, res) =>
   websiteController.getElementsFromWebsite(req, res)
 );
 
+router.post("/check-verification", (req, res) =>
+  websiteController.checkVerification(req, res)
+);
+
 /**
  * @swagger
  * /api/website/delete:

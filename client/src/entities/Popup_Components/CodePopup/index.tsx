@@ -29,6 +29,11 @@ export const CodePopup = () => {
     setStep(2);
   };
 
+  const handleCheckSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStep(3);
+  };
+
   return (
     <PopupGeneric onClose={toggleWebVerifyPopup}>
       <>

@@ -17,7 +17,9 @@ interface IWebsiteTabProps {
 export const WebsiteTab: React.FC<IWebsiteTabProps> = ({ name, href, url }) => {
   return (
     <div className="flex flex-col">
-      <div className={styles.sites_section}>
+      <div
+        className={`${styles.sites_section} dark:bg-dark-lighter hover:dark:bg-dark-upper`}
+      >
         <div className={styles.sites_section__name}>{name}</div>
         <div className={styles.sites_section__row}>
           <span className={styles.sites_section__row__click}>

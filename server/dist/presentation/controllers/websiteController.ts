@@ -12,15 +12,15 @@ import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepositor
 import { GetWebsitesCode } from "@core/use_cases/Website/GetWebsiteCode";
 import { AllWebsitesUsers } from "@core/use_cases/Website/GetAllWebsitesUsers";
 import { DeleteWebsite } from "@core/use_cases/Website/DeleteWebsite";
+import { CheckVerification } from "@core/use_cases/Website/CheckVerification";
 
 import WebsiteService from "@services/websiteService";
-import { CheckVerification } from "@core/use_cases/Website/CheckVerification";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
   private websiteRepository: WebsiteRepository;
   private getWebsitesByOwner: GetWebsites;
-  private checkVerification: CheckVerification;
+  private checkVerificationUseCase: CheckVerification;
   private getWebsiteByName: GetWebsite;
   private getWebsiteCodeUseCase: GetWebsitesCode;
   private addUser: AddUser;
@@ -33,12 +33,12 @@ class WebsiteController {
 
   constructor() {
     this.websiteService = new WebsiteService();
+    this.checkVerificationUseCase = new CheckVerification();
     this.getWebsiteCodeUseCase = new GetWebsitesCode();
     this.websiteRepository = new WebsiteRepository();
     this.addWebsiteUseCase = new AddWebsite();
     this.getWebsitesByOwner = new GetWebsites();
     this.getWebsiteByName = new GetWebsite();
-    this.checkVerification = new CheckVerification();
     this.addUser = new AddUser();
     this.websiteUsers = new GetWebsiteUsers();
     this.checkWebsiteUseCase = new CheckWebsite(
@@ -188,7 +188,7 @@ class WebsiteController {
 
       console.log("get elements from website");
 
-      const isVerified = await this.checkVerification.execute(
+      const isVerified = await this.checkVerificationUseCase.execute(
         userID,
         url,
         errors
@@ -295,12 +295,55 @@ class WebsiteController {
       }
 
       return res.status(201).json({ message: "Сайт был успешно проверен!" });
-    } catch (error) {
+    } catch (error: any | unknown) {
       console.error("Ошибка с проверкой веб-сайта:", error);
       res.status(500).json({
         error: "Ошибка с проверкой веб-сайта",
         details: error.message,
       });
+    }
+  }
+
+  async checkVerification(req: Request, res: Response) {
+    let errors: ErrorDetails[] = [];
+    try {
+      const { url } = req.body;
+      const userID = req.user.id;
+
+      // Regex to validate and extract URL
+      const validUrl =
+        url &&
+        url.match(
+          /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+        );
+
+      if (!validUrl) {
+        return res.status(400).json({ message: "Введите корректную ссылку" });
+      }
+
+      const matchedUrl = validUrl[0];
+
+      const result = await this.checkVerificationUseCase.execute(
+        userID,
+        matchedUrl,
+        errors
+      );
+
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json({ message: current_error.details });
+        return;
+      }
+
+      if (result === true) {
+        res.status(200).json({ message: "Ваш веб-сайт успешно подтвержден!" });
+      } else {
+        res.status(403).json({ message: "Ваш веб-сайт не был подтвержден!" });
+      }
+    } catch (error: any | unknown) {
+      res
+        .status(500)
+        .json({ message: "Ошибка при проверке верификации веб-сайта!" });
     }
   }
 
@@ -319,7 +362,7 @@ class WebsiteController {
         return;
       }
 
-      res.status(200).json({ message: "Вебсайт успешно удален." });
+      res.status(200).json({ message: "Веб-сайт успешно удален." });
     } catch (error) {
       res.status(500).json({ message: "Ошибка при удаления вебсайта." });
     }
