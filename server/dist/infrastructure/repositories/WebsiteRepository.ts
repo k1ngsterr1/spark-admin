@@ -90,7 +90,7 @@ export class WebsiteRepository implements IWebsiteRepository {
     errors: ErrorDetails[]
   ): Promise<Website | null> {
     try {
-      const website = sequelize.getRepository(Website).findOne({
+      const website = await sequelize.getRepository(Website).findOne({
         where: {
           owner: ownerId,
           url: url,

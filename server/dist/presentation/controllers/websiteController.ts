@@ -186,11 +186,15 @@ class WebsiteController {
       const url: string = req.params.url;
       const userID: number = req.user.id;
 
+      console.log("get elements from website");
+
       const isVerified = await this.checkVerification.execute(
         userID,
         url,
         errors
       );
+
+      console.log("isVerified:", isVerified);
 
       // Блок проверки верификации веб-сайтаb
       if (isVerified === true) {

@@ -20,14 +20,9 @@ export class CheckVerification {
       url,
       errors
     );
+
     const isVerified = website.isVerified;
 
-    console.log("isVerified:", isVerified);
-
-    if (isVerified !== false || true) {
-      return false;
-    } else {
-      return true;
-    }
+    return isVerified;
   }
 }
