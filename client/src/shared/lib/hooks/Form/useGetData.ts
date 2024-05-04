@@ -7,6 +7,7 @@ interface IUserData {
   accessToken: string | null;
 }
 
+// Хук для парсинга данных юзера из localStorage
 export const useUserData = (): IUserData => {
   const [userData, setUserData] = useState<IUserData>({
     username: null,

@@ -12,6 +12,7 @@ import { useCheckWebsiteVerification } from "@shared/lib/hooks/Websites/useCheck
 
 import styles from "./styles.module.scss";
 
+// Попап для проверки верифицирован ли веб-сайт
 export const CodePopup = () => {
   const { isWebVerifyPopupVisible, toggleWebVerifyPopup } = useUserPopup();
   const { checkVerificationWebsite, message } = useCheckWebsiteVerification();
