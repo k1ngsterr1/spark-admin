@@ -10,7 +10,6 @@ interface ICheckWebsiteData {
 
 export function useCheckWebsite() {
   const [url, setUrl] = useState("");
-  const userData = useUserData();
 
   const checkWebsite = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

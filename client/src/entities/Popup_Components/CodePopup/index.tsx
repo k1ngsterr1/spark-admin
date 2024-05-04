@@ -89,7 +89,7 @@ export const CodePopup = () => {
             </>
           )}
           {step === 3 && (
-            <div>
+            <div className="flex flex-col items-center">
               {!message ? <>Загрузка</> : <>{message}</>}
               <Button
                 onClick={toggleWebVerifyPopup}

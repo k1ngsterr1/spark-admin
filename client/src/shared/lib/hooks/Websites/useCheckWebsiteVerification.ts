@@ -1,6 +1,7 @@
 "use client";
 import { FormEvent, useState } from "react";
 import { axiosInstance } from "./../useInterceptor";
+import { ICheckWebsiteData } from "./useGetWebsiteCode";
 
 export function useCheckWebsiteVerification() {
   const [message, setMessage] = useState<string>();
@@ -9,11 +10,15 @@ export function useCheckWebsiteVerification() {
     event: FormEvent<HTMLFormElement>,
     url: string
   ) => {
+    const data: ICheckWebsiteData = { url };
+
     event.preventDefault();
     try {
+      console.log(url);
+
       const response = await axiosInstance.post(
-        "/api/website/check-website",
-        url
+        "/api/website/check-verification",
+        data
       );
 
       setMessage(response.data.message);
