@@ -1,5 +1,9 @@
 "use client";
+import { useUserData } from "./Form/useGetData";
 import axios from "axios";
+
+const data = localStorage.getItem("userData");
+const parsedData = JSON.parse(data!);
 
 // Создание экземпляра Axios с предустановленными конфигурациями
 export const axiosInstance = axios.create({
@@ -10,7 +14,8 @@ export const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     // Получение токена из локального хранилища
-    const token = localStorage.getItem("accessToken");
+    const token = parsedData.accessToken;
+
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }

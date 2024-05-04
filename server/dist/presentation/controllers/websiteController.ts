@@ -249,8 +249,8 @@ class WebsiteController {
     }
   }
 
-  // Проверка веб-сайта
-  async checkWebsite(req: Request, res: Response) {
+  // Верификация веб-сайта
+  async verifyWebsite(req: Request, res: Response) {
     let errors: ErrorDetails[] = [];
     try {
       const { url, code: expectedCode } = req.body;
@@ -304,6 +304,7 @@ class WebsiteController {
     }
   }
 
+  // Проверка верифицирован ли сайт
   async checkVerification(req: Request, res: Response) {
     let errors: ErrorDetails[] = [];
     try {

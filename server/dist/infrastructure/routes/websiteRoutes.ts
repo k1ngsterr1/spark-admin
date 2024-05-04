@@ -124,8 +124,8 @@ router.post("/add-user", (req, res) =>
  */
 router.get("/", (req, res) => websiteController.getWebsites(req, res));
 
-router.post("/check-website", (req, res) =>
-  websiteController.checkWebsite(req, res)
+router.post("/verify-website", (req, res) =>
+  websiteController.verifyWebsite(req, res)
 );
 
 router.post("/get-code", (req, res) =>
