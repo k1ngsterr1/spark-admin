@@ -10,7 +10,6 @@ export const Header = () => {
     <header className={styles.header}>
       <div className={styles.header__content}>
         <SearchBar />
-        <UserTab name="Ruslan Makhmatov" photo="RM" />
         <ThemeButton />
       </div>
     </header>

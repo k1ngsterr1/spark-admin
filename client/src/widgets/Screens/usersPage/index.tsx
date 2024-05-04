@@ -5,7 +5,7 @@ import { KebabMenu } from "@shared/ui/KebabMenu/index";
 import { UserTab } from "@entities/Tabs_Components/UserTab/index";
 
 interface UsersProps {
-  users: []; 
+  users: [];
 }
 
 export const Users: React.FC<UsersProps> = ({ users }) => {
@@ -21,10 +21,10 @@ export const Users: React.FC<UsersProps> = ({ users }) => {
       </div>
       {users.websites.map(website =>
         website.users.map(user => (
-          <UserTab 
-            key={user.id} 
-            username={user.username} 
-            email={user.email} 
+          <UserTab
+            key={user.id}
+            username={user.username}
+            email={user.email}
             role={user.UserToWebsite.role}
           />
         ))

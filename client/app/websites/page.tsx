@@ -15,6 +15,7 @@ interface DashboardProps {
 
 const WebsitesPage: React.FC<DashboardProps> = async () => {
   const data = await useGetWebsites();
+  console.log(data)
   return (
     <div className="flex">
       <Menu />

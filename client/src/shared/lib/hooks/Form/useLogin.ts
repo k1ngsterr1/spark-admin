@@ -1,5 +1,4 @@
-"use client";
-import axios from "axios";
+import { axiosInstance } from './../useInterceptor';
 
 interface IData {
   email: string;
@@ -8,10 +7,10 @@ interface IData {
 
 export async function useLogin(data: IData): Promise<string | void> {
   try {
-    const response = await axios.post(
-      "https://spark-admin-production.up.railway.app/api/auth/login",
-      data
+    const response = await axiosInstance.post(
+      "/api/auth/login", {}
     );
+
     console.log("Data created:", response.data);
     window.location.href = "/email-confirmation";
 

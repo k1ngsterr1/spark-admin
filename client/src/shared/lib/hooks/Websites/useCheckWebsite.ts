@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import { axiosInstance } from './../useInterceptor';
 import { FormEvent, useState } from "react";
 import { useUserData } from "../Form/useGetData";
 
@@ -15,14 +15,8 @@ export function useCheckWebsite() {
     event.preventDefault();
     try {
       const data: ICheckWebsiteData = { url };
-      const response = await axios.post(
-        "https://spark-admin-production.up.railway.app/api/website/check-website",
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${userData.accessToken} `,
-          },
-        }
+      const response = await axiosInstance.post(
+        "/api/website/check-website", {}
       );
       console.log("Data created:", response.data);
     } catch (error: any | unknown) {

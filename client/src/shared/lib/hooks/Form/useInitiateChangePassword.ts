@@ -1,15 +1,7 @@
 "use client";
-
-import { useUserData } from "./useGetData";
 import { axiosInstance } from './../useInterceptor';
-export async function initiateChangePassword(): Promise<void | string> {
-  try {
-    // !ЖОПА
-    const userData = useUserData();
-    const accessToken = userData.accessToken;
 
 export const useInitiateChangePassword = () => {
-
   const initiateChangePassword = async (): Promise<void | string> => {
     try {
 
@@ -32,6 +24,3 @@ export const useInitiateChangePassword = () => {
 
   return initiateChangePassword;
 };
-}
-}
-

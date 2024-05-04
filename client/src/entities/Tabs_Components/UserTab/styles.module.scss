@@ -3,25 +3,29 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 20%;
+  @apply w-96;
   border-radius: 6px;
   @apply mt-8;
   @apply ml-16;
   @apply bg-primary-ALMOST_WHITE;
   @apply p-8;
+
   &__rounder {
     border-radius: 100%;
     @apply p-8;
     background-color: rgb(212, 212, 212);
   }
+
   &__items {
     margin-right: auto;
     @apply pl-4;
   }
+
   &__user {
     font-size: clamp(8px, 0.83328vw, 32px);
   }
-  &__role{
+
+  &__role {
     @apply text-primary;
   }
 }
