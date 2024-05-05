@@ -62,7 +62,6 @@ export class AddWebsite {
         newWebsiteDetails,
         errors
       );
-      console.log(errors);
 
       await this.websiteRepository.addUser(
         newWebsite.id,
