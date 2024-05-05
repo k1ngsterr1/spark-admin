@@ -13,7 +13,7 @@ class WebsiteService {
   }
 
   // Получение страницы
-  async fetchHTMLContent(url: string, ownerId: number, errors: ErrorDetails[]): Promise<CheerioAPI> {
+  async fetchHTMLContent(url: string, ownerId: number, errors: ErrorDetails[]): Promise<string> {
     try {
       const website = await this.websiteRepository.findByUrl(ownerId, url, errors);
 
@@ -51,7 +51,8 @@ class WebsiteService {
   // Получение всех элементов вебсайта: кнопки, ссылки и т.д
   async getElements(url: string, ownerId: number, errors: ErrorDetails[]): Promise<ElementDetails> {
     try {
-      const $ = await this.fetchHTMLContent(url, ownerId, errors)
+      const html = await this.fetchHTMLContent(url, ownerId, errors);
+      const $ = load(html);
 
       const elements = new ElementDetails();
 

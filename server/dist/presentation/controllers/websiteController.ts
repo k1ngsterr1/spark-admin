@@ -200,6 +200,7 @@ class WebsiteController {
       if (isVerified === true) {
         const websiteElements = await this.getWebsiteElements.execute(
           url,
+          userID,
           errors
         );
         res.status(200).json({ elements: websiteElements });
@@ -368,7 +369,7 @@ class WebsiteController {
       res.status(500).json({ message: "Ошибка при удаления вебсайта." });
     }
   }
-  
+
 }
 
 export default new WebsiteController();

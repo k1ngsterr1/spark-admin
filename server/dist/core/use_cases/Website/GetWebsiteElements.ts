@@ -6,9 +6,9 @@ export class GetWebsiteElements {
   constructor() {
     this.websiteService = new WebsiteService();
   }
-  async execute(url: string, errors: ErrorDetails[]): Promise<ElementDetails>{
+  async execute(url: string, ownerId: number, errors: ErrorDetails[]): Promise<ElementDetails>{
       try{
-          const websiteElements = await this.websiteService.getElements(url, errors);
+          const websiteElements = await this.websiteService.getElements(url, ownerId, errors);
 
           if(websiteElements === null){
               errors.push(new ErrorDetails(404, "Элементы сайта не найдены"));
