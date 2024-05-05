@@ -1,6 +1,7 @@
 import { JSDOM } from "jsdom";
 import { IContentManipulator } from "@core/interfaces/IContentManipulator";
 
+// Манипуляции с HTML
 export class HtmlContentManipulator implements IContentManipulator {
   manipulate(content: string): string {
     const dom = new JSDOM(content);
