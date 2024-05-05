@@ -12,7 +12,7 @@ export class FetchPageContent {
     this.contentManipulator = new HtmlContentManipulator();
   }
 
-  async execute(url: string, errors: ErrorDetails): Promise<Page> {
+  async execute(url: string, errors: ErrorDetails[]): Promise<Page> {
     try {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();

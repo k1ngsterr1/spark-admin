@@ -123,7 +123,9 @@ router.get("/get-pages/:websiteId", (req, res) =>
  */
 router.get("/:url", (req, res) => pageController.getPage(req, res));
 
-// router.get("/fetch-content/:website/:page" => pageController)
+router.get("/fetch-content/:website/:page", (req, res) =>
+  pageController.fetchPageContent(req, res)
+);
 
 /**
  * @swagger
