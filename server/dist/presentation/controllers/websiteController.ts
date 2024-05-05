@@ -368,6 +368,7 @@ class WebsiteController {
       res.status(500).json({ message: "Ошибка при удаления вебсайта." });
     }
   }
+  
 }
 
 export default new WebsiteController();

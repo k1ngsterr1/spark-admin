@@ -4,18 +4,32 @@ import path from "path";
 
 const privateKeyPath = path.join(__dirname, '../../infrastructure/config/keys/private.pem');
 
+
+// изменил создание кода и сигнатуры
 const generateWebsiteCodeAndSignature = async (url: string) => {
-  const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
   const timestamp = new Date().getTime().toString();
   const baseString = `${url}-${timestamp}`;
-  const hash = crypto.createHash("sha256").update(baseString).digest("hex");
-  const code = `SPARK-STUDIO-${hash}`;
-  const signer = crypto.createSign("sha256");
+  const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
+  const signer = crypto.createSign('sha256');
   signer.update(baseString);
   signer.end();
-  const codeSignature = signer.sign(privateKey, "base64");
-  console.log("codesign=", codeSignature, "code=",code);
+  const codeSignature = signer.sign(privateKey, 'base64');;
+  const hash = crypto.createHash("sha256").update(codeSignature).digest("hex");
+  const code = `SPARK-STUDIO-${hash}`;
   return { code, codeSignature };
+};
+
+// валидация кода по сигнатуре
+export const validateCodeWithSignature = (code, codeSignature) => {
+  try {
+    const expected = crypto.createHash("sha256").update(Buffer.from(codeSignature, 'base64')).digest("hex");
+    const given = code.substring("SPARK-STUDIO-".length);
+
+    return expected === given;
+  } catch (error) {
+    console.error('Validation error:', error);
+    return false;
+  }
 };
 
 export default generateWebsiteCodeAndSignature;

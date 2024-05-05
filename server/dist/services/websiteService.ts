@@ -2,37 +2,48 @@
 import fetch from "node-fetch";
 import { CheerioAPI, load } from "cheerio";
 import { ElementDetails, ErrorDetails } from "@core/utils/utils";
+import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
+import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
+import { validateCodeWithSignature } from "@core/utils/generateWebsiteCode";
 
 class WebsiteService {
-  constructor() {}
+  private websiteRepository: IWebsiteRepository;
+  constructor() {
+    this.websiteRepository = new WebsiteRepository();
+  }
 
   // Получение страницы
-  async fetchHTMLContent(url: string): Promise<string> {
+  async fetchHTMLContent(url: string, ownerId: number, errors: ErrorDetails[]): Promise<CheerioAPI> {
     try {
+      const website = await this.websiteRepository.findByUrl(ownerId, url, errors);
+
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
       }
-      return response.text();
+      // проверка валидации
+      const html = await response.text();
+      const $ = load(html);
+
+      const code = $(`meta[name="spark-verification"]`).attr('content');
+      const isValid = validateCodeWithSignature(code, website.websiteSignature);
+      
+      if(!isValid) {
+        errors.push(new ErrorDetails(400, "Неправильная сигнатура"));
+        return;
+      }
+
+      return html;
     } catch (error) {
       console.error("Ошибка с подгрузкой HTML:", error);
       throw error;
     }
   }
 
-  // Проверка мета-тэга вебсайта
-  async checkMetaTag(html: string, expectedCode: string): Promise<boolean> {
-    const $ = load(html);
-    const metaContent = $('meta[name="spark-verification"]').attr("content");
-
-    return metaContent === expectedCode;
-  }
-
   // Получение всех элементов вебсайта: кнопки, ссылки и т.д
-  async getElements(url: string, errors: ErrorDetails[]): Promise<ElementDetails> {
+  async getElements(url: string, ownerId: number, errors: ErrorDetails[]): Promise<ElementDetails> {
     try {
-      const html = await this.fetchHTMLContent(url);
-      const $ = load(html);
+      const $ = await this.fetchHTMLContent(url, ownerId, errors)
 
       const elements = new ElementDetails();
 
