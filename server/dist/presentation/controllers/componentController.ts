@@ -12,7 +12,7 @@ class ComponentController {
     this.deleteComponentById = new DeleteComponent();
   }
 
-  // Получение компонентов
+  // Добавление компонентов
   async addComponent(req: Request, res: Response) {
     let errors: ErrorDetails[] = [];
     try {
