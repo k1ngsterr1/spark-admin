@@ -5,6 +5,7 @@ import { User } from "infrastructure/models/userModel";
 import { Website } from "infrastructure/models/websiteModel";
 import { Sequelize } from "sequelize-typescript";
 
+// Подключение к базе данных
 const sequelize = new Sequelize({
   repositoryMode: true,
   database: "railway",

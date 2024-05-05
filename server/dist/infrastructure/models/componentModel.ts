@@ -14,6 +14,7 @@ import {
 import { ComponentAttributes } from "@core/utils/types";
 import { Page } from "./pageModel";
   
+// Модель для компонент
 @Table({
     tableName: "components",
 })

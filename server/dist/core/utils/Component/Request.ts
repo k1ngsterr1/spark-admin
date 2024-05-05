@@ -1,3 +1,4 @@
+// Типы для запросов компонент
 export type NewComponentRequest = {
     userId: number;
     url: string;

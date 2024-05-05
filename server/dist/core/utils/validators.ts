@@ -13,7 +13,7 @@ export async function validEmail(email: string): Promise<boolean> {
   return true;
 }
 
-// Валидация паролей
+// Валидация пароля
 export async function validPassword(password: string, errors: ErrorDetails[]): Promise<boolean> {
   if (!validator.isLength(password, { min: 8, max: 16 })) {
     errors.push(new ErrorDetails(400, "Длина пароля должна быть от 8 до 16 символов"));

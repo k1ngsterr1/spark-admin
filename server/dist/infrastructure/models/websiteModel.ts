@@ -19,6 +19,7 @@ import { User } from "./userModel";
 import { WebsiteAttributes } from "@core/utils/types";
 import UserToWebsite from "./userToWebsiteModel";
 
+// Модель вебсайта со всеми аттрибутами
 @Table({
   tableName: "websites",
 })

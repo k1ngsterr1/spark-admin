@@ -1,5 +1,4 @@
-import { ErrorDetails } from "../utils";
-
+// Типы для запросов пользователя
 export type ChangeRoleRequest = {
   userId: number;
   newRole: string;

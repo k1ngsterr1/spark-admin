@@ -1,3 +1,4 @@
+// Создание верификации кода
 const generateVerificationCode = (length = 5) => {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let code = "";

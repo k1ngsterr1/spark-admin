@@ -6,6 +6,7 @@ import { ElementDetails, ErrorDetails } from "@core/utils/utils";
 class WebsiteService {
   constructor() {}
 
+  // Получение страницы
   async fetchHTMLContent(url: string): Promise<string> {
     try {
       const response = await fetch(url);
@@ -19,6 +20,7 @@ class WebsiteService {
     }
   }
 
+  // Проверка мета-тэга вебсайта
   async checkMetaTag(html: string, expectedCode: string): Promise<boolean> {
     const $ = load(html);
     const metaContent = $('meta[name="spark-verification"]').attr("content");
@@ -26,6 +28,7 @@ class WebsiteService {
     return metaContent === expectedCode;
   }
 
+  // Получение всех элементов вебсайта: кнопки, ссылки и т.д
   async getElements(url: string, errors: ErrorDetails[]): Promise<ElementDetails> {
     try {
       const html = await this.fetchHTMLContent(url);
@@ -44,6 +47,7 @@ class WebsiteService {
     }
   }
 
+  // Получение всех элементов вебсайта: кнопки, ссылки и т.д
   getElementsWithSelector($: CheerioAPI, selector: string): string[] {
     return $(selector).map((index, element) => $(element).prop('outerHTML')).get();
   }

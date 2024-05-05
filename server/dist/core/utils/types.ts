@@ -1,7 +1,8 @@
 import { Page } from "@infrastructure/models/pageModel";
 import { User } from "@infrastructure/models/userModel";
 import { Website } from "@infrastructure/models/websiteModel";
-//Attributes
+
+//Аттрибуты
 export interface UserAttributes {
   id: number;
   websiteId: string;
@@ -53,37 +54,6 @@ export interface UserToWebsiteAttributes {
   role: string;
 }
 
-export enum UserRole {
-  Owner = "owner",
-  Admin = "admin",
-  Editor = "editor",
-  User = "user",
-}
-
-export interface NewUserInput {
-  username: string;
-  email: string;
-  password: string;
-}
-
-export type UserResponse = {
-  id: number;
-  username: string;
-  email: string;
-  role: string;
-};
-
-export type UserPayload = {
-  id: number;
-  email: string;
-  role: string;
-};
-
-export type UserVerification = {
-  id: number;
-  code: string;
-};
-
 export interface NewWebsiteInput {
   name: string;
   url: string;
@@ -108,9 +78,43 @@ export interface NewComponentInput {
   blockId: number;
 }
 
+export interface NewUserInput {
+  username: string;
+  email: string;
+  password: string;
+}
+
+// Типы для нумерация
+export enum UserRole {
+  Owner = "owner",
+  Admin = "admin",
+  Editor = "editor",
+  User = "user",
+}
+
 export enum WebsiteCommand {
   update = "Update",
   create = "Create",
   delete = "Delete",
   get = "Get",
 }
+
+
+// Типы
+export type UserResponse = {
+  id: number;
+  username: string;
+  email: string;
+  role: string;
+};
+
+export type UserPayload = {
+  id: number;
+  email: string;
+  role: string;
+};
+
+export type UserVerification = {
+  id: number;
+  code: string;
+};

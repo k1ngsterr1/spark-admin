@@ -4,9 +4,13 @@ import { Component } from "@infrastructure/models/componentModel";
 import sequelize from "infrastructure/config/sequelize";
 
 export class ComponentRepository implements IComponentRepository {
+    
+    // Добавление компоненты: кнопка, параграф и т.д
     async create(componentDetails: NewComponentInput): Promise<Component>{
         return sequelize.getRepository(Component).create(componentDetails);
     }
+
+    // Удаление компоненты
     async deleteById(id: number): Promise<void>{
         await sequelize.getRepository(Component).destroy({
             where: {

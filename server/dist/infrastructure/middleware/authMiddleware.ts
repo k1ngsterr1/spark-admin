@@ -36,7 +36,6 @@ export const accessToken = async (req, res) => {
     return res.status(401).json({ message: "Вы не предоставили JWT токен" });
   }
   try {
-    console.log("Smth");
     const decodedUser = await jwt.verify(token, JWT_SECRET_REFRESH);
     const access = jwtService.generateAccessToken(decodedUser);
     res.status(201).json({ message: "Успешно создали access токен", access: access });
