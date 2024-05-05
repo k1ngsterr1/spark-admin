@@ -40,6 +40,14 @@ class WebsiteService {
     }
   }
 
+  // Проверка мета-тэга вебсайта
+  async checkMetaTag(html: string, expectedCode: string): Promise<boolean> {
+    const $ = load(html);
+    const metaContent = $('meta[name="spark-verification"]').attr("content");
+
+    return metaContent === expectedCode;
+  }
+
   // Получение всех элементов вебсайта: кнопки, ссылки и т.д
   async getElements(url: string, ownerId: number, errors: ErrorDetails[]): Promise<ElementDetails> {
     try {
