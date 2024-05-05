@@ -34,7 +34,7 @@ router.use(authenticateToken);
  *               - name
  *               - type
  *             properties:
- *               websiteId: 
+ *               websiteId:
  *                 type: string
  *                 example: 0bae8a7c-af38-49f4-a6a7-351853cb7448
  *               url:
@@ -86,7 +86,9 @@ router.post("/add", (req, res) => pageController.addPage(req, res));
  *       500:
  *         description: Произошла ошибка при получение страниц
  */
-router.get("/get-pages/:websiteId", (req, res) => pageController.getPages(req, res));
+router.get("/get-pages/:websiteId", (req, res) =>
+  pageController.getPages(req, res)
+);
 
 /**
  * @swagger
@@ -121,6 +123,8 @@ router.get("/get-pages/:websiteId", (req, res) => pageController.getPages(req, r
  */
 router.get("/:url", (req, res) => pageController.getPage(req, res));
 
+// router.get("/fetch-content/:website/:page" => pageController)
+
 /**
  * @swagger
  * components:
@@ -152,7 +156,7 @@ router.get("/:url", (req, res) => pageController.getPage(req, res));
  *             required:
  *               - url:
  *             properties:
- *               url: 
+ *               url:
  *                 type: string
  *                 example: https://sparkstudio.kz/
  *     responses:
@@ -163,7 +167,9 @@ router.get("/:url", (req, res) => pageController.getPage(req, res));
  *       500:
  *         description: Произошла ошибка при удаление страницы
  */
-router.delete("/delete-page/:websiteId", (req, res) => pageController.deletePages(req, res));
+router.delete("/delete-page/:websiteId", (req, res) =>
+  pageController.deletePages(req, res)
+);
 
 router.use("/component", componentRoutes);
 

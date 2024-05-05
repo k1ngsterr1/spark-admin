@@ -34,6 +34,7 @@ export interface PageAttributes {
   url: string;
   name: string;
   type: string;
+  content?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -98,7 +99,6 @@ export enum WebsiteCommand {
   delete = "Delete",
   get = "Get",
 }
-
 
 // Типы
 export type UserResponse = {
