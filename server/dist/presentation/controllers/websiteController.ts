@@ -196,6 +196,12 @@ class WebsiteController {
 
       console.log("isVerified:", isVerified);
 
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json({ message: current_error.details });
+        return;
+      }
+
       // Блок проверки верификации веб-сайтаb
       if (isVerified === true) {
         const websiteElements = await this.getWebsiteElements.execute(
@@ -206,12 +212,6 @@ class WebsiteController {
         res.status(200).json({ elements: websiteElements });
       } else {
         throw new Error("Ваш сайт не верифицирован!");
-      }
-
-      if (errors.length > 0) {
-        const current_error = errors[0];
-        res.status(current_error.code).json({ message: current_error.details });
-        return;
       }
     } catch (error) {
       console.log(error);

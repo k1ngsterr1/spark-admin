@@ -27,6 +27,7 @@ class WebsiteService {
 
       const code = $(`meta[name="spark-verification"]`).attr('content');
       const isValid = validateCodeWithSignature(code, website.websiteSignature);
+      console.log('isValid=',isValid, );
       
       if(!isValid) {
         errors.push(new ErrorDetails(400, "Неправильная сигнатура"));

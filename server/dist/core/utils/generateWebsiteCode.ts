@@ -13,7 +13,8 @@ const generateWebsiteCodeAndSignature = async (url: string) => {
   const signer = crypto.createSign('sha256');
   signer.update(baseString);
   signer.end();
-  const codeSignature = signer.sign(privateKey, 'base64');;
+  const codeSignature = signer.sign(privateKey, 'base64');
+  console.log(codeSignature);
   const hash = crypto.createHash("sha256").update(codeSignature).digest("hex");
   const code = `SPARK-STUDIO-${hash}`;
   return { code, codeSignature };
@@ -22,8 +23,9 @@ const generateWebsiteCodeAndSignature = async (url: string) => {
 // валидация кода по сигнатуре
 export const validateCodeWithSignature = (code, codeSignature) => {
   try {
-    const expected = crypto.createHash("sha256").update(Buffer.from(codeSignature, 'base64')).digest("hex");
+    const expected = crypto.createHash("sha256").update(codeSignature).digest("hex");
     const given = code.substring("SPARK-STUDIO-".length);
+    console.log('Expected Hash:', expected, 'Given Hash:', given);
 
     return expected === given;
   } catch (error) {
