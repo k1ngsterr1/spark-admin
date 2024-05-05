@@ -129,16 +129,18 @@ class PageController {
   // Получение контента страницы
   async fetchPageContent(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
-    const { url } = req.query;
+    const url = req.params.website;
 
-    if (errors.length > 0) {
-      const current_error = errors[0];
-      res.status(current_error.code).json({ message: current_error.details });
-    }
+    console.log(url);
 
     if (typeof url !== "string") {
       res.status(400).send("Введите правильную URL");
       return;
+    }
+
+    if (errors.length > 0) {
+      const current_error = errors[0];
+      res.status(current_error.code).json({ message: current_error.details });
     }
 
     try {
@@ -148,8 +150,9 @@ class PageController {
       );
 
       res.json({ html: pageContent });
-    } catch (error: any | unknown) {}
-    res.status(500).send("Не вышло получить контент страницы");
+    } catch (error: any | unknown) {
+      res.status(500).send("Не вышло получить контент страницы:", error);
+    }
   }
 }
 export default new PageController();

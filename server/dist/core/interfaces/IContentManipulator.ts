@@ -1,3 +1,3 @@
 export interface IContentManipulator {
-  manipulate(content: string): string;
+  manipulate(content: string, baseUrl: string): string;
 }

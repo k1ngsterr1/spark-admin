@@ -18,6 +18,10 @@ class ComponentController {
     try {
       const request: NewComponentRequest = {
         userId: req.user.id,
+        pageId: req.body.number,
+        elementType: req.body.elementType,
+        content: req.body.content,
+        attributes: req.body.attributes,
         url: req.body.url,
         name: req.body.name,
         text: req.body.text,

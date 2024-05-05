@@ -12,7 +12,7 @@ export class FetchPageContent {
     this.contentManipulator = new HtmlContentManipulator();
   }
 
-  async execute(url: string, errors: ErrorDetails[]): Promise<Page> {
+  async execute(url: string, errors: ErrorDetails[]): Promise<string> {
     try {
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
@@ -21,9 +21,13 @@ export class FetchPageContent {
       await browser.close();
 
       // Манипуляции с HTML контентом
-      content = this.contentManipulator.manipulate(content);
+      content = this.contentManipulator.manipulate(content, url);
 
-      return new Page(content);
-    } catch (error: any | unknown) {}
+      return content;
+    } catch (error: any | unknown) {
+      errors.push(
+        new ErrorDetails(500, "Ошибка с проверкой фэтчингом контента веб-сайта")
+      );
+    }
   }
 }

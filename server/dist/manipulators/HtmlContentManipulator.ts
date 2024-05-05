@@ -1,11 +1,14 @@
 import { JSDOM } from "jsdom";
 import { IContentManipulator } from "@core/interfaces/IContentManipulator";
+import { adjustAssetPaths } from "./AdjustAssetPaths";
 
 // Манипуляции с HTML
 export class HtmlContentManipulator implements IContentManipulator {
-  manipulate(content: string): string {
+  manipulate(content: string, baseUrl: string): string {
     const dom = new JSDOM(content);
     const document = dom.window.document;
+
+    adjustAssetPaths(document, baseUrl);
 
     document.querySelectorAll("h1").forEach((h) => {
       const input = document.createElement("input");

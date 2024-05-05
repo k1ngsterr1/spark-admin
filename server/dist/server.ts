@@ -9,14 +9,18 @@ import websiteRoutes from "infrastructure/routes/websiteRoutes";
 import auth from "@infrastructure/middleware/authMiddleware";
 import pageRoutes from "@infrastructure/routes/pageRoutes";
 import userRoutes from "@infrastructure/routes/userRoutes";
-import Redis from "@infrastructure/config/redis"
+import Redis from "@infrastructure/config/redis";
 import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
 import { accessToken } from "@infrastructure/middleware/authMiddleware";
 
 const app = express();
 
 // Создание сваггера
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { explorer: true }));
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, { explorer: true })
+);
 
 // Разрешены все Origins
 const corsOptions = {
@@ -69,6 +73,9 @@ app.use("/api/auth", authRoutes);
 
 // Логика для пользователей
 app.use("api/user", userRoutes);
+
+// Логика для страниц
+app.use("/api/page", pageRoutes);
 
 // Логика для вебсайта
 app.use("/api/website", websiteRoutes);
