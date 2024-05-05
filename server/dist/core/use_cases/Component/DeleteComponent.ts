@@ -14,6 +14,7 @@ export class DeleteComponent{
     }
     async execute(id: number, userId: number, errors: ErrorDetails[]): Promise<void>{
         const user = await this.userRepository.findByPk(userId);
+        
         if(user === null){
             errors.push(new ErrorDetails(404, "Пользователь не найден."));
             return; 
