@@ -115,11 +115,11 @@ router.get("/get-pages/:websiteId", (req, res) =>
  *         description: Уникальный URL страницы
  *     responses:
  *       200:
- *         description: Страница успешно удалена
+ *         description: Страница успешно получена
  *       400:
- *         description: Не удалось удалить страницу
+ *         description: Не удалось получить страницу
  *       500:
- *         description: Произошла ошибка при удаление страницы
+ *         description: Произошла ошибка при получение страницы
  */
 router.get("/:url", (req, res) => pageController.getPage(req, res));
 

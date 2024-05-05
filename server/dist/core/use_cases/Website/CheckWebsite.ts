@@ -23,7 +23,7 @@ export class CheckWebsite {
       return { exists: false, isValid: false };
     }
 
-    const html = await this.websiteService.fetchHTMLContent(website.url);
+    const html = await this.websiteService.fetchHTMLContent(website.url, ownerId, errors);
     const isValid = await this.websiteService.checkMetaTag(html, expectedCode);
 
     if (isValid) {
