@@ -1,3 +1,4 @@
+// Класс для вывода ошибок
 export class ErrorDetails {
     public code: number;
     public details: string;
@@ -6,6 +7,8 @@ export class ErrorDetails {
         this.details = details;
     }
 }
+
+// Класс для вывода элементов
 export class ElementDetails {
     public buttons: string[];
     public paragraphs: string[];

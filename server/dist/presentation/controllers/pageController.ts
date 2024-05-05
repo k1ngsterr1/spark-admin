@@ -17,6 +17,8 @@ class PageController{
     this.deletePageByWebsiteId = new DeletePage();
     this.getPageByUrl = new GetPage();
   }
+
+  // Добавление страницы
   async addPage(req: Request, res: Response): Promise<void>{
     let errors: ErrorDetails[] = [];
     try{
@@ -40,6 +42,8 @@ class PageController{
         res.status(500).json({message: "Ошибка добавления страницы для вебсайта", error: error.message});
     }
   }
+
+  // Получение страниц
   async getPages(req: Request, res: Response): Promise<void>{
     const errors: ErrorDetails[] = [];
     
@@ -59,6 +63,8 @@ class PageController{
       res.status(500).json({message: "Ошибка с получением страниц", error: error.message});
     }
   }
+
+  // Удаление страницы
   async deletePages(req: Request, res: Response): Promise<void>{
     const errors: ErrorDetails[] = [];
     try{
@@ -78,6 +84,8 @@ class PageController{
       res.status(500).json({ message: "Ошибка удаление страницы" , error: error.message})
     }
   }
+
+  // Получение страницы
   async getPage(req: Request, res: Response): Promise<void>{
     const errors: ErrorDetails[] = [];
     try{

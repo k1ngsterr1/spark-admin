@@ -1,3 +1,4 @@
+// Типы для запросов в хэш
 export interface AddRequest {
     table: string;
     key: string | number;

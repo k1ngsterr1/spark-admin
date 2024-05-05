@@ -15,6 +15,7 @@ import { Website } from "./websiteModel";
 import { PageAttributes } from "@core/utils/types";
 import { Component } from "./componentModel";
   
+// Модель для страниц
 @Table({
     tableName: "pages",
 })
