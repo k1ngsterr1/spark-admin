@@ -46,6 +46,9 @@ export interface ComponentAttributes {
   name: string;
   text: string;
   blockId: number;
+  elementType: string;
+  content: string;
+  attributes: object;
 }
 export interface UserToWebsiteAttributes {
   id: number;
@@ -74,6 +77,9 @@ export interface NewPageInput {
 
 export interface NewComponentInput {
   pageId: number;
+  elementType: string;
+  content: string;
+  attributes: object;
   name: string;
   text: string;
   blockId: number;

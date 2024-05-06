@@ -23,7 +23,7 @@ export class AddComponent {
     request: NewComponentRequest,
     errors: ErrorDetails[]
   ): Promise<void> {
-    const { userId, url, name, text, blockId } = request;
+    const { userId, url, name, text, blockId, elementType, attributes, content } = request;
 
     const isValidUrl = await validURL(url);
     if (!isValidUrl) {
@@ -43,11 +43,19 @@ export class AddComponent {
 
     const page = await this.pageRepository.findByUrl(url);
 
+    if(page === null){
+      errors.push(new ErrorDetails(404, "Страницы не найдена"));
+      return;
+    }
+
     const newComponent: NewComponentInput = {
       pageId: page.id,
       name: name,
       text: text,
       blockId: blockId,
+      elementType: elementType,
+      attributes: attributes,
+      content: content,
     };
 
     await this.componentRepository.create(newComponent);

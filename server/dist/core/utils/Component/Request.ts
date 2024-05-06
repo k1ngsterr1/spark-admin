@@ -2,10 +2,9 @@
 
 export type NewComponentRequest = {
   userId: number;
-  pageId: number;
   elementType: string;
   content: string;
-  attributes: string;
+  attributes: object;
   url: string;
   name: string;
   text: string;
@@ -14,10 +13,11 @@ export type NewComponentRequest = {
 
 export type SaveComponentRequest = {
   userId: number;
-  pageId: number;
+  componentId: number;
   elementType: string;
   content: string;
-  attributes: string;
+  attributes: object;
+  url: string;
   name: string;
   text: string;
   blockId: number;

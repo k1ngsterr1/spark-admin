@@ -60,7 +60,7 @@ router.use(authenticateToken);
  */
 router.post("/add", (req, res) => componentController.addComponent(req, res));
 
-router.post("/save", (req, res)=> componentController)
+router.post("/save", (req, res)=> componentController.saveComponent(req, res));
 
 /**
  * @swagger
