@@ -1,7 +1,6 @@
 "use client";
 import { FormEvent, useState } from "react";
 import { useUserData } from "../Form/useGetData";
-
 import { axiosInstance } from "./../useInterceptor";
 
 interface ICheckWebsiteData {
@@ -16,6 +15,7 @@ export function useCheckWebsite() {
     try {
       const data: ICheckWebsiteData = { url };
       const response = await axiosInstance.post(
+        "/api/website/check-website", {}
         "/api/website/check-website",
         data
       );

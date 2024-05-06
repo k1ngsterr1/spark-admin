@@ -4,16 +4,12 @@ import {
   faLink,
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
-
 import { useRouter } from 'next/navigation';
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { KebabMenu } from "@shared/ui/KebabMenu"; 
-
-import styles from "./styles.module.scss";
 import { SyntheticEvent } from "react";
 
+import styles from "./styles.module.scss";
 
 interface IWebsiteTabProps {
   name: string;

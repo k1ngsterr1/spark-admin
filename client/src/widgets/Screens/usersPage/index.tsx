@@ -19,17 +19,16 @@ export const Users: React.FC<UsersProps> = ({ users }) => {
           functionType="userPopup"
         />
       </div>
-      {/* <div className={styles.users__box}> */}
-      {/* <UserTab users={users} /> */}
-      {/* <div className={styles.user_container}>
-          <div className={styles.user_container__rounder}></div>
-          <div className={styles.user_container__items}>
-            <p className={styles.user_container__user}>UserName</p>
-            <span className="text-primary">Role</span>
-          </div>
-          <KebabMenu />
-        </div> */}
-      {/* </div> */}
+      {users.websites.map(website =>
+        website.users.map(user => (
+          <UserTab
+            key={user.id}
+            username={user.username}
+            email={user.email}
+            role={user.UserToWebsite.role}
+          />
+        ))
+      )}
     </div>
   );
 };
