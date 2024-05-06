@@ -1,5 +1,4 @@
-import { UserRole } from "../types";
-
+// Типы для запросов вебсайта
 export type AddUserRequest = {
   email: string;
   role: string;

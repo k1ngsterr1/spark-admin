@@ -3,6 +3,7 @@ import { User } from './userModel';
 import { Website } from './websiteModel';
 import { UserRole, UserToWebsiteAttributes } from '@core/utils/types';
 
+// Модель для моста между пользователем и вебсайтом 
 @Table({
     tableName: 'websites-users',
 })

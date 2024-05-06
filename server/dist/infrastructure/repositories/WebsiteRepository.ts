@@ -90,14 +90,14 @@ export class WebsiteRepository implements IWebsiteRepository {
     errors: ErrorDetails[]
   ): Promise<Website | null> {
     try {
-      console.log("url is here:", url, "ownerID:", ownerId);
-
-      return sequelize.getRepository(Website).findOne({
+      const website = await sequelize.getRepository(Website).findOne({
         where: {
           owner: ownerId,
           url: url,
         },
       });
+
+      return website;
     } catch (error) {
       errors.push(new ErrorDetails(500, error.message));
       return null;
@@ -175,9 +175,31 @@ export class WebsiteRepository implements IWebsiteRepository {
       });
       return websites;
     } catch (error) {
-      console.log(error);
       errors.push(
-        new ErrorDetails(500, "Ошибка при получение вебсайтов с базы данных")
+        new ErrorDetails(500, "Ошибка при получение веб-сайтов с базы данных")
+      );
+      return [];
+    }
+  }
+
+  // Обновление поля валидности веб-сайта
+  async updateIsValid(
+    isValid: boolean,
+    url: string,
+    errors: ErrorDetails[]
+  ): Promise<any> {
+    try {
+      const verificatedWebsite = await sequelize
+        .getRepository(Website)
+        .update({ isVerified: isValid } as any, { where: { url: url } });
+
+      return verificatedWebsite;
+    } catch (error: any | unknown) {
+      errors.push(
+        new ErrorDetails(
+          500,
+          "Ошибка с проверкой верификации веб-сайта с базы данных"
+        )
       );
       return [];
     }

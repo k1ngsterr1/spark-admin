@@ -5,13 +5,14 @@ import { User } from "infrastructure/models/userModel";
 import { Website } from "infrastructure/models/websiteModel";
 import { Sequelize } from "sequelize-typescript";
 
+// Подключение к базе данных
 const sequelize = new Sequelize({
   repositoryMode: true,
   database: "railway",
-  host: "monorail.proxy.rlwy.net",
+  host: "viaduct.proxy.rlwy.net",
   username: "postgres",
-  password: "DcpNUPrVFSmrFxsZVVHDNMCOtsaOjYQP", 
-  port: 16769,
+  password: "AFBlpdfvSuamDAfgUyNmeKCEaKYGHOCy",
+  port: 39229,
   // database: process.env.DB_NAME,
   // host: process.env.DB_HOST,
   // username: process.env.DB_USER,

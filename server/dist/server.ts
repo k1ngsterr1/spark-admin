@@ -9,14 +9,18 @@ import websiteRoutes from "infrastructure/routes/websiteRoutes";
 import auth from "@infrastructure/middleware/authMiddleware";
 import pageRoutes from "@infrastructure/routes/pageRoutes";
 import userRoutes from "@infrastructure/routes/userRoutes";
-import Redis from "@infrastructure/config/redis"
+import Redis from "@infrastructure/config/redis";
 import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
 import { accessToken } from "@infrastructure/middleware/authMiddleware";
 
 const app = express();
 
-// Создание сваггер роута
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { explorer: true }));
+// Создание сваггера
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, { explorer: true })
+);
 
 // Разрешены все Origins
 const corsOptions = {
@@ -37,7 +41,7 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(cookieParser());
 
-// Routes:
+// Роуты:
 
 /**
  * @swagger
@@ -48,21 +52,32 @@ app.use(cookieParser());
  *       scheme: bearer
  * /access:
  *   post:
- *     summary: Generate a new access token for a user.
- *     description: Generate a new access token for a user with a valid refresh token.
+ *     summary: Создание нового access token'а
+ *     description: Создание нового access token'а с помощью валидного refresh token'a
  *     tags:
  *       - Access Token
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       201:
- *         description: Access token generated successfully.
+ *         description: Access token был успешно создан
  *       400:
- *         description: Access token failed to generate.
+ *         description: Не удалось создать access token'a
+ *       500:
+ *         description: Произошла ошибка при создание access token'a
  */
 app.post("/access", (req, res) => accessToken(req, res));
+
+// Логика для аутентификация
 app.use("/api/auth", authRoutes);
+
+// Логика для пользователей
 app.use("api/user", userRoutes);
+
+// Логика для страниц
+app.use("/api/page", pageRoutes);
+
+// Логика для вебсайта
 app.use("/api/website", websiteRoutes);
 
 app.listen(port, () => {

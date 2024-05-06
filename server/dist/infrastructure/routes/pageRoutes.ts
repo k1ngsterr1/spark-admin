@@ -34,7 +34,7 @@ router.use(authenticateToken);
  *               - name
  *               - type
  *             properties:
- *               websiteId: 
+ *               websiteId:
  *                 type: string
  *                 example: 0bae8a7c-af38-49f4-a6a7-351853cb7448
  *               url:
@@ -86,7 +86,46 @@ router.post("/add", (req, res) => pageController.addPage(req, res));
  *       500:
  *         description: Произошла ошибка при получение страниц
  */
-router.get("/get-pages/:websiteId", (req, res) => pageController.getPages(req, res));
+router.get("/get-pages/:websiteId", (req, res) =>
+  pageController.getPages(req, res)
+);
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ * /api/website/page/{url}:
+ *   get:
+ *     summary: Получение страницы
+ *     description: Получение страницы через url
+ *     tags:
+ *       - Страницы
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: url
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: https://sparkstudio.kz/main-page
+ *         description: Уникальный URL страницы
+ *     responses:
+ *       200:
+ *         description: Страница успешно получена
+ *       400:
+ *         description: Не удалось получить страницу
+ *       500:
+ *         description: Произошла ошибка при получение страницы
+ */
+router.get("/:url", (req, res) => pageController.getPage(req, res));
+
+router.get("/fetch-content/:website/:pageId", (req, res) =>
+  pageController.fetchPageContent(req, res)
+);
 
 /**
  * @swagger
@@ -119,7 +158,7 @@ router.get("/get-pages/:websiteId", (req, res) => pageController.getPages(req, r
  *             required:
  *               - url:
  *             properties:
- *               url: 
+ *               url:
  *                 type: string
  *                 example: https://sparkstudio.kz/
  *     responses:
@@ -130,40 +169,9 @@ router.get("/get-pages/:websiteId", (req, res) => pageController.getPages(req, r
  *       500:
  *         description: Произошла ошибка при удаление страницы
  */
-router.delete("/delete-page/:websiteId", (req, res) => pageController.deletePages(req, res));
-
-/**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- * /api/website/page/{url}:
- *   get:
- *     summary: Получение страницы
- *     description: Получение страницы через url
- *     tags:
- *       - Страницы
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: url
- *         required: true
- *         schema:
- *           type: string
- *           example: https://sparkstudio.kz/main-page
- *         description: Уникальный URL страницы
- *     responses:
- *       200:
- *         description: Страница успешно удалена
- *       400:
- *         description: Не удалось удалить страницу
- *       500:
- *         description: Произошла ошибка при удаление страницы
- */
-router.get("/:url", (req, res) => pageController.getPage(req, res));
+router.delete("/delete-page/:websiteId", (req, res) =>
+  pageController.deletePages(req, res)
+);
 
 router.use("/component", componentRoutes);
 

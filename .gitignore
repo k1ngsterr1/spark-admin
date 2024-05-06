@@ -5,6 +5,8 @@ node_modules/
 # Optional npm cache directory
 .npm
 
+.VSCodeCounter
+
 # Optional eslint cache
 .eslintcache
 
@@ -27,8 +29,7 @@ yarn-error.log*
 .yarn-integrity
 
 # Generated files
-<<<<<<< HEAD
-=======
+
 /build/
 /logs/
 *.log
@@ -37,7 +38,7 @@ yarn-error.log*
 *.out
 *.pid
 *.gz
->>>>>>> 4232f39e8b4e895dd8e4c45a4a5a08b47590b929
+
 
 # Runtime data
 pids

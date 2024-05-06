@@ -1,10 +1,15 @@
+'use client'
+
 import {
   faLink,
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "./styles.module.scss";
 import { KebabMenu } from "@shared/ui/KebabMenu"; 
+import { SyntheticEvent } from "react";
+
+import styles from "./styles.module.scss";
 
 interface IWebsiteTabProps {
   name: string;
@@ -13,9 +18,18 @@ interface IWebsiteTabProps {
 }
 
 export const WebsiteTab: React.FC<IWebsiteTabProps> = ({ name, href, url }) => {
+  const router = useRouter();
+
+  const handleClick = (slug: string, event: SyntheticEvent) => {
+    event.stopPropagation()
+    router.push(`/website/${slug}`);
+  };
+
   return (
-    <div className="flex flex-col">
-      <div className={styles.sites_section}>
+    <div className="flex flex-col" onClick={(e)=>handleClick(name, e)}>
+      <div
+        className={`${styles.sites_section} dark:bg-dark-lighter hover:dark:bg-dark-upper`}
+      >
         <div className={styles.sites_section__name}>{name}</div>
         <div className={styles.sites_section__row}>
           <span className={styles.sites_section__row__click}>
@@ -27,7 +41,7 @@ export const WebsiteTab: React.FC<IWebsiteTabProps> = ({ name, href, url }) => {
             />
             Редактировать Сайт
           </span>
-          <a href={href} className={styles.sites_section__row__hover}>
+          <a href={href} onClick={(e: React.SyntheticEvent)=>e.stopPropagation()} target="_blank" className={styles.sites_section__row__hover}>
             <FontAwesomeIcon
               icon={faLink}
               className={styles.sites_section__row__item}

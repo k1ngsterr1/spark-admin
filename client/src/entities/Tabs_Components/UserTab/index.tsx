@@ -15,8 +15,5 @@ export const UserTab: React.FC<UserTabProps> = ({ username, email, role }) => {
           <div className={styles.container__email}>{email}</div>
           <div className={styles.container__role}>{role}</div>
           </div>
-    </div>
-  );
-};
-
+      
 export default UserTab;

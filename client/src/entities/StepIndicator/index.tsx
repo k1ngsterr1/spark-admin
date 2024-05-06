@@ -8,7 +8,7 @@ export const StepIndicator: React.FC<IStepIndicatorProps> = ({
   currentStep,
 }) => (
   <div className="flex items-center justify-center gap-4">
-    {[1, 2].map((step) => (
+    {[1, 2, 3].map((step) => (
       <Step
         key={step}
         number={step}

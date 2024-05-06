@@ -3,8 +3,8 @@
   width: 40%;
   margin-right: auto;
   @apply mt-8;
-  @apply ml-16;
-  @apply bg-primary-ALMOST_WHITE;
+  @apply ml-12;
+  @apply bg-gray-100;
   border-radius: 6px;
   transition: 0.3s all;
   &:hover {
@@ -24,18 +24,27 @@
     margin: auto;
     @apply gap-4;
     @apply mt-12;
+
     &__item {
       @apply mr-1.5;
       align-items: center;
     }
+
     &__hover {
+      width: 100%;
+      font-size: clamp(10px,1.0416vw,40px);
       transition: 0.3s all;
       &:hover {
         @apply text-primary;
       }
     }
+
     &__click {
+      width: 100%;
+      font-size: clamp(10px,1.0416vw,40px);
+      transition: 0.3s all;
       &:hover {
+        @apply text-primary;
         cursor: pointer;
       }
     }

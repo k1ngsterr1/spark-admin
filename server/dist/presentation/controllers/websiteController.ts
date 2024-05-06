@@ -11,13 +11,16 @@ import { GetWebsiteElements } from "@core/use_cases/Website/GetWebsiteElements";
 import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
 import { GetWebsitesCode } from "@core/use_cases/Website/GetWebsiteCode";
 import { AllWebsitesUsers } from "@core/use_cases/Website/GetAllWebsitesUsers";
-import WebsiteService from "@services/websiteService";
 import { DeleteWebsite } from "@core/use_cases/Website/DeleteWebsite";
+import { CheckVerification } from "@core/use_cases/Website/CheckVerification";
+
+import WebsiteService from "@services/websiteService";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
   private websiteRepository: WebsiteRepository;
   private getWebsitesByOwner: GetWebsites;
+  private checkVerificationUseCase: CheckVerification;
   private getWebsiteByName: GetWebsite;
   private getWebsiteCodeUseCase: GetWebsitesCode;
   private addUser: AddUser;
@@ -30,6 +33,7 @@ class WebsiteController {
 
   constructor() {
     this.websiteService = new WebsiteService();
+    this.checkVerificationUseCase = new CheckVerification();
     this.getWebsiteCodeUseCase = new GetWebsitesCode();
     this.websiteRepository = new WebsiteRepository();
     this.addWebsiteUseCase = new AddWebsite();
@@ -179,13 +183,18 @@ class WebsiteController {
   async getElementsFromWebsite(req: Request, res: Response): Promise<void> {
     let errors: ErrorDetails[] = [];
     try {
-      const url: string = req.body.url;
-      console.log(url);
+      const url: string = req.params.url;
+      const userID: number = req.user.id;
 
-      const websiteElements = await this.getWebsiteElements.execute(
+      console.log("get elements from website");
+
+      const isVerified = await this.checkVerificationUseCase.execute(
+        userID,
         url,
         errors
       );
+
+      console.log("isVerified:", isVerified);
 
       if (errors.length > 0) {
         const current_error = errors[0];
@@ -193,7 +202,17 @@ class WebsiteController {
         return;
       }
 
-      res.status(200).json(websiteElements);
+      // Блок проверки верификации веб-сайтаb
+      if (isVerified === true) {
+        const websiteElements = await this.getWebsiteElements.execute(
+          url,
+          userID,
+          errors
+        );
+        res.status(200).json({ elements: websiteElements });
+      } else {
+        throw new Error("Ваш сайт не верифицирован!");
+      }
     } catch (error) {
       console.log(error);
       res
@@ -231,8 +250,9 @@ class WebsiteController {
     }
   }
 
-  // Проверка веб-сайта
-  async checkWebsite(req: Request, res: Response) {
+  // Верификация веб-сайта
+  async verifyWebsite(req: Request, res: Response) {
+    let errors: ErrorDetails[] = [];
     try {
       const { url, code: expectedCode } = req.body;
       const userID = req.user.id;
@@ -253,7 +273,8 @@ class WebsiteController {
       const result = await this.checkWebsiteUseCase.execute(
         userID,
         matchedUrl,
-        expectedCode
+        expectedCode,
+        errors
       );
 
       if (!result.exists) {
@@ -261,6 +282,8 @@ class WebsiteController {
           .status(404)
           .json({ message: "Веб-сайта с данной ссылкой не существует :(" });
       }
+
+      console.log("result.isValid:", result.isValid);
 
       if (!result.isValid) {
         return res.status(422).json({ message: "Сайт не был подтвержден" });
@@ -273,7 +296,7 @@ class WebsiteController {
       }
 
       return res.status(201).json({ message: "Сайт был успешно проверен!" });
-    } catch (error) {
+    } catch (error: any | unknown) {
       console.error("Ошибка с проверкой веб-сайта:", error);
       res.status(500).json({
         error: "Ошибка с проверкой веб-сайта",
@@ -282,25 +305,71 @@ class WebsiteController {
     }
   }
 
-  async deleteWebsite(req: Request, res: Response): Promise<void>{
-    const errors: ErrorDetails[] = [];
-    try{
-      const url: string = req.body.url;
-      const userId: number = req.user.id;
+  // Проверка верифицирован ли сайт
+  async checkVerification(req: Request, res: Response) {
+    let errors: ErrorDetails[] = [];
+    try {
+      const { url } = req.body;
+      const userID = req.user.id;
 
-      await this.deleteWebsiteByUrl.execute(userId, url, errors);
+      // Regex to validate and extract URL
+      const validUrl =
+        url &&
+        url.match(
+          /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+        );
 
-      if(errors.length > 0){
+      if (!validUrl) {
+        return res.status(400).json({ message: "Введите корректную ссылку" });
+      }
+
+      const matchedUrl = validUrl[0];
+
+      const result = await this.checkVerificationUseCase.execute(
+        userID,
+        matchedUrl,
+        errors
+      );
+
+      if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
-      res.status(200).json({ message: "Вебсайт успешно удален." });
-    }catch(error){
+      if (result === true) {
+        res.status(200).json({ message: "Ваш веб-сайт успешно подтвержден!" });
+      } else {
+        res.status(403).json({ message: "Ваш веб-сайт не был подтвержден!" });
+      }
+    } catch (error: any | unknown) {
+      res
+        .status(500)
+        .json({ message: "Ошибка при проверке верификации веб-сайта!" });
+    }
+  }
+
+  // Удалить веб-сайт
+  async deleteWebsite(req: Request, res: Response): Promise<void> {
+    const errors: ErrorDetails[] = [];
+    try {
+      const url: string = req.body.url;
+      const userId: number = req.user.id;
+
+      await this.deleteWebsiteByUrl.execute(userId, url, errors);
+
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json({ message: current_error.details });
+        return;
+      }
+
+      res.status(200).json({ message: "Веб-сайт успешно удален." });
+    } catch (error) {
       res.status(500).json({ message: "Ошибка при удаления вебсайта." });
     }
   }
+
 }
 
 export default new WebsiteController();

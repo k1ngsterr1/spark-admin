@@ -124,8 +124,8 @@ router.post("/add-user", (req, res) =>
  */
 router.get("/", (req, res) => websiteController.getWebsites(req, res));
 
-router.post("/check-website", (req, res) =>
-  websiteController.checkWebsite(req, res)
+router.post("/verify-website", (req, res) =>
+  websiteController.verifyWebsite(req, res)
 );
 
 router.post("/get-code", (req, res) =>
@@ -195,6 +195,40 @@ router.get("/users", (req, res) =>
 
 /**
  * @swagger
+ * /api/website/get-elements/{url}:
+ *   get:
+ *     summary: Получение элементов вебсайта
+ *     description: Получает HTML элементы с указанного URL, используя переданный в теле запроса URL.
+ *     tags:
+ *       - Вебсайт
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: url
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: https://samigroup.kz/
+ *         description: URL вебсайта
+ *     responses:
+ *       200:
+ *         description: Элементы успешно извлечены
+ *       400:
+ *         description: Ошибка в данных запроса
+ *       500:
+ *         description: Произошла ошибка при попытке получения элементов
+ */
+router.get("/get-elements/:url", (req, res) =>
+  websiteController.getElementsFromWebsite(req, res)
+);
+
+router.post("/check-verification", (req, res) =>
+  websiteController.checkVerification(req, res)
+);
+
+/**
+ * @swagger
  * /api/website/delete:
  *   delete:
  *     summary: Удаление вебсайта
@@ -224,9 +258,9 @@ router.get("/users", (req, res) =>
  *       500:
  *         description: Серверная ошибка при попытке удаления вебсайта
  */
-router.delete("/delete", (req, res) => websiteController.deleteWebsite(req, res));
-
-// router.post("/get-elements", (req, res) => websiteController.getElementsFromWebsite(req, res));
+router.delete("/delete", (req, res) =>
+  websiteController.deleteWebsite(req, res)
+);
 
 router.use("/page", pageRoutes);
 

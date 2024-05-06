@@ -20,6 +20,7 @@ import { Website } from "./websiteModel";
 import { UserAttributes, UserRole } from "@core/utils/types";
 import UserToWebsite from "./userToWebsiteModel";
 
+// Модель пользователя
 @Table({
   tableName: "users",
 })

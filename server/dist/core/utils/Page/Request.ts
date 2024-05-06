@@ -1,3 +1,4 @@
+// Типы для запросов страницы
 export type NewPageRequest  = {
     websiteId: string;
     userId: number;

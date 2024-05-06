@@ -19,6 +19,7 @@ import { User } from "./userModel";
 import { WebsiteAttributes } from "@core/utils/types";
 import UserToWebsite from "./userToWebsiteModel";
 
+// Модель вебсайта со всеми аттрибутами
 @Table({
   tableName: "websites",
 })
@@ -48,6 +49,9 @@ export class Website extends Model<WebsiteAttributes> {
   @Unique
   @Column(DataType.STRING)
   websiteCode!: string;
+
+  @Column(DataType.BOOLEAN)
+  isVerified!: boolean;
 
   @Column(DataType.INTEGER)
   owner!: number;

@@ -1,7 +1,7 @@
 "use client";
-import { axiosInstance } from './../useInterceptor';
 import { FormEvent, useState } from "react";
 import { useUserData } from "../Form/useGetData";
+import { axiosInstance } from "./../useInterceptor";
 
 interface ICheckWebsiteData {
   url: string;
@@ -9,7 +9,6 @@ interface ICheckWebsiteData {
 
 export function useCheckWebsite() {
   const [url, setUrl] = useState("");
-  const userData = useUserData();
 
   const checkWebsite = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -17,6 +16,8 @@ export function useCheckWebsite() {
       const data: ICheckWebsiteData = { url };
       const response = await axiosInstance.post(
         "/api/website/check-website", {}
+        "/api/website/check-website",
+        data
       );
       console.log("Data created:", response.data);
     } catch (error: any | unknown) {

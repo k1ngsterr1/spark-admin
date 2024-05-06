@@ -3,10 +3,11 @@ import { axiosInstance } from './../useInterceptor';
 import { FormEvent, useState } from "react";
 import { useUserData } from "../Form/useGetData";
 
-interface ICheckWebsiteData {
+export interface ICheckWebsiteData {
   url: string;
 }
 
+// Хук для получения кода верификации веб-сайта
 export function useGetWebsiteCode() {
   const [url, setUrl] = useState<string>("");
   const [code, setCode] = useState<string>("");
