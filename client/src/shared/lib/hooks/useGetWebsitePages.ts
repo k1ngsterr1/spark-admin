@@ -4,8 +4,10 @@ import { axiosInstance } from "../../lib/hooks/useInterceptor";
 
 export const useGetWebsitePages = (websiteName: string) => {
   const [pageContent, setPageContent] = useState(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getWebsitePages = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await axiosInstance.get(
         `/api/page/get-pages/${websiteName}`
@@ -15,6 +17,8 @@ export const useGetWebsitePages = (websiteName: string) => {
       console.log("Data fetched:", response.data.pages);
     } catch (error) {
       console.error("Failed to fetch websites:", error);
+    } finally {
+      setIsLoading(false);
     }
   }, [websiteName]);
 
@@ -22,5 +26,5 @@ export const useGetWebsitePages = (websiteName: string) => {
     getWebsitePages();
   }, [getWebsitePages]);
 
-  return { pageContent };
+  return { pageContent, isLoading };
 };
