@@ -1,14 +1,17 @@
 'use client';
-
+import { useState } from "react";
 import { axiosInstance } from "../../lib/hooks/useInterceptor";
 
 
 export const useGetWebsitePages = () => {
+    const [pageContent, setPageContent] = useState()
 
     const getWebsitePages = async (websiteName: string): Promise<string | void> => {
         try {
             const response = await axiosInstance.get(`/api/page/get-pages/${websiteName}`,
             );
+            
+            setPageContent(response.data)
 
             console.log('Data fetched:', response.data);
         } catch (error: any) {
@@ -21,5 +24,5 @@ export const useGetWebsitePages = () => {
         }
     };
 
-    return {getWebsitePages};
+    return {getWebsitePages, pageContent};
 };
