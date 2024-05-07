@@ -1,13 +1,20 @@
 'use client'
-
+import { useRouter } from 'next/router';
 import { Header } from "@features/Header";
 import { Menu } from "@features/Menu";
 import { WebsiteInner } from "@widgets/Screens/WebsiteInner/ui";
 import { useGetWebsitePages } from "@shared/lib/hooks/useGetWebsitePages";
+import { useEffect } from "react";
 
 const WebsiteEditPage = ({ params }: { params: { slug: string } }) => {
-    
-  const getWebsitePages = useGetWebsitePages
+    console.log(params)
+
+//   const {getWebsitePages} = useGetWebsitePages()
+//  useEffect(() => {
+//     if (slug && typeof slug === 'string') {
+//       getWebsitePages(slug);
+//     }
+//   }, [slug]);
 
   return (
     <div className="flex">
