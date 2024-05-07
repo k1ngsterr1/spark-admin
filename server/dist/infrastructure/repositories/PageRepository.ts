@@ -18,6 +18,13 @@ export class PageRepository implements IPageRepository {
         });
     }
 
+        // Найти страницу по имени
+    async findByWebsiteName(websiteName: string): Promise<Page[]>{
+        return await sequelize.getRepository(Page).findAll({
+            where: { name: websiteName }
+        });
+    }
+
     // Найти страницу по URL
     async findByUrl(url: string): Promise<Page>{
         return await sequelize.getRepository(Page).findOne({

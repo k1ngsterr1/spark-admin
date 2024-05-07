@@ -86,7 +86,7 @@ router.post("/add", (req, res) => pageController.addPage(req, res));
  *       500:
  *         description: Произошла ошибка при получение страниц
  */
-router.get("/get-pages/:websiteId", (req, res) =>
+router.get("/get-pages/:websiteName", (req, res) =>
   pageController.getPages(req, res)
 );
 

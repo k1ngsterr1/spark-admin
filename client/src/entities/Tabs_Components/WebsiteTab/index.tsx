@@ -22,7 +22,7 @@ export const WebsiteTab: React.FC<IWebsiteTabProps> = ({ name, href, url }) => {
 
   const handleClick = (slug: string, event: SyntheticEvent) => {
     event.stopPropagation()
-    router.push(`/website/${slug}`);
+    router.push(`/website/pages/${slug}`);
   };
 
   return (

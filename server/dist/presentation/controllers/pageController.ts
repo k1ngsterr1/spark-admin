@@ -54,10 +54,12 @@ class PageController {
     const errors: ErrorDetails[] = [];
 
     try {
-      const websiteId: string = req.params.websiteId;
+      const websiteName: string = req.params.websiteName;
+
+      console.log(websiteName)
 
       const pages = await this.getPagesByWebsiteId.execute(
-        websiteId,
+        websiteName,
         req.user.id,
         errors
       );
