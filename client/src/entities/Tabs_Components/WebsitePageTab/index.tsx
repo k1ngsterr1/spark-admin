@@ -1,5 +1,6 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import SkeletonLoader from "@shared/ui/Skeleton_Loader";
+import { useRouter } from "next/navigation";
 import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -10,15 +11,23 @@ interface WebsitePageTabProps {
   name: string;
   pageType: string;
   href: string;
+  id: number;
   isLoading: boolean;
 }
 
 export const WebsitePageTab: React.FC<WebsitePageTabProps> = ({
   name,
   pageType,
-  href,
   isLoading,
+  id,
 }) => {
+  const router = useRouter();
+
+  const handleNavigate = (event: SyntheticEvent) => {
+    event.stopPropagation();
+    router.push(`/websites/pages/${name}/${id}`);
+  };
+
   if (isLoading) {
     return (
       <div className={`${styles.website_page_tab} dark:bg-dark-lighter`}>
@@ -31,13 +40,17 @@ export const WebsitePageTab: React.FC<WebsitePageTabProps> = ({
         </div>
         <div className="flex gap-4 items-center">
           <SkeletonLoader width="120px" height="40px" />
+          <SkeletonLoader width="120px" height="40px" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className={`${styles.website_page_tab} dark:bg-dark-lighter`}>
+    <div
+      className={`${styles.website_page_tab} dark:bg-dark-lighter`}
+      onClick={handleNavigate}
+    >
       <div className="flex gap-2 items-center">
         <FontAwesomeIcon icon={faGlobe} className="text-primary text-2xl" />
         <span className="flex flex-col items-start ml-4">
@@ -53,8 +66,9 @@ export const WebsitePageTab: React.FC<WebsitePageTabProps> = ({
         <ButtonLink
           buttonType="regular--small"
           text="Редактировать"
-          href="zhopa"
+          href="/zhopa"
         />
+        <ButtonLink buttonType="regular--small" text="Удалить" href="/zhopa" />
       </div>
     </div>
   );

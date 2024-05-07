@@ -16,6 +16,7 @@ const WebsiteEditPage = ({ params }: { params: { slug: string } }) => {
           websiteName={pageContent?.name}
           pageType={pageContent?.type}
           href={pageContent?.url}
+          id={pageContent?.id}
           isLoading={isLoading}
         />
       </main>

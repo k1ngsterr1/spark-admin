@@ -20,7 +20,7 @@
   display: inline-block;
   line-height: 1;
   width: 100%;
-  height: 20px;
+  height: clamp(10px, 4.6728vw, 40px);
   animation: shimmer 1.5s ease-in-out infinite;
   @apply rounded-lg;
 }
