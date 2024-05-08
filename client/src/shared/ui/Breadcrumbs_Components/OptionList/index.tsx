@@ -16,7 +16,7 @@ interface OptionListProps {
 
 export const OptionList: React.FC<OptionListProps> = ({ options }) => {
   return (
-    <div className={styles.option_list}>
+    <div className={`${styles.option_list} dark:bg-dark-upper`}>
       <div className="flex items-center gap-2">
         <ButtonLink
           text="Добавить новую страницу"

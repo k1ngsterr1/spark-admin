@@ -29,18 +29,18 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ crumbs, margin }) => {
     <div className={`${styles.breadcrumbs} ${margin}`}>
       {crumbs.map((crumb, index) => (
         <React.Fragment key={crumb.path}>
-          {index > 0 && <span className="ml-2 mr-2 ">/</span>}
-          <span className="flex items-center gap-2 p-2 rounded-md transition hover:bg-gray-100">
+          {index > 0 && <span className={`ml-2 mr-2 dark:text-white`}>/</span>}
+          <span className="flex items-center gap-2 p-2 rounded-md transition hover:bg-gray-100 dark:hover:bg-dark-upper">
             <FontAwesomeIcon
               icon={crumb.icon}
-              className="text-xl text-primary"
+              className="text-lg text-primary"
             />
             {index > 1 ? (
               <PageSelector pages={pagesData} />
             ) : (
               <Link
                 href={crumb.path}
-                className="transition-all hover:text-primary "
+                className="transition-all hover:text-primary dark:text-white"
               >
                 {crumb.label}
               </Link>

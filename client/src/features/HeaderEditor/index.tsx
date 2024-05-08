@@ -26,7 +26,7 @@ export const HeaderEditor: React.FC<HeaderEditorProps> = ({
   ];
 
   return (
-    <header className={styles.header_edit}>
+    <header className={`${styles.header_edit} dark:bg-dark-lighter`}>
       <div className={styles.header_edit__content}>
         <nav className="flex items-center gap-8">
           <div className={styles.header_edit__content__logo}>

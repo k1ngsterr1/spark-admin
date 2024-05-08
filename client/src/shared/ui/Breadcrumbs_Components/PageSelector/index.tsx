@@ -30,13 +30,15 @@ export const PageSelector: React.FC<PageSelectorProps> = ({ pages }) => {
   };
 
   return (
-    <div className={styles.page_selector} onClick={handleClick}>
+    <div className={`${styles.page_selector}`} onClick={handleClick}>
       {pages.map((page, index) => (
-        <span key={index}>Page Name</span>
+        <span key={index} className={`dark:text-white`}>
+          Page Name
+        </span>
       ))}
       <FontAwesomeIcon
         icon={faChevronDown}
-        className={styles.page_selector__chevron}
+        className={`${styles.page_selector__chevron} dark:text-white`}
       />
       {isOpen && <OptionList options={optionsData} />}
     </div>
