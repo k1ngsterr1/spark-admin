@@ -1,0 +1,16 @@
+.page_type_tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  @apply pt-2;
+  @apply pb-2;
+  @apply pl-4 pr-4;
+  @apply rounded-sm;
+  @apply gap-2;
+  @apply bg-gray-200;
+
+  &__text {
+    @apply text-lg;
+  }
+}
