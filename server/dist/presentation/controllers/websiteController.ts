@@ -13,7 +13,6 @@ import { GetWebsitesCode } from "@core/use_cases/Website/GetWebsiteCode";
 import { AllWebsitesUsers } from "@core/use_cases/Website/GetAllWebsitesUsers";
 import { DeleteWebsite } from "@core/use_cases/Website/DeleteWebsite";
 import { CheckVerification } from "@core/use_cases/Website/CheckVerification";
-
 import WebsiteService from "@services/websiteService";
 
 class WebsiteController {
@@ -369,7 +368,6 @@ class WebsiteController {
       res.status(500).json({ message: "Ошибка при удаления вебсайта." });
     }
   }
-
 }
 
 export default new WebsiteController();

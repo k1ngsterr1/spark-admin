@@ -55,6 +55,7 @@ const config: Config = {
           super: "#16151B",
           lighter: "#2B2934",
           upper: "#3A3846",
+          upper2: "#474556",
           text: "#817C9A",
           lightText: "#B7B4C5",
         },

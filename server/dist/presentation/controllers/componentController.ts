@@ -1,7 +1,10 @@
 import { AddComponent } from "@core/use_cases/Component/AddComponent";
 import { DeleteComponent } from "@core/use_cases/Component/DeleteComponent";
 import { SaveComponent } from "@core/use_cases/Component/SaveComponent";
-import { NewComponentRequest, SaveComponentRequest } from "@core/utils/Component/Request";
+import {
+  NewComponentRequest,
+  SaveComponentRequest,
+} from "@core/utils/Component/Request";
 import { ErrorDetails } from "@core/utils/utils";
 import { Request, Response } from "express";
 
@@ -71,9 +74,9 @@ class ComponentController {
     }
   }
 
-  async saveComponent(req: Request, res: Response): Promise<void>{
+  async saveComponent(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
-    try{
+    try {
       const request: SaveComponentRequest = {
         userId: req.user.id,
         componentId: req.body.componentId,
@@ -85,19 +88,21 @@ class ComponentController {
         text: req.body.text,
         blockId: req.body.blockId,
       };
-      
+
       await this.saveComponentById.execute(request, errors);
 
-      if(errors.length > 0){
+      if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
-      res.status(200).json({ message: "Успешно сохранили компонент." })
-    }catch(error){
+      res.status(200).json({ message: "Успешно сохранили компонент." });
+    } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Произошла ошибка при сохранение компоненты." });
+      res
+        .status(500)
+        .json({ message: "Произошла ошибка при сохранение компоненты." });
     }
   }
 }

@@ -10,8 +10,13 @@ interface OptionProps {
 
 export const Option: React.FC<OptionProps> = ({ name }) => {
   return (
-    <div className={`${styles.option} dark:text-white`}>
-      <FontAwesomeIcon icon={faFile} className={styles.option__icon} />{" "}
+    <div
+      className={`${styles.option} dark:text-white dark:hover:bg-dark-upper2`}
+    >
+      <FontAwesomeIcon
+        icon={faFile}
+        className={`${styles.option__icon} dark:text-primary`}
+      />{" "}
       <span className={`dark:text-white`}>{name}</span>
     </div>
   );

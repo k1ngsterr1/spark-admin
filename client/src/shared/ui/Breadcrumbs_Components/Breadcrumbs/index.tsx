@@ -1,10 +1,10 @@
 import React from "react";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { PageSelector } from "../PageSelector";
 import Link from "next/link";
 
 import styles from "./styles.module.scss";
-import { PageSelector } from "../PageSelector";
 
 interface BreadcrumbData {
   label: string;

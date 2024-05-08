@@ -44,7 +44,9 @@
 .button--regular--xs {
   @extend .button--regular;
   width: 100%;
-  @apply text-sm;
+  font-size: clamp(8px, 0.83328vw, 32px);
+  @apply pt-2;
+  @apply pb-2;
 }
 
 .button--regular--text {

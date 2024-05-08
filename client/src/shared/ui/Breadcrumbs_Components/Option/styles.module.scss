@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   transition: 0.3s all;
-  @apply text-base;
+  @apply text-sm;
   @apply p-1;
   @apply gap-3;
   @apply rounded-md;
@@ -15,7 +15,7 @@
   }
 
   &__icon {
-    @apply text-lg;
+    @apply text-sm;
     @apply text-secondary;
   }
 
