@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { HeaderEditor } from "@features/HeaderEditor";
 import { UserWebsite } from "@widgets/Screens/UserWebsite";
 import { useGetWebsitePageByID } from "@shared/lib/hooks/useGetPageById";
+import { DynamicContent } from "@features/DynamicContent";
+import { useFetchHTMLContent } from "@shared/lib/hooks/useFetchHTMLContent";
 
 const WebsiteEditablePage = ({ params }: { params: { pageID: string } }) => {
   const [websiteName, setWebsiteName] = useState<string>("");
@@ -20,7 +22,10 @@ const WebsiteEditablePage = ({ params }: { params: { pageID: string } }) => {
     params.pageID
   );
 
-  console.log(isLoading);
+  const { content } = useFetchHTMLContent(
+    "https%3A%2F%2Fsamigroup.kz",
+    pageContent?.id
+  );
 
   return (
     <div className="flex flex-col">
@@ -32,6 +37,7 @@ const WebsiteEditablePage = ({ params }: { params: { pageID: string } }) => {
           pageURL={pageContent?.url}
           isLoading={isLoading}
         />
+        <DynamicContent htmlContent={content} />
       </main>
     </div>
   );

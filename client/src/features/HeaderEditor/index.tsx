@@ -36,7 +36,11 @@ export const HeaderEditor: React.FC<HeaderEditorProps> = ({
             <div className={styles.header_edit__content__logo}>
               <SparkLogo />
             </div>
-            <SkeletonLoader width="100px" height="24px" className="circle" />
+            <div className="flex items-center gap-4">
+              <SkeletonLoader width="100px" height="40px" className="circle" />
+              <SkeletonLoader width="100px" height="40px" className="circle" />
+              <SkeletonLoader width="100px" height="40px" className="circle" />
+            </div>
           </nav>
           <div className="flex items-center gap-4">
             <SkeletonLoader width="120px" height="40px" />

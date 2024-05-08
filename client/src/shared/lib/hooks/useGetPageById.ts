@@ -6,8 +6,6 @@ export const useGetWebsitePageByID = (websiteName: string, pageID: string) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pageContent, setPageContent] = useState(null);
 
-  console.log("websiteName:", websiteName);
-
   const getWebsiteByPageID = useCallback(async () => {
     if (!websiteName || !pageID) {
       console.log("Missing websiteName or pageID");
