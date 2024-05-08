@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { OptionList } from "../OptionList";
 
 import styles from "./styles.module.scss";
@@ -36,8 +36,9 @@ export const PageSelector: React.FC<PageSelectorProps> = ({ pages }) => {
           Page Name
         </span>
       ))}
+
       <FontAwesomeIcon
-        icon={faChevronDown}
+        icon={isOpen ? faChevronUp : faChevronDown}
         className={`${styles.page_selector__chevron} dark:text-white`}
       />
       {isOpen && <OptionList options={optionsData} />}

@@ -15,15 +15,24 @@ interface BreadcrumbData {
 interface BreadcrumbsProps {
   crumbs: BreadcrumbData[];
   margin?: string;
+  isLoading: boolean;
 }
 
-export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ crumbs, margin }) => {
+export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
+  crumbs,
+  margin,
+  isLoading,
+}) => {
   const pagesData = [
     {
       type: "Main",
       url: "aaa",
     },
   ];
+
+  if (isLoading) {
+    <></>;
+  }
 
   return (
     <div className={`${styles.breadcrumbs} ${margin}`}>
