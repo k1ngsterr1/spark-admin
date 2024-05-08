@@ -59,7 +59,7 @@ class PageController {
     try {
       const pageID = req.params.pageID;
 
-      await this.getPageByPageId.execute(pageID, errors);
+      const page = await this.getPageByPageId.execute(pageID, errors);
 
       if (errors.length > 0) {
         const current_error = errors[0];
@@ -67,7 +67,7 @@ class PageController {
         return;
       }
 
-      res.status(201).json({ message: "Страница получена!" });
+      res.status(201).json({ message: "Страница получена!", page });
     } catch (error: any | unknown) {
       res.status(500).json({
         message: "Ошибка с получением страницы для вебсайта",

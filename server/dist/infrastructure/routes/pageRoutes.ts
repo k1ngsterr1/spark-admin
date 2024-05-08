@@ -90,7 +90,7 @@ router.get("/get-pages/:websiteName", (req, res) =>
   pageController.getPages(req, res)
 );
 
-router.get("/get-page/:pageID", (req, res) =>
+router.get("/get-page/:websiteNAME/:pageID", (req, res) =>
   pageController.getPageById(req, res)
 );
 
