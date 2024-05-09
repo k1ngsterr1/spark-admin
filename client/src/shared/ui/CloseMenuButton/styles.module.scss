@@ -17,7 +17,6 @@
   @apply text-white;
   @apply bg-primary;
   @apply rounded-full;
-  @apply shadow-sm;
 
   @include respond-to("md") {
     top: clamp(32px, 6.452vw, 128px);
@@ -28,6 +27,6 @@
 
   &:hover {
     @apply bg-primary-dark;
-    @apply shadow-lg;
+    @apply shadow-orange-glow;
   }
 }

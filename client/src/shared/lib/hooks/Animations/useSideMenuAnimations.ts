@@ -4,36 +4,29 @@ import gsap from "gsap";
 export const useSideMenu = (
   isOpen: boolean
 ): {
-  menuRef: React.RefObject<HTMLDivElement>;
+  menuRef: React.RefObject<HTMLElement>;
 } => {
-  const menuRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    try {
-      if (menuRef.current) {
-        const tl = gsap.timeline();
+    if (menuRef.current) {
+      const maxWidth = "250px";
+      const minWidth = "90px";
 
-        if (isOpen) {
-          tl.to(menuRef.current, {
-            y: "2000%",
-            autoAlpha: 1,
-            scale: 1,
-            duration: 1,
-            ease: "power3.out",
-          });
-        } else {
-          tl.to(menuRef.current, {
-            y: "-2000%",
-            autoAlpha: 0,
-            scale: 0.95,
-            duration: 0.3,
-            ease: "power3.in",
-            clearProps: "all",
-          });
-        }
-      }
-    } catch (error: any | unknown) {
-      console.log("There was an error with animation:", error);
+      // Adjust width and opacity based on isOpen state
+      gsap.to(menuRef.current, {
+        width: isOpen ? maxWidth : minWidth,
+        duration: 0.5,
+        ease: "power1.inOut",
+      });
+
+      // Control the opacity of text labels
+      gsap.to(menuRef.current.querySelectorAll(".nav-text"), {
+        opacity: isOpen ? 1 : 0,
+        duration: 0.3,
+        delay: isOpen ? 0.3 : 0,
+        ease: "power1.inOut",
+      });
     }
   }, [isOpen]);
 
