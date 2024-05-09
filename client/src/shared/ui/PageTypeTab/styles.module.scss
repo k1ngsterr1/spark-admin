@@ -1,16 +1,28 @@
+@import "breakpoint-slicer";
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
 .page_type_tab {
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: 0.3s all;
   @apply pt-2;
   @apply pb-2;
   @apply pl-4 pr-4;
   @apply rounded-sm;
-  @apply gap-2;
   @apply bg-gray-200;
 
   &__text {
     @apply text-lg;
+
+    @include respond-to("md") {
+      @apply text-sm;
+    }
+  }
+
+  &:hover {
+    @apply bg-primary;
   }
 }

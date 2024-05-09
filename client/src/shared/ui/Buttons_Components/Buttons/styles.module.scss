@@ -1,3 +1,7 @@
+@import "breakpoint-slicer";
+@import "../../../styles/mixins";
+@import "../../../styles/variables";
+
 %button-common {
   width: clamp(175px, 18.228vw, 700px);
   border-radius: clamp(4px, 0.41664vw, 16px);
@@ -8,6 +12,11 @@
   text-align: center;
   @apply bg-primary;
   @apply p-3;
+
+  @include respond-to("md") {
+    width: clamp(175px, 35.282vw, 700px);
+    padding: clamp(6px, 1.21vw, 24px);
+  }
 }
 
 .button {
@@ -60,5 +69,24 @@
   &:hover {
     @apply underline;
     background-color: darken(#ff5722, 10%);
+  }
+}
+
+.button--card-button {
+  min-width: clamp(60px, 6.2496vw, 240px);
+  border: 2px solid;
+  transition: 0.3s all;
+  @apply border-primary;
+  @apply rounded-full;
+  @apply pl-4 pr-4;
+  @apply pt-2 pb-2;
+
+  @include respond-to("md") {
+    min-width: clamp(45px, 9.073vw, 180px);
+    @apply pt-2 pb-2;
+  }
+
+  &:hover {
+    @apply bg-primary-dark;
   }
 }
