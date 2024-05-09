@@ -39,6 +39,14 @@ export interface PageAttributes {
   updatedAt?: Date;
 }
 
+export interface PageCardAttributes {
+  id: number;
+  url: string;
+  name: string;
+  description: string;
+  type: string;
+}
+
 export interface ComponentAttributes {
   id: number;
   pageId: number;
@@ -72,6 +80,14 @@ export interface NewPageInput {
   websiteId: string;
   url: string;
   name: string;
+  type: string;
+}
+
+export interface NewPageCardInput {
+  url: string;
+  // video: Video;
+  name: string;
+  description: string;
   type: string;
 }
 

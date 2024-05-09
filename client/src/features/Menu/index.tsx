@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   faArrowRightToBracket,
@@ -8,7 +9,8 @@ import {
   faLock,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { MenuButton, NavButton } from "@shared/ui/Buttons_Components/NavButton";
+import { NavButton } from "@shared/ui/Buttons_Components/NavButton";
+import { CloseMenuButton } from "@shared/ui/CloseMenuButton";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
 
@@ -16,49 +18,57 @@ import styles from "./styles.module.scss";
 
 export const Menu = () => {
   return (
-    <aside className={`${styles.menu} dark:bg-dark-super`}>
-      <div className={styles.menu__logo}>
-        <SparkLogo />
-      </div>
-      <nav className={styles.menu__nav}>
+    <div className="relative">
+      <CloseMenuButton onClick={() => console.log("a")} isOpen />
+      <aside className={`${styles.menu} dark:bg-dark-super`}>
+        <div className={styles.menu__logo}>
+          <SparkLogo />
+        </div>
+        <nav className={styles.menu__nav}>
+          <NavButton
+            icon={faGlobe}
+            href="/websites"
+            text="Мои сайты"
+            margin="mt-0"
+          />
+          <NavButton
+            icon={faUser}
+            href="/users"
+            text="Мои юзеры"
+            margin="mt-4"
+          />
+          <NavButton
+            icon={faChartArea}
+            href="/analytics"
+            text="Аналитика"
+            margin="mt-4"
+          />
+          <NavButton
+            icon={faLock}
+            href="/analytics"
+            text="Мой доступ"
+            margin="mt-4"
+          />
+          <NavButton
+            icon={faHeadphones}
+            href="/support"
+            text="Поддержка"
+            margin="mt-4"
+          />
+          <NavButton
+            icon={faGear}
+            href="/settings"
+            text="Настройки"
+            margin="mt-4"
+          />
+        </nav>
         <NavButton
-          icon={faGlobe}
-          href="/websites"
-          text="Мои сайты"
-          margin="mt-0"
+          icon={faArrowRightToBracket}
+          href="/login"
+          text="Выйти"
+          margin="mb-8"
         />
-        <NavButton icon={faUser} href="/users" text="Мои юзеры" margin="mt-4" />
-        <NavButton
-          icon={faChartArea}
-          href="/analytics"
-          text="Аналитика"
-          margin="mt-4"
-        />
-        <NavButton
-          icon={faLock}
-          href="/analytics"
-          text="Мой доступ"
-          margin="mt-4"
-        />
-        <NavButton
-          icon={faHeadphones}
-          href="/support"
-          text="Поддержка"
-          margin="mt-4"
-        />
-        <NavButton
-          icon={faGear}
-          href="/settings"
-          text="Настройки"
-          margin="mt-4"
-        />
-      </nav>
-      <NavButton
-        icon={faArrowRightToBracket}
-        href="/login"
-        text="Выйти"
-        margin="mb-8"
-      />
-    </aside>
+      </aside>
+    </div>
   );
 };

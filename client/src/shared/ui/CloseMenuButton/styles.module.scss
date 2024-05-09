@@ -1,0 +1,33 @@
+@import "breakpoint-slicer";
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
+.close_button {
+  position: absolute;
+  top: clamp(32px, 3.33312vw, 128px);
+  right: clamp(-8px, -0.83328vw, -32px);
+  width: clamp(12px, 1.24992vw, 48px);
+  height: clamp(12px, 1.24992vw, 48px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s all;
+  @apply text-xs;
+  @apply text-white;
+  @apply bg-primary;
+  @apply rounded-full;
+  @apply shadow-sm;
+
+  @include respond-to("md") {
+    top: clamp(32px, 6.452vw, 128px);
+    right: clamp(-8px, -1.613vw, -32px);
+    width: clamp(12px, 2.419vw, 48px);
+    height: clamp(12px, 2.419vw, 48px);
+  }
+
+  &:hover {
+    @apply bg-primary-dark;
+    @apply shadow-lg;
+  }
+}

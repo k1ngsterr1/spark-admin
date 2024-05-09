@@ -27,6 +27,13 @@
   @extend %button-common;
   background-color: #ff5722;
   color: #fff3ef;
+
+  @include respond-to("md") {
+    // width: clamp(45px, 9.073vw, 180px);
+    @apply pl-1 pr-1;
+    @apply pt-2 pb-2;
+  }
+
   &:hover {
     background-color: darken(#ff5722, 10%);
   }
