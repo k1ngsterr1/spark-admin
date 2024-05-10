@@ -16,14 +16,13 @@ interface OptionListProps {
 
 export const OptionList: React.FC<OptionListProps> = ({ options }) => {
   return (
-    <div className={styles.option_list}>
-      <div className="flex items-center gap-2">
+    <div className={`${styles.option_list} dark:bg-dark-upper`}>
+      <div className="flex flex-col items-center gap-2">
         <ButtonLink
           text="Добавить новую страницу"
           buttonType="regular--xs"
           href="aa"
         />
-        <AdditionalButtons icon={faSearch} />
       </div>
       <div className="flex flex-col items-center mt-4 gap-2">
         <Option name="Example" />

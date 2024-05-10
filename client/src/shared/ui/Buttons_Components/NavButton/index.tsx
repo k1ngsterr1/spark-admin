@@ -10,6 +10,7 @@ interface NavButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
   icon: IconDefinition;
   href: string;
+  isOpen: boolean;
 }
 
 export const NavButton: React.FC<NavButtonProps> = ({
@@ -17,16 +18,36 @@ export const NavButton: React.FC<NavButtonProps> = ({
   icon,
   text,
   href,
+  isOpen,
 }) => {
   return (
-    <Link className={`${styles.nav_button} ${margin}`} href={href}>
-      <FontAwesomeIcon
-        icon={icon}
-        className={styles.nav_button__icon}
-        size="lg"
-      />
-      <span className={`${styles.nav_button__text} dark:text-white`}>{text}</span>
-    </Link>
+    <>
+      {isOpen ? (
+        <>
+          {" "}
+          <Link className={`${styles.nav_button} ${margin}`} href={href}>
+            <FontAwesomeIcon
+              icon={icon}
+              className={styles.nav_button__icon}
+              size="lg"
+            />
+            <span className={`${styles.nav_button__text} dark:text-white`}>
+              {text}
+            </span>
+          </Link>
+        </>
+      ) : (
+        <>
+          <Link className={`${styles.nav_button} ${margin}`} href={href}>
+            <FontAwesomeIcon
+              icon={icon}
+              className={styles.nav_button__icon}
+              size="xl"
+            />
+          </Link>
+        </>
+      )}
+    </>
   );
 };
 
@@ -44,7 +65,9 @@ export const MenuButton: React.FC<NavButtonProps> = ({
         className={styles.nav_button__icon}
         size="xl"
       />
-      <span className={`${styles.nav_button__text} dark:text-white`}>{text}</span>
+      <span className={`${styles.nav_button__text} dark:text-white`}>
+        {text}
+      </span>
     </button>
   );
 };

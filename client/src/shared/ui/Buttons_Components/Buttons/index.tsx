@@ -61,7 +61,12 @@ interface LinkButtonProps {
   margin?: string;
   href: string;
   text: string;
-  buttonType: "regular" | "transparent" | "regular--small" | "regular--xs";
+  buttonType:
+    | "regular"
+    | "transparent"
+    | "regular--small"
+    | "regular--xs"
+    | "card-button";
 }
 
 const ButtonLink: React.FC<LinkButtonProps> = ({

@@ -1,4 +1,4 @@
-import { Button } from "@shared/ui/Buttons_Components/Buttons";
+import { Button, ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 import Heading from "@shared/ui/Heading/index";
 import WebsiteTab from "@entities/Tabs_Components/WebsiteTab/index";
 
@@ -21,6 +21,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
             text="Верифицировать сайт"
             buttonType="regular--small"
             functionType="verifyPopup"
+          />
+          <ButtonLink
+            text="Создать сайт"
+            href="/websites/build"
+            buttonType="regular--small"
           />
         </div>
       </div>

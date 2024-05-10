@@ -1,4 +1,4 @@
-import { axiosInstance } from './../useInterceptor';
+import { axiosInstance } from "./../useInterceptor";
 
 interface IData {
   username: string;
@@ -9,9 +9,7 @@ interface IData {
 
 export async function useRegister(data: IData): Promise<string | void> {
   try {
-    const response = await axiosInstance.post(
-      "/api/auth/register", {}
-    );
+    const response = await axiosInstance.post("/api/auth/register", data);
 
     console.log("Data created:", response.data);
     window.location.href = "/login";

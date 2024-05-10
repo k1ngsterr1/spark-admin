@@ -2,6 +2,7 @@ import { AddPage } from "@core/use_cases/Page/AddPage";
 import { DeletePage } from "@core/use_cases/Page/DeletePage";
 import { FetchPageContent } from "@core/use_cases/Page/FetchPageContent";
 import { GetPage } from "@core/use_cases/Page/GetPage";
+import { GetPageById } from "@core/use_cases/Page/GetPageById";
 import { GetPages } from "@core/use_cases/Page/GetPages";
 import { NewPageRequest } from "@core/utils/Page/Request";
 import { ErrorDetails } from "@core/utils/utils";
@@ -9,12 +10,14 @@ import { Request, Response } from "express";
 
 class PageController {
   private addPageToWebsite: AddPage;
+  private getPageByPageId: GetPageById;
   private fetchPageContentUseCase: FetchPageContent;
   private getPagesByWebsiteId: GetPages;
   private deletePageByWebsiteId: DeletePage;
   private getPageByUrl: GetPage;
   constructor() {
     this.addPageToWebsite = new AddPage();
+    this.getPageByPageId = new GetPageById();
     this.fetchPageContentUseCase = new FetchPageContent();
     this.getPagesByWebsiteId = new GetPages();
     this.deletePageByWebsiteId = new DeletePage();
@@ -40,10 +43,34 @@ class PageController {
         res.status(current_error.code).json({ message: current_error.details });
         return;
       }
+
       res.status(201).json({ message: "Страница добавлена" });
     } catch (error) {
       res.status(500).json({
         message: "Ошибка добавления страницы для вебсайта",
+        error: error.message,
+      });
+    }
+  }
+
+  // Получение страницы веб-сайта по ID
+  async getPageById(req: Request, res: Response): Promise<void> {
+    let errors: ErrorDetails[] = [];
+    try {
+      const pageID = req.params.pageID;
+
+      const page = await this.getPageByPageId.execute(pageID, errors);
+
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json({ message: current_error.details });
+        return;
+      }
+
+      res.status(201).json({ message: "Страница получена!", page });
+    } catch (error: any | unknown) {
+      res.status(500).json({
+        message: "Ошибка с получением страницы для вебсайта",
         error: error.message,
       });
     }
@@ -54,10 +81,10 @@ class PageController {
     const errors: ErrorDetails[] = [];
 
     try {
-      const websiteId: string = req.params.websiteId;
+      const websiteName: string = req.params.websiteName;
 
       const pages = await this.getPagesByWebsiteId.execute(
-        websiteId,
+        websiteName,
         req.user.id,
         errors
       );

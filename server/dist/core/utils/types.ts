@@ -39,6 +39,14 @@ export interface PageAttributes {
   updatedAt?: Date;
 }
 
+export interface PageCardAttributes {
+  id: number;
+  url: string;
+  name: string;
+  description: string;
+  type: string;
+}
+
 export interface ComponentAttributes {
   id: number;
   pageId: number;
@@ -46,6 +54,9 @@ export interface ComponentAttributes {
   name: string;
   text: string;
   blockId: number;
+  elementType: string;
+  content: string;
+  attributes: object;
 }
 export interface UserToWebsiteAttributes {
   id: number;
@@ -72,8 +83,19 @@ export interface NewPageInput {
   type: string;
 }
 
+export interface NewPageCardInput {
+  url: string;
+  // video: Video;
+  name: string;
+  description: string;
+  type: string;
+}
+
 export interface NewComponentInput {
   pageId: number;
+  elementType: string;
+  content: string;
+  attributes: object;
   name: string;
   text: string;
   blockId: number;
