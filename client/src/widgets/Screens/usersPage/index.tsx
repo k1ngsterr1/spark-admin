@@ -1,7 +1,6 @@
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import styles from "./styles.module.scss";
 import Heading from "@shared/ui/Heading";
-import { KebabMenu } from "@shared/ui/KebabMenu/index";
 import { UserTab } from "@entities/Tabs_Components/UserTab/index";
 
 interface UsersProps {
