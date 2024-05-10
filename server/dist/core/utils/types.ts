@@ -1,3 +1,5 @@
+import { Block } from "@infrastructure/models/blockModel";
+import { PageCard } from "@infrastructure/models/pageCardModel";
 import { Page } from "@infrastructure/models/pageModel";
 import { User } from "@infrastructure/models/userModel";
 import { Website } from "@infrastructure/models/websiteModel";
@@ -58,6 +60,25 @@ export interface ComponentAttributes {
   content: string;
   attributes: object;
 }
+
+export interface BlockAttributes {
+  id: number;
+  cards: PageCard[];
+  name: string;
+  title: string;
+  content: string;
+  image_url: string;
+  video_url: string;
+}
+
+export interface CardToBlockAttributes {
+  id: number;
+  cardId: number;
+  blockId: number;
+  card: PageCard,
+  block: Block; 
+}
+
 export interface UserToWebsiteAttributes {
   id: number;
   websiteId: string;

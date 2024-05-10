@@ -3,6 +3,7 @@ import { NewPageInput } from "@core/utils/types";
 import { Page } from "infrastructure/models/pageModel";
 import sequelize from "infrastructure/config/sequelize";
 import { Component } from "@infrastructure/models/componentModel";
+import { Block } from "@infrastructure/models/blockModel";
 
 export class PageRepository implements IPageRepository {
   // Создание страницы для вебсайта
@@ -41,8 +42,13 @@ export class PageRepository implements IPageRepository {
           as: "components",
           attributes: ["name", "text", "blockId"],
         },
+        {
+          model: sequelize.getRepository(Block),
+          as: "blocks",
+          attributes: ["name", "title", "content", "image_url"]
+        }
       ],
-      order: [["components", "name", "ASC"]],
+      order: [["components", "name", "ASC"], ["blocks", "name", "ASC"]],
     });
   }
 
