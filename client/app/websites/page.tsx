@@ -1,3 +1,5 @@
+'use client'
+import React, { useEffect, useState } from 'react';
 import { Header } from "@features/Header";
 import { Menu } from "@features/Menu";
 import { Dashboard } from "@widgets/Screens/Dashboard/ui";
@@ -13,9 +15,23 @@ interface DashboardProps {
   popupState: any;
 }
 
-const WebsitesPage: React.FC<DashboardProps> = async () => {
-  const data = await useGetWebsites();
-  console.log(data)
+const WebsitesPage: React.FC<DashboardProps> = () => {
+  const [data, setData] = useState<WebsiteItem[]>([]);
+  const { isLoading } = useGetWebsites()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await useGetWebsites();
+        setData(result);
+      } catch (error) {
+        console.error('Failed to fetch websites:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="flex">
       <Menu />
@@ -23,7 +39,7 @@ const WebsitesPage: React.FC<DashboardProps> = async () => {
         <Header />
         <WebsitePopup />
         <CodePopup />
-        <Dashboard sites={data} />
+        <Dashboard sites={data} isLoading={isLoading} />
       </main>
     </div>
   );

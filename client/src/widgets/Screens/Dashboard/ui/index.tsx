@@ -1,12 +1,14 @@
 import { Button, ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 import Heading from "@shared/ui/Heading/index";
 import WebsiteTab from "@entities/Tabs_Components/WebsiteTab/index";
+import SkeletonLoader from "@shared/ui/Skeleton_Loader";
 
 interface DashboardProps {
   sites: [];
+  isLoading: boolean;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ sites, isLoading }) => {
   return (
     <div className="flex flex-col">
       <div className="flex w-[90%] justify-between items-center m-auto">
