@@ -7,10 +7,11 @@ import {
   UpdatedAt,
   AutoIncrement,
   PrimaryKey,
-  ForeignKey,
+  BelongsToMany,
 } from "sequelize-typescript";
-import { Website } from "./websiteModel";
 import { PageCardAttributes } from "@core/utils/types";
+import CardToBlock from "./cardToblockModel";
+import { Block } from "./blockModel";
 
 // Модель для карточек страниц
 @Table({
@@ -22,8 +23,11 @@ export class PageCard extends Model<PageCardAttributes> {
   @Column(DataType.INTEGER)
   id!: number;
 
+  @BelongsToMany(() => Block, () => CardToBlock)
+  cards!: PageCard;
+
   @Column({
-    type: DataType.UUID,
+    type: DataType.STRING,
     onDelete: "CASCADE",
   })
   @Column(DataType.STRING)

@@ -20,6 +20,7 @@ export class ComponentRepository implements IComponentRepository {
         .catch(error => console.log(error));
     }
 
+    // Поиск компоненты по id
     async findById(id: number): Promise<Component> {
         const component = await sequelize.getRepository(Component).findByPk(id);
         return component;
