@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { axiosInstance } from '../useInterceptor';
 
-export function useGetWebsites() {
+export function useGetUsers() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -10,8 +10,10 @@ export function useGetWebsites() {
     const fetchWebsites = async () => {
       try {
         setIsLoading(true);
-        const response = await axiosInstance.get('/api/website');
+        const response = await axiosInstance.get('/api/website/users');
+        console.log(response.data);
         setData(response.data);
+
 
       } catch (error) {
         console.error('Failed to fetch websites:', error);

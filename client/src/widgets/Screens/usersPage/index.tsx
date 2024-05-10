@@ -19,7 +19,7 @@ export const Users: React.FC<UsersProps> = ({ users, isLoading }) => {
           functionType="userPopup"
         />
       </div>
-      {users.websites.map(website =>
+      {users?.websites.map(website =>
         website.users.map(user => (
           <UserTab
             key={user.id}
