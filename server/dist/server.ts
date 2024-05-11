@@ -34,6 +34,8 @@ const corsOptions = {
   allowedHeaders: ["Authorization", "Content-Type"],
 };
 
+
+app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
