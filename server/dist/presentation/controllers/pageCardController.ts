@@ -61,4 +61,4 @@ class PageCardController{
     }
 }
 
-export default new PageCardController;
+export default new PageCardController();
