@@ -8,6 +8,7 @@ import {
   AutoIncrement,
   PrimaryKey,
   BelongsToMany,
+  Unique,
 } from "sequelize-typescript";
 import { PageCardAttributes } from "@core/utils/types";
 import CardToBlock from "./cardToblockModel";
@@ -15,7 +16,7 @@ import { Block } from "./blockModel";
 
 // Модель для карточек страниц
 @Table({
-  tableName: "pageCards",
+  tableName: "page-cards",
 })
 export class PageCard extends Model<PageCardAttributes> {
   @PrimaryKey
@@ -24,7 +25,7 @@ export class PageCard extends Model<PageCardAttributes> {
   id!: number;
 
   @BelongsToMany(() => Block, () => CardToBlock)
-  cards!: PageCard;
+  blocks!: Block[];
 
   @Column({
     type: DataType.STRING,
@@ -33,6 +34,7 @@ export class PageCard extends Model<PageCardAttributes> {
   @Column(DataType.STRING)
   url!: string;
 
+  @Unique
   @Column(DataType.STRING)
   name!: string;
 

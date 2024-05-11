@@ -15,7 +15,7 @@ export default class CardToBlock extends Model<CardToBlockAttributes> {
 
     @ForeignKey(() => PageCard)
     @Column({ type: DataType.INTEGER, onDelete: 'CASCADE' })
-    cardId!: number;
+    pageCardId!: number;
 
     @ForeignKey(() => Block)
     @Column({ type: DataType.INTEGER, onDelete: 'CASCADE' })
