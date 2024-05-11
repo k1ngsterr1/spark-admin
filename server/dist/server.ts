@@ -12,6 +12,8 @@ import userRoutes from "@infrastructure/routes/userRoutes";
 import Redis from "@infrastructure/config/redis";
 import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
 import { accessToken } from "@infrastructure/middleware/authMiddleware";
+import blockRoutes from "@infrastructure/routes/blockRoutes";
+import pageCardRoutes from "@infrastructure/routes/pageCardRoutes";
 
 const app = express();
 
@@ -79,6 +81,10 @@ app.use("/api/page", pageRoutes);
 
 // Логика для вебсайта
 app.use("/api/website", websiteRoutes);
+
+app.use("/api/block", blockRoutes);
+
+app.use("/api/page-card", pageCardRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

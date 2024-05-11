@@ -1,7 +1,7 @@
 // функция для получения списка юзеров
 export async function useGetUsers() {
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImVtYWlsIjoiYXJ0ZW0uYW5kcmVldjIwMDAxMkBtYWlsLnJ1Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MTQ3MjE0NDcsImV4cCI6MTcxNDgwNzg0N30.EmXZXNgi1VRcaAxUsJyJQgicvFONpBZZGheWk1YN0Xs";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhcnRlbS5hbmRyZWV2MjAwMDEyQG1haWwucnUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNTAwMTU0NSwiZXhwIjoxNzE1MDg3OTQ1fQ.ZYIQtznYuhPJDiB74UEwJ12NfulVagfGLY9pCfv97EE";
   const url = "https://spark-admin-production.up.railway.app/api/website/users";
 
   const response = await fetch(url, {
