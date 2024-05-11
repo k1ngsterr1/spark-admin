@@ -5,3 +5,8 @@ export type NewPageCardRequest = {
     description: string;
     type: string;
 }
+export type AddBlockRequest = {
+    userId: number;
+    blockName: string;
+    pageCardName: string;
+}

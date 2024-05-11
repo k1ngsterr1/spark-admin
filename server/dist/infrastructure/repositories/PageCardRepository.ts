@@ -1,6 +1,7 @@
 import { IPageCardRepository } from "@core/interfaces/IPageCardRepository";
 import { NewPageCardInput } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
+import CardToBlock from "@infrastructure/models/cardToblockModel";
 import { PageCard } from "@infrastructure/models/pageCardModel";
 import sequelize from "infrastructure/config/sequelize";
 
@@ -13,5 +14,32 @@ export class PageCardRepository implements IPageCardRepository {
       errors.push(new ErrorDetails(500, error.message));
       return null;
     }
+  }
+  async findByName(name: string, errors: ErrorDetails[]): Promise<PageCard> {
+    try{
+      return await sequelize.getRepository(PageCard).findOne(
+        {
+          where: {
+            name: name
+          }
+        }
+      );
+    }catch(error){
+      errors.push(new ErrorDetails(500, error.message));
+      return null;
+    }
+  }
+  async addBlock(blockId: number, pageCardId: number, errors: ErrorDetails[]): Promise<CardToBlock> {
+    try{
+      return await sequelize.getRepository(CardToBlock).create(
+        {
+          blockId: blockId,
+          pageCardId: pageCardId
+        }
+      );
+    }catch(error){
+      errors.push(new ErrorDetails(500, error.message));
+      return null;
+    } 
   }
 }

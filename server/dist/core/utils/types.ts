@@ -73,7 +73,7 @@ export interface BlockAttributes {
 
 export interface CardToBlockAttributes {
   id: number;
-  cardId: number;
+  pageCardId: number;
   blockId: number;
   card: PageCard,
   block: Block; 
@@ -120,6 +120,14 @@ export interface NewComponentInput {
   name: string;
   text: string;
   blockId: number;
+}
+
+export interface NewBlockInput {
+  name: string;
+  title: string;
+  content: string;
+  image_url?: string;
+  video_url?: string;
 }
 
 export interface NewUserInput {

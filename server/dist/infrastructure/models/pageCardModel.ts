@@ -8,6 +8,7 @@ import {
   AutoIncrement,
   PrimaryKey,
   BelongsToMany,
+  Unique,
 } from "sequelize-typescript";
 import { PageCardAttributes } from "@core/utils/types";
 import CardToBlock from "./cardToblockModel";
@@ -33,6 +34,7 @@ export class PageCard extends Model<PageCardAttributes> {
   @Column(DataType.STRING)
   url!: string;
 
+  @Unique
   @Column(DataType.STRING)
   name!: string;
 

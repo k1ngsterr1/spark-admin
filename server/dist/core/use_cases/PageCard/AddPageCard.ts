@@ -19,7 +19,7 @@ export class AddPageCard {
 
     const user = await this.userRepository.findByPk(userId);
     if(user.isSparkAdmin !== true){
-      errors.push(new ErrorDetails(403, "У вас нет таких прав."));
+      errors.push(new ErrorDetails(401, "Недостаточно прав."));
       return null;
     }
 
@@ -31,7 +31,7 @@ export class AddPageCard {
     }
 
     const pageCard = await this.pageCardRepository.create(newPageCard, errors);
-    
+
     return pageCard;
   }
 }
