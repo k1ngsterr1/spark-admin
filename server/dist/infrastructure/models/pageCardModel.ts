@@ -15,7 +15,7 @@ import { Block } from "./blockModel";
 
 // Модель для карточек страниц
 @Table({
-  tableName: "pageCards",
+  tableName: "page-cards",
 })
 export class PageCard extends Model<PageCardAttributes> {
   @PrimaryKey
@@ -24,7 +24,7 @@ export class PageCard extends Model<PageCardAttributes> {
   id!: number;
 
   @BelongsToMany(() => Block, () => CardToBlock)
-  cards!: PageCard;
+  blocks!: Block[];
 
   @Column({
     type: DataType.STRING,
