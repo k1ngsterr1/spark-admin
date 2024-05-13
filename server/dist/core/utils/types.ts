@@ -60,6 +60,14 @@ export interface ComponentAttributes {
   content: string;
   attributes: object;
 }
+export interface BlockComponentAttributes {
+  id: number;
+  blockId: number;
+  block: Block;
+  name: string;
+  text: string;
+  attributes: object;
+}
 
 export interface BlockAttributes {
   id: number;
@@ -120,6 +128,13 @@ export interface NewComponentInput {
   name: string;
   text: string;
   blockId: number;
+}
+
+export interface NewBlockComponentInput {
+  blockId: number;
+  name: string;
+  text: string;
+  componentId: number;
 }
 
 export interface NewBlockInput {
