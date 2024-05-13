@@ -3,6 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv").config({ path: ".env" });
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const bodyParser = require("body-parser");
 
 // imports
 import authRoutes from "infrastructure/routes/authRoutes";
@@ -35,6 +36,7 @@ const corsOptions = {
   allowedHeaders: ["Authorization", "Content-Type"],
 };
 
+app.set("view engine", "ejs");
 app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
@@ -42,6 +44,7 @@ app.options("*", cors(corsOptions));
 const port = process.env.PORT;
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Статичные файлы

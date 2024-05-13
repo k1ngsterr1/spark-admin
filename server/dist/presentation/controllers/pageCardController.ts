@@ -1,5 +1,6 @@
 import { AddBlock } from "@core/use_cases/PageCard/AddBlock";
 import { AddPageCard } from "@core/use_cases/PageCard/AddPageCard";
+import { GeneratePage } from "@core/use_cases/PageCard/GeneratePage";
 import { AddBlockRequest, NewPageCardRequest } from "@core/utils/PageCard/Reqeust";
 import { ErrorDetails } from "@core/utils/utils";
 import { Request, Response } from "express";
@@ -7,9 +8,11 @@ import { Request, Response } from "express";
 class PageCardController{
     private addPageCardLogic: AddPageCard;
     private addBlockLogic: AddBlock;
+    private generatePage: GeneratePage;
     constructor(){
         this.addPageCardLogic = new AddPageCard();
         this.addBlockLogic = new AddBlock();
+        this.generatePage = new GeneratePage();
     }
     async addPageCard(req: Request, res: Response): Promise<void>{
         const errors: ErrorDetails[] = [];
@@ -57,6 +60,26 @@ class PageCardController{
 
         }catch(error){
             res.status(500).json({ message: "Произошла ошибка при соединения с блоком." });
+        }
+    }
+
+    async render(req: Request, res: Response): Promise<void>{
+        const errors: ErrorDetails[] = [];
+        try{
+            const pageCardName: string = req.params.pageCardName;
+
+            const html = await this.generatePage.execute(pageCardName, errors);
+
+            if(errors.length > 0){
+                const current_error = errors[0];
+                res.status(current_error.code).json({ message: current_error.details });
+                return;
+            }
+
+            res.status(201).send(html);
+        }catch(error){
+            console.log(error);
+            res.status(500).json({ message: "Ошибка при рендеринге сайта" });
         }
     }
 }

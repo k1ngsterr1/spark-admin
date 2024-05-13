@@ -126,6 +126,7 @@ export interface NewBlockInput {
   name: string;
   title: string;
   content: string;
+  css_link: string;
   image_url?: string;
   video_url?: string;
 }
