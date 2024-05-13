@@ -5,9 +5,10 @@ import { UserTab } from "@entities/Tabs_Components/UserTab/index";
 
 interface UsersProps {
   users: [];
+  isLoading: boolean
 }
 
-export const Users: React.FC<UsersProps> = ({ users }) => {
+export const Users: React.FC<UsersProps> = ({ users, isLoading }) => {
   return (
     <div className={styles.users}>
       <div className="flex w-[90%] justify-between items-center m-auto ">
@@ -18,7 +19,7 @@ export const Users: React.FC<UsersProps> = ({ users }) => {
           functionType="userPopup"
         />
       </div>
-      {users.websites.map(website =>
+      {users?.websites.map(website =>
         website.users.map(user => (
           <UserTab
             key={user.id}
