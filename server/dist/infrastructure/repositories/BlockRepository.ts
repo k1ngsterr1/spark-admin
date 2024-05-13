@@ -17,4 +17,8 @@ export class BlockRepository implements IBlockRepository {
         });
     }
 
+    async findById(id: number): Promise<Block>{
+        return await sequelize.getRepository(Block).findByPk(id);
+    }
+
 }
