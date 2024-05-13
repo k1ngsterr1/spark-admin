@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv").config({ path: ".env" });
 const cookieParser = require("cookie-parser");
+const bodyParser = require('body-parser');
 
 // imports
 import authRoutes from "infrastructure/routes/authRoutes";
@@ -43,6 +44,7 @@ app.options("*", cors(corsOptions));
 const port = process.env.PORT;
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Роуты:
