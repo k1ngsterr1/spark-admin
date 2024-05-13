@@ -47,6 +47,9 @@ export class Block extends Model<BlockAttributes> {
 
     @Column(DataType.STRING)
     video_url?: string;
+
+    @Column(DataType.STRING)
+    css_link?: string;
   
     @CreatedAt
     createdAt?: Date;

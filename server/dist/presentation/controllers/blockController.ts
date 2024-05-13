@@ -17,6 +17,7 @@ class BlockController{
                 name: req.body.name,
                 title: req.body.title,
                 content: req.body.content,
+                css_link: req.body.css_link,
                 image_url: req.body.image_url,
                 video_url: req.body.video_url
             }
