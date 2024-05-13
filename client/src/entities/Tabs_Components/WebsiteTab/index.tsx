@@ -3,7 +3,7 @@
 import { faLink, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { KebabMenu } from "@shared/ui/KebabMenu";
+import SkeletonLoader from "@shared/ui/Skeleton_Loader";
 import { SyntheticEvent } from "react";
 
 import styles from "./styles.module.scss";
@@ -12,15 +12,24 @@ interface IWebsiteTabProps {
   name: string;
   href: string;
   url: string;
+  isLoading: boolean;
 }
 
-export const WebsiteTab: React.FC<IWebsiteTabProps> = ({ name, href, url }) => {
+export const WebsiteTab: React.FC<IWebsiteTabProps> = ({ name, href, url, isLoading }) => {
   const router = useRouter();
 
   const handleClick = (slug: string, event: SyntheticEvent) => {
     event.stopPropagation();
     router.push(`/websites/pages/${slug}`);
   };
+
+  if (isLoading) {
+    return (
+      <div className={styles.sites_section}>
+        <SkeletonLoader width="1000px" height="16px" className="circle" />
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col" onClick={(e) => handleClick(name, e)}>
