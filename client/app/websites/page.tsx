@@ -17,7 +17,6 @@ interface DashboardProps {
 
 const WebsitesPage: React.FC<DashboardProps> = () => {
   const [data, setData] = useState<WebsiteItem[]>([]);
-  const { isLoading } = useGetWebsites()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +38,7 @@ const WebsitesPage: React.FC<DashboardProps> = () => {
         <Header />
         <WebsitePopup />
         <CodePopup />
-        <Dashboard sites={data} isLoading={isLoading} />
+        <Dashboard sites={data}  />
       </main>
     </div>
   );

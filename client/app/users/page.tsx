@@ -9,14 +9,14 @@ import { useGetUsers } from "@shared/lib/hooks/Websites/useGetUsers";
 import styles from "./styles.module.scss";
 
 export const UsersPage = () => {
-  const { data, isLoading } = useGetUsers();
+  const { data } = useGetUsers();
 
   return (
     <div className={styles.user}>
       <Menu />
       <main className="flex flex-col w-full">
         <Header />
-        <Users users={data} isLoading={isLoading} />
+        <Users users={data}/>
         <UserPopup />
       </main>
     </div>
