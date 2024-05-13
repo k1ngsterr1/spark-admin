@@ -1,7 +1,7 @@
 // функция для получения списка вебсайтов
 export async function useGetWebsites() {
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImVtYWlsIjoiYXJ0ZW0uYW5kcmVldjIwMDAxMkBtYWlsLnJ1Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MTQ3MjE0NDcsImV4cCI6MTcxNDgwNzg0N30.EmXZXNgi1VRcaAxUsJyJQgicvFONpBZZGheWk1YN0Xs";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJydXNsYW5tYWtobWF0b3ZAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MTU0NDI5NTgsImV4cCI6MTcxNTUyOTM1OH0.9hsqNZcAZ-KRyRg3wtqdK0bhGDqEpxBgG8iFBviiQvw";
   const url = "https://spark-admin-production.up.railway.app/api/website";
 
   const response = await fetch(url, {
