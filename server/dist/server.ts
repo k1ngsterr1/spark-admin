@@ -47,8 +47,31 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Статичные файлы
+// Статичные файлы:
+
 app.use(express.static(path.join(__dirname, "public")));
+
+// Статичные стили
+app.use(
+  "/css",
+  express.static(path.join(__dirname, "public/css"), {
+    setHeaders: function (res, path, stat) {
+      // Кэширование
+      res.set("Cache-Control", "public, max-age=31557600"); // 1 год
+    },
+  })
+);
+
+// Статичные скрипты
+app.use(
+  "/js",
+  express.static(path.join(__dirname, "public/js"), {
+    setHeaders: function (res, path, stat) {
+      // Кэширование
+      res.set("Cache-Control", "public, max-age=31557600"); // 1 год
+    },
+  })
+);
 
 // Роуты:
 
