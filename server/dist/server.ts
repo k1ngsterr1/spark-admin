@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv").config({ path: ".env" });
 const cookieParser = require("cookie-parser");
+const path = require("path");
+const bodyParser = require("body-parser");
 
 // imports
 import authRoutes from "infrastructure/routes/authRoutes";
@@ -12,6 +14,8 @@ import userRoutes from "@infrastructure/routes/userRoutes";
 import Redis from "@infrastructure/config/redis";
 import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
 import { accessToken } from "@infrastructure/middleware/authMiddleware";
+import blockRoutes from "@infrastructure/routes/blockRoutes";
+import pageCardRoutes from "@infrastructure/routes/pageCardRoutes";
 
 const app = express();
 
@@ -32,6 +36,7 @@ const corsOptions = {
   allowedHeaders: ["Authorization", "Content-Type"],
 };
 
+app.set("view engine", "ejs");
 app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
@@ -39,7 +44,11 @@ app.options("*", cors(corsOptions));
 const port = process.env.PORT;
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// Статичные файлы
+app.use(express.static(path.join(__dirname, "public")));
 
 // Роуты:
 
@@ -79,6 +88,10 @@ app.use("/api/page", pageRoutes);
 
 // Логика для вебсайта
 app.use("/api/website", websiteRoutes);
+
+app.use("/api/block", blockRoutes);
+
+app.use("/api/page-card", pageCardRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

@@ -1,0 +1,36 @@
+/* Burger Menu Styles */
+.burger-menu .burger-icon {
+  display: block;
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 30px;
+  height: 25px;
+  position: relative;
+}
+
+.burger-menu .burger-icon span {
+  display: block;
+  height: 3px;
+  background-color: black;
+  margin: 5px 0;
+  transition: all 0.3s ease;
+}
+
+.burger-menu .burger-links {
+  display: none;
+  flex-direction: column;
+}
+
+.burger-menu .burger-links a {
+  text-decoration: none;
+  color: black;
+  padding: 10px;
+  border-bottom: 1px solid grey;
+}
+
+@media (max-width: 768px) {
+  .burger-menu .burger-links {
+    display: flex;
+  }
+}

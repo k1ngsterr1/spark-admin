@@ -1,4 +1,7 @@
+import { Block } from "@infrastructure/models/blockModel";
+import CardToBlock from "@infrastructure/models/cardToblockModel";
 import { Component } from "@infrastructure/models/componentModel";
+import { PageCard } from "@infrastructure/models/pageCardModel";
 import { Page } from "@infrastructure/models/pageModel";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import { User } from "infrastructure/models/userModel";
@@ -21,7 +24,16 @@ const sequelize = new Sequelize({
   dialect: "postgres",
   storage: ":memory:",
   logging: false,
-  models: [User, Website, Page, UserToWebsite, Component],
+  models: [
+    User,
+    Website,
+    Page,
+    UserToWebsite,
+    Component,
+    Block,
+    PageCard,
+    CardToBlock,
+  ],
 });
 
 export default sequelize;

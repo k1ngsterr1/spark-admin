@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { axiosInstance } from './useInterceptor';
+// функция для получения списка вебсайтов
+export async function useGetWebsites() {
 
 export function useGetWebsites() {
   const [data, setData] = useState(null);
