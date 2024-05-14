@@ -9,7 +9,7 @@ export type NewBlockRequest = {
 }
 export type AddBlockComponentRequest = {
     userId: number;
-    blockId: number;
+    blockName: string;
     name: string;
     text: string;
     componentId: number;

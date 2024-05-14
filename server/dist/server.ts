@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const path = require("path");
 const compression = require("compression");
 const bodyParser = require("body-parser");
 
@@ -16,6 +15,7 @@ import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
 import { accessToken } from "@infrastructure/middleware/authMiddleware";
 import blockRoutes from "@infrastructure/routes/blockRoutes";
 import pageCardRoutes from "@infrastructure/routes/pageCardRoutes";
+import path from "path";
 
 const app = express();
 
@@ -36,7 +36,9 @@ const corsOptions = {
   allowedHeaders: ["Authorization", "Content-Type"],
 };
 
-app.set("view engine", "ejs");
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'templates'));
 app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
