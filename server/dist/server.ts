@@ -39,7 +39,7 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
-const port = 4000;
+const port = process.env.PORT;
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
