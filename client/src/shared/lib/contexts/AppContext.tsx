@@ -49,11 +49,12 @@ export const useUserPopup = () => {
   return context;
 };
 
-export const usePageCard = () => {
+export const usePageCardPopup = () => {
   const context = useContext(AppContext);
   if (context === undefined) {
     throw new Error("usePopup must be used within a AppProvider");
   }
+  return context;
 };
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
