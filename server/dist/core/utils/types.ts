@@ -83,8 +83,8 @@ export interface CardToBlockAttributes {
   id: number;
   pageCardId: number;
   blockId: number;
-  card: PageCard,
-  block: Block; 
+  card: PageCard;
+  block: Block;
 }
 
 export interface UserToWebsiteAttributes {
@@ -156,6 +156,7 @@ export interface NewUserInput {
 export enum UserRole {
   Owner = "owner",
   Admin = "admin",
+  SparkAdmin = "sparkAdmin",
   Editor = "editor",
   User = "user",
 }

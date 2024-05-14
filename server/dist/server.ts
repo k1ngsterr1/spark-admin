@@ -1,16 +1,16 @@
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv").config({ path: ".env" });
 const cookieParser = require("cookie-parser");
-const bodyParser = require('body-parser');
+const compression = require("compression");
+const bodyParser = require("body-parser");
+
+require("dotenv").config();
 
 // imports
 import authRoutes from "infrastructure/routes/authRoutes";
 import websiteRoutes from "infrastructure/routes/websiteRoutes";
-import auth from "@infrastructure/middleware/authMiddleware";
 import pageRoutes from "@infrastructure/routes/pageRoutes";
 import userRoutes from "@infrastructure/routes/userRoutes";
-import Redis from "@infrastructure/config/redis";
 import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
 import { accessToken } from "@infrastructure/middleware/authMiddleware";
 import blockRoutes from "@infrastructure/routes/blockRoutes";
@@ -44,10 +44,40 @@ app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
 const port = process.env.PORT;
+// const port = 4000;
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// Статичные файлы:
+
+app.use(express.static(path.join(__dirname, "public")));
+
+// Статичные стили
+app.use(
+  "/css",
+  express.static(path.join(__dirname, "public/css"), {
+    setHeaders: function (res, path, stat) {
+      // Кэширование
+      res.set("Cache-Control", "public, max-age=31557600"); // 1 год
+    },
+  })
+);
+
+// Статичные скрипты
+app.use(
+  "/js",
+  express.static(path.join(__dirname, "public/js"), {
+    setHeaders: function (res, path, stat) {
+      // Кэширование
+      res.set("Cache-Control", "public, max-age=31557600"); // 1 год
+    },
+  })
+);
+
+// Сжатие
+app.use(compression());
 
 // Роуты:
 
@@ -80,7 +110,7 @@ app.post("/access", (req, res) => accessToken(req, res));
 app.use("/api/auth", authRoutes);
 
 // Логика для пользователей
-app.use("api/user", userRoutes);
+app.use("/api/user", userRoutes);
 
 // Логика для страниц
 app.use("/api/page", pageRoutes);

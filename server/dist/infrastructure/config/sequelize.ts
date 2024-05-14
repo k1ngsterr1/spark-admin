@@ -34,7 +34,7 @@ const sequelize = new Sequelize({
     Block,
     PageCard,
     CardToBlock,
-    BlockComponent
+    BlockComponent,
   ],
 });
 

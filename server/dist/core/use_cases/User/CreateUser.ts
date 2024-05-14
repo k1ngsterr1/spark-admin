@@ -1,4 +1,3 @@
-import { IUserRepository } from "core/interfaces/IUserRepository";
 import { IEmailService } from "core/interfaces/IEmailService";
 import { User } from "infrastructure/models/userModel";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
@@ -17,7 +16,10 @@ export class CreateUser {
     this.emailService = new EmailService();
   }
 
-  async execute(request: RegisterRequest, errors: ErrorDetails[]): Promise<User> {
+  async execute(
+    request: RegisterRequest,
+    errors: ErrorDetails[]
+  ): Promise<User> {
     const { username, email, password, passwordConfirmation } = request;
     if (!email || !username || !password) {
       errors.push(new ErrorDetails(400, "Заполните необходимые поля!"));
@@ -32,11 +34,11 @@ export class CreateUser {
     const isValidEmail = await validEmail(email);
     const isValidPass = await validPassword(password, errors);
 
-    if(!isValidEmail){
+    if (!isValidEmail) {
       errors.push(new ErrorDetails(400, "Неверный адрес электронной почты."));
       return;
     }
-    if(!isValidPass){
+    if (!isValidPass) {
       return;
     }
 
