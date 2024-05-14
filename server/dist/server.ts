@@ -5,6 +5,8 @@ const path = require("path");
 const compression = require("compression");
 const bodyParser = require("body-parser");
 
+require("dotenv").config();
+
 // imports
 import authRoutes from "infrastructure/routes/authRoutes";
 import websiteRoutes from "infrastructure/routes/websiteRoutes";
@@ -40,6 +42,7 @@ app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
 const port = process.env.PORT;
+// const port = 4000;
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
