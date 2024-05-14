@@ -211,13 +211,11 @@ class UserController {
     try {
       const isAdmin = await this.isSparkAdminLogic.execute(userID);
 
-      if (isAdmin) {
-        return res
-          .status(403)
-          .json({
-            message: "Доступ запрещен, вы не спарк админ",
-            value: isAdmin,
-          });
+      if (!isAdmin) {
+        return res.status(403).json({
+          message: "Доступ запрещен, вы не спарк админ",
+          value: isAdmin,
+        });
       } else {
         return res
           .status(201)
