@@ -7,6 +7,7 @@ import { usePageCardPopup } from "@shared/lib/contexts/AppContext";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
 
 import styles from "../WebsitePopup/styles.module.scss";
+import { AttachmentFileInput } from "@shared/ui/Inputs/AttachmentInput";
 
 // Попап для создания карточки страницы сайта
 export const PageCardPopup = () => {
@@ -53,6 +54,7 @@ export const PageCardPopup = () => {
               inputType="default"
               name="pageCardDescription"
             />
+            <AttachmentFileInput margin="mt-3" />
             <Button
               buttonType="regular--small"
               text="Создать шаблон"
