@@ -11,6 +11,8 @@ export class CheckAdminRole {
   async execute(userId: number): Promise<boolean> {
     const user = await this.userRepository.findByPk(userId);
 
+    console.log("user is here:", user.role);
+
     const userRole = user.role;
 
     if (userRole === "sparkAdmin") {

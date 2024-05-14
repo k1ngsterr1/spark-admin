@@ -206,12 +206,23 @@ class UserController {
   }
 
   async checkSparkAdmin(req: Request, res: Response): Promise<boolean> {
-    const { userID } = req.user.id;
+    const userID = req.user.id;
 
     try {
       const isAdmin = await this.isSparkAdminLogic.execute(userID);
 
-      return isAdmin;
+      if (isAdmin) {
+        return res
+          .status(403)
+          .json({
+            message: "Доступ запрещен, вы не спарк админ",
+            value: isAdmin,
+          });
+      } else {
+        return res
+          .status(201)
+          .json({ message: "Доступ разрешен, вы админ", value: isAdmin });
+      }
     } catch (error: any | unknown) {
       res.status(500).json({
         message: "Ошибка с изменением роли:",
