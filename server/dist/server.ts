@@ -1,17 +1,15 @@
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv").config({ path: ".env" });
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const compression = require("compression");
 const bodyParser = require("body-parser");
 
 // imports
 import authRoutes from "infrastructure/routes/authRoutes";
 import websiteRoutes from "infrastructure/routes/websiteRoutes";
-import auth from "@infrastructure/middleware/authMiddleware";
 import pageRoutes from "@infrastructure/routes/pageRoutes";
 import userRoutes from "@infrastructure/routes/userRoutes";
-import Redis from "@infrastructure/config/redis";
 import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
 import { accessToken } from "@infrastructure/middleware/authMiddleware";
 import blockRoutes from "@infrastructure/routes/blockRoutes";
@@ -41,7 +39,7 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
-const port = process.env.PORT;
+const port = 4000;
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -72,6 +70,9 @@ app.use(
     },
   })
 );
+
+// Сжатие
+app.use(compression());
 
 // Роуты:
 
