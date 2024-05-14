@@ -15,6 +15,7 @@ import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
 import { accessToken } from "@infrastructure/middleware/authMiddleware";
 import blockRoutes from "@infrastructure/routes/blockRoutes";
 import pageCardRoutes from "@infrastructure/routes/pageCardRoutes";
+import path from "path";
 
 const app = express();
 
@@ -37,6 +38,7 @@ const corsOptions = {
 
 
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'templates'));
 app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));

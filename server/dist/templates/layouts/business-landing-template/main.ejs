@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    <link rel="stylesheet" href="">
 </head>
 <body>
-    <% include ../components/business-landing/header, { header: header } %>
-    <% include ../blocks/business-landing/main, { main: main } %>
-    <% include ../blocks/business-landing/about-us, { main: main } %>
-    <% include ../blocks/business-landing/service, { main: main } %>
-    <% include ../blocks/business-landing/form, { main: main } %>
-    <% include ../components/business-landing/about-us, { main: main } %>
+    <%- include('../../components/business-landing-page/header', { header: header }) %>
+    <%- include('../../blocks/business-landing-page/main', { main: main }) %>
+    <%- include('../../blocks/business-landing-page/about-us', { about: about }) %>
+    <%- include('../../blocks/business-landing-page/services', { service: service }) %>
+    <%- include('../../blocks/business-landing-page/form', { form: form }) %>
+    <%- include('../../components/business-landing-page/footer', { footer: footer }) %>
 </body>
 </html>

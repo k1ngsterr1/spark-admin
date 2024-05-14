@@ -1,0 +1,15 @@
+<section class="business-landing-form-content">
+    <div class="business-landing-heading-content">
+      <%- include('../../components/business-landing-page/mini-text', { text: main.miniText }) %>
+      <h4 class="business-landing-heading"><%= form.formHeading %></h4>
+      <p class="business-landing-paragraph"><%= form.formParagraph %></p>
+      <form action="" class="business-landing-form">
+        <div class="business-landing-inputs">
+          <div class="business-inputs-upper">
+            <input type="text" placeholder="<%= form.firstInputPlaceholder %>" />
+            <input type="text" placeholder="<%= form.secondInputPlaceholder %>" />
+          </div>
+        </div>
+      </form>
+    </div>
+</section>
