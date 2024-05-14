@@ -54,7 +54,7 @@ export const PageCardPopup = () => {
               inputType="default"
               name="pageCardDescription"
             />
-            <AttachmentFileInput margin="mt-3" />
+            <AttachmentFileInput required margin="mt-3" />
             <Button
               buttonType="regular--small"
               text="Создать шаблон"
