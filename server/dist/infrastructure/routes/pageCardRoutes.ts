@@ -59,6 +59,6 @@ const router = express.Router();
 router.post("/add", (req, res) => pageCardController.addPageCard(req, res));
 router.post("/add-block", (req, res) => pageCardController.addBlock(req, res));
 
-router.get("/render/:pageCardName", (req, res) => pageCardController.render(req, res));
+router.get("/render/business-landing", (req, res) => pageCardController.businessLanding(req, res));
 
 export default router;

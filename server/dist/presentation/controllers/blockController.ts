@@ -43,7 +43,7 @@ class BlockController{
         try{
             const request: AddBlockComponentRequest = {
                 userId: req.user.id,
-                blockId: req.body.blockId,
+                blockName: req.body.blockName,
                 name: req.body.name,
                 text: req.body.text,
                 componentId: req.body.componentId,

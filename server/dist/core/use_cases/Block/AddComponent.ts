@@ -22,7 +22,7 @@ export class AddComponent {
     request: AddBlockComponentRequest,
     errors: ErrorDetails[]
   ): Promise<void> {
-    const { userId, name, text, blockId, componentId } = request;
+    const { userId, name, text, blockName, componentId } = request;
 
     const user = await this.userRepository.findByPk(userId);
     if (user === null) {
@@ -35,10 +35,10 @@ export class AddComponent {
       return;
     }
 
-    const block = await this.blockRepository.findById(blockId);
+    const block = await this.blockRepository.findByName(blockName);
 
     if(block === null){
-      errors.push(new ErrorDetails(404, "Страницы не найдена"));
+      errors.push(new ErrorDetails(404, "Блок не найден."));
       return;
     }
 
