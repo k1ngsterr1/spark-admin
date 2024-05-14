@@ -105,7 +105,7 @@ app.post("/access", (req, res) => accessToken(req, res));
 app.use("/api/auth", authRoutes);
 
 // Логика для пользователей
-app.use("api/user", userRoutes);
+app.use("/api/user", userRoutes);
 
 // Логика для страниц
 app.use("/api/page", pageRoutes);
