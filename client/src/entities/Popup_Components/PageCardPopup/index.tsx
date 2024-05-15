@@ -5,9 +5,9 @@ import PopupGeneric from "@shared/ui/Generic_Components/PopupGeneric";
 import InputProp from "@shared/ui/Inputs/DefaultInport";
 import { usePageCardPopup } from "@shared/lib/contexts/AppContext";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
+import { AttachmentFileInput } from "@shared/ui/Inputs/AttachmentInput";
 
 import styles from "../WebsitePopup/styles.module.scss";
-import { AttachmentFileInput } from "@shared/ui/Inputs/AttachmentInput";
 
 // Попап для создания карточки страницы сайта
 export const PageCardPopup = () => {

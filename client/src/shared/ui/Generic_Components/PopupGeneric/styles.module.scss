@@ -1,9 +1,13 @@
+@import "breakpoint-slicer";
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
 .overlay {
   width: 81%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
-  position: absolute;
-  z-index: 1;
+  position: fixed !important;
+  z-index: 1 !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,4 +24,16 @@
   @apply rounded-md;
   @apply bg-white;
   @apply animate-glow-orange;
+}
+
+@include respond-to("lg") {
+  .overlay {
+    width: 83.5%;
+  }
+}
+
+@include respond-to("xl") {
+  .overlay {
+    width: 90%;
+  }
 }

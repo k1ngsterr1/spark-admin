@@ -38,7 +38,7 @@ const WebsitesPage: React.FC<DashboardProps> = () => {
         <Header />
         <WebsitePopup />
         <CodePopup />
-        <Dashboard sites={data}  />
+        <Dashboard sites={data} />
       </main>
     </div>
   );
