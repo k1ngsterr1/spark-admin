@@ -218,7 +218,7 @@ class UserController {
         });
       } else {
         return res
-          .status(201)
+          .status(200)
           .json({ message: "Доступ разрешен, вы админ", value: isAdmin });
       }
     } catch (error: any | unknown) {

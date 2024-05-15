@@ -35,7 +35,11 @@ export const PageTypeSelector: React.FC<IPageTypeSelectorProps> = ({
       </div>
       {isAdmin && (
         <div className="flex">
-          <Button text="Создать шаблон" buttonType="regular--small" />
+          <Button
+            text="Создать шаблон"
+            buttonType="regular--small"
+            functionType="pageCardPopup"
+          />
         </div>
       )}
     </div>

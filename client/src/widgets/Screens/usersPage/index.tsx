@@ -2,13 +2,32 @@ import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import styles from "./styles.module.scss";
 import Heading from "@shared/ui/Heading";
 import { UserTab } from "@entities/Tabs_Components/UserTab/index";
+import { useGetUsers } from "@shared/lib/hooks/Websites/useGetUsers";
+import SkeletonLoader from "@shared/ui/Skeleton_Loader";
+
+import EmptySvg from '@assets/empty 1 (1).svg'
 
 interface UsersProps {
   users: [];
-  isLoading: boolean
 }
 
-export const Users: React.FC<UsersProps> = ({ users, isLoading }) => {
+export const Users: React.FC<UsersProps> = ({ users }) => {
+  const { isLoading, hasUsers } = useGetUsers()
+
+  if (isLoading) {
+    return <div><SkeletonLoader/></div>;
+  }
+  
+  if (!hasUsers) {
+    return (
+      <>
+      <div className={styles.container}>
+      <EmptySvg />
+        <p className={styles.container__already}>У вас еще нет пользователей</p>
+      </div>
+      </>
+    );
+  }
   return (
     <div className={styles.users}>
       <div className="flex w-[90%] justify-between items-center m-auto ">

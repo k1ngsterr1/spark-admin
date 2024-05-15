@@ -1,14 +1,14 @@
-'use client'
-import React, { useEffect, useState } from 'react';
+"use client";
+import React, { useEffect, useState } from "react";
 import { Header } from "@features/Header";
 import { Menu } from "@features/Menu";
 import { Dashboard } from "@widgets/Screens/Dashboard/ui";
 import { WebsitePopup } from "@entities/Popup_Components/WebsitePopup";
 import { WebsiteItem } from "@shared/lib/types";
 import { useGetWebsites } from "@shared/lib/hooks/useGetWebsites";
+import { CodePopup } from "@entities/Popup_Components/CodePopup";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { CodePopup } from "@entities/Popup_Components/CodePopup";
 
 interface DashboardProps {
   websites: WebsiteItem[];
@@ -17,7 +17,6 @@ interface DashboardProps {
 
 const WebsitesPage: React.FC<DashboardProps> = () => {
   const [data, setData] = useState<WebsiteItem[]>([]);
-  const { isLoading } = useGetWebsites()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +24,7 @@ const WebsitesPage: React.FC<DashboardProps> = () => {
         const result = await useGetWebsites();
         setData(result);
       } catch (error) {
-        console.error('Failed to fetch websites:', error);
+        console.error("Failed to fetch websites:", error);
       }
     };
 
@@ -39,7 +38,7 @@ const WebsitesPage: React.FC<DashboardProps> = () => {
         <Header />
         <WebsitePopup />
         <CodePopup />
-        <Dashboard sites={data} isLoading={isLoading} />
+        <Dashboard sites={data} />
       </main>
     </div>
   );

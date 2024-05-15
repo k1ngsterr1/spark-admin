@@ -3,12 +3,11 @@ import React, { useState, useRef } from "react";
 import { NavButton } from "@shared/ui/Buttons_Components/NavButton";
 import { CloseMenuButton } from "@shared/ui/CloseMenuButton";
 import { useSideMenu } from "@shared/lib/hooks/Animations/useSideMenuAnimations";
-
+import { navlinks } from "@shared/lib/hooks/content/linksContent";
+import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import SparkLogo from "@assets/spark_product_logo.svg";
 
 import styles from "./styles.module.scss";
-import { navlinks } from "@shared/lib/hooks/content/linksContent";
-import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 export const Menu = () => {
   const [isOpen, setIsOpen] = useState(true);

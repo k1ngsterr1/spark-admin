@@ -1,4 +1,5 @@
 "use client";
+
 import {
   createContext,
   useContext,
@@ -17,6 +18,9 @@ interface AppContextType {
   // Popup for website verification & code generation
   isWebVerifyPopupVisible: boolean;
   toggleWebVerifyPopup: () => void;
+  // Popup with form for page card
+  isPageCardPopupVisible: boolean;
+  togglePageCardPopup: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -45,14 +49,29 @@ export const useUserPopup = () => {
   return context;
 };
 
+export const usePageCardPopup = () => {
+  const context = useContext(AppContext);
+  if (context === undefined) {
+    throw new Error("usePopup must be used within a AppProvider");
+  }
+  return context;
+};
+
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [isWebPopupVisible, setIsWebPopupVisible] = useState(false);
-  const [isUserPopupVisible, setIsUserPopupVisible] = useState(false);
-  const [isWebVerifyPopupVisible, setIsWebVerifyPopupVisible] = useState(false);
+  const [isWebPopupVisible, setIsWebPopupVisible] = useState<boolean>(false);
+  const [isUserPopupVisible, setIsUserPopupVisible] = useState<boolean>(false);
+  const [isWebVerifyPopupVisible, setIsWebVerifyPopupVisible] =
+    useState<boolean>(false);
+  const [isPageCardPopupVisible, setIsPageCardPopupVisible] =
+    useState<boolean>(false);
 
   const toggleWebPopup = useCallback(() => {
     setIsWebPopupVisible(!isWebPopupVisible);
   }, [isWebPopupVisible]);
+
+  const togglePageCardPopup = useCallback(() => {
+    setIsPageCardPopupVisible(!isPageCardPopupVisible);
+  }, [isPageCardPopupVisible]);
 
   const toggleUserPopup = useCallback(() => {
     setIsUserPopupVisible(!isUserPopupVisible);
@@ -71,6 +90,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         toggleUserPopup,
         isWebVerifyPopupVisible,
         toggleWebVerifyPopup,
+        isPageCardPopupVisible,
+        togglePageCardPopup,
       }}
     >
       {children}
