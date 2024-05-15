@@ -29,7 +29,6 @@ const useScrollAnimation = (movement: any, theme: any) => {
               ease: "none",
             }),
           onLeaveBack: () => {
-            console.log("Left Back");
             gsap.to(pageSelectorRef.current, {
               backgroundColor: "transparent",
               position: "relative",
