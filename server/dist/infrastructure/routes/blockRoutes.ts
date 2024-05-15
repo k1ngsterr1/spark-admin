@@ -91,7 +91,8 @@ router.post("/add", (req, res) => blockController.addBlock(req, res));
  *                 type: string
  *                 description: Текстовое содержимое компонента
  *               componentId:
- *                 type: string
+ *                 type: number
+ *                 example: 1
  *                 description: Идентификатор компонента
  *     responses:
  *       201:
