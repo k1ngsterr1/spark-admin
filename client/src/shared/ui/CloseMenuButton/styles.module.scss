@@ -4,10 +4,6 @@
 
 .close_button {
   position: absolute;
-  top: clamp(32px, 3.33312vw, 128px);
-  right: clamp(-8px, -0.83328vw, -32px);
-  width: clamp(12px, 1.24992vw, 48px);
-  height: clamp(12px, 1.24992vw, 48px);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -19,10 +15,33 @@
   @apply rounded-full;
 
   @include respond-to("md") {
-    top: clamp(32px, 6.452vw, 128px);
+    top: clamp(45px, 9.073vw, 180px);
     right: clamp(-8px, -1.613vw, -32px);
-    width: clamp(12px, 2.419vw, 48px);
-    height: clamp(12px, 2.419vw, 48px);
+    width: clamp(15px, 3.024vw, 60px);
+    height: clamp(15px, 3.024vw, 60px);
+  }
+
+  @include respond-to("lg") {
+    top: clamp(40px, 8.065vw, 160px);
+  }
+
+  @include respond-to("xl") {
+    width: clamp(15px, 2.206vw, 60px);
+    height: clamp(15px, 2.206vw, 60px);
+  }
+
+  @include respond-to("2xl") {
+    top: clamp(55px, 7.237vw, 220px);
+  }
+
+  @include respond-to("4xl") {
+    top: clamp(54px, 5.625vw, 216px);
+  }
+
+  @include respond-to("5xl") {
+    top: clamp(57.5px, 4.492vw, 230px);
+    width: clamp(22.5px, 1.758vw, 90px);
+    height: clamp(22.5px, 1.758vw, 90px);
   }
 
   &:hover {

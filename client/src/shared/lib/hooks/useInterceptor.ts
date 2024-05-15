@@ -8,6 +8,7 @@ const parsedData = JSON.parse(data);
 // Создание экземпляра Axios с предустановленными конфигурациями
 export const axiosInstance = axios.create({
   baseURL: "https://spark-admin-production.up.railway.app",
+});
 
 // Добавление интерсептора для вставки JWT в заголовки каждого запроса
 axiosInstance.interceptors.request.use(

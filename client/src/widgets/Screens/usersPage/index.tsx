@@ -5,26 +5,32 @@ import { UserTab } from "@entities/Tabs_Components/UserTab/index";
 import { useGetUsers } from "@shared/lib/hooks/Websites/useGetUsers";
 import SkeletonLoader from "@shared/ui/Skeleton_Loader";
 
-import EmptySvg from '@assets/empty 1 (1).svg'
+import { EmptySvg } from "@assets/index";
 
 interface UsersProps {
   users: [];
 }
 
 export const Users: React.FC<UsersProps> = ({ users }) => {
-  const { isLoading, hasUsers } = useGetUsers()
+  const { isLoading, hasUsers } = useGetUsers();
 
   if (isLoading) {
-    return <div><SkeletonLoader/></div>;
+    return (
+      <div>
+        <SkeletonLoader />
+      </div>
+    );
   }
-  
+
   if (!hasUsers) {
     return (
       <>
-      <div className={styles.container}>
-      <EmptySvg />
-        <p className={styles.container__already}>У вас еще нет пользователей</p>
-      </div>
+        <div className={styles.container}>
+          <EmptySvg className={styles.container__image} />
+          <p className={styles.container__already}>
+            У вас еще нет пользователей
+          </p>
+        </div>
       </>
     );
   }
@@ -38,8 +44,8 @@ export const Users: React.FC<UsersProps> = ({ users }) => {
           functionType="userPopup"
         />
       </div>
-      {users?.websites.map(website =>
-        website.users.map(user => (
+      {users?.websites.map((website) =>
+        website.users.map((user) => (
           <UserTab
             key={user.id}
             username={user.username}

@@ -4,9 +4,9 @@ import WebsiteTab from "@entities/Tabs_Components/WebsiteTab/index";
 import { useGetWebsites } from "@shared/lib/hooks/useGetWebsites";
 import SkeletonLoader from "@shared/ui/Skeleton_Loader";
 
-import EmptySvg from '@assets/empty 1 (1).svg'
+import { EmptySvg } from "@assets/index";
 
-import styles from './styles.module.scss'
+import styles from "./styles.module.scss";
 
 interface DashboardProps {
   sites: [];
@@ -16,20 +16,23 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
   const { isLoading, hasWebsites } = useGetWebsites();
 
   if (isLoading) {
-    return <div><SkeletonLoader/></div>;
-  }
-  
-  if (!hasWebsites) {
     return (
-      <>
-      <div className={styles.container}>
-      <EmptySvg />
-        <p className={styles.container__already}>У вас еще нет сайтов</p>
+      <div>
+        <SkeletonLoader />
       </div>
-      </>
     );
   }
 
+  if (!hasWebsites) {
+    return (
+      <>
+        <div className={styles.container}>
+          <EmptySvg />
+          <p className={styles.container__already}>У вас еще нет сайтов</p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <div className="flex flex-col">
