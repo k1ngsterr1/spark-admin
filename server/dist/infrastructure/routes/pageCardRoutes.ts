@@ -6,8 +6,8 @@ const express = require("express");
 const router = express.Router();
 
 // Проверка JWT токена
-// router.use(authenticateToken);
-// router.use(advancedLogger);
+router.use(authenticateToken);
+router.use(advancedLogger);
 
 /**
  * @swagger
@@ -102,6 +102,8 @@ router.post("/add-block", (req, res) => pageCardController.addBlock(req, res));
  *     description: Создает бизнес лендинг из разных данних блоков
  *     tags:
  *       - Шаблоны
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Страница успешно отображена.
