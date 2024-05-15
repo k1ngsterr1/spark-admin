@@ -5,8 +5,10 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const useScrollAnimation = (movement: any) => {
+const useScrollAnimation = (movement: any, theme: any) => {
   const pageSelectorRef = useRef(null);
+
+  console.log(theme);
 
   useEffect(() => {
     if (pageSelectorRef.current) {
@@ -15,10 +17,9 @@ const useScrollAnimation = (movement: any) => {
         scrollTrigger: {
           trigger: pageSelectorRef.current,
           start: "top top",
-          //   pin: true,
           onEnter: () =>
             gsap.to(pageSelectorRef.current, {
-              backgroundColor: "#474556",
+              backgroundColor: theme === "dark" ? "#474556" : "#FFFFFF",
               position: "sticky",
               right: "0px",
               top: "-80px",
@@ -33,7 +34,7 @@ const useScrollAnimation = (movement: any) => {
               backgroundColor: "transparent",
               position: "relative",
               boxShadow: "none", // Remove the shadow
-              padding: "0", // Reset padding if needed
+              padding: "0px", // Reset padding if needed
               borderRadius: "0", // Reset borderRadius if needed
               ease: "none",
             });
@@ -43,7 +44,7 @@ const useScrollAnimation = (movement: any) => {
     } else {
       console.warn("No elements matched the selector:", selector);
     }
-  }, [movement]);
+  }, [movement, theme]);
 
   return { pageSelectorRef };
 };

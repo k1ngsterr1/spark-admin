@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { pageTypes } from "@shared/lib/content/pageTypeContent";
 import { PageTypeTab } from "@shared/ui/PageTypeTab";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
+import { useTheme } from "next-themes";
 import useScrollAnimation from "@shared/lib/hooks/animations/useScrollPageSelector";
 
 import styles from "./styles.module.scss";
@@ -15,8 +16,9 @@ interface IPageTypeSelectorProps {
 export const PageTypeSelector: React.FC<IPageTypeSelectorProps> = ({
   isAdmin,
 }) => {
+  const { theme } = useTheme();
   const [activeType, setActiveType] = useState<string | null>(null);
-  const { pageSelectorRef } = useScrollAnimation(100);
+  const { pageSelectorRef } = useScrollAnimation(100, theme);
 
   const handleSetActive = (type: string) => {
     setActiveType(type);

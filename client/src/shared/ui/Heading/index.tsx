@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   margin?: string;
   text: string;
-  position: string;
+  position?: string;
 }
 
 const Heading: React.FC<HeadingProps> = ({

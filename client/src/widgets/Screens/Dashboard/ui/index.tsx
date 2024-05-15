@@ -27,6 +27,26 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
     return (
       <>
         <div className={styles.container}>
+          <div className="flex justify-between w-[90%] items-center mb-24">
+            <Heading text="Ваши Сайты" />
+            <div className="flex items-center-justify-center gap-4">
+              <Button
+                text="Добавить сайт"
+                buttonType="regular--small"
+                functionType="webPopup"
+              />
+              <Button
+                text="Верифицировать сайт"
+                buttonType="regular--small"
+                functionType="verifyPopup"
+              />
+              <ButtonLink
+                text="Создать сайт"
+                href="/websites/build"
+                buttonType="regular--small"
+              />
+            </div>
+          </div>
           <EmptySvg />
           <p className={styles.container__already}>У вас еще нет сайтов</p>
         </div>
