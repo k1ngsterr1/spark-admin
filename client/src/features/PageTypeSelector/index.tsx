@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { pageTypes } from "@shared/lib/content/pageTypeContent";
 import { PageTypeTab } from "@shared/ui/PageTypeTab";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
+import useScrollAnimation from "@shared/lib/hooks/animations/useScrollPageSelector";
 
 import styles from "./styles.module.scss";
 
@@ -15,13 +16,14 @@ export const PageTypeSelector: React.FC<IPageTypeSelectorProps> = ({
   isAdmin,
 }) => {
   const [activeType, setActiveType] = useState<string | null>(null);
+  const { pageSelectorRef } = useScrollAnimation(100);
 
   const handleSetActive = (type: string) => {
     setActiveType(type);
   };
 
   return (
-    <div className={styles.page_type_selector}>
+    <div className={styles.page_type_selector} ref={pageSelectorRef}>
       <div className="flex items-center gap-4">
         {pageTypes.map((pageType) => (
           <PageTypeTab
