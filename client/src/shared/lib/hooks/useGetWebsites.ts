@@ -1,11 +1,12 @@
-"use client";
-import { useState, useEffect } from "react";
-import { axiosInstance } from "./useInterceptor";
+'use client'
+import { useState, useEffect } from 'react';
+import { axiosInstance } from './useInterceptor';
 
 // функция для получения списка вебсайтов
 export function useGetWebsites() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]); 
   const [isLoading, setIsLoading] = useState(true);
+  const [hasWebsites, setHasWebsites] = useState(false);
 
   useEffect(() => {
     const fetchWebsites = async () => {
@@ -13,6 +14,7 @@ export function useGetWebsites() {
         setIsLoading(true);
         const response = await axiosInstance.get("/api/website");
         setData(response.data);
+        setHasWebsites(response.data.length > 0);
       } catch (error) {
         console.error("Failed to fetch websites:", error);
       } finally {
@@ -22,5 +24,5 @@ export function useGetWebsites() {
     fetchWebsites();
   }, []);
 
-  return { isLoading };
+  return { isLoading, data, hasWebsites }; 
 }
