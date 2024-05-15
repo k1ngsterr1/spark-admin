@@ -1,3 +1,4 @@
+import { BlockComponent } from "@infrastructure/models/blockComponentModel";
 import { Block } from "@infrastructure/models/blockModel";
 import CardToBlock from "@infrastructure/models/cardToblockModel";
 import { Component } from "@infrastructure/models/componentModel";
@@ -33,6 +34,7 @@ const sequelize = new Sequelize({
     Block,
     PageCard,
     CardToBlock,
+    BlockComponent,
   ],
 });
 

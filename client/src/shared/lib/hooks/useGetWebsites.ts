@@ -12,11 +12,11 @@ export function useGetWebsites() {
     const fetchWebsites = async () => {
       try {
         setIsLoading(true);
-        const response = await axiosInstance.get('/api/website');
+        const response = await axiosInstance.get("/api/website");
         setData(response.data);
         setHasWebsites(response.data.length > 0);
       } catch (error) {
-        console.error('Failed to fetch websites:', error);
+        console.error("Failed to fetch websites:", error);
       } finally {
         setIsLoading(false);
       }

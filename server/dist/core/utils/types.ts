@@ -60,6 +60,14 @@ export interface ComponentAttributes {
   content: string;
   attributes: object;
 }
+export interface BlockComponentAttributes {
+  id: number;
+  blockId: number;
+  block: Block;
+  name: string;
+  text: string;
+  attributes: object;
+}
 
 export interface BlockAttributes {
   id: number;
@@ -75,8 +83,8 @@ export interface CardToBlockAttributes {
   id: number;
   pageCardId: number;
   blockId: number;
-  card: PageCard,
-  block: Block; 
+  card: PageCard;
+  block: Block;
 }
 
 export interface UserToWebsiteAttributes {
@@ -122,6 +130,13 @@ export interface NewComponentInput {
   blockId: number;
 }
 
+export interface NewBlockComponentInput {
+  blockId: number;
+  name: string;
+  text: string;
+  componentId: number;
+}
+
 export interface NewBlockInput {
   name: string;
   title: string;
@@ -141,6 +156,7 @@ export interface NewUserInput {
 export enum UserRole {
   Owner = "owner",
   Admin = "admin",
+  SparkAdmin = "sparkAdmin",
   Editor = "editor",
   User = "user",
 }

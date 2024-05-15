@@ -1,0 +1,12 @@
+<main class="business-landing-main">
+    <div class="business-landing-main-content">
+      <%- include('../../components/business-landing-page/mini-text', { text: main.miniText }) %>
+
+      <h1 class="business-landing-heading"><%= main.heading %></h1>
+      <p class="business-landing-paragraph"><%= main.paragraph %></p>
+
+      <%- include('../../components/business-landing-page/button', { text: main.buttonText }) %>
+    </div>
+    <img src="<%= main.mainImage %>" alt="main image" class="business-landing-main-image">
+</main>
+  

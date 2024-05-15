@@ -7,3 +7,10 @@ export type NewBlockRequest = {
     image_url?: string;
     video_url?: string;
 }
+export type AddBlockComponentRequest = {
+    userId: number;
+    blockName: string;
+    name: string;
+    text: string;
+    componentId: number;
+}

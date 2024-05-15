@@ -1,5 +1,6 @@
 "use client";
 import {
+  usePageCardPopup,
   useWebPopup,
   useWebVerifyPopup,
 } from "@shared/lib/contexts/AppContext";
@@ -36,6 +37,7 @@ const Button: React.FC<ButtonProps> = ({
   const { toggleWebPopup } = useWebPopup();
   const { toggleWebVerifyPopup } = useWebVerifyPopup();
   const { toggleUserPopup } = useUserPopup();
+  const { togglePageCardPopup } = usePageCardPopup();
 
   const handleClick = () => {
     if (functionType === "webPopup") {
@@ -47,6 +49,10 @@ const Button: React.FC<ButtonProps> = ({
 
     if (functionType === "verifyPopup") {
       toggleWebVerifyPopup();
+    }
+
+    if (functionType === "pageCardPopup") {
+      togglePageCardPopup();
     }
   };
 

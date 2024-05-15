@@ -12,10 +12,12 @@ import {
 } from "@core/utils/User/Request";
 import { Login } from "@core/use_cases/User/LoginUser";
 import { ErrorDetails } from "@core/utils/utils";
+import { CheckAdminRole } from "@core/use_cases/User/CheckAdmin";
 
 class UserController {
   private createUserUseCase: CreateUser;
   private loginLogic: Login;
+  private isSparkAdminLogic: CheckAdminRole;
   private changeUserRoleService: ChangeUserRoleService;
   private verifyService: VerifyService;
   private jwtService: JWTService;
@@ -23,6 +25,7 @@ class UserController {
 
   constructor() {
     this.jwtService = new JWTService();
+    this.isSparkAdminLogic = new CheckAdminRole();
     this.changeUserRoleService = new ChangeUserRoleService();
     this.verifyService = new VerifyService();
     this.loginLogic = new Login();
@@ -43,7 +46,7 @@ class UserController {
 
       if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json({ message: current_error.details});
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
@@ -71,10 +74,10 @@ class UserController {
 
       if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json({ message: current_error.details});
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
-      
+
       res.cookie("refreshToken", refreshToken, {
         maxAge: process.env.COOKIE_LIFESPAN,
         httpOnly: true,
@@ -87,7 +90,7 @@ class UserController {
       });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ error: "Ошибка при входе в систему"});
+      res.status(500).json({ error: "Ошибка при входе в систему" });
     }
   }
 
@@ -103,7 +106,7 @@ class UserController {
 
       if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json({ message: current_error.details});
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
@@ -128,11 +131,14 @@ class UserController {
           .json({ message: "ID пользователя не существует :(" });
       }
 
-      await this.changeUserPasswordService.initiatePasswordChange(userID, errors);
+      await this.changeUserPasswordService.initiatePasswordChange(
+        userID,
+        errors
+      );
 
-      if(errors.length > 0) {
+      if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json({ message: current_error.details});
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
@@ -154,14 +160,14 @@ class UserController {
       const request: ChangePasswordRequest = {
         id: req.user.id,
         newPassword: req.body.newPassword,
-        code: req.body.code
+        code: req.body.code,
       };
 
       await this.changeUserPasswordService.execute(request, errors);
 
       if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json({ message: current_error.details});
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
@@ -185,9 +191,9 @@ class UserController {
 
       await this.changeUserRoleService.execute(request, errors);
 
-      if(errors.length > 0) {
+      if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json({ message: current_error.details});
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
@@ -196,6 +202,30 @@ class UserController {
       res
         .status(500)
         .json({ message: "Ошибка с изменением роли:", error: error.message });
+    }
+  }
+
+  async checkSparkAdmin(req: Request, res: Response): Promise<boolean> {
+    const userID = req.user.id;
+
+    try {
+      const isAdmin = await this.isSparkAdminLogic.execute(userID);
+
+      if (!isAdmin) {
+        return res.status(403).json({
+          message: "Доступ запрещен, вы не спарк админ",
+          value: isAdmin,
+        });
+      } else {
+        return res
+          .status(200)
+          .json({ message: "Доступ разрешен, вы админ", value: isAdmin });
+      }
+    } catch (error: any | unknown) {
+      res.status(500).json({
+        message: "Ошибка с изменением роли:",
+        error: error.message,
+      });
     }
   }
 }

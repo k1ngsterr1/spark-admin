@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include('../../components/business-landing-page/header', { header: header }) %>
+    <%- include('../../blocks/business-landing-page/main', { main: main }) %>
+    <%- include('../../blocks/business-landing-page/about-us', { about: about }) %>
+    <%- include('../../blocks/business-landing-page/services', { service: service }) %>
+    <%- include('../../blocks/business-landing-page/form', { form: form }) %>
+    <%- include('../../components/business-landing-page/footer', { footer: footer }) %>
+</body>
+</html>

@@ -1,6 +1,7 @@
 import { IPageCardRepository } from "@core/interfaces/IPageCardRepository";
 import { NewPageCardInput } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
+import { BlockComponent } from "@infrastructure/models/blockComponentModel";
 import { Block } from "@infrastructure/models/blockModel";
 import CardToBlock from "@infrastructure/models/cardToblockModel";
 import { PageCard } from "@infrastructure/models/pageCardModel";
@@ -34,6 +35,15 @@ export class PageCardRepository implements IPageCardRepository {
                 "css_link",
                 "image_url",
                 "video_url",
+              ],
+              include: [
+                {
+                  model: sequelize.getRepository(BlockComponent),
+                  attributes: [
+                    "name",
+                    "text"
+                  ]
+                }
               ]
             }
           ]
