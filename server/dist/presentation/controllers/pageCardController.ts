@@ -38,6 +38,7 @@ class PageCardController{
 
             res.status(201).json({ message: "Успешно добавлено!", item: pageCard });
         } catch(error){
+            console.log(error);
             res.status(500).json({ message: "Произошла ошибка при добавление шаблонной карточки." });
         }
     }

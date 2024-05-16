@@ -16,10 +16,10 @@ const BuildWebsite = () => {
   return (
     <div className="flex">
       <Menu />
-      <main className="flex flex-col w-full ml-16">
+      <main className="flex flex-col items-center w-[90%]">
         <Header />
         <PageCardPopup />
-        <Heading text="Новая страница" />
+        <Heading position="w-[92%]" text="Новая страница" />
         <PageTypeSelector isAdmin={isAdmin} />
         <PageCardsLayout pageType="a" />
       </main>

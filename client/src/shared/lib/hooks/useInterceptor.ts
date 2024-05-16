@@ -1,8 +1,8 @@
 "use client";
 import axios from "axios";
 
-
-const data = typeof window !== undefined ? localStorage.getItem("userData") : '';
+const data =
+  typeof window !== undefined ? localStorage.getItem("userData") : "";
 const parsedData = JSON.parse(data);
 
 // Создание экземпляра Axios с предустановленными конфигурациями

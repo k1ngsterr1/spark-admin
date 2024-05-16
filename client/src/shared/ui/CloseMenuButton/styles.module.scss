@@ -4,7 +4,11 @@
 
 .close_button {
   position: absolute;
-  z-index: 1000;
+  top: clamp(32px, 3.33312vw, 128px);
+  right: clamp(-8px, -0.83328vw, -32px);
+  width: clamp(12px, 1.24992vw, 48px);
+  height: clamp(12px, 1.24992vw, 48px);
+  z-index: 3 !important;
   display: flex;
   align-items: center;
   justify-content: center;

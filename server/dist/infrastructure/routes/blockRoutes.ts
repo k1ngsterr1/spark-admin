@@ -59,6 +59,49 @@ router.use(advancedLogger);
  */
 router.post("/add", (req, res) => blockController.addBlock(req, res));
 
+/**
+ * @swagger
+ * /api/block/add-component:
+ *   post:
+ *     summary: Добавление компонента в блок
+ *     description: Добавляет новый компонент в указанный блок, используя предоставленные данные.
+ *     tags:
+ *       - Блоки
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - blockName
+ *               - name
+ *               - text
+ *               - componentId
+ *             properties:
+ *               blockName:
+ *                 type: string
+ *                 description: Название блока, в который будет добавлен компонент
+ *               name:
+ *                 type: string
+ *                 description: Название компонента
+ *               text:
+ *                 type: string
+ *                 description: Текстовое содержимое компонента
+ *               componentId:
+ *                 type: number
+ *                 example: 1
+ *                 description: Идентификатор компонента
+ *     responses:
+ *       201:
+ *         description: Компонент успешно создан.
+ *       400:
+ *         description: Ошибка в данных.
+ *       500:
+ *         description: Произошла серверная ошибка.
+ */
 router.post("/add-component", (req, res) => blockController.addComponent(req, res));
 
 export default router;
