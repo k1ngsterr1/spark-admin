@@ -1,3 +1,7 @@
+@import "breakpoint-slicer";
+@import "../../shared/styles/mixins";
+@import "../../shared/styles/variables";
+
 .page_cards_layout {
   width: 92%;
   display: grid;
@@ -5,4 +9,11 @@
   @apply gap-8;
   @apply mt-8;
   @apply pb-8;
+
+  @include respond-to("5xl") {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 столбца в первом ряду */
+    grid-template-rows: auto auto; /* Две строки */
+    gap: 20px;
+  }
 }

@@ -16,7 +16,7 @@
   @include respond-to("md") {
     width: clamp(112.5px, 22.681vw, 450px);
     min-height: clamp(100px, 20.161vw, 400px);
-    max-height: clamp(175px, 35.282vw, 700px);
+    @apply pb-4;
   }
 
   &__image {
@@ -48,6 +48,10 @@
       @apply text-xs;
       @apply mt-2;
       @apply text-gray-800;
+
+      @include respond-to("md") {
+        height: 100%;
+      }
     }
   }
 

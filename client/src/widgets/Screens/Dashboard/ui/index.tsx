@@ -4,7 +4,7 @@ import WebsiteTab from "@entities/Tabs_Components/WebsiteTab/index";
 import { useGetWebsites } from "@shared/lib/hooks/useGetWebsites";
 import SkeletonLoader from "@shared/ui/Skeleton_Loader";
 
-import EmptySvg from "@assets/empty 1 (1).svg";
+import { EmptySvg } from "@assets/index";
 
 import styles from "./styles.module.scss";
 
