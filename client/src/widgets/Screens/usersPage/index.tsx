@@ -26,6 +26,14 @@ export const Users: React.FC<UsersProps> = ({ users }) => {
     return (
       <>
         <div className={styles.container}>
+          <div className="flex w-[90%] justify-between items-center m-auto ">
+            <Heading text="Управление пользователями" />
+            <Button
+              text="Добавить пользователя"
+              buttonType="regular--small"
+              functionType="userPopup"
+            />
+          </div>
           <EmptySvg className={styles.container__image} />
           <p className={styles.container__already}>
             У вас еще нет пользователей
