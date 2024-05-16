@@ -1,13 +1,15 @@
 import axios from "axios";
-import { useUserData } from "./useGetData";
 
 interface IData {
-  code: string[];
+  code: string;
 }
 
-export async function useEmailConfirm(data: IData): Promise<void | string> {
+interface IUserData {
+  accessToken: string;
+}
+
+export async function useEmailConfirm(data: IData, userData: IUserData): Promise<void | string> {
   try {
-    const userData = useUserData();
     const accessToken = userData.accessToken;
 
     const response = await axios.post(
