@@ -39,6 +39,7 @@ const corsOptions = {
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'templates'));
+app.use(express.static('templates/public'));
 app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
@@ -68,7 +69,7 @@ app.use(
 // Статичные скрипты
 app.use(
   "/js",
-  express.static(path.join(__dirname, "public/js"), {
+  express.static("templates/public", {
     setHeaders: function (res, path, stat) {
       // Кэширование
       res.set("Cache-Control", "public, max-age=31557600"); // 1 год

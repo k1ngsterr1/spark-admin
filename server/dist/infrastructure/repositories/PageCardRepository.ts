@@ -40,6 +40,7 @@ export class PageCardRepository implements IPageCardRepository {
                 {
                   model: sequelize.getRepository(BlockComponent),
                   attributes: [
+                    "id",
                     "name",
                     "text"
                   ]

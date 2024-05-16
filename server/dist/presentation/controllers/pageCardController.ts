@@ -70,12 +70,15 @@ class PageCardController{
     async businessLanding(req: Request, res: Response): Promise<void>{
         const errors: ErrorDetails[] = [];
         try{
+            // const userId: number = req.user.id;
             const data = await this.BusinessLanding.execute(errors);
+
             if(errors.length > 0){
                 const current_error = errors[0];
                 res.status(current_error.code).json({ message: current_error.details });
                 return;
             }
+
             console.log(data);
             await res.render(
                 'layouts/business-landing-template/main', 

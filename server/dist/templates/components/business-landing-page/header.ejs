@@ -1,5 +1,5 @@
 <header class="business-landing-header">
-    <img src="<%= header.logo %>" alt="Logo" class="logo" />
+    <img src="<%= header.logo.value %>" alt="Logo" class="logo" />
     <nav>
       <ul class="business-header-nav">
         <li><a href="#">Главная</a></li>
@@ -10,7 +10,7 @@
     </nav>
     <button
       class="business-landing-button"
-      onclick="location.href='<%= header.buttonLink %>'"
-    ><%= header.buttonText %></button>
+      onclick="location.href='<%= header.buttonLink.value %>'"
+    ><%= header.buttonText.value %></button>
 </header>
   
