@@ -1,9 +1,11 @@
 <section class="business-landing-about">
-    <div class="business-landing-about-content">
-      <div class="business-landing-about-heading-content">
-        <%- include('../../components/business-landing-page/mini-text', { text: about.miniText }) %>
-        <h2 class="business-landing-heading"><%= about.secondHeadingText %></h2>
-      </div>
+  <div class="business-landing-about-content">
+    <div class="business-landing-about-heading-content">
+      <%- include('../../components/business-landing-page/mini-text', { text: about.miniText.value, id: about.miniText.id }) %>
+      <h2 contenteditable="true" id="<%= about.secondHeadingText.id %>" class="editable business-landing-heading">
+        <%= about.secondHeadingText.value %>
+      </h2>
     </div>
-    <div class="business-landing-counters"></div>
+  </div>
+  <div class="business-landing-counters"></div>
 </section>

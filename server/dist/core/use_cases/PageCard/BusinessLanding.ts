@@ -8,13 +8,16 @@ export class BusinessLanding{
         this.pageCardRepository = new PageCardRepository();
     }
     async execute(errors: ErrorDetails[]): Promise<any>{
-        const pageCards = await this.pageCardRepository.findByName("business-landing", errors);
+        const pageCard = await this.pageCardRepository.findByName("business-landing", errors);
+
         let data = {};
 
-        for (const block of pageCards.blocks) {
+        for (const block of pageCard.blocks) {
             data[block.name] = {};
+
             for (const component of block.components) {
-                data[block.name][component.name] = component.text;
+                const id = String(component.id)+'-'+String(3);
+                data[block.name][component.name] = { id: id, value: component.text };
             }
         }
 

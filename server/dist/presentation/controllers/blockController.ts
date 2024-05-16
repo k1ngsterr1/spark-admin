@@ -1,5 +1,6 @@
 import { AddBlock } from "@core/use_cases/Block/AddBlock";
 import { AddComponent } from "@core/use_cases/Block/AddComponent";
+import { UpdateComponent } from "@core/use_cases/Block/UpdateComponent";
 import { AddBlockComponentRequest, NewBlockRequest } from "@core/utils/Block/Request";
 import { ErrorDetails } from "@core/utils/utils";
 import { Request, Response } from "express" 
@@ -8,9 +9,11 @@ import { TargetType } from "puppeteer";
 class BlockController{
     private addBlockLogic: AddBlock;
     private addComponentLogic: AddComponent;
+    private updateComponentLogic: UpdateComponent;
     constructor(){
         this.addBlockLogic = new AddBlock();
         this.addComponentLogic = new AddComponent();
+        this.updateComponentLogic = new UpdateComponent();
     }
     async addBlock(req: Request, res: Response): Promise<void>{
         const errors: ErrorDetails[] = [];
@@ -61,6 +64,27 @@ class BlockController{
         }catch(error){
             console.log(error);
             res.status(500).json({ message: "Ошибка при добавления компоненты для блока." });
+        }
+    }
+
+    async updateComponent(req: Request, res: Response): Promise<void>{
+        const errors: ErrorDetails[] = [];
+        try{
+            const id: string = req.params.id;
+            const value: string = req.body.value;
+
+            await this.updateComponentLogic.execute(id, value, errors);
+
+            if(errors.length > 0){
+                const current_error = errors[0];
+                res.status(current_error.code).json({ message: current_error.details });
+                return;
+            }
+
+            res.status(200).json({ message: "Компонента была обнавлена." });
+        }catch(error){
+            console.log(error);
+            res.status(500).json({ message: "Ошибка при изменения компоненты." })
         }
     }
 }

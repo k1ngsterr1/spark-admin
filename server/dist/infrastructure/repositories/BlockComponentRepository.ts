@@ -14,4 +14,13 @@ export class BlockComponentRepository implements IBlockComponentRepository {
             errors.push(new ErrorDetails(500, "Ошибка при создание компонента"));
         }
     }
+
+    async findByPk(pk: number, errors: ErrorDetails[]): Promise<BlockComponent>{
+        try{    
+            return await sequelize.getRepository(BlockComponent).findByPk(pk);
+        }catch(error){
+            console.log(error);
+            errors.push(new ErrorDetails(500, "Ошибка при нахождение компоненты по id."));
+        }
+    }
 }
