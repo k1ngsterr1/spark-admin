@@ -1,7 +1,7 @@
 <footer class="business-landing-footer">
     <div class="business-landing-footer-content">
       <div class="business-landing-footer-logo">
-        <img src="<%= footer.image %>" class="business-landing-logo" alt="Logo" />
+        <img src="<%= footer.image.value %>" class="business-landing-logo" alt="Logo" />
         <nav class="business-landing-footer-nav">
           <ul class="business-header-nav">
             <li><a href="#">Главная</a></li>
@@ -12,10 +12,12 @@
         </nav>
         <button
           class="business-landing-button"
-          onclick="location.href='<%= footer.buttonLink %>'"
-        ><%= footer.buttonText %></button>
+          onclick="location.href='<%= footer.buttonLink.value %>'"
+        >
+          <%= footer.buttonText.value %>
+        </button>
       </div>
-      <img src="<%= footer.logoImage %>" alt="Spark Studio Logo" />
+      <img src="<%= footer.logoImage.value %>" alt="Spark Studio Logo" />
     </div>
 </footer>
   
