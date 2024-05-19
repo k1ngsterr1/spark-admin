@@ -1,7 +1,7 @@
 import { axiosInstance } from "./../useInterceptor";
 
 interface IData {
-  code: string[];
+  code: string;
 }
 
 export async function useEmailConfirm(data: IData): Promise<void | string> {

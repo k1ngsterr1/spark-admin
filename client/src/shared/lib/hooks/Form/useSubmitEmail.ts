@@ -13,14 +13,17 @@ export default function useSubmitEmail() {
 
   const handleInputChange = (index: number, value: string) => {
     const newInputs = [...code];
-    newInputs[index] = value;
+    newInputs[index] = value.slice(0, 1); 
     setCode(newInputs);
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const result = await useEmailConfirm({ code });
+    const concatenatedCode = code.join('').toUpperCase();
+    console.log("Submitting concatenated code:", concatenatedCode);
+
+    const result = await useEmailConfirm({ code: concatenatedCode });
     if (typeof result === "string") {
       setEmailError(result);
     }

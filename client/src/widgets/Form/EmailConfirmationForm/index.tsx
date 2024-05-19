@@ -1,6 +1,6 @@
 // В этом компоненте находится логика для отправки специального кода, который пользователь получает на электронную почту для подтверждения почты
 
-"use client";
+'use client';
 
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import Input from "@shared/ui/Inputs/DefaultInport";
@@ -14,8 +14,7 @@ import styles from "../styles/styles.module.scss";
 import SparkLogo from "@assets/spark_product_logo.svg";
 
 const EmailConfirm = () => {
-  const { code, handleInputChange, userData, emailError, handleSubmit } =
-    useSubmitEmail();
+  const { code, handleInputChange, userData, emailError, handleSubmit } = useSubmitEmail();
 
   return (
     <section className={styles.registration}>
@@ -27,9 +26,7 @@ const EmailConfirm = () => {
         <div className={styles.registration__content__mail}>
           <span className={styles.registration__content__mail__text}>
             Аккаунт:
-            <span
-              className={`${styles.registration__content__mail__text_orange} ml-2`}
-            >
+            <span className={`${styles.registration__content__mail__text_orange} ml-2`}>
               {userData.username || "Неизвестно"}
             </span>
           </span>
@@ -44,18 +41,15 @@ const EmailConfirm = () => {
             </div>
           </span>
         </div>
-        <form
-          className={styles.registration__content__form}
-          onSubmit={handleSubmit}
-        >
+        <form className={styles.registration__content__form} onSubmit={handleSubmit}>
           <div className={styles.confirmation_input}>
-            {code.map((code, index) => (
+            {code.map((value, index) => (
               <Input
                 key={index}
                 inputType="email"
                 maxLength={1}
                 autoComplete="off"
-                value={code}
+                value={value}
                 name="code"
                 onChange={(e) => handleInputChange(index, e.target.value)}
                 type="text"
