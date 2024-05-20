@@ -1,17 +1,17 @@
 <main class="business-landing-main">
   <div class="business-landing-main-content">
-    <%- include('../../components/business-landing-page/mini-text', { text: main.miniText.value, id: main.miniText.id }) %>
+    <%- include('../../components/business-landing-page/mini-text', { text: data.miniText.value, id: data.miniText.id }) %>
 
-    <h1 contenteditable="true" id="<%= main.heading.id %>" class="editable business-landing-heading">
-      <%= main.heading.value %>
+    <h1 contenteditable="true" id="<%= data.heading.id %>" class="editable business-landing-heading">
+      <%= data.heading.value %>
     </h1>
-    <p contenteditable="true" id="<%= main.paragraph.id %>" class="editable business-landing-paragraph">
-      <%= main.paragraph.value %>
+    <p contenteditable="true" id="<%= data.paragraph.id %>" class="editable business-landing-paragraph">
+      <%= data.paragraph.value %>
     </p>
 
     <button class="business-landing-button">
-      <%= main.buttonText.value %>
+      <%= data.buttonText.value %>
     </button>
   </div>
-  <img src="<%= main.mainImage.value %>" alt="main image" class="business-landing-main-image">
+  <img src="<%= data.mainImage.value %>" alt="main image" class="business-landing-main-image">
 </main>

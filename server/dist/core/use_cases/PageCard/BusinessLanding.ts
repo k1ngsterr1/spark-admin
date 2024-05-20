@@ -10,14 +10,29 @@ export class BusinessLanding{
     async execute(errors: ErrorDetails[]): Promise<any>{
         const pageCard = await this.pageCardRepository.findByName("business-landing", errors);
 
-        let data = {};
+        let data = {
+            header: {},
+            block_name: [],
+            block_data: [],
+            footer: {},
+        };
 
         for (const block of pageCard.blocks) {
-            data[block.name] = {};
+            if (block.name === "header" || block.name === "footer") {
+                for (const component of block.components) {
+                    const id = `${component.id}-3`;
+                    data[block.name][component.name] = { id: id, value: component.text };
+                }
+            } else {
+                let blockData = {};
 
-            for (const component of block.components) {
-                const id = String(component.id)+'-'+String(3);
-                data[block.name][component.name] = { id: id, value: component.text };
+                for (const component of block.components) {
+                    const id = `${component.id}-3`;
+                    blockData[component.name] = { id: id, value: component.text };
+                }
+
+                data.block_name.push(block.name);
+                data.block_data[block.name] = blockData;
             }
         }
 

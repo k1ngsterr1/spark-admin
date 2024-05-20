@@ -1,17 +1,17 @@
 <section class="business-landing-form-content">
   <div class="business-landing-heading-content">
-      <%- include('../../components/business-landing-page/mini-text', { text: form.miniText.value, id: form.miniText.id }) %>
-      <h4 contenteditable="true" id="<%= form.formHeading.id %>" class="editable business-landing-heading">
-          <%= form.formHeading.value %>
+      <%- include('../../components/business-landing-page/mini-text', { text: data.miniText.value, id: data.miniText.id }) %>
+      <h4 contenteditable="true" id="<%= data.formHeading.id %>" class="editable business-landing-heading">
+          <%= data.formHeading.value %>
       </h4>
-      <p contenteditable="true" id="<%= form.formParagraph.id %>" class="editable business-landing-paragraph">
-          <%= form.formParagraph.value %>
+      <p contenteditable="true" id="<%= data.formParagraph.id %>" class="editable business-landing-paragraph">
+          <%= data.formParagraph.value %>
       </p>
       <form action="" class="business-landing-form">
           <div class="business-landing-inputs">
               <div class="business-inputs-upper">
-                  <input type="text" placeholder="<%= form.firstInputPlaceholder.value %>" disabled>
-                  <input type="text" placeholder="<%= form.secondInputPlaceholder.value %>" disabled>
+                  <input type="text" placeholder="<%= data.firstInputPlaceholder.value %>" disabled>
+                  <input type="text" placeholder="<%= data.secondInputPlaceholder.value %>" disabled>
               </div>
           </div>
       </form>

@@ -79,17 +79,15 @@ class PageCardController{
                 return;
             }
 
-            console.log(data);
+            console.log(data.block_name);
             await res.render(
                 'layouts/business-landing-template/main', 
                 {
                     title: "Business template",
                     header: data.header,
-                    main: data.main,
-                    about: data.about,
-                    service: data.service,
-                    form: data.form,
-                    footer: data.footer
+                    block_name: data.block_name,
+                    block_data: data.block_data,
+                    footer: data.footer,
                 },
             )
         }catch(error){
