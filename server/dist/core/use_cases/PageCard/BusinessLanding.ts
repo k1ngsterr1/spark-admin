@@ -19,13 +19,16 @@ export class BusinessLanding{
 
         for (const block of pageCard.blocks) {
             if (block.name === "header" || block.name === "footer") {
+                data[block.name] = { id: block.id };
                 for (const component of block.components) {
                     const id = `${component.id}-3`;
-                    data[block.name] = { id: block.id };
+                    console.log("my component = ", component.name);
                     data[block.name][component.name] = { id: id, value: component.text };
                 }
             } else {
-                let blockData = {};
+                let blockData = {
+                    id: block.id
+                };
 
                 for (const component of block.components) {
                     const id = `${component.id}-3`;
@@ -33,7 +36,6 @@ export class BusinessLanding{
                 }
 
                 data.block_name.push(block.name);
-                data[block.name] = { id: block.id };
                 data.block_data[block.name] = blockData;
             }
         }
