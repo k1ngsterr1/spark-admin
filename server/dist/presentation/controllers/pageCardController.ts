@@ -79,7 +79,7 @@ class PageCardController{
                 return;
             }
 
-            console.log(data.block_name);
+            console.log(data);
             await res.render(
                 'layouts/business-landing-template/main', 
                 {
