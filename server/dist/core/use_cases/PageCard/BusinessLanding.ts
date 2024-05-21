@@ -21,6 +21,7 @@ export class BusinessLanding{
             if (block.name === "header" || block.name === "footer") {
                 for (const component of block.components) {
                     const id = `${component.id}-3`;
+                    data[block.name] = { id: block.id };
                     data[block.name][component.name] = { id: id, value: component.text };
                 }
             } else {
@@ -32,6 +33,7 @@ export class BusinessLanding{
                 }
 
                 data.block_name.push(block.name);
+                data[block.name] = { id: block.id };
                 data.block_data[block.name] = blockData;
             }
         }
