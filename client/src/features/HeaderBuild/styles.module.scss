@@ -1,0 +1,27 @@
+.header {
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 60px;
+    max-width: 100vw;
+
+    &__left {
+        max-width: calc(100vw - 500px - 40px);
+        margin-right: 40px;
+    }
+
+    &__links {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+
+        &_divider {
+            flex-grow: 0;
+            flex-shrink: 0;
+            margin: 0 10px;
+            opacity: .5;
+        }
+    }
+}

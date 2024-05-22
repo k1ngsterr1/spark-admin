@@ -26,6 +26,7 @@
   border-right: none;
   border-top: none;
   border-left: none;
+  @apply mb-4;
   border-bottom:  2px rgba(255, 147, 114, 0.5) solid;
   &:focus {
     @apply text-primary;
