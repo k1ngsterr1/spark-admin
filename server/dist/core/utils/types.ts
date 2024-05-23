@@ -75,6 +75,7 @@ export interface BlockAttributes {
   name: string;
   title: string;
   content: string;
+  type: string;
   image_url: string;
   video_url: string;
 }

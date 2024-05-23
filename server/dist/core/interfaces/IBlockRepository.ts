@@ -6,4 +6,5 @@ export interface IBlockRepository {
     create(request: NewBlockInput, errors: ErrorDetails[]): Promise<Block>;
     findByName(name: string): Promise<Block>;
     findById(id: number): Promise<Block>;
+    findAllByType(type: string, errors: ErrorDetails[]): Promise<Block[]>;
 }
