@@ -8,10 +8,11 @@ import Heading from "@shared/ui/Heading/index";
 import MiniText from "@shared/ui/MiniText";
 import { ErrorDisplay } from "@shared/ui/Error/index";
 import useSubmitEmail from "@shared/lib/hooks/Form/useSubmitEmail";
+import SparkLogo from "@assets/spark_product_logo.svg";
 
 import "@shared/styles/_mixins.scss";
+
 import styles from "../styles/styles.module.scss";
-import SparkLogo from "@assets/spark_product_logo.svg";
 
 const EmailConfirm = () => {
   const { code, handleInputChange, userData, emailError, handleSubmit } =
@@ -31,6 +32,11 @@ const EmailConfirm = () => {
               className={`${styles.registration__content__mail__text_orange} ml-2`}
             >
               {userData.username || "Неизвестно"}
+              <span
+                className={`${styles.registration__content__mail__text_orange} ml-2`}
+              >
+                {userData.username || "Неизвестно"}
+              </span>
             </span>
           </span>
         </div>
@@ -39,6 +45,7 @@ const EmailConfirm = () => {
             Письмо с подтверждением отправлено на почту
             <div>
               <span className={styles.registration__content__mail__text_orange}>
+                {userData.email || "Неизвестно"}
                 {userData.email || "Неизвестно"}
               </span>
             </div>
@@ -53,11 +60,11 @@ const EmailConfirm = () => {
               <Input
                 key={index}
                 inputType="email"
-                maxLength={1}
                 autoComplete="off"
                 value={code}
-                name="code"
+                name={`code-${index}`}
                 onChange={(e) => handleInputChange(index, e.target.value)}
+                maxLength={1}
                 type="text"
               />
             ))}

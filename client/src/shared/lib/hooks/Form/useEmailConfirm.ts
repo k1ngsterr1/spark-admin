@@ -1,14 +1,21 @@
 import { axiosInstance } from "./../useInterceptor";
 
 interface IData {
-  code: string[];
+  code: string;
 }
 
-export async function useEmailConfirm(data: IData): Promise<void | string> {
+interface IUserData {
+  accessToken: string;
+}
+
+export async function useEmailConfirm(
+  data: IData,
+  userData: IUserData
+): Promise<void | string> {
   try {
     const response = await axiosInstance.post("/api/auth/verify", data);
+    const accessToken = userData.accessToken;
 
-    console.log("Data created:", response.data);
     window.location.href = "/websites";
   } catch (error: unknown | any) {
     console.error("Failed to create data:", error);

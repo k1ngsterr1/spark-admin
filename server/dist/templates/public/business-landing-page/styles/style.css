@@ -1,55 +1,59 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-h1, h2, h3, h4, p {
-    margin: 0 0 20px 0;
-    line-height: 1.5;
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0 0 20px 0;
+  line-height: 1.5;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 /* Header Styles */
 .business-landing-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #ddd;
 }
 
 .logo {
-    max-width: 150px;
+  max-width: 150px;
 }
 
 .business-header-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
 }
 
 .business-header-nav li {
-    list-style: none;
+  list-style: none;
 }
 
 .business-header-nav a {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    transition: color 0.3s ease;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  transition: color 0.3s ease;
 }
 
 .business-header-nav a:hover {
-    color: #007bff;
+  color: #007bff;
 }
 
 a {
@@ -57,141 +61,141 @@ a {
 }
 
 .business-landing-button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .business-landing-button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 /* Main Content Styles */
 .business-landing-main {
-    padding: 40px 20px;
-    background-color: #f9f9f9;
-    text-align: center;
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
 }
 
 .business-landing-main-content {
-    max-width: 800px;
-    margin: 0 auto;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .business-landing-main-image {
-    max-width: 100%;
-    height: auto;
-    margin-top: 20px;
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
 }
 
 /* About Section Styles */
 .business-landing-about {
-    padding: 40px 20px;
-    background-color: #ffffff;
-    text-align: center;
+  padding: 40px 20px;
+  background-color: #ffffff;
+  text-align: center;
 }
 
 .business-landing-about-content {
-    max-width: 800px;
-    margin: 0 auto;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* Form Section Styles */
 .business-landing-form-content {
-    padding: 40px 20px;
-    background-color: #f9f9f9;
-    text-align: center;
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
 }
 
 .business-landing-form {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .business-landing-inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .business-landing-inputs input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
 }
 
 /* Service Section Styles */
 .business-landing-service {
-    padding: 40px 20px;
-    background-color: #ffffff;
-    text-align: center;
+  padding: 40px 20px;
+  background-color: #ffffff;
+  text-align: center;
 }
 
 .business-landing-service-heading-content {
-    max-width: 800px;
-    margin: 0 auto;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* Footer Styles */
 .business-landing-footer {
-    padding: 40px 20px;
-    background-color: #f4f4f4;
-    text-align: center;
-    border-top: 1px solid #ddd;
+  padding: 40px 20px;
+  background-color: red;
+  text-align: center;
+  border-top: 1px solid #ddd;
 }
 
 .business-landing-footer-content {
-    max-width: 800px;
-    margin: 0 auto;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .business-landing-footer-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .business-landing-footer-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
 }
 
 .business-landing-footer-nav li {
-    list-style: none;
+  list-style: none;
 }
 
 .business-landing-footer-nav a {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    transition: color 0.3s ease;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  transition: color 0.3s ease;
 }
 
 .business-landing-footer-nav a:hover {
-    color: #007bff;
+  color: #007bff;
 }
 
 .business-landing-logo {
-    max-width: 150px;
-    margin-bottom: 20px;
+  max-width: 150px;
+  margin-bottom: 20px;
 }
 
 /* Editable Styles */
 .editable {
-    border: 1px dashed #007bff;
-    padding: 5px;
-    transition: background-color 0.3s ease;
+  border: 1px dashed #007bff;
+  padding: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .editable:focus {
-    background-color: #e6f7ff;
-    outline: none;
+  background-color: #e6f7ff;
+  outline: none;
 }
