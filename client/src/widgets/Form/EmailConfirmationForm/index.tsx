@@ -8,10 +8,11 @@ import Heading from "@shared/ui/Heading/index";
 import MiniText from "@shared/ui/MiniText";
 import { ErrorDisplay } from "@shared/ui/Error/index";
 import useSubmitEmail from "@shared/lib/hooks/Form/useSubmitEmail";
+import SparkLogo from "@assets/spark_product_logo.svg";
 
 import "@shared/styles/_mixins.scss";
+
 import styles from "../styles/styles.module.scss";
-import SparkLogo from "@assets/spark_product_logo.svg";
 
 const EmailConfirm = () => {
   const { code, handleInputChange, userData, emailError, handleSubmit } =
