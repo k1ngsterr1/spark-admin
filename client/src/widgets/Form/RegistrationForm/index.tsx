@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { HeaderBuild } from "@features/HeaderBuild";
+import { SideBarMenu } from "@features/SideBarBuilder";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import PasswordInput from "@shared/ui/Inputs/PasswordInput";
@@ -26,7 +26,7 @@ const Form = () => {
 
   return (
     <section className={styles.registration}>
-      <HeaderBuild/>
+      <SideBarMenu/>
       <div className={styles.registration__content}>
         <div className={styles.registration__content__logo}>
           <SparkLogo />

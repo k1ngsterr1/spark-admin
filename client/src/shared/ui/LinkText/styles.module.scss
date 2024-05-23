@@ -7,7 +7,6 @@
 	align-items: center;
 	@apply gap-2;
 	@apply text-dark-super;
-	// @apply ml-2;
 	flex-grow: 1;
     flex-shrink: 1;
     text-transform: uppercase;
@@ -30,17 +29,4 @@
 	}
 }
 
-
-.link--footer {
-	// @apply font-Proxima;
-	@apply text-primary-TRANSPARENT;
-	font-size: clamp(12px,1.24992vw,48px);
-	font-weight: 600;
-	transition: 0.3s ease-in-out;
-	text-transform: uppercase;
-    
-	&:hover {
-		@apply text-primary;
-	}
-}
 
