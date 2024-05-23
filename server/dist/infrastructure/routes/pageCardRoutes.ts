@@ -6,8 +6,8 @@ const express = require("express");
 const router = express.Router();
 
 // Проверка JWT токена
-router.use(authenticateToken);
-router.use(advancedLogger);
+// router.use(authenticateToken);
+// router.use(advancedLogger);
 
 /**
  * @swagger

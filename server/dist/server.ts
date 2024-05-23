@@ -39,7 +39,9 @@ const corsOptions = {
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'templates'));
-app.use(express.static('templates/public'));
+
+app.use(express.static(path.join(__dirname, 'templates/public')));
+
 app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
@@ -50,10 +52,6 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-// Статичные файлы:
-
-app.use(express.static(path.join(__dirname, "public")));
 
 // Статичные стили
 app.use(
