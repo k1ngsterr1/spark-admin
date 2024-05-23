@@ -31,7 +31,7 @@ export class BusinessLanding{
                 };
 
                 for (const component of block.components) {
-                    const id = `${component.id}-3`;
+                    const id = `${component.id}-${userId}`;
                     blockData[component.name] = { id: id, value: component.text };
                 }
 

@@ -29,18 +29,21 @@ router.use(advancedLogger);
  *             required:
  *               - name
  *               - title
- *               - content
- *               - css_link
+ *               - description
+ *               - type
  *             properties:
  *               name:
  *                 type: string
  *                 description: Уникальное имя блока
  *               title:
  *                 type: string
- *                 description: Заголовок блока
- *               content:
+ *                 description: Имя блока
+ *               description:
  *                 type: string
- *                 description: Содержимое блока
+ *                 description: Описание блока
+ *               type:
+ *                 type: string
+ *                 description: Тип блока
  *               css_link:
  *                 type: string
  *                 description: Ссылка на CSS файл блока
@@ -62,7 +65,7 @@ router.post("/add", (req, res) => blockController.addBlock(req, res));
 
 /**
  * @swagger
- * /api/block/get-blocks/{name}:
+ * /api/block/get-blocks/{type}:
  *   get:
  *     summary: Получение всех блоков через их тип
  *     description: Получение всех блоков через их тип, только для верифицированных пользователей
@@ -86,7 +89,7 @@ router.post("/add", (req, res) => blockController.addBlock(req, res));
  *       500:
  *         description: Произошла серверная ошибка.
  */
-router.get("/get-blocks/:name", (req, res) => blockController.getBlocks(req, res));
+router.get("/get-blocks/:type", (req, res) => blockController.getBlocks(req, res));
 
 router.use("/component", blockComponentRoutes);
 

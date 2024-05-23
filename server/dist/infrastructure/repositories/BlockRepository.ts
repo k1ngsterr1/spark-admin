@@ -32,15 +32,16 @@ export class BlockRepository implements IBlockRepository {
             return await sequelize.getRepository(Block).findAll({
                 where: {
                     type: type,
-                    attribute: [
-                        'id',
-                        'title',
-                        'description',
-                        'image_url'
-                    ]
-                }
+                },
+                attributes: [
+                    'id',
+                    'title',
+                    'description',
+                    'image_url'
+                ]
             });
         } catch(error){
+            console.log(error);
             errors.push(new ErrorDetails(500, 'Ошибка при получение блоков через их тип'));
             return;
         }
