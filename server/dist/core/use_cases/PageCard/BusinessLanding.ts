@@ -7,7 +7,7 @@ export class BusinessLanding{
     constructor(){
         this.pageCardRepository = new PageCardRepository();
     }
-    async execute(errors: ErrorDetails[]): Promise<any>{
+    async execute(userId: number, errors: ErrorDetails[]): Promise<any>{
         const pageCard = await this.pageCardRepository.findByName("business-landing", errors);
 
         let data = {
@@ -21,7 +21,7 @@ export class BusinessLanding{
             if (block.name === "header" || block.name === "footer") {
                 data[block.name] = { id: block.id };
                 for (const component of block.components) {
-                    const id = `${component.id}-3`;
+                    const id = `${component.id}-${userId}`;
                     console.log("my component = ", component.name);
                     data[block.name][component.name] = { id: id, value: component.text };
                 }

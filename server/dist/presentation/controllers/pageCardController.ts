@@ -67,8 +67,8 @@ class PageCardController{
     async businessLanding(req: Request, res: Response): Promise<void>{
         const errors: ErrorDetails[] = [];
         try{
-            // const userId: number = req.user.id;
-            const data = await this.BusinessLanding.execute(errors);
+            const userId: number = req.user.id;
+            const data = await this.BusinessLanding.execute(userId, errors);
 
             if(errors.length > 0){
                 const current_error = errors[0];

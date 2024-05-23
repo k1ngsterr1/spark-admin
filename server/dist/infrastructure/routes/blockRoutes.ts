@@ -7,8 +7,8 @@ const express = require("express");
 const router = express.Router();
 
 // Проверка JWT токена
-// router.use(authenticateToken);
-// router.use(advancedLogger);
+router.use(authenticateToken);
+router.use(advancedLogger);
 
 /**
  * @swagger
@@ -62,7 +62,7 @@ router.post("/add", (req, res) => blockController.addBlock(req, res));
 
 /**
  * @swagger
- * /api/block/add:
+ * /api/block/get-blocks/{name}:
  *   get:
  *     summary: Получение всех блоков через их тип
  *     description: Получение всех блоков через их тип, только для верифицированных пользователей
@@ -86,7 +86,7 @@ router.post("/add", (req, res) => blockController.addBlock(req, res));
  *       500:
  *         description: Произошла серверная ошибка.
  */
-router.get("get-blocks/:name", (req, res) => blockController.getBlocks(req, res));
+router.get("/get-blocks/:name", (req, res) => blockController.getBlocks(req, res));
 
 router.use("/component", blockComponentRoutes);
 
