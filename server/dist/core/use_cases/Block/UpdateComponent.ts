@@ -29,7 +29,6 @@ export class UpdateComponent {
     }
 
     component.text = value;
-    console.log(value);
     await component.save();
 
   }
