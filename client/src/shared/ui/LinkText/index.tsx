@@ -9,7 +9,7 @@ interface LinkProps {
   text: string;
   to: string;
   href: string;
-  linkTextType: 'header' | 'footer';
+  linkTextType: 'header' | 'footer' ;
   onClick?: () => void;
   icon?: IconDefinition | undefined;
 }
