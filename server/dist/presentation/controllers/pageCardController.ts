@@ -1,7 +1,6 @@
 import { AddBlock } from "@core/use_cases/PageCard/AddBlock";
 import { AddPageCard } from "@core/use_cases/PageCard/AddPageCard";
 import { BusinessLanding } from "@core/use_cases/PageCard/BusinessLanding";
-import { GeneratePage } from "@core/use_cases/PageCard/GeneratePage";
 import { AddBlockRequest, NewPageCardRequest } from "@core/utils/PageCard/Reqeust";
 import { ErrorDetails } from "@core/utils/utils";
 import { Request, Response } from "express";
@@ -9,12 +8,10 @@ import { Request, Response } from "express";
 class PageCardController{
     private addPageCardLogic: AddPageCard;
     private addBlockLogic: AddBlock;
-    private generatePage: GeneratePage;
     private BusinessLanding: BusinessLanding;
     constructor(){
         this.addPageCardLogic = new AddPageCard();
         this.addBlockLogic = new AddBlock();
-        this.generatePage = new GeneratePage();
         this.BusinessLanding = new BusinessLanding();
     }
     async addPageCard(req: Request, res: Response): Promise<void>{
