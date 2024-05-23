@@ -31,6 +31,11 @@ const EmailConfirm = () => {
               className={`${styles.registration__content__mail__text_orange} ml-2`}
             >
               {userData.username || "Неизвестно"}
+              <span
+                className={`${styles.registration__content__mail__text_orange} ml-2`}
+              >
+                {userData.username || "Неизвестно"}
+              </span>
             </span>
           </span>
         </div>
@@ -39,6 +44,7 @@ const EmailConfirm = () => {
             Письмо с подтверждением отправлено на почту
             <div>
               <span className={styles.registration__content__mail__text_orange}>
+                {userData.email || "Неизвестно"}
                 {userData.email || "Неизвестно"}
               </span>
             </div>
@@ -53,11 +59,11 @@ const EmailConfirm = () => {
               <Input
                 key={index}
                 inputType="email"
-                maxLength={1}
                 autoComplete="off"
                 value={code}
-                name="code"
+                name={`code-${index}`}
                 onChange={(e) => handleInputChange(index, e.target.value)}
+                maxLength={1}
                 type="text"
               />
             ))}
