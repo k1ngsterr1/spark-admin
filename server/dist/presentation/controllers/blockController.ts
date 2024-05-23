@@ -1,6 +1,6 @@
 import { AddBlock } from "@core/use_cases/Block/AddBlock";
 import { AddComponent } from "@core/use_cases/Block/AddComponent";
-import { GetBlocksByName } from "@core/use_cases/Block/GetBlocksByName";
+import { GetBlocksByType } from "@core/use_cases/Block/GetBlocksByType";
 import { UpdateComponent } from "@core/use_cases/Block/UpdateComponent";
 import { AddBlockComponentRequest, NewBlockRequest } from "@core/utils/Block/Request";
 import { ErrorDetails } from "@core/utils/utils";
@@ -11,12 +11,12 @@ class BlockController{
     private addBlockLogic: AddBlock;
     private addComponentLogic: AddComponent;
     private updateComponentLogic: UpdateComponent;
-    private getBlocksByName: GetBlocksByName;
+    private getBlocksByType: GetBlocksByType;
     constructor(){
         this.addBlockLogic = new AddBlock();
         this.addComponentLogic = new AddComponent();
         this.updateComponentLogic = new UpdateComponent();
-        this.getBlocksByName = new GetBlocksByName();
+        this.getBlocksByType = new GetBlocksByType();
     }
     async addBlock(req: Request, res: Response): Promise<void>{
         const errors: ErrorDetails[] = [];
@@ -25,7 +25,8 @@ class BlockController{
                 userId: req.user.id,
                 name: req.body.name,
                 title: req.body.title,
-                content: req.body.content,
+                description: req.body.description,
+                type: req.body.type,
                 css_link: req.body.css_link,
                 image_url: req.body.image_url,
                 video_url: req.body.video_url
@@ -94,10 +95,11 @@ class BlockController{
     async getBlocks(req: Request, res: Response): Promise<void>{
         const errors: ErrorDetails[] = [];
         try{
-            const name: string = req.params.name;
+            const type: string = req.params.type;
             const userId: number = req.user.id;
+            console.log(type)
             
-            const blocks = await this.getBlocksByName.execute(name, userId, errors);
+            const blocks = await this.getBlocksByType.execute(type, userId, errors);
 
             if(errors.length > 0){
                 const current_error = errors[0];

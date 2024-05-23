@@ -27,12 +27,15 @@ export class Login {
     refreshToken: string;
   }> {
     const { email, password } = request;
-    const user = await this.userRepository.findOne({ where: { email } });
+    const user = await this.userRepository.findOne({ where: { email: email } });
+    console.log(user);
 
-    if (!user) {
+    if (user === null) {
       errors.push(new ErrorDetails(404, "Не удалось найти пользователя."));
+      console.log(errors);
       return;
     }
+
 
     const isMatch: boolean = await bcryptjs.compare(password, user.password);
 
@@ -40,6 +43,7 @@ export class Login {
       errors.push(new ErrorDetails(404, "Неверный пароль!"));
       return;
     }
+    console.log(user);
 
     const userResponse: UserResponse = {
       id: user.id,

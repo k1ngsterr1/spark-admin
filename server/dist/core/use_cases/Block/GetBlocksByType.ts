@@ -4,7 +4,7 @@ import { ErrorDetails } from "@core/utils/utils";
 import { BlockRepository } from "@infrastructure/repositories/BlockRepository";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 
-export class GetBlocksByName{
+export class GetBlocksByType{
     private blockRepository: IBlockRepository;
     private userRepository: IUserRepository;
     constructor(){
@@ -14,7 +14,7 @@ export class GetBlocksByName{
     async execute(type: string, userId: number, errors: ErrorDetails[]){
         const user = await this.userRepository.findByPk(userId);
 
-        if(user.isVerified){
+        if(!user.isVerified){
             errors.push(new ErrorDetails(403, "Вы не верифицированный пользователь."));
             return;
         }

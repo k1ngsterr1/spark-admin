@@ -67,7 +67,7 @@ class UserController {
         email: req.body.email,
         password: req.body.password,
       };
-      const { user, accessToken, refreshToken } = await this.loginLogic.execute(
+      const data = await this.loginLogic.execute(
         request,
         errors
       );
@@ -77,6 +77,8 @@ class UserController {
         res.status(current_error.code).json({ message: current_error.details });
         return;
       }
+
+      const { user, accessToken, refreshToken } = data;
 
       res.cookie("refreshToken", refreshToken, {
         maxAge: process.env.COOKIE_LIFESPAN,

@@ -15,7 +15,7 @@ export class AddBlock{
         this.blockRepository = new BlockRepository();
     }
     async execute(request: NewBlockRequest, errors: ErrorDetails[]): Promise<Block>{
-        const { userId, name, title, content, css_link, image_url, video_url } = request;
+        const { userId, name, title, description, type, css_link, image_url, video_url } = request;
         
         const user = await this.userRepository.findByPk(userId);
         if(user.isSparkAdmin !== true){
@@ -26,7 +26,8 @@ export class AddBlock{
         const newBlock: NewBlockInput = {
             name: name,
             title: title,
-            content: content,
+            description: description,
+            type: type,
             css_link: css_link,
             image_url: image_url,
             video_url: video_url,
