@@ -3,6 +3,9 @@
   height: auto;
   margin: auto;
   border-bottom: 1px solid;
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(10px);
   @apply border-gray-200;
   @apply pt-4;
   @apply pb-4;

@@ -6,9 +6,18 @@ export const useParseHTMLContent = (htmlContent: string) => {
 
   useEffect(() => {
     if (htmlContent) {
-      const sections = htmlContent
-        .split(/<\/section>/)
-        .map((section, index) => parse(`${section}</section>`));
+      const regex = /<\/(main|section|footer|header)>/g;
+      const parts = htmlContent.split(regex);
+      const sections = [];
+
+      for (let i = 0; i < parts.length; i += 2) {
+        if (i + 1 < parts.length) {
+          sections.push(
+            parse(`<${parts[i + 1]}>${parts[i]}</${parts[i + 1]}>`)
+          );
+        }
+      }
+
       setParsedSections(sections);
     }
   }, [htmlContent]);
