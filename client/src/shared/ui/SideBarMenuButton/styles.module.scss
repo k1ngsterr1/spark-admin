@@ -1,5 +1,6 @@
 .nav_button {
   width: 100%;
+  border-top: 1px solid rgb(201, 201, 201);
   display: flex;
   justify-content: flex-start;
   align-items: start;
@@ -22,10 +23,10 @@
     @apply text-lg;
     @apply font-medium;
     @apply text-secondary;
-    transition: transform 0.4s ease-in-out; 
+    transition: transform 0.3s ease-in-out; 
 
     &:hover {
-        transform: translateX(10px); 
+        transform: translateX(7px); 
     }
   }
   .arrow {

@@ -14,20 +14,20 @@ export const axiosInstance = axios.create({
 });
 
 // Добавление интерсептора для вставки JWT в заголовки каждого запроса
-axiosInstance.interceptors.request.use(
-  (config) => {
-    // Получение токена из локального хранилища
-    const token = parsedData.accessToken;
+// axiosInstance.interceptors.request.use(
+//   (config) => {
+//     // Получение токена из локального хранилища
+//     const token = parsedData.accessToken;
 
-    if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+//     if (token) {
+//       config.headers["Authorization"] = `Bearer ${token}`;
+//     }
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
 
 // Добавление интерсептора ответа для обработки истечения токена
 axiosInstance.interceptors.response.use(
