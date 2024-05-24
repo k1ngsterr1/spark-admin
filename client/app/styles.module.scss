@@ -10,9 +10,18 @@
   animation: fadeInBackground 1.5s ease-out forwards;
 
   &__mini_text {
-    font-size: clamp(8px, 16 / 1520 * 100vw, 32px);
+    font-size: clamp(7px, 14 / 1520 * 100vw, 28px);
     font-family: "Mulish";
     @apply text-gray-800;
+  }
+
+  &__paragraph {
+    width: 60%;
+    font-size: clamp(7.5px, 15 / 1520 * 100vw, 30px);
+    text-align: center;
+    font-family: "Mulish";
+    @apply text-gray-800;
+    @apply mt-12;
   }
 }
 @keyframes fadeInBackground {
