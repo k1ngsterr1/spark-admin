@@ -1,7 +1,13 @@
 import React from "react";
 
-const page = () => {
-  return <div>page</div>;
+import { MainPageHeader } from "@features/MainPageHeader";
+
+const MainPage = () => {
+  return (
+    <div className="flex">
+      <MainPageHeader />
+    </div>
+  );
 };
 
-export default page;
+export default MainPage;
