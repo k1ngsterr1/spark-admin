@@ -7,18 +7,15 @@ import styles from "./styles.module.scss";
 interface SideButtonProps {
   margin?: string;
   text: string;
-  isOpen: boolean;
   onClick?: () => void;
   isActive: boolean;
-  content?: React.ReactNode;  
 }
 
 export const SideBarButton: React.FC<SideButtonProps> = ({
   margin,
   text,
-  isOpen,
   onClick,
-  isActive
+  isActive,
 }) => {
   const [hover, setHover] = useState(false);
 
@@ -31,11 +28,11 @@ export const SideBarButton: React.FC<SideButtonProps> = ({
         onMouseLeave={() => setHover(false)}
       >
         <span
-          className={`${styles.nav_button__text} dark:text-white ${isOpen ? "flex" : "hidden"}`}
+          className={`${styles.nav_button__text} dark:text-white`}
         >
           {text}
-          {hover && !isActive && <FontAwesomeIcon icon={faChevronRight} className={styles.arrow} />}
         </span>
+        {hover && !isActive && <FontAwesomeIcon icon={faChevronRight} className={styles.arrow} />}
       </button>
     </>
   );

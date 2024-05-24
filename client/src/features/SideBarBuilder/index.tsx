@@ -1,43 +1,45 @@
-import React, { useState } from 'react';
-import { sidebarContent } from '@shared/lib/hooks/content/sideBarContent';
+import React from 'react';
+import { useSideBar } from '@shared/lib/hooks/useSideBar';
+import { sidebarContent } from '@shared/lib/content/sideBarContent';
 import { SideBarButton } from '@shared/ui/SideBarMenuButton';
-import {BlocksList} from '@shared/ui/BlocksList'; // Import Popup Component
+import { BuildCard } from '@entities/Card_Components/BuildCard';
+import { buildBlocksContent } from '@shared/lib/content/BuildBlocks';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './styles.module.scss';
 
 export const SideBarMenu = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
-  const [isPopupOpen, setIsPopupOpen] = useState(false); 
-
-  const handleButtonClick = index => {
-    if (sidebarContent[index].content) {
-      setActiveIndex(index);
-      setIsPopupOpen(true); 
-    }
-  };
-
-  const handleClose = () => {
-    setIsPopupOpen(false);
-  };
+  const { activeIndex, isBlockVisible, handleButtonClick } = useSideBar();
 
   return (
-    <aside className={`${styles.menu} dark:bg-dark-super relative`}>
-      <nav className={styles.menu__nav}>
-        {sidebarContent.map((item, index) => (
-          <SideBarButton
-            key={index}
-            text={item.text}
-            isOpen={activeIndex === index}
-            onClick={() => handleButtonClick(index)}
-            isActive={index === activeIndex}
-          />
-        ))}
-      </nav>
-      {isPopupOpen && activeIndex !== null && (
-        <BlocksList onClose={handleClose}>
-          {sidebarContent[activeIndex].content()}
-        </BlocksList>
+    <div className={styles.container}>
+      <aside className={`${styles.menu} dark:bg-dark-super relative`}>
+        <nav className={styles.menu__nav}>
+          <div className='pl-3 mt-2 mb-2 flex justify-between w-[95%] items-center'>
+            <span className='mt-3 mb-3 flex flex-wrap w-[20%]'>Библиотека блоков</span>
+            <button><FontAwesomeIcon icon={faXmark} className='text-3xl' /></button>
+          </div>
+          {sidebarContent.map((item, index) => (
+            <SideBarButton
+              key={index}
+              text={item.text}
+              onClick={() => handleButtonClick(index)}
+              isActive={index === activeIndex}
+            />
+          ))}
+        </nav>
+      </aside>
+      {isBlockVisible && (
+        <div className={styles.menu__block}>
+            {
+              buildBlocksContent.map((item) => (
+              <BuildCard title={item.title} description={item.description} image_url={item.image_url} />
+              ))
+            }
+        </div>
       )}
-    </aside>
+    </div>
   );
 };
