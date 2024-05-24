@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import parse from "html-react-parser";
 
 export const useParseHTMLContent = (htmlContent: string) => {
-  const [sections, setSections] = useState<React.ReactNode[]>([]);
+  const [parsedSections, setParsedSections] = useState<React.ReactNode[]>([]);
 
   useEffect(() => {
     if (htmlContent) {
-      const parsedSections = htmlContent
+      const sections = htmlContent
         .split(/<\/section>/)
         .map((section, index) => parse(`${section}</section>`));
-      setSections(parsedSections);
+      setParsedSections(sections);
     }
   }, [htmlContent]);
 
-  return { sections };
+  return { parsedSections };
 };
