@@ -2,13 +2,13 @@
 
 "use client";
 
-import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import Heading from "@shared/ui/Heading/index";
 import MiniText from "@shared/ui/MiniText";
-import { ErrorDisplay } from "@shared/ui/Error/index";
 import useSubmitEmail from "@shared/lib/hooks/Form/useSubmitEmail";
 import SparkLogo from "@assets/spark_product_logo.svg";
+import { ErrorDisplay } from "@shared/ui/Error/index";
+import { Button } from "@shared/ui/Buttons_Components/Buttons";
 
 import "@shared/styles/_mixins.scss";
 

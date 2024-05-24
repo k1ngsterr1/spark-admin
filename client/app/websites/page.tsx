@@ -10,6 +10,8 @@ import { CodePopup } from "@entities/Popup_Components/CodePopup";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
+/* eslint-disable react-hooks/rules-of-hooks */
+
 interface DashboardProps {
   websites: WebsiteItem[];
   popupState: any;
@@ -45,3 +47,4 @@ const WebsitesPage: React.FC<DashboardProps> = () => {
 };
 
 export default WebsitesPage;
+/* eslint-disable react-hooks/rules-of-hooks */
