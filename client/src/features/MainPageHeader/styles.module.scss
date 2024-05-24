@@ -16,6 +16,16 @@
     @apply text-primary;
   }
 
+  &__logo_text {
+    font-size: clamp(8px, 16 / 1520 * 100vw, 32px);
+    @apply text-primary;
+  }
+
+  &__logo {
+    width: clamp(24px, 48 / 1520 * 100vw, 96px);
+    height: clamp(24px, 48 / 1520 * 100vw, 96px);
+  }
+
   &__container {
     width: 86.6%;
     height: auto;

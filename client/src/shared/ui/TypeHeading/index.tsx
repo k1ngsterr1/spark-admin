@@ -17,15 +17,25 @@ export const TypeHeading: React.FC<ITypeAnimation> = ({
   speed,
   repeat,
 }) => {
+  const animationSequence = [
+    "Spark Admin",
+    1000, // Pause for 1 second
+    "Developed By",
+    1000,
+    "Spark Studio",
+    1000,
+    "Spark Admin",
+  ];
+
   return (
     <TypeAnimation
-      sequence={text}
+      sequence={animationSequence}
       speed={speed}
       wrapper="h1"
       repeat={repeat}
       style={{
         fontFamily: "Mulish",
-        fontSize: "clamp(32px,3.33312vw,128px)",
+        fontSize: "clamp(64px,6.66624vw,256px)",
         fontWeight: "bold",
         color: "#FF5722",
       }}

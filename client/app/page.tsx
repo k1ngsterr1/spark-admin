@@ -31,8 +31,13 @@ const MainPage = () => {
             пользовательский опыт. С нашими решениями ваш веб-сайт будет
             выделяться среди конкурентов и привлекать больше посетителей.
           </p>
-          <div className="flex items-center justify-center gap-4 mt-12">
-            <ButtonLink text="Войти" buttonType="regular" href="login" />
+          <div className="flex items-center justify-center gap-4 mt-12 ">
+            <ButtonLink
+              text="Войти"
+              margin="!cursor-none"
+              buttonType="regular--bigger"
+              href="login"
+            />
           </div>
         </div>
       </div>

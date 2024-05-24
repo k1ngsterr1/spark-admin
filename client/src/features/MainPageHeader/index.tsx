@@ -8,18 +8,26 @@ export const MainPageHeader = () => {
   return (
     <header className={styles.header}>
       <div className={styles.header__container}>
-        <div className="flex items-center gap-2">
-          <Logo />
-          <span>Spark Admin</span>
+        <div className="flex  items-center gap-2">
+          <div className={styles.header__logo}>
+            <Logo />
+          </div>
+          <span className={styles.header__logo_text}>Spark Admin</span>
         </div>
         <nav className="flex items-center gap-2"></nav>
         <div className="flex items-center gap-2">
           <ButtonLink
             text="Документация"
+            margin="!cursor-none"
             buttonType="transparent--small"
             href="docs"
           />
-          <ButtonLink text="Войти" buttonType="regular--small" href="login" />
+          <ButtonLink
+            text="Войти"
+            margin="!cursor-none"
+            buttonType="regular--small"
+            href="login"
+          />
         </div>
       </div>
     </header>
