@@ -15,6 +15,25 @@
   box-sizing: border-box;
 }
 
+*::-webkit-scrollbar {
+  width: clamp(8px, 0.83328vw, 32px);
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #ff5722;
+  border-radius: clamp(9px, 0.93744vw, 36px);
+  border: clamp(9px, 0.93744vw, 36px) solid #ff5722;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #ff5722 transparent;
+}
+
 body {
   font-family: "Inter", sans-serif;
   overflow-x: hidden !important;

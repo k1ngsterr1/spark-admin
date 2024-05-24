@@ -15,7 +15,7 @@ const MainPage = () => {
       <DynamicGrid />
       <div className={styles.container}>
         <div className="flex flex-col items-center justify-center mt-32">
-          <span className={styles.container__mini_text}>
+          <span className={`${styles.container__mini_text} dark:text-gray-100`}>
             Инновационное решение для ваших веб-сайтов
           </span>
           <TypeHeading
@@ -24,7 +24,7 @@ const MainPage = () => {
             repeat={0}
             text={"Spark Admin"}
           />
-          <p className={styles.container__paragraph}>
+          <p className={`${styles.container__paragraph} dark:text-gray-200`}>
             Наши инновационные подходы позволяют создавать уникальные и
             эффективные веб-сайты, адаптированные под ваши нужды. Мы используем
             передовые технологии, обеспечивая быстрый, безопасный и удобный

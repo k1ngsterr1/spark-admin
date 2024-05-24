@@ -70,7 +70,6 @@ const EmailConfirm = () => {
             text="Не пришел код?"
             href="email-confirmation"
             margin="mt-4"
-            onClick={}
           />
         </form>
       </div>

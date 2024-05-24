@@ -24,7 +24,7 @@ export const TypeHeading: React.FC<ITypeAnimation> = ({
     1000,
     "Spark Studio",
     1000,
-    "Spark Admin",
+    "Spark Admin.",
   ];
 
   return (

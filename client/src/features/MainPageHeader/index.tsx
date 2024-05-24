@@ -3,10 +3,11 @@ import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 
 import Logo from "@assets/spark_product_logo.svg";
 import styles from "./styles.module.scss";
+import { ThemeButton } from "@entities/DarkTheme";
 
 export const MainPageHeader = () => {
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} dark:border-dark-lighter`}>
       <div className={styles.header__container}>
         <div className="flex  items-center gap-2">
           <div className={styles.header__logo}>
@@ -14,8 +15,8 @@ export const MainPageHeader = () => {
           </div>
           <span className={styles.header__logo_text}>Spark Admin</span>
         </div>
-        <nav className="flex items-center gap-2"></nav>
         <div className="flex items-center gap-2">
+          <ThemeButton />
           <ButtonLink
             text="Документация"
             margin="!cursor-none"
