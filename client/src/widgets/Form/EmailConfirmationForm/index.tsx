@@ -32,11 +32,6 @@ const EmailConfirm = () => {
               className={`${styles.registration__content__mail__text_orange} ml-2`}
             >
               {userData.username || "Неизвестно"}
-              <span
-                className={`${styles.registration__content__mail__text_orange} ml-2`}
-              >
-                {userData.username || "Неизвестно"}
-              </span>
             </span>
           </span>
         </div>
@@ -45,7 +40,6 @@ const EmailConfirm = () => {
             Письмо с подтверждением отправлено на почту
             <div>
               <span className={styles.registration__content__mail__text_orange}>
-                {userData.email || "Неизвестно"}
                 {userData.email || "Неизвестно"}
               </span>
             </div>
@@ -76,6 +70,7 @@ const EmailConfirm = () => {
             text="Не пришел код?"
             href="email-confirmation"
             margin="mt-4"
+            onClick={}
           />
         </form>
       </div>

@@ -67,10 +67,8 @@ class UserController {
         email: req.body.email,
         password: req.body.password,
       };
-      const data = await this.loginLogic.execute(
-        request,
-        errors
-      );
+
+      const data = await this.loginLogic.execute(request, errors);
 
       if (errors.length > 0) {
         const current_error = errors[0];
