@@ -1,10 +1,11 @@
 import React from "react";
-
 import { MainPageHeader } from "@features/MainPageHeader";
+
+import styles from "./styles.module.scss";
 
 const MainPage = () => {
   return (
-    <div className="flex">
+    <div className={styles}>
       <MainPageHeader />
     </div>
   );

@@ -11,7 +11,6 @@ export default function useSubmitEmail() {
   const [emailError, setEmailError] = useState("");
   const userData = useUserData();
 
-
   const handleInputChange = (index: number, value: string) => {
     const newCode = [...code];
     newCode[index] = value.slice(0, 1); // Assuming you want only the first character
@@ -21,13 +20,13 @@ export default function useSubmitEmail() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
+
     // Concatenate the array into a single string without any separator
-    let concatenatedCode = code.join('');
+    let concatenatedCode = code.join("");
 
     concatenatedCode = concatenatedCode.toUpperCase();
     console.log("Submitting concatenated code:", concatenatedCode);
-  
+
     // Pass the concatenated code as a string
     const result = await useEmailConfirm({ code: concatenatedCode });
     if (typeof result === "string") {
@@ -36,10 +35,6 @@ export default function useSubmitEmail() {
       console.log("Confirmation successful");
     }
   };
-  
-  
-
-  
 
   return { code, handleInputChange, userData, emailError, handleSubmit };
 }

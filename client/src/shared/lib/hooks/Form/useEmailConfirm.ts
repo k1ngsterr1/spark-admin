@@ -4,17 +4,9 @@ interface IData {
   code: string;
 }
 
-interface IUserData {
-  accessToken: string;
-}
-
-export async function useEmailConfirm(
-  data: IData,
-  userData: IUserData
-): Promise<void | string> {
+export async function useEmailConfirm(data: IData): Promise<void | string> {
   try {
     const response = await axiosInstance.post("/api/auth/verify", data);
-    const accessToken = userData.accessToken;
 
     window.location.href = "/websites";
   } catch (error: unknown | any) {

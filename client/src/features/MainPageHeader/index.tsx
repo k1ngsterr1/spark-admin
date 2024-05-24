@@ -1,8 +1,8 @@
 import React from "react";
+import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 
 import Logo from "@assets/spark_product_logo.svg";
 import styles from "./styles.module.scss";
-import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 
 export const MainPageHeader = () => {
   return (
