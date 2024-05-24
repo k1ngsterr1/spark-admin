@@ -70,6 +70,7 @@ interface LinkButtonProps {
   buttonType:
     | "regular"
     | "transparent"
+    | "transparent--small"
     | "regular--small"
     | "regular--xs"
     | "card-button";

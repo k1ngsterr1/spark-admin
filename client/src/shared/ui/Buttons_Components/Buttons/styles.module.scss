@@ -50,6 +50,16 @@
   }
 }
 
+.button--transparent--small {
+  @extend .button--transparent;
+  width: auto !important;
+  height: auto !important;
+  padding-top: clamp(3px, 5 / 1520 * 100vw, 12px);
+  padding-bottom: clamp(3px, 5 / 1520 * 100vw, 12px);
+  @apply pl-8;
+  @apply pr-8;
+}
+
 .button--regular--small {
   @extend .button--regular;
   width: auto !important;
