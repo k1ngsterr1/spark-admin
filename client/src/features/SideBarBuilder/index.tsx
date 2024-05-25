@@ -3,7 +3,6 @@ import { useSideBar } from '@shared/lib/hooks/useSideBar';
 import { sidebarContent } from '@shared/lib/content/sideBarContent';
 import { SideBarButton } from '@shared/ui/SideBarMenuButton';
 import { BuildCard } from '@entities/Card_Components/BuildCard';
-import { buildBlocksContent } from '@shared/lib/content/BuildBlocks';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +10,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import styles from './styles.module.scss';
 
 export const SideBarMenu = () => {
-  const { activeIndex, isBlockVisible, handleButtonClick } = useSideBar();
+  const { activeIndex, isBlockVisible, blocksContent, loading, handleButtonClick } = useSideBar();
 
   return (
     <div className={styles.container}>
@@ -33,11 +32,13 @@ export const SideBarMenu = () => {
       </aside>
       {isBlockVisible && (
         <div className={styles.menu__block}>
-            {
-              buildBlocksContent.map((item) => (
-              <BuildCard title={item.title} description={item.description} image_url={item.image_url} />
-              ))
-            }
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            blocksContent.map((item) => (
+              <BuildCard key={item.id} title={item.title} description={item.description} image_url={item.image_url} />
+            ))
+          )}
         </div>
       )}
     </div>
