@@ -9,6 +9,7 @@ import { useGetWebsites } from "@shared/lib/hooks/useGetWebsites";
 import { CodePopup } from "@entities/Popup_Components/CodePopup";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { WebsiteUploadPopup } from "@entities/Popup_Components/WebsiteUploadPopup";
 
 interface DashboardProps {
   websites: WebsiteItem[];
@@ -38,6 +39,7 @@ const WebsitesPage: React.FC<DashboardProps> = () => {
         <Header />
         <WebsitePopup />
         <CodePopup />
+        <WebsiteUploadPopup />
         <Dashboard sites={data} />
       </main>
     </div>

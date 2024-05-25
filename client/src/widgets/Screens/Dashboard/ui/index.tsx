@@ -47,10 +47,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
                 buttonType="regular--small"
               />
               {isAdmin && (
-                <ButtonLink
+                <Button
                   text="Залить сайт"
-                  href="/websites/build"
                   buttonType="regular--small"
+                  functionType="websiteUploadPopup"
                 />
               )}
             </div>

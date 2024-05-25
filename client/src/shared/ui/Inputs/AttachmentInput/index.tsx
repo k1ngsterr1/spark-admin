@@ -8,11 +8,13 @@ interface IAttachmentFileInput
   extends React.InputHTMLAttributes<HTMLInputElement> {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   margin: string;
+  placeholder: string;
 }
 
 export const AttachmentFileInput: React.FC<IAttachmentFileInput> = ({
   onChange,
   margin,
+  placeholder,
   ...rest
 }) => {
   const [fileName, setFileName] = useState<string>();
@@ -41,7 +43,7 @@ export const AttachmentFileInput: React.FC<IAttachmentFileInput> = ({
         className={`${styles.customFileInputLabel} dark:border-primary dark:text-dark-text`}
       >
         <FontAwesomeIcon className="mr-2" icon={faPaperclip} />
-        {fileName || "Ваш шаблон"}{" "}
+        {fileName || placeholder}{" "}
       </label>
     </div>
   );

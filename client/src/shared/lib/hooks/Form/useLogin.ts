@@ -21,6 +21,7 @@ export async function useLogin(data: IData): Promise<string | void> {
       username: response.data.user.username,
       email: response.data.user.email,
       refreshToken: response.data.refreshToken,
+      accessToken: response.data.accessToken,
     };
 
     localStorage.setItem("userData", JSON.stringify(userData));
