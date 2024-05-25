@@ -36,24 +36,69 @@ const corsOptions = {
   allowedHeaders: ["Authorization", "Content-Type"],
 };
 
-app.use('/api/agropv/static', express.static(path.join(__dirname, 'templates/public/agropv/static')));
-app.use('/api/agropv/css', express.static(path.join(__dirname, 'templates/public/agropv/css')));
-app.use('/api/agropv/js', express.static(path.join(__dirname, 'templates/public/agropv/js')));
+// Serve static files from the React app
 
-// Serve the index.html file for any other requests to /api/agropv
-app.use('/api/agropv', (req, res) => {
-  res.sendFile(path.join(__dirname, 'templates/layouts/agropv/index.html',));
+// Handles any requests that don't match the ones above
+app.use("/agro", express.static(path.join(__dirname, "templates/build/agro")));
+
+app.get("/agro/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "templates/build/agro", "index.html"));
 });
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'templates'));
+// Handles any requests that don't match the ones above
+
+// This code makes sure that any request that does not matches a static file
+// in the build folder, will just serve index.html. Client side routing is
+// going to make sure that the correct content will be loaded.
+// app.use((req, res, next) => {
+//   if (/(.ico|.js|.css|.jpg|.png|.map)$/i.test(req.path)) {
+//     next();
+//   } else {
+//     res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
+//     res.header("Expires", "-1");
+//     res.header("Pragma", "no-cache");
+//     res.sendFile(path.join(__dirname, "templates/build/agro", "index.html"));
+//   }
+// });
+
+app.use("/", express.static(path.join(__dirname, "templates/build/testing")));
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "templates/build/testing", "index.html"));
+});
+
+// This code makes sure that any request that does not matches a static file
+// in the build folder, will just serve index.html. Client side routing is
+// going to make sure that the correct content will be loaded.
+app.use((req, res, next) => {
+  if (/(.ico|.js|.css|.jpg|.png|.map)$/i.test(req.path)) {
+    next();
+  } else {
+    res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
+    res.header("Expires", "-1");
+    res.header("Pragma", "no-cache");
+    res.sendFile(path.join(__dirname, "templates/build/testing", "index.html"));
+  }
+});
+
+// app.use('/api/agropv/static', express.static(path.join(__dirname, 'templates/public/agropv/static')));
+// app.use('/api/agropv/css', express.static(path.join(__dirname, 'templates/public/agropv/css')));
+// app.use('/api/agropv/js', express.static(path.join(__dirname, 'templates/public/agropv/js')));
+
+// Serve the index.html file for any other requests to /api/agropv
+// app.use('/api/agropv', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'templates/layouts/agropv/index.html',));
+// });
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "templates"));
 
 app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
-const port = process.env.PORT;
-// const port = 4000;
+// const port = process.env.PORT;
+const port = 4000;
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
