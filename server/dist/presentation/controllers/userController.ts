@@ -112,7 +112,7 @@ class UserController {
 
       res
         .status(201)
-        .json({ message: "User verified successfully", verifyUser });
+        .json({ message: "Пользователь успешно подтвержден!", verifyUser });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });
@@ -147,7 +147,7 @@ class UserController {
         .json({ message: "Специальный код был высланан на вашу почту" });
     } catch (error) {
       res.status(500).json({
-        message: "Ошибка с инициацией изменения пароля:",
+        message: "Ошибка со сменой пароля:",
         error: error.message,
       });
     }
