@@ -2,8 +2,11 @@
 import axios from "axios";
 
 const data =
-  typeof window !== undefined ? localStorage.getItem("userData") : "";
-const parsedData = JSON.parse(data);
+  typeof window !== "undefined" ? localStorage.getItem("userData") : "{}";
+
+const parsedData = JSON.parse(data || "{}");
+
+console.log(parsedData.id);
 
 // Создание экземпляра Axios с предустановленными конфигурациями
 export const axiosInstance = axios.create({
@@ -11,20 +14,20 @@ export const axiosInstance = axios.create({
 });
 
 // Добавление интерсептора для вставки JWT в заголовки каждого запроса
-// axiosInstance.interceptors.request.use(
-//   (config) => {
-//     // Получение токена из локального хранилища
-//     const token = parsedData.accessToken;
+axiosInstance.interceptors.request.use(
+  (config) => {
+    // Получение токена из локального хранилища
+    const token = parsedData.accessToken;
 
-//     if (token) {
-//       config.headers["Authorization"] = `Bearer ${token}`;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 // Добавление интерсептора ответа для обработки истечения токена
 axiosInstance.interceptors.response.use(
@@ -36,16 +39,20 @@ axiosInstance.interceptors.response.use(
 
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      const refreshToken = localStorage.getItem("refreshToken");
+      const refreshToken = parsedData.refreshToken;
 
       if (refreshToken) {
         try {
           const res = await axios.post(
             `${axiosInstance.defaults.baseURL}/access`,
+            {},
             {
-              refresh: refreshToken,
+              headers: {
+                Authorization: `Bearer ${refreshToken}`,
+              },
             }
           );
+
           if (res.status === 200) {
             localStorage.setItem("accessToken", res.data.accessToken);
             localStorage.setItem("refreshToken", res.data.refreshToken);

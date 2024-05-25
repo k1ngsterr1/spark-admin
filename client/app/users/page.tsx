@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import { Menu } from "@features/Menu/index";
 import { Users } from "@widgets/Screens/usersPage/index";
@@ -16,7 +16,7 @@ export const UsersPage = () => {
       <Menu />
       <main className="flex flex-col w-full">
         <Header />
-        <Users users={data}/>
+        <Users users={data} />
         <UserPopup />
       </main>
     </div>

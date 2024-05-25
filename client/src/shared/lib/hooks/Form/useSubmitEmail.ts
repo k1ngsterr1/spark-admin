@@ -1,4 +1,5 @@
 // В этом компоненте находится логика для отправки специального кода, который пользователь получает на электронную почту для подтверждения почты
+/* eslint-disable react-hooks/rules-of-hooks */
 
 "use client";
 
@@ -38,3 +39,4 @@ export default function useSubmitEmail() {
 
   return { code, handleInputChange, userData, emailError, handleSubmit };
 }
+/* eslint-disable react-hooks/rules-of-hooks */

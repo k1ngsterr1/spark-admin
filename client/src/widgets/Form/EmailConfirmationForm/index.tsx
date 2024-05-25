@@ -2,13 +2,13 @@
 
 "use client";
 
-import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import Heading from "@shared/ui/Heading/index";
 import MiniText from "@shared/ui/MiniText";
-import { ErrorDisplay } from "@shared/ui/Error/index";
 import useSubmitEmail from "@shared/lib/hooks/Form/useSubmitEmail";
 import SparkLogo from "@assets/spark_product_logo.svg";
+import { ErrorDisplay } from "@shared/ui/Error/index";
+import { Button } from "@shared/ui/Buttons_Components/Buttons";
 
 import "@shared/styles/_mixins.scss";
 
@@ -32,11 +32,6 @@ const EmailConfirm = () => {
               className={`${styles.registration__content__mail__text_orange} ml-2`}
             >
               {userData.username || "Неизвестно"}
-              <span
-                className={`${styles.registration__content__mail__text_orange} ml-2`}
-              >
-                {userData.username || "Неизвестно"}
-              </span>
             </span>
           </span>
         </div>
@@ -45,7 +40,6 @@ const EmailConfirm = () => {
             Письмо с подтверждением отправлено на почту
             <div>
               <span className={styles.registration__content__mail__text_orange}>
-                {userData.email || "Неизвестно"}
                 {userData.email || "Неизвестно"}
               </span>
             </div>

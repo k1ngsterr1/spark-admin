@@ -4,8 +4,10 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
-    "noEmit": true,
+    "noEmitOnError": false,
     "esModuleInterop": true,
+    "noImplicitAny": false, // Allow 'any' type implicitly
+    "strictNullChecks": false, // Disable strict null checks
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -26,7 +28,8 @@
       "@pages/*": ["src/pages/*"],
       "@assets/*": ["src/assets/*"],
       "@redux/*": ["src/redux/*"]
-    }
+    },
+    "noEmit": true
   },
   "include": [
     "next-env.d.ts",

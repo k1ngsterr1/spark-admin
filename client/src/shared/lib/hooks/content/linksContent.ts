@@ -9,7 +9,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export const navlinks = [
-  { icon: faGlobe, href: "/websites", text: "Мои сайты", margin: "mt-0" },
+  {
+    icon: faGlobe,
+    href: "/websites",
+    text: "Мои сайты",
+    margin: "mt-0",
+    type: "zhopa",
+  },
   { icon: faUser, href: "/users", text: "Мои юзеры", margin: "mt-4" },
   {
     icon: faChartArea,

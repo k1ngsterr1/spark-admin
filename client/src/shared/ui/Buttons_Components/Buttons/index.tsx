@@ -69,6 +69,7 @@ interface LinkButtonProps {
   text: string;
   buttonType:
     | "regular"
+    | "regular--bigger"
     | "transparent"
     | "transparent--small"
     | "regular--small"

@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable react-hooks/rules-of-hooks */
+
 import { useState, FormEvent } from "react";
 import { useRegister } from "@shared/lib/hooks/Form/useRegister";
 import { useFieldValidator } from "./useValidate";
@@ -81,3 +83,5 @@ export const useSubmitRegister = () => {
     backendError,
   };
 };
+
+/* eslint-disable react-hooks/rules-of-hooks */

@@ -39,6 +39,15 @@
   }
 }
 
+.button--regular--bigger {
+  @extend .button--regular;
+  height: auto !important;
+  @apply pl-14;
+  @apply pr-14;
+  @apply pt-3;
+  @apply pb-3;
+}
+
 .button--transparent {
   @extend %button-common;
   background-color: transparent;
