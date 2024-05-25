@@ -10,13 +10,11 @@ export async function useLogin(data: IData): Promise<string | void> {
     const response = await axiosInstance.post("/api/auth/login", data);
     const isVerified = response.data.isVerified;
 
-    console.log(response.data);
-
-    // if (isVerified) {
-    //   window.location.href = "/websites";
-    // } else {
-    //   window.location.href = "/email-confirmation";
-    // }
+    if (isVerified) {
+      window.location.href = "/websites";
+    } else {
+      window.location.href = "/email-confirmation";
+    }
 
     const userData = {
       id: response.data.user.id,
