@@ -36,11 +36,17 @@ const corsOptions = {
   allowedHeaders: ["Authorization", "Content-Type"],
 };
 
+app.use('/api/agropv/static', express.static(path.join(__dirname, 'templates/public/agropv/static')));
+app.use('/api/agropv/css', express.static(path.join(__dirname, 'templates/public/agropv/css')));
+app.use('/api/agropv/js', express.static(path.join(__dirname, 'templates/public/agropv/js')));
+
+// Serve the index.html file for any other requests to /api/agropv
+app.use('/api/agropv', (req, res) => {
+  res.sendFile(path.join(__dirname, 'templates/layouts/agropv/index.html',));
+});
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'templates'));
-
-app.use(express.static(path.join(__dirname, 'templates/public')));
 
 app.use(express.json());
 app.use(cors(corsOptions));
@@ -54,26 +60,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Статичные стили
-app.use(
-  "/css",
-  express.static(path.join(__dirname, "public/css"), {
-    setHeaders: function (res, path, stat) {
-      // Кэширование
-      res.set("Cache-Control", "public, max-age=31557600"); // 1 год
-    },
-  })
-);
+// app.use(
+//   "/css",
+//   express.static(path.join(__dirname, "public/css"), {
+//     setHeaders: function (res, path, stat) {
+//       // Кэширование
+//       res.set("Cache-Control", "public, max-age=31557600"); // 1 год
+//     },
+//   })
+// );
 
 // Статичные скрипты
-app.use(
-  "/js",
-  express.static("templates/public", {
-    setHeaders: function (res, path, stat) {
-      // Кэширование
-      res.set("Cache-Control", "public, max-age=31557600"); // 1 год
-    },
-  })
-);
+// app.use(
+//   "/js",
+//   express.static("templates/public", {
+//     setHeaders: function (res, path, stat) {
+//       // Кэширование
+//       res.set("Cache-Control", "public, max-age=31557600"); // 1 год
+//     },
+//   })
+// );
 
 // Сжатие
 app.use(compression());
