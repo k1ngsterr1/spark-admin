@@ -10,8 +10,6 @@ import { CodePopup } from "@entities/Popup_Components/CodePopup";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
-/* eslint-disable react-hooks/rules-of-hooks */
-
 interface DashboardProps {
   websites: WebsiteItem[];
   popupState: any;

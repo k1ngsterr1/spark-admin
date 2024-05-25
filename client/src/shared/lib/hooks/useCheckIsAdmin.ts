@@ -9,7 +9,6 @@ export function useCheckIsAdmin() {
     const checkIsAdmin = async () => {
       try {
         const response = await axiosInstance.post("/api/user/spark-check");
-        console.log(response.data);
         setIsAdmin(response.data.value);
       } catch (error: any) {
         console.error("Failed to check is admin:", error);
