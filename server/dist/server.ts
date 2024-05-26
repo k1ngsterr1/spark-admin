@@ -16,6 +16,7 @@ import { accessToken } from "@infrastructure/middleware/authMiddleware";
 import blockRoutes from "@infrastructure/routes/blockRoutes";
 import pageCardRoutes from "@infrastructure/routes/pageCardRoutes";
 import path from "path";
+import puppeteer from "puppeteer";
 
 const app = express();
 
@@ -36,59 +37,11 @@ const corsOptions = {
   allowedHeaders: ["Authorization", "Content-Type"],
 };
 
-// Serve static files from the React app
+app.use("/agro", express.static(path.join(__dirname, "templates/build/agro")));
 
-// Handles any requests that don't match the ones above
-// app.use("/agro", express.static(path.join(__dirname, "templates/build/agro")));
-
-// app.get("/agro/*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "templates/build/agro", "index.html"));
-// });
-
-// Handles any requests that don't match the ones above
-
-// This code makes sure that any request that does not matches a static file
-// in the build folder, will just serve index.html. Client side routing is
-// going to make sure that the correct content will be loaded.
-// app.use((req, res, next) => {
-//   if (/(.ico|.js|.css|.jpg|.png|.map)$/i.test(req.path)) {
-//     next();
-//   } else {
-//     res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
-//     res.header("Expires", "-1");
-//     res.header("Pragma", "no-cache");
-//     res.sendFile(path.join(__dirname, "templates/build/agro", "index.html"));
-//   }
-// });
-
-app.use("/", express.static(path.join(__dirname, "templates/build/agro")));
-
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "templates/build/agro", "index.html"));
+app.get("/agro/*", (req, res) => {
+  res.sendFile(path.join(__dirname, 'templates/build/agro', 'index.html'));
 });
-
-// This code makes sure that any request that does not matches a static file
-// in the build folder, will just serve index.html. Client side routing is
-// going to make sure that the correct content will be loaded.
-// app.use((req, res, next) => {
-//   if (/(.ico|.js|.css|.jpg|.png|.map)$/i.test(req.path)) {
-//     next();
-//   } else {
-//     res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
-//     res.header("Expires", "-1");
-//     res.header("Pragma", "no-cache");
-//     res.sendFile(path.join(__dirname, "templates/build/testing", "index.html"));
-//   }
-// });
-
-// app.use('/api/agropv/static', express.static(path.join(__dirname, 'templates/public/agropv/static')));
-// app.use('/api/agropv/css', express.static(path.join(__dirname, 'templates/public/agropv/css')));
-// app.use('/api/agropv/js', express.static(path.join(__dirname, 'templates/public/agropv/js')));
-
-// Serve the index.html file for any other requests to /api/agropv
-// app.use('/api/agropv', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'templates/layouts/agropv/index.html',));
-// });
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "templates"));
