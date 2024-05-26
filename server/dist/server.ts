@@ -16,9 +16,11 @@ import { accessToken } from "@infrastructure/middleware/authMiddleware";
 import blockRoutes from "@infrastructure/routes/blockRoutes";
 import pageCardRoutes from "@infrastructure/routes/pageCardRoutes";
 import path from "path";
-import puppeteer from "puppeteer";
+import siteRoutes from "@infrastructure/routes/siteRoutes";
 
 const app = express();
+
+export const buildRoute = path.join(__dirname, "templates/build/");
 
 // Создание сваггера
 app.use(
@@ -39,9 +41,7 @@ const corsOptions = {
 
 app.use("/agro", express.static(path.join(__dirname, "templates/build/agro")));
 
-app.get("/agro/*", (req, res) => {
-  res.sendFile(path.join(__dirname, 'templates/build/agro', 'index.html'));
-});
+app.use(express.static(path.join(__dirname, 'templates/public')));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "templates"));
@@ -124,6 +124,9 @@ app.use("/api/website", websiteRoutes);
 app.use("/api/block", blockRoutes);
 
 app.use("/api/page-card", pageCardRoutes);
+
+app.use("/api/site", siteRoutes);
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

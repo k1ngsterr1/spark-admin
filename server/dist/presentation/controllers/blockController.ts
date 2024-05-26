@@ -4,7 +4,7 @@ import { GetBlocksByType } from "@core/use_cases/Block/GetBlocksByType";
 import { UpdateComponent } from "@core/use_cases/Block/UpdateComponent";
 import { AddBlockComponentRequest, NewBlockRequest } from "@core/utils/Block/Request";
 import { ErrorDetails } from "@core/utils/utils";
-import { Request, Response } from "express" 
+import { Request, Response } from "express";
 import { TargetType } from "puppeteer";
 
 class BlockController{
