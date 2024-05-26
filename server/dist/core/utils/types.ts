@@ -49,6 +49,14 @@ export interface PageCardAttributes {
   type: string;
 }
 
+export interface SiteDataAttributes{
+  id: number;
+  name: string;
+  value: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface ComponentAttributes {
   id: number;
   pageId: number;
@@ -119,6 +127,11 @@ export interface NewPageCardInput {
   name: string;
   description: string;
   type: string;
+}
+
+export interface NewSiteDataInput {
+  name: string;
+  value: string;
 }
 
 export interface NewComponentInput {
