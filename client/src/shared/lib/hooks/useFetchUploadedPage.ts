@@ -2,8 +2,8 @@
 import { useState, useEffect } from "react";
 import { axiosInstance } from "./useInterceptor";
 
-// Получаем изменяемый контент из шаблона для сайта
-export function useFetchPageContent(slug: any) {
+// Получаем изменяемый контент из залитых сайтов
+export function useFetchUploadedPage(slug: any) {
   const [htmlContent, setHtmlContent] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -11,14 +11,12 @@ export function useFetchPageContent(slug: any) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get(
-          `/api/page-card/render/${slug}`
-        );
+        const response = await axiosInstance.get(`/${slug}`);
         setHtmlContent(response.data);
         setIsLoading(false);
       } catch (error: unknown | any) {
         setError(
-          "Failed to fetch data: " +
+          "Failed to fetch data:" +
             (error.response?.data.message || error.message)
         );
         setIsLoading(false);
