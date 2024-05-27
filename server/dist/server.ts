@@ -39,7 +39,7 @@ const corsOptions = {
   allowedHeaders: ["Authorization", "Content-Type"],
 };
 
-app.use("/agro", express.static(path.join(__dirname, "templates/build/agro")));
+app.use("/agropv", express.static(path.join(__dirname, "templates/build/agro")));
 
 app.use(express.static(path.join(__dirname, "templates/public")));
 

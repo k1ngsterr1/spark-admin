@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const info = element.id.split("-");
           const siteName = info[1];
           const componentId = info[2];
-          const route = `/api/site/update/${siteName}/${componentId}`;
+          const route = `https://spark-admin-production.up.railway.app/api/site/update/${siteName}/${componentId}`;
 
           const data = {
             newValue: element.innerHTML,
