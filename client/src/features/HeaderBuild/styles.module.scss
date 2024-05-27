@@ -1,0 +1,42 @@
+.header {
+    width: clamp(250px,26.04vw,1000px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: clamp(30px,3.1248vw,120px);
+    max-width: 100vw;
+    display: flex;
+    flex-direction: row;
+
+    &__left {
+        margin-right: 40px;
+    }
+
+    &__links {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+
+        &_divider {
+            flex-grow: 0;
+            flex-shrink: 0;
+            margin: 0 10px;
+            opacity: .5;
+        }    
+        &_icon {
+            display: flex;
+            align-items: center;
+            @apply text-sm;
+            @apply ml-4;
+            flex-grow: 1;
+            flex-shrink: 1;
+            text-overflow: ellipsis;
+            height: clamp(8px,0.83328vw,32px);
+
+            &:hover {
+                @apply text-primary;
+            }
+        }
+    }
+}
