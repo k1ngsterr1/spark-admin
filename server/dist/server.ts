@@ -41,7 +41,7 @@ const corsOptions = {
 
 app.use("/agro", express.static(path.join(__dirname, "templates/build/agro")));
 
-app.use(express.static(path.join(__dirname, 'templates/public')));
+app.use(express.static(path.join(__dirname, "templates/public")));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "templates"));
@@ -50,8 +50,8 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
-// const port = process.env.PORT;
-const port = 4000;
+const port = process.env.PORT;
+// const port = 4000;
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -126,7 +126,6 @@ app.use("/api/block", blockRoutes);
 app.use("/api/page-card", pageCardRoutes);
 
 app.use("/api/site", siteRoutes);
-
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
