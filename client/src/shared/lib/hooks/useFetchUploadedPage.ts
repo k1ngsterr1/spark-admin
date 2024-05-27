@@ -11,7 +11,7 @@ export function useFetchUploadedPage(slug: any) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get(`/${slug}`);
+        const response = await axiosInstance.get(`/${slug}/`);
         setHtmlContent(response.data);
         setIsLoading(false);
       } catch (error: unknown | any) {

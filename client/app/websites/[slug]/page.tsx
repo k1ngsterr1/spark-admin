@@ -8,8 +8,6 @@ export default function WebsitePage() {
   const { slug } = useParams();
   const { htmlContent } = useFetchUploadedPage(slug);
 
-  console.log(htmlContent);
-
   return (
     <div className="flex flex-col">
       <HeaderEditor
