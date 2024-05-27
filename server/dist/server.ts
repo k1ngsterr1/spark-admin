@@ -22,22 +22,24 @@ const app = express();
 
 export const buildRoute = path.join(__dirname, "templates/build/");
 
+// Разрешены все Origins
+const corsOptions = {
+  origin: function (origin, callback) {
+    callback(null, true);
+  },
+  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: ["Authorization", "Content-Type"],
+};
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
+
 // Создание сваггера
 app.use(
   "/api-docs",
   swaggerUi.serve,
   swaggerUi.setup(swaggerSpec, { explorer: true })
 );
-
-// Разрешены все Origins
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     callback(null, true);
-//   },
-//   credentials: true,
-//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   allowedHeaders: ["Authorization", "Content-Type"],
-// };
 
 app.use("/agro", express.static(path.join(__dirname, "templates/build/agro")));
 
@@ -47,9 +49,6 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "templates"));
 
 app.use(express.json());
-app.use(cors());
-// app.use(cors(corsOptions));
-// app.options("*", cors(corsOptions));
 
 const port = process.env.PORT;
 // const port = 4000;
