@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: DataTypes.DATE
   }, {
     sequelize,
-    modelName: 'SiteData',
+    modelName: 'site-data',
   });
   return SiteData;
 };
