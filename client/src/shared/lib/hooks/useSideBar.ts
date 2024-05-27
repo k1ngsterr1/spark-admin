@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { sidebarContent } from '@shared/lib/content/sideBarContent';
-import { useFetchBlocks } from '@shared/lib/hooks/useGetBlocks'; // Adjust the path as necessary
+import { useFetchBlocks } from '@shared/lib/hooks/useGetBlocks'; 
 
 export const useSideBar = () => {
   const [activeIndex, setActiveIndex] = useState(null);
