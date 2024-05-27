@@ -37,6 +37,11 @@
 body {
   font-family: "Inter", sans-serif;
   overflow-x: hidden !important;
+  min-height: 100vh;
+}
+
+.main {
+  min-height: 100vh;
 }
 
 @mixin text-orange(

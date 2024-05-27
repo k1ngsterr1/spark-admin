@@ -6,6 +6,7 @@ import DynamicGrid from "@shared/ui/DynamicGrid";
 
 import styles from "./styles.module.scss";
 import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
+import { AboutBlock } from "@widgets/Screens/About";
 
 const MainPage = () => {
   return (
@@ -41,6 +42,7 @@ const MainPage = () => {
           </div>
         </div>
       </div>
+      <AboutBlock />
     </>
   );
 };
