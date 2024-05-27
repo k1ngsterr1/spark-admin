@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
           const data = {
             newValue: element.innerHTML,
           };
+          data.newValue = data.newValue.replace(/\n\s*/g, '');
+          data.newValue = data.newValue.trim();
 
           fetch(route, {
             method: "POST",
