@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "migrate:prod": "set NODE_ENV=production && npx sequelize-cli db:migrate",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec  ts-node -r tsconfig-paths/register server.ts",
     "sequelize": "sequelize"
@@ -34,6 +35,7 @@
     "redis": "^4.6.13",
     "redux": "^5.0.1",
     "sequelize": "^6.36.0",
+    "sequelize-cli": "^6.6.2",
     "sequelize-typescript": "^2.1.6",
     "socket.io": "^4.7.5",
     "swagger-jsdoc": "^6.2.8",
@@ -57,7 +59,6 @@
   "devDependencies": {
     "@types/node": "^20.11.17",
     "@types/sequelize": "^4.28.20",
-    "sequelize-cli": "^6.6.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.3"
