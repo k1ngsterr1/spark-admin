@@ -13,7 +13,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "axios": "^1.6.8",
+    "axios": "^1.7.2",
     "breakpoint-slicer": "^3.0.0-beta.1",
     "gsap": "^3.12.5",
     "html-react-parser": "^5.1.10",
