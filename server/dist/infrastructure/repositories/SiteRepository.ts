@@ -16,4 +16,12 @@ export class SiteRepository implements ISiteRepository{
             }
         });
     }
+
+    async findByName(name: string): Promise<SiteData[]>{
+        return await sequelize.getRepository(SiteData).findAll({
+            where: {
+                name: name,
+            }
+        });
+    }
 }
