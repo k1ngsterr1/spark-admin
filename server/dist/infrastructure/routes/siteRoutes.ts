@@ -26,7 +26,7 @@ router.post(
   async (req, res) => await siteController.updateSite(req, res)
 );
 
-// router.get("/agro", async(req, res) => await siteController.getSite(req, res));
+router.get("/content/:siteName", async(req, res) => await siteController.getSite(req, res));
 
 // router.use("/agro", express.static(path.join(buildRoute, 'agro')));
 
