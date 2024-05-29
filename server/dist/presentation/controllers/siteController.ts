@@ -1,12 +1,12 @@
 import { AddSiteData } from "@core/use_cases/SiteData/AddSiteData";
 import { GetSiteDatas } from "@core/use_cases/SiteData/GetSiteDatas";
 import { UpdateSite } from "@core/use_cases/SiteData/UpdateSite";
+import { UploadImage } from "@core/use_cases/SiteData/UploadImage";
 import { ErrorDetails } from "@core/utils/utils";
 import { Request, Response } from "express";
 import { uploadPath } from "server";
 const fs = require("fs").promises;
 import path from "path";
-import { UploadImage } from "@core/use_cases/SiteData/UploadImage";
 
 class EditController {
   private addSiteDataComponent: AddSiteData;
