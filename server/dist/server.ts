@@ -23,6 +23,8 @@ const app = express();
 export const buildRoute = path.join(__dirname, "templates/build/");
 export const uploadPath = path.join(__dirname, "uploads");
 
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
 // Разрешены все Origins
 const corsOptions = {
   origin: function (origin, callback) {
@@ -55,7 +57,7 @@ const port = process.env.PORT;
 // const port = 4000;
 
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
 
 // Статичные стили
