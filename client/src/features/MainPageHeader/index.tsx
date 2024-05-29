@@ -1,9 +1,9 @@
 import React from "react";
 import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
+import { ThemeButton } from "@entities/DarkTheme";
 
 import Logo from "@assets/spark_product_logo.svg";
 import styles from "./styles.module.scss";
-import { ThemeButton } from "@entities/DarkTheme";
 
 export const MainPageHeader = () => {
   return (

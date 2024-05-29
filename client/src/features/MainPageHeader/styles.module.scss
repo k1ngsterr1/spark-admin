@@ -18,6 +18,8 @@
 
   &__logo_text {
     font-size: clamp(8px, 16 / 1520 * 100vw, 32px);
+    font-family: "Mulish";
+    font-weight: 600;
     @apply text-primary;
   }
 

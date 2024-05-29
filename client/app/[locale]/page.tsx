@@ -1,14 +1,19 @@
 import React from "react";
 import { MainPageHeader } from "@features/MainPageHeader";
 import { TypeHeading } from "@shared/ui/TypeHeading";
+import { useTranslation } from "next-i18next";
+import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
+import { AboutBlock } from "@widgets/Screens/About";
 import Cursor from "@shared/ui/Cursor";
 import DynamicGrid from "@shared/ui/DynamicGrid";
 
+import { useTranslations } from "next-intl";
+
 import styles from "./styles.module.scss";
-import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
-import { AboutBlock } from "@widgets/Screens/About";
 
 const MainPage = () => {
+  const t = useTranslations("MainPage");
+
   return (
     <>
       <Cursor />
