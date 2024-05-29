@@ -78,7 +78,7 @@ class EditController {
       const siteName: string = req.params.siteName;
       // const userId: string = req.user.id;
       const componentId: number = req.body.componentId;
-      const imagePath = path.join(uploadPath, req.body.image);
+      const imagePath: string = path.join(uploadPath, req.body.image);
 
       await this.uploadImageToSite.execute(siteName, componentId, imagePath, errors);
 
@@ -90,7 +90,11 @@ class EditController {
         return;
       }
       
-      await fs.unlink(imagePath);
+      await fs.unlink(imagePath, (error: unknown | any) => {
+        if (error) {
+          throw new Error(error.message);
+        }
+      });
 
       res.status(200).json({ message: "Сайт успешно обновлен" });
     } catch (error) {
