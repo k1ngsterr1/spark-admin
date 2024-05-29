@@ -21,6 +21,7 @@ import siteRoutes from "@infrastructure/routes/siteRoutes";
 const app = express();
 
 export const buildRoute = path.join(__dirname, "templates/build/");
+export const uploadPath = path.join(__dirname, "uploads");
 
 // Разрешены все Origins
 const corsOptions = {
