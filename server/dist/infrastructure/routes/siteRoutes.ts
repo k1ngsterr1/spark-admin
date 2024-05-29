@@ -21,7 +21,6 @@ const storage = multer.diskStorage({
     let result =
       currentDate.toString() + "-" + currentTime + "-" + file.originalname;
     req.body.image = result;
-    console.log(req.body.image);
 
     cb(null, result);
   },
