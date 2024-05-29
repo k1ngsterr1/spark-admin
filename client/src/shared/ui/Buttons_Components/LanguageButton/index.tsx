@@ -11,7 +11,6 @@ export const LanguageButton = () => {
 
   return (
     <button onClick={switchLanguage}>
-      {" "}
       {i18n.language === "ru" ? "EN" : "RU"}
     </button>
   );

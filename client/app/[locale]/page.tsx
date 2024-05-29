@@ -23,6 +23,7 @@ const MainPage = () => {
         <div className="flex flex-col items-center justify-center mt-32">
           <span className={`${styles.container__mini_text} dark:text-gray-100`}>
             Инновационное решение для ваших веб-сайтов
+            {/* {t('title')} */}
           </span>
           <TypeHeading
             headingType=""
