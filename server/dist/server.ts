@@ -21,6 +21,7 @@ import siteRoutes from "@infrastructure/routes/siteRoutes";
 const app = express();
 
 export const buildRoute = path.join(__dirname, "templates/build/");
+export const uploadPath = path.join(__dirname, "uploads");
 
 // Разрешены все Origins
 const corsOptions = {
@@ -33,6 +34,9 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
+
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 
 // Создание сваггера
 app.use(
@@ -54,7 +58,7 @@ const port = process.env.PORT;
 // const port = 4000;
 
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
 
 // Статичные стили
