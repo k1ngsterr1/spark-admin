@@ -25,7 +25,7 @@ export default function RootLayout({
       <body>
         <AppProvider>
           <ThemeProvider attribute="class" enableSystem={true}>
-            <div>{children}</div>
+            <div className="main">{children}</div>
           </ThemeProvider>
         </AppProvider>
       </body>

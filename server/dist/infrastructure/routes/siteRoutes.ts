@@ -54,7 +54,10 @@ router.post(
 
 router.post("/upload/image/:siteName", upload.single("editable-image"), async(req, res) => await siteController.uploadImage(req, res));
 
-router.get("/content/:siteName", async(req, res) => await siteController.getSite(req, res));
+router.get(
+  "/content/:siteName",
+  async (req, res) => await siteController.getSite(req, res)
+);
 
 // router.use("/agro", express.static(path.join(buildRoute, 'agro')));
 
