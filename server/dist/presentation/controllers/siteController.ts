@@ -75,6 +75,7 @@ class EditController {
   async uploadImage(req: Request, res: Response): Promise<void>{
     const errors: ErrorDetails[] = [];
     try {
+      console.log(req.headers, req.body);
       const siteName: string = req.params.siteName;
       // const userId: string = req.user.id;
       const componentId: number = req.body.componentId;
