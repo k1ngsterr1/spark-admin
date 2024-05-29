@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/agro/static/css/main.cce6a345.css",
-    "main.js": "/agro/static/js/main.74836d8e.js",
+    "main.css": "/agro/static/css/main.43811044.css",
+    "main.js": "/agro/static/js/main.665f4795.js",
     "static/media/wheat_main.webp": "/agro/static/media/wheat_main.43db6bd54cb75f40af58.webp",
     "static/media/wheat_form.webp": "/agro/static/media/wheat_form.0a0ccc15aba5725e1ab0.webp",
     "static/media/gothampro_bolditalic.ttf": "/agro/static/media/gothampro_bolditalic.045e34198ea694f1d3e4.ttf",
@@ -17,11 +17,11 @@
     "static/media/footerlogo.svg": "/agro/static/media/footerlogo.9c76aef0029b7fa5a31223a41e99943d.svg",
     "static/media/teampicture.svg": "/agro/static/media/teampicture.3e03ddb079b732429c5f253c1264672c.svg",
     "index.html": "/agro/index.html",
-    "main.cce6a345.css.map": "/agro/static/css/main.cce6a345.css.map",
-    "main.74836d8e.js.map": "/agro/static/js/main.74836d8e.js.map"
+    "main.43811044.css.map": "/agro/static/css/main.43811044.css.map",
+    "main.665f4795.js.map": "/agro/static/js/main.665f4795.js.map"
   },
   "entrypoints": [
-    "static/css/main.cce6a345.css",
-    "static/js/main.74836d8e.js"
+    "static/css/main.43811044.css",
+    "static/js/main.665f4795.js"
   ]
 }
