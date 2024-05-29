@@ -90,7 +90,11 @@ class EditController {
         return;
       }
       
-      await fs.unlink(imagePath);
+      await fs.unlink(imagePath, (error: unknown | any) => {
+        if (error) {
+          throw new Error(error.message);
+        }
+      });
 
       res.status(200).json({ message: "Сайт успешно обновлен" });
     } catch (error) {
