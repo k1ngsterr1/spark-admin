@@ -6,8 +6,8 @@ export class UpdateSite{
     constructor(){
         this.siteRepository = new SiteRepository();
     }
-    async execute(siteName: string, componentId: number, newValue: string, errors: ErrorDetails[]): Promise<void>{
-        const component = await this.siteRepository.findById(siteName, componentId);
+    async execute(componentId: number, newValue: string, errors: ErrorDetails[]): Promise<void>{
+        const component = await this.siteRepository.findById(componentId);
 
         if(component === null) {
             errors.push(new ErrorDetails(404, "Не удалось найти компоненту."));

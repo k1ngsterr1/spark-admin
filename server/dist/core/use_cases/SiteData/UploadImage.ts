@@ -12,12 +12,12 @@ export class UploadImage{
         this.siteRepository = new SiteRepository();
         this.userRepository = new UserRepository();
     }
-    async execute(siteName: string, componentId: number, imagePath: string, errors: ErrorDetails[]): Promise<void>{
-        console.log(siteName, componentId, imagePath);
+    async execute(componentId: number, imagePath: string, errors: ErrorDetails[]): Promise<void>{
+        console.log(componentId, imagePath);
 
         const url = await ImageUpload(imagePath, errors);
 
-        const imageComponent = await this.siteRepository.findById(siteName, componentId);
+        const imageComponent = await this.siteRepository.findById(componentId);
 
         if(imageComponent === null){
             errors.push(new ErrorDetails(404, "Не удалось найти картинку."));

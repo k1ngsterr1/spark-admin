@@ -37,7 +37,7 @@ export const buildRoute: string = path.join(
 const express = require("express");
 const router = express.Router();
 
-// router.use(authenticateToken);
+router.use(authenticateToken);
 router.use(advancedLogger);
 
 router.post(
@@ -47,11 +47,11 @@ router.post(
 );
 
 router.post(
-  "/update/:siteName/:componentId",
+  "/update/:componentId",
   async (req, res) => await siteController.updateSite(req, res)
 );
 
-router.post("/upload/image/:siteName", upload.single("editable-image"), async(req, res) => await siteController.uploadImage(req, res));
+router.post("/upload/image/", upload.single("editable-image"), async(req, res) => await siteController.uploadImage(req, res));
 
 router.get(
   "/content/:siteName",

@@ -130,6 +130,7 @@ export interface NewPageCardInput {
 }
 
 export interface NewSiteDataInput {
+  pageId: number;
   name: string;
   value: string;
 }

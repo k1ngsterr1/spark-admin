@@ -22,11 +22,12 @@ class EditController {
   async addSiteData(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
     try {
-      const userId = req.user.id;
+      const userId: number = req.user.id;
+      const pageUrl: string = req.body.pageUrl;
       const siteName: string = req.params.siteName;
       const value: string = req.body.value;
 
-      await this.addSiteDataComponent.execute(userId, siteName, value, errors);
+      await this.addSiteDataComponent.execute(userId, pageUrl, siteName, value, errors);
 
       if (errors.length > 0) {
         const current_errors = errors[0];
@@ -46,12 +47,10 @@ class EditController {
   async updateSite(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
     try {
-      const siteName: string = req.params.siteName;
       const componentId: number = req.params.componentId;
       const newValue: string = req.body.newValue;
 
       await this.updateSiteComponent.execute(
-        siteName,
         componentId,
         newValue,
         errors
@@ -75,12 +74,10 @@ class EditController {
   async uploadImage(req: Request, res: Response): Promise<void>{
     const errors: ErrorDetails[] = [];
     try {
-      const siteName: string = req.params.siteName;
-      // const userId: string = req.user.id;
       const componentId: number = req.body.componentId;
       const imagePath: string = path.join(uploadPath, req.body.image);
 
-      await this.uploadImageToSite.execute(siteName, componentId, imagePath, errors);
+      await this.uploadImageToSite.execute(componentId, imagePath, errors);
 
       if (errors.length > 0) {
         const current_errors = errors[0];
