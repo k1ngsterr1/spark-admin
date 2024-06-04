@@ -14,6 +14,11 @@ import { AllWebsitesUsers } from "@core/use_cases/Website/GetAllWebsitesUsers";
 import { DeleteWebsite } from "@core/use_cases/Website/DeleteWebsite";
 import { CheckVerification } from "@core/use_cases/Website/CheckVerification";
 import WebsiteService from "@services/websiteService";
+import { CartDetails } from "@core/utils/Website/Ferla-bikes/types";
+import { AddCart } from "@core/use_cases/Website/CRUD/Ferla-bikes/AddCart";
+const fs = require("fs").promises;
+import path from "path";
+import { uploadPath } from "server";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
@@ -29,6 +34,7 @@ class WebsiteController {
   private getWebsiteElements: GetWebsiteElements;
   private allWebsitesUsers: AllWebsitesUsers;
   private deleteWebsiteByUrl: DeleteWebsite;
+  private ferlaAddCart: AddCart;
 
   constructor() {
     this.websiteService = new WebsiteService();
@@ -47,6 +53,7 @@ class WebsiteController {
     this.getWebsiteElements = new GetWebsiteElements();
     this.allWebsitesUsers = new AllWebsitesUsers();
     this.deleteWebsiteByUrl = new DeleteWebsite();
+    this.ferlaAddCart = new AddCart();
   }
 
   // Добавление веб-сайта
@@ -95,6 +102,39 @@ class WebsiteController {
       return res
         .status(500)
         .json({ error: "Ошибка с получением сайтов", details: error.message });
+    }
+  }
+
+  async addFerlaCart(req: Request, res: Response): Promise<void>{
+    const errors: ErrorDetails[] = [];
+    try{
+      const userId: number = req.user.id;
+      const websiteId: string = req.params.websiteId;
+      const imgPath = path.join(uploadPath, req.body.image);
+      const cartDetails: CartDetails = {
+        name: req.body.name,
+        description: req.body.description,
+        img_url: imgPath
+      }
+
+      const cart = await this.ferlaAddCart.execute(userId, websiteId, cartDetails, errors);
+
+      await fs.unlink(imgPath, (error: unknown | any) => {
+        if (error) {
+          throw new Error(error.message);
+        }
+      });
+      
+      if(errors.length > 0){
+        const current_error = errors[0];
+        res.status(current_error.code).json(current_error.details);
+        return;
+      }
+
+      res.status(201).json({ message: "Успешно создали тележку.", cart: cart})
+    }catch(error){
+      console.log(error);
+      res.status(500).json({ message: "Ошибка при добавление тележки." });
     }
   }
 
