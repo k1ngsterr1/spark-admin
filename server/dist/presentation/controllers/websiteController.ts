@@ -124,7 +124,8 @@ class WebsiteController {
       const cartDetails: CartDetails = {
         name: req.body.name,
         description: req.body.description,
-        img_url: imgPath
+        img_url: imgPath,
+        price: req.body.price
       }
 
       const cart = await this.ferlaAddCart.execute(userId, websiteId, cartDetails, errors);
@@ -158,7 +159,8 @@ class WebsiteController {
       const cartDetails: CartDetails = {
         name: req.body.name,
         description: req.body.description,
-        img_url: imgPath
+        img_url: imgPath,
+        price: req.body.price
       }
 
       const cart = await this.ferlaUpdateCart.execute(userId, websiteId, cartId, cartDetails, errors);
