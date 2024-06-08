@@ -44,9 +44,6 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(swaggerSpec, { explorer: true })
 );
-
-app.use("/agro", express.static(path.join(__dirname, "templates/build/agro")));
-
 app.use(express.static(path.join(__dirname, "templates/public")));
 
 app.set("view engine", "ejs");
@@ -60,6 +57,8 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
+
+app.use("/ferla", express.static(path.join(__dirname, 'templates/build/ferla-bikes')));
 
 // Статичные стили
 // app.use(
