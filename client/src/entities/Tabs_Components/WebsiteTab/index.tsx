@@ -1,56 +1,60 @@
-import React from "react";
-import Image, { StaticImageData } from "next/image";
+"use client";
+
+import { faLink, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SyntheticEvent } from "react";
 
 import styles from "./styles.module.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCalendar,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
-import { KebabMenu } from "@shared/ui/KebabMenu";
 
-interface WebsiteTabProps {
-  text: string;
-  preview: StaticImageData;
-  userQuantity: number;
+interface IWebsiteTabProps {
+  name: string;
+  href: string;
+  url: string;
 }
 
-export const WebsiteTab: React.FC<WebsiteTabProps> = ({ text, preview }) => {
+export const WebsiteTab: React.FC<IWebsiteTabProps> = ({ name, href, url }) => {
+  const router = useRouter();
+
+  const handleClick = (slug: string, event: SyntheticEvent) => {
+    event.stopPropagation();
+    router.push(`/websites/pages/${slug}`);
+  };
+
   return (
-    <div className={styles.website_tab}>
-      <div className={styles.website_tab__preview_content}>
-        <Image
-          src={preview}
-          className={styles.website_tab__preview_content__preview}
-          alt={text}
-        />
-        <div className={styles.website_tab__preview_content__text_content}>
-          <span className={styles.text}>
-            Spark Studio - Студия веб-разработки
+    <div className="flex flex-col" onClick={(e) => handleClick(name, e)}>
+      <div
+        className={`${styles.sites_section} dark:bg-dark-lighter hover:dark:bg-dark-upper`}
+      >
+        <div className={styles.sites_section__name}>{name}</div>
+        <div className={styles.sites_section__row}>
+          <span className={styles.sites_section__row__click}>
+            <FontAwesomeIcon
+              icon={faEdit}
+              className={styles.sites_section__row__item}
+              size="lg"
+              color="#FF5722"
+            />
+            Редактировать Сайт
           </span>
-          <div
-            className={styles.website_tab__preview_content__text_content__lower}
+          <a
+            href={href}
+            onClick={(e: React.SyntheticEvent) => e.stopPropagation()}
+            target="_blank"
+            className={styles.sites_section__row__hover}
           >
-            <div className="flex items-center gap-2">
-              <FontAwesomeIcon
-                icon={faUser}
-                className={styles.icon}
-                size="lg"
-              />
-              <span className={styles.count}>3</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <FontAwesomeIcon
-                icon={faCalendar}
-                className={styles.icon}
-                size="lg"
-              />
-              <span className={styles.count}>18.02.2024</span>
-            </div>
-          </div>
+            <FontAwesomeIcon
+              icon={faLink}
+              className={styles.sites_section__row__item}
+              size="lg"
+              color="#FF5722"
+            />
+            {url}
+          </a>
         </div>
       </div>
-      <KebabMenu />
     </div>
   );
 };
+
+export default WebsiteTab;

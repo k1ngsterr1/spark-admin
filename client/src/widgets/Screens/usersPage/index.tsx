@@ -1,13 +1,47 @@
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import styles from "./styles.module.scss";
 import Heading from "@shared/ui/Heading";
-import { KebabMenu } from "@shared/ui/KebabMenu/index";
+import { UserTab } from "@entities/Tabs_Components/UserTab/index";
+import { useGetUsers } from "@shared/lib/hooks/Websites/useGetUsers";
+import SkeletonLoader from "@shared/ui/Skeleton_Loader";
+
+import { EmptySvg } from "@assets/index";
 
 interface UsersProps {
   users: [];
 }
 
 export const Users: React.FC<UsersProps> = ({ users }) => {
+  const { isLoading, hasUsers } = useGetUsers();
+
+  if (isLoading) {
+    return (
+      <div>
+        <SkeletonLoader />
+      </div>
+    );
+  }
+
+  if (!hasUsers) {
+    return (
+      <>
+        <div className={styles.container}>
+          <div className="flex w-[90%] justify-between items-center m-auto ">
+            <Heading text="Управление пользователями" />
+            <Button
+              text="Добавить пользователя"
+              buttonType="regular--small"
+              functionType="userPopup"
+            />
+          </div>
+          <EmptySvg className={styles.container__image} />
+          <p className={styles.container__already}>
+            У вас еще нет пользователей
+          </p>
+        </div>
+      </>
+    );
+  }
   return (
     <div className={styles.users}>
       <div className="flex w-[90%] justify-between items-center m-auto ">
@@ -18,26 +52,16 @@ export const Users: React.FC<UsersProps> = ({ users }) => {
           functionType="userPopup"
         />
       </div>
-      <div className={styles.users__box}>
-        {/* <div>
-          {users.map((user) => (
-            <section key={user.id}>
-              <div>Name: {user.name}</div>
-              <div>URL: {user.url}</div>
-              <div>Owner: {user.owner}</div>
-              <div>Users Count: {user.usersCount}</div>
-            </section>
-          ))}
-        </div> */}
-        <div className={styles.user_container}>
-          <div className={styles.user_container__rounder}></div>
-          <div className={styles.user_container__items}>
-            <p className={styles.user_container__user}>UserName</p>
-            <span className="text-primary">Role</span>
-          </div>
-          <KebabMenu />
-        </div>
-      </div>
+      {users?.websites.map((website) =>
+        website.users.map((user) => (
+          <UserTab
+            key={user.id}
+            username={user.username}
+            email={user.email}
+            role={user.UserToWebsite.role}
+          />
+        ))
+      )}
     </div>
   );
 };

@@ -1,7 +1,9 @@
 "use client";
 import {
+  usePageCardPopup,
   useWebPopup,
   useWebVerifyPopup,
+  useWebsiteUploadPopup,
 } from "@shared/lib/contexts/AppContext";
 import { useUserPopup } from "@shared/lib/contexts/AppContext";
 import { FunctionTypes } from "@shared/lib/hooks/useFunctions";
@@ -36,6 +38,8 @@ const Button: React.FC<ButtonProps> = ({
   const { toggleWebPopup } = useWebPopup();
   const { toggleWebVerifyPopup } = useWebVerifyPopup();
   const { toggleUserPopup } = useUserPopup();
+  const { togglePageCardPopup } = usePageCardPopup();
+  const { toggleWebsiteUploadPopup } = useWebsiteUploadPopup();
 
   const handleClick = () => {
     if (functionType === "webPopup") {
@@ -47,6 +51,14 @@ const Button: React.FC<ButtonProps> = ({
 
     if (functionType === "verifyPopup") {
       toggleWebVerifyPopup();
+    }
+
+    if (functionType === "pageCardPopup") {
+      togglePageCardPopup();
+    }
+
+    if (functionType === "websiteUploadPopup") {
+      toggleWebsiteUploadPopup();
     }
   };
 
@@ -61,7 +73,14 @@ interface LinkButtonProps {
   margin?: string;
   href: string;
   text: string;
-  buttonType: "regular" | "transparent" | "regular--small" | "regular--xs";
+  buttonType:
+    | "regular"
+    | "regular--bigger"
+    | "transparent"
+    | "transparent--small"
+    | "regular--small"
+    | "regular--xs"
+    | "card-button";
 }
 
 const ButtonLink: React.FC<LinkButtonProps> = ({

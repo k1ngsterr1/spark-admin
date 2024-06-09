@@ -1,0 +1,19 @@
+@import "breakpoint-slicer";
+@import "../../shared/styles/mixins";
+@import "../../shared/styles/variables";
+
+.page_cards_layout {
+  width: 92%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  @apply gap-8;
+  @apply mt-8;
+  @apply pb-8;
+
+  @include respond-to("5xl") {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    gap: 20px;
+  }
+}

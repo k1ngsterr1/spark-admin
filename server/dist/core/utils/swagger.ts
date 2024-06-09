@@ -21,6 +21,10 @@ const options = {
     './infrastructure/routes/userRoutes.ts', 
     './infrastructure/routes/pageRoutes.ts', 
     './infrastructure/routes/websiteRoutes.ts',
+    './infrastructure/routes/componentRoutes.ts',
+    './infrastructure/routes/pageCardRoutes.ts',
+    './infrastructure/routes/blockRoutes.ts',
+    './infrastructure/routes/blockComponentRoutes.ts',
     './server.ts'
   ],
 };

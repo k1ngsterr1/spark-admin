@@ -1,0 +1,38 @@
+.nav_button {
+  width: 100%;
+  border-top: 1px solid rgb(201, 201, 201);
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  transition: 0.3s all;
+  position: relative;
+  @apply gap-4;
+  @apply p-3;
+  border-right: 0 solid #FF5722; 
+  transition: border 0.3s cubic-bezier(0, 5, 0.8, 1); 
+
+  &.active {
+    border-right: 7px solid #FF5722; 
+  }
+
+  &__text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    @apply text-lg;
+    @apply font-medium;
+    @apply text-secondary;
+    transition: transform 0.3s ease-in-out; 
+
+    &:hover {
+        transform: translateX(7px); 
+    }
+  }
+  .arrow {
+    @apply text-2xl;
+    margin-left: auto;
+    color: inherit; 
+    transition: opacity 0.3s ease-in-out;
+  }
+}

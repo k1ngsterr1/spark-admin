@@ -1,4 +1,4 @@
-import React from "react";
+import React, { LegacyRef, useEffect } from "react";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -10,6 +10,8 @@ interface NavButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
   icon: IconDefinition;
   href: string;
+  isOpen: boolean;
+  textRef: LegacyRef<HTMLSpanElement>;
 }
 
 export const NavButton: React.FC<NavButtonProps> = ({
@@ -17,16 +19,25 @@ export const NavButton: React.FC<NavButtonProps> = ({
   icon,
   text,
   href,
+  isOpen,
+  textRef,
 }) => {
   return (
-    <Link className={`${styles.nav_button} ${margin}`} href={href}>
-      <FontAwesomeIcon
-        icon={icon}
-        className={styles.nav_button__icon}
-        size="lg"
-      />
-      <span className={`${styles.nav_button__text} dark:text-white`}>{text}</span>
-    </Link>
+    <>
+      <Link className={`${styles.nav_button} ${margin}`} href={href}>
+        <FontAwesomeIcon
+          icon={icon}
+          className={styles.nav_button__icon}
+          size="lg"
+        />
+        <span
+          className={`${styles.nav_button__text} dark:text-white ${isOpen ? "flex" : "hidden"}`}
+          ref={textRef}
+        >
+          {text}
+        </span>
+      </Link>
+    </>
   );
 };
 
@@ -44,7 +55,9 @@ export const MenuButton: React.FC<NavButtonProps> = ({
         className={styles.nav_button__icon}
         size="xl"
       />
-      <span className={`${styles.nav_button__text} dark:text-white`}>{text}</span>
+      <span className={`${styles.nav_button__text} dark:text-white`}>
+        {text}
+      </span>
     </button>
   );
 };

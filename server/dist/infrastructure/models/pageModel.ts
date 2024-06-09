@@ -1,46 +1,59 @@
 import {
-    Table,
-    Column,
-    Model,
-    DataType,
-    CreatedAt,
-    UpdatedAt,
-    AutoIncrement,
-    PrimaryKey,
-    BelongsTo,
-    ForeignKey,
+  Table,
+  Column,
+  Model,
+  DataType,
+  CreatedAt,
+  UpdatedAt,
+  AutoIncrement,
+  PrimaryKey,
+  BelongsTo,
+  ForeignKey,
+  HasMany,
 } from "sequelize-typescript";
 import { Website } from "./websiteModel";
 import { PageAttributes } from "@core/utils/types";
-  
+import { Component } from "./componentModel";
+
+// Модель для страниц
 @Table({
-    tableName: "pages",
+  tableName: "pages",
 })
-export class Page extends Model<PageAttributes>{
-    @PrimaryKey
-    @AutoIncrement
-    @Column(DataType.INTEGER)
-    id!: number;
+export class Page extends Model<PageAttributes> {
+  @PrimaryKey
+  @AutoIncrement
+  @Column(DataType.INTEGER)
+  id!: number;
 
-    @ForeignKey(() => Website)
-    @Column(DataType.UUID)
-    websiteId!: string;
+  @HasMany(() => Component)
+  components!: Component[];
 
-    @BelongsTo(() => Website)
-    website?: Website;
+  @ForeignKey(() => Website)
+  @Column({
+    type: DataType.UUID,
+    onDelete: "CASCADE",
+  })
+  @Column(DataType.UUID)
+  websiteId!: string;
 
-    @Column(DataType.STRING)
-    url!: string;
+  @BelongsTo(() => Website)
+  website?: Website;
 
-    @Column(DataType.STRING)
-    name!: string;
+  @Column(DataType.STRING)
+  url!: string;
 
-    @Column(DataType.STRING)
-    type!: string;
-  
-    @CreatedAt
-    createdAt?: Date;
-  
-    @UpdatedAt
-    updatedAt?: Date;
+  @Column(DataType.TEXT)
+  content?: string;
+
+  @Column(DataType.STRING)
+  name!: string;
+
+  @Column(DataType.STRING)
+  type!: string;
+
+  @CreatedAt
+  createdAt?: Date;
+
+  @UpdatedAt
+  updatedAt?: Date;
 }

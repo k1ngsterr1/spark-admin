@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "breakpoint-slicer": "^3.0.0-beta.1",
+    "prettier": "^3.2.5"
+  },
+  "dependencies": {
+    "puppeteer": "^22.7.1"
+  }
+}

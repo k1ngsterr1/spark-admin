@@ -1,0 +1,13 @@
+.content_container {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 10px 5p 5px black;
+  //   transition: 0.3s all;
+
+  &:hover {
+    border: 2px dashed;
+    @apply border-primary;
+  }
+}

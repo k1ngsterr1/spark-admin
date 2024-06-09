@@ -5,6 +5,7 @@ const router = express.Router();
 import auth from "@infrastructure/middleware/authMiddleware";
 
 /**
+ *
  * @swagger
  * /api/auth/register:
  *   post:
@@ -26,7 +27,7 @@ import auth from "@infrastructure/middleware/authMiddleware";
  *             properties:
  *               username:
  *                 type: string
- *                 example: john_doe
+ *                 example: Swagger
  *               email:
  *                 type: string
  *                 example: example@gmail.com

@@ -1,27 +1,13 @@
-import axios from "axios";
-import { useUserData } from "./useGetData";
+import { axiosInstance } from "./../useInterceptor";
 
 interface IData {
-  code: string[];
+  code: string;
 }
 
 export async function useEmailConfirm(data: IData): Promise<void | string> {
   try {
-    const userData = useUserData();
-    const accessToken = userData.accessToken;
+    const response = await axiosInstance.post("/api/auth/verify", data);
 
-    const response = await axios.post(
-      "https://spark-admin-production.up.railway.app/api/auth/verify",
-      data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-
-    console.log("Data created:", response.data);
     window.location.href = "/websites";
   } catch (error: unknown | any) {
     console.error("Failed to create data:", error);

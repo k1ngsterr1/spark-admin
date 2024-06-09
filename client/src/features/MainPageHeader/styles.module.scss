@@ -1,0 +1,39 @@
+.header {
+  width: 100%;
+  height: auto;
+  margin: auto;
+  border-bottom: 1px solid;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  @apply border-gray-200;
+  @apply pt-4;
+  @apply pb-4;
+
+  &__text {
+    font-size: clamp(8px, 16 / 1520 * 100vw, 32px);
+    @apply text-primary;
+  }
+
+  &__logo_text {
+    font-size: clamp(8px, 16 / 1520 * 100vw, 32px);
+    font-family: "Mulish";
+    font-weight: 600;
+    @apply text-primary;
+  }
+
+  &__logo {
+    width: clamp(24px, 48 / 1520 * 100vw, 96px);
+    height: clamp(24px, 48 / 1520 * 100vw, 96px);
+  }
+
+  &__container {
+    width: 86.6%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
+  }
+}

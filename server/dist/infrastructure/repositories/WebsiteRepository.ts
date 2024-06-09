@@ -1,13 +1,12 @@
 import { Website } from "infrastructure/models/websiteModel";
-import sequelize from "infrastructure/config/sequelize";
-import { json } from "sequelize";
 import { NewWebsiteInput } from "@core/utils/types";
 import { Page } from "@infrastructure/models/pageModel";
 import { User } from "@infrastructure/models/userModel";
 import { ErrorDetails } from "@core/utils/utils";
-import cheerio from "cheerio";
-import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
+
+import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
+import sequelize from "infrastructure/config/sequelize";
 
 export class WebsiteRepository implements IWebsiteRepository {
   // Создать веб-сайт
@@ -52,6 +51,7 @@ export class WebsiteRepository implements IWebsiteRepository {
       return null;
     }
   }
+
   // Найти по ID владельца
   async findByOwner(
     ownerId: number,
@@ -90,12 +90,14 @@ export class WebsiteRepository implements IWebsiteRepository {
     errors: ErrorDetails[]
   ): Promise<Website | null> {
     try {
-      return sequelize.getRepository(Website).findOne({
+      const website = await sequelize.getRepository(Website).findOne({
         where: {
           owner: ownerId,
           url: url,
         },
       });
+
+      return website;
     } catch (error) {
       errors.push(new ErrorDetails(500, error.message));
       return null;
@@ -132,16 +134,21 @@ export class WebsiteRepository implements IWebsiteRepository {
     try {
       const website = await sequelize.getRepository(Website).findOne({
         where: {
+          owner: ownerId,
           url: url,
         },
       });
+
+      console.log("website code is here:", website.websiteCode);
 
       if (!website) {
         throw new Error(
           "Веб-сайт не найден, пожалуйста добавьте его в нашу базу данных."
         );
       } else if (website.owner !== ownerId) {
-        throw new Error("Вы не владелец этого веб-сайта.");
+        const errorMsg = "Вы не владелец этого веб-сайта.";
+        errors.push(new ErrorDetails(403, errorMsg));
+        return null;
       } else {
         return website.websiteCode;
       }
@@ -151,33 +158,49 @@ export class WebsiteRepository implements IWebsiteRepository {
     }
   }
 
-  async findWebsitesUsers(errors: ErrorDetails[]): Promise<Website[]>{
-    try{
+  // Поиск пользователей веб-сайта
+  async findWebsitesUsers(errors: ErrorDetails[]): Promise<Website[]> {
+    try {
       const websites = await sequelize.getRepository(Website).findAll({
-        attributes: [
-          'id',
-          'owner'
-        ],
+        attributes: ["id", "owner"],
         include: [
           {
             model: sequelize.getRepository(User),
-            attributes: [
-              'username',
-              'email',
-              'isVerified'
-            ],
+            attributes: ["username", "email", "isVerified"],
             through: {
-              attributes: [
-                'role'
-              ]
-            }
-          }
-        ]
-      })
+              attributes: ["role"],
+            },
+          },
+        ],
+      });
       return websites;
-    } catch(error){
-      console.log(error);
-      errors.push(new ErrorDetails(500, 'Ошибка при получение вебсайтов с базы данных'));
+    } catch (error) {
+      errors.push(
+        new ErrorDetails(500, "Ошибка при получение веб-сайтов с базы данных")
+      );
+      return [];
+    }
+  }
+
+  // Обновление поля валидности веб-сайта
+  async updateIsValid(
+    isValid: boolean,
+    url: string,
+    errors: ErrorDetails[]
+  ): Promise<any> {
+    try {
+      const verificatedWebsite = await sequelize
+        .getRepository(Website)
+        .update({ isVerified: isValid } as any, { where: { url: url } });
+
+      return verificatedWebsite;
+    } catch (error: any | unknown) {
+      errors.push(
+        new ErrorDetails(
+          500,
+          "Ошибка с проверкой верификации веб-сайта с базы данных"
+        )
+      );
       return [];
     }
   }

@@ -1,43 +1,11 @@
-.sites_section {
-  @apply p-8;
-  width: 40%;
-  margin-right: auto;
-  @apply mt-8;
-  @apply ml-16;
-  @apply bg-primary-ALMOST_WHITE;
-  border-radius: 6px;
-  transition: 0.3s all;
-  &:hover {
-    @apply bg-primary-BG_LIGHT;
-    cursor: pointer;
-  }
-
-  &__name {
-    font-size: clamp(20px, 2.0832vw, 80px);
-    font-weight: 500;
-  }
-
-  &__row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: auto;
-    @apply gap-4;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 70vh;
+  &__already {
     @apply mt-12;
-    &__item {
-      @apply mr-1.5;
-      align-items: center;
-    }
-    &__hover {
-      transition: 0.3s all;
-      &:hover {
-        @apply text-primary;
-      }
-    }
-    &__click {
-      &:hover {
-        cursor: pointer;
-      }
-    }
+    font-size: clamp(9px, 18 / 1360 * 100vw, 36px);
   }
 }

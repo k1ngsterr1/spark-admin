@@ -1,4 +1,5 @@
 // В этом компоненте находится логика для отправки специального кода, который пользователь получает на электронную почту для подтверждения почты
+/* eslint-disable react-hooks/rules-of-hooks */
 
 "use client";
 
@@ -12,19 +13,30 @@ export default function useSubmitEmail() {
   const userData = useUserData();
 
   const handleInputChange = (index: number, value: string) => {
-    const newInputs = [...code];
-    newInputs[index] = value;
-    setCode(newInputs);
+    const newCode = [...code];
+    newCode[index] = value.slice(0, 1); // Assuming you want only the first character
+    setCode(newCode);
+    console.log("Updated code array:", newCode);
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const result = await useEmailConfirm({ code });
+    // Concatenate the array into a single string without any separator
+    let concatenatedCode = code.join("");
+
+    concatenatedCode = concatenatedCode.toUpperCase();
+    console.log("Submitting concatenated code:", concatenatedCode);
+
+    // Pass the concatenated code as a string
+    const result = await useEmailConfirm({ code: concatenatedCode });
     if (typeof result === "string") {
       setEmailError(result);
+    } else {
+      console.log("Confirmation successful");
     }
   };
 
   return { code, handleInputChange, userData, emailError, handleSubmit };
 }
+/* eslint-disable react-hooks/rules-of-hooks */

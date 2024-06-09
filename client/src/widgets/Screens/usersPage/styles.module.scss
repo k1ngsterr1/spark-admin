@@ -1,3 +1,7 @@
+@import "breakpoint-slicer";
+@import "../../../shared/styles/mixins";
+@import "../../../shared/styles/variables";
+
 .users {
   width: 100%;
   display: flex;
@@ -9,27 +13,40 @@
   }
 }
 
-.user_container {
-  position: relative;
+.container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 20%;
-  border-radius: 6px;
-  @apply mt-8;
-  @apply ml-16;
-  @apply bg-primary-ALMOST_WHITE;
-  @apply p-8;
-  &__rounder {
-    border-radius: 100%;
-    @apply p-8;
-    background-color: rgb(212, 212, 212);
+  flex-direction: column;
+  height: 70vh;
+  &__already {
+    @apply mt-8;
+    font-size: clamp(8px, 16 / 1520 * 100vw, 32px);
+
+    @include respond-to("md") {
+      font-size: clamp(8px, 16 / 992 * 100vw, 32px);
+    }
+
+    @include respond-to("lg") {
+      font-size: clamp(8px, 16 / 1200 * 100vw, 32px);
+    }
+
+    @include respond-to("xl") {
+      font-size: clamp(9px, 18 / 1360 * 100vw, 36px);
+    }
+
+    @include respond-to("2xl") {
+      font-size: clamp(8px, 16 / 1520 * 100vw, 32px);
+    }
   }
-  &__items {
-    margin-right: auto;
-    @apply pl-4;
-  }
-  &__user {
-    font-size: clamp(8px, 0.83328vw, 32px);
+  &__image {
+    @include respond-to("md") {
+      width: clamp(100px, 20.161vw, 400px);
+      height: clamp(125px, 25.202vw, 500px);
+    }
+
+    @include respond-to("lg") {
+      font-size: clamp(8px, 16 / 1200 * 100vw, 32px);
+    }
   }
 }

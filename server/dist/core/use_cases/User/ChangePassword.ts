@@ -16,10 +16,10 @@ export class ChangePasswordService {
   }
 
   // Инициация изменения пароля
-  async initiatePasswordChange(userId: number): Promise<void> {
+  async initiatePasswordChange(userId: number, errors: ErrorDetails[]): Promise<void> {
     const user = await this.userRepository.findByPk(userId);
     if (!user) {
-      throw new Error("Пользователь не найден.");
+      errors.push(new ErrorDetails(404, "Пользователь не найден."));
     }
 
     const verificationCode = verificationCodeGenerator(5);
@@ -37,7 +37,7 @@ export class ChangePasswordService {
 
   // Основная логика смены пароля
   async execute(request: ChangePasswordRequest, errors: ErrorDetails[]): Promise<boolean> {
-    const { id, oldPassword, newPassword, code } = request;
+    const { id, newPassword, code } = request;
     const user = await this.userRepository.findByPk(id);
 
     if (!user) {
@@ -45,7 +45,9 @@ export class ChangePasswordService {
       return;
     }
 
-    if(oldPassword === newPassword){
+    const isOldPassword = await user.verifyPassword(newPassword)
+
+    if(isOldPassword){
       errors.push(new ErrorDetails(400, "Старый пороль не должен совпадать с новым."));
       return;
     }

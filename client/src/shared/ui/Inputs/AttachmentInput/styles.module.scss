@@ -1,0 +1,15 @@
+.customFileInput {
+  width: 100%;
+}
+
+.customFileInputLabel {
+  width: 100%;
+  display: block;
+  border: 2px solid;
+  color: rgba(26, 26, 26, 0.5);
+  font-size: clamp(8px, 0.83328vw, 32px);
+  text-align: left;
+  padding: clamp(6px, 0.62496vw, 24px);
+  @apply rounded-md;
+  @apply border-primary-TRANSPARENT;
+}

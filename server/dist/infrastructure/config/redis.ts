@@ -2,6 +2,7 @@ import { AddRequest, DeleteRequest, UpdateRequest } from '@core/utils/Redis/Requ
 import { createClient, RedisClientType } from 'redis';
 const REDIS_URL: string = process.env.REDIS_URL;
 
+// Подключение и взоимодействие с хэшом
 export class Redis {
   private static client: RedisClientType;
 

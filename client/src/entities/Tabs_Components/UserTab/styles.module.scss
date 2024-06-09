@@ -1,11 +1,31 @@
-.user_tab {
+.container {
+  position: relative;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  @apply mr-4;
+  @apply w-96;
+  border-radius: 6px;
+  @apply mt-8;
+  @apply ml-16;
+  @apply bg-primary-ALMOST_WHITE;
+  @apply p-8;
 
-  &__photo{
-    width: clamp(24px,2.49984vw,96px);
-    height: clamp(24px,2.49984vw,96px);
-    @apply ml-2
+  &__rounder {
+    border-radius: 100%;
+    @apply p-8;
+    background-color: rgb(212, 212, 212);
+  }
+
+  &__items {
+    margin-right: auto;
+    @apply pl-4;
+  }
+
+  &__user {
+    font-size: clamp(8px, 0.83328vw, 32px);
+  }
+
+  &__role {
+    @apply text-primary;
   }
 }

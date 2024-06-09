@@ -1,0 +1,15 @@
+.block_button {
+  width: clamp(12px, 1.579vw, 48px);
+  height: clamp(12px, 1.579vw, 48px);
+  font-size: clamp(6px, 0.789vw, 24px);
+  transition: 0.3s all;
+  border: 1px solid;
+  @apply bg-gray-200;
+  @apply border-gray-300;
+  @apply rounded-sm;
+  @apply p-1;
+
+  &:hover {
+    @apply text-primary;
+  }
+}

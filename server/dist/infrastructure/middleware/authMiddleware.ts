@@ -25,6 +25,7 @@ const authenticateToken = async (req, res, next) => {
       .json({ error: "Неверный или устаревший JWT токен." });
   }
 };
+
 export const accessToken = async (req, res) => {
   // Получение access токена
   const authHeader = req.headers["authorization"];
@@ -36,10 +37,11 @@ export const accessToken = async (req, res) => {
     return res.status(401).json({ message: "Вы не предоставили JWT токен" });
   }
   try {
-    console.log("Smth");
     const decodedUser = await jwt.verify(token, JWT_SECRET_REFRESH);
     const access = jwtService.generateAccessToken(decodedUser);
-    res.status(201).json({ message: "Успешно создали access токен", access: access });
+    res
+      .status(201)
+      .json({ message: "Успешно создали access токен", access: access });
   } catch (error) {
     console.error(error);
     return res

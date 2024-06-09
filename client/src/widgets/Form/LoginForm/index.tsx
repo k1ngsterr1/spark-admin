@@ -18,12 +18,12 @@ const LoginForm = () => {
 
   const {
     email,
-      setEmail,
-      password,
-      setPassword,
-      passwordError,
-      handleSubmit,
-      errors
+    setEmail,
+    password,
+    setPassword,
+    passwordError,
+    handleSubmit,
+    errors,
   } = useSubmitLogin();
 
   return (

@@ -1,0 +1,9 @@
+.page_type_selector {
+  position: relative;
+  width: 92%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @apply gap-4;
+  @apply mt-8;
+}

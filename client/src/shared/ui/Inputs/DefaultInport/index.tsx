@@ -15,7 +15,9 @@ const InputProp: React.FC<DefaultInputProps> = ({
     margin ? margin : ""
   }`;
 
-  return <input className={`${inputClass} dark:text-white`} {...rest} required />;
+  return (
+    <input className={`${inputClass} dark:text-white`} {...rest} required />
+  );
 };
 
 export default InputProp;

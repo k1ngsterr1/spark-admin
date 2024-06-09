@@ -1,25 +1,26 @@
-'use client'
-import React from "react";
-import { useTheme } from 'next-themes'
+import { KebabMenu } from "@shared/ui/KebabMenu/index";
+import SkeletonLoader from "@shared/ui/Skeleton_Loader";
 
 import styles from "./styles.module.scss";
 
 interface UserTabProps {
-  name: string;
-  photo: string;
+  username: string;
+  email: string;
+  role: string;
 }
 
-export const UserTab: React.FC<UserTabProps> = ({ name, photo }) => {
-  const { theme } = useTheme()
-
+export const UserTab: React.FC<UserTabProps> = ({ username, email, role }) => {
   return (
-    <div className={styles.user_tab}>
-      <span className={styles.user_tab__name}>{name}</span>
-      <img
-        src={ theme === 'light' ? 'https://i.ibb.co.com/wS1Q77R/avatar.png' : 'https://i.ibb.co.com/KjvYd53/avatar-black.png'}
-        alt={`${name}'s profile photo`}
-        className={styles.user_tab__photo}
-      />
+    <div className={styles.container}>
+      <div className={styles.container__rounder}></div>
+      <div className={styles.container__items}>
+        <KebabMenu />
+        <div className={styles.container__user}>{username}</div>
+        <div className={styles.container__email}>{email}</div>
+        <div className={styles.container__role}>{role}</div>
+      </div>
     </div>
-  );
-};
+  )
+}
+
+export default UserTab;

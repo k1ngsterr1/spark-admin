@@ -3,6 +3,7 @@ import { User } from './userModel';
 import { Website } from './websiteModel';
 import { UserRole, UserToWebsiteAttributes } from '@core/utils/types';
 
+// Модель для моста между пользователем и вебсайтом 
 @Table({
     tableName: 'websites-users',
 })
@@ -17,7 +18,7 @@ export default class UserToWebsite extends Model<UserToWebsiteAttributes> {
     userId!: number;
 
     @ForeignKey(() => Website)
-    @Column({ type: DataType.STRING, onDelete: 'CASCADE' })
+    @Column({ type: DataType.UUID, onDelete: 'CASCADE' })
     websiteId!: string;
 
     @BelongsTo(() => User, 'userId')

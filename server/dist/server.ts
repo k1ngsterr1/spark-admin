@@ -1,22 +1,27 @@
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv").config({ path: ".env" });
 const cookieParser = require("cookie-parser");
+const compression = require("compression");
+const bodyParser = require("body-parser");
+
+const dotenv = require("dotenv").config({ path: ".env" });
 
 // imports
 import authRoutes from "infrastructure/routes/authRoutes";
 import websiteRoutes from "infrastructure/routes/websiteRoutes";
-import auth from "@infrastructure/middleware/authMiddleware";
 import pageRoutes from "@infrastructure/routes/pageRoutes";
 import userRoutes from "@infrastructure/routes/userRoutes";
-import Redis from "@infrastructure/config/redis"
 import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
 import { accessToken } from "@infrastructure/middleware/authMiddleware";
+import blockRoutes from "@infrastructure/routes/blockRoutes";
+import pageCardRoutes from "@infrastructure/routes/pageCardRoutes";
+import path from "path";
+import siteRoutes from "@infrastructure/routes/siteRoutes";
 
 const app = express();
 
-// Создание сваггер роута
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { explorer: true }));
+export const buildRoute = path.join(__dirname, "templates/build/");
+export const uploadPath = path.join(__dirname, "uploads");
 
 // Разрешены все Origins
 const corsOptions = {
@@ -27,17 +32,67 @@ const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: ["Authorization", "Content-Type"],
 };
-
-app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
-const port = process.env.PORT;
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 50000,
+  })
+);
+
+// Создание сваггера
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, { explorer: true })
+);
+
+app.use("/agro", express.static(path.join(__dirname, "templates/build/agro")));
+
+app.use(express.static(path.join(__dirname, "templates/public")));
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "templates"));
 
 app.use(express.json());
+
+// const port = process.env.PORT;
+const port = 4000;
+
+app.use(express.json());
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
 
-// Routes:
+// Статичные стили
+// app.use(
+//   "/css",
+//   express.static(path.join(__dirname, "public/css"), {
+//     setHeaders: function (res, path, stat) {
+//       // Кэширование
+//       res.set("Cache-Control", "public, max-age=31557600"); // 1 год
+//     },
+//   })
+// );
+
+// Статичные скрипты
+// app.use(
+//   "/js",
+//   express.static("templates/public", {
+//     setHeaders: function (res, path, stat) {
+//       // Кэширование
+//       res.set("Cache-Control", "public, max-age=31557600"); // 1 год
+//     },
+//   })
+// );
+
+// Сжатие
+app.use(compression());
+
+// Роуты:
 
 /**
  * @swagger
@@ -48,22 +103,39 @@ app.use(cookieParser());
  *       scheme: bearer
  * /access:
  *   post:
- *     summary: Generate a new access token for a user.
- *     description: Generate a new access token for a user with a valid refresh token.
+ *     summary: Создание нового access token'а
+ *     description: Создание нового access token'а с помощью валидного refresh token'a
  *     tags:
  *       - Access Token
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       201:
- *         description: Access token generated successfully.
+ *         description: Access token был успешно создан
  *       400:
- *         description: Access token failed to generate.
+ *         description: Не удалось создать access token'a
+ *       500:
+ *         description: Произошла ошибка при создание access token'a
  */
 app.post("/access", (req, res) => accessToken(req, res));
+
+// Логика для аутентификация
 app.use("/api/auth", authRoutes);
-app.use("api/user", userRoutes);
+
+// Логика для пользователей
+app.use("/api/user", userRoutes);
+
+// Логика для страниц
+app.use("/api/page", pageRoutes);
+
+// Логика для вебсайта
 app.use("/api/website", websiteRoutes);
+
+app.use("/api/block", blockRoutes);
+
+app.use("/api/page-card", pageCardRoutes);
+
+app.use("/api/site", siteRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

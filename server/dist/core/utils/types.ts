@@ -1,7 +1,10 @@
+import { Block } from "@infrastructure/models/blockModel";
+import { PageCard } from "@infrastructure/models/pageCardModel";
 import { Page } from "@infrastructure/models/pageModel";
 import { User } from "@infrastructure/models/userModel";
 import { Website } from "@infrastructure/models/websiteModel";
-//Attributes
+
+//Аттрибуты
 export interface UserAttributes {
   id: number;
   websiteId: string;
@@ -33,9 +36,66 @@ export interface PageAttributes {
   url: string;
   name: string;
   type: string;
+  content?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface PageCardAttributes {
+  id: number;
+  url: string;
+  name: string;
+  description: string;
+  type: string;
+}
+
+export interface SiteDataAttributes{
+  id: number;
+  name: string;
+  value: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ComponentAttributes {
+  id: number;
+  pageId: number;
+  page: Page;
+  name: string;
+  text: string;
+  blockId: number;
+  elementType: string;
+  content: string;
+  attributes: object;
+}
+export interface BlockComponentAttributes {
+  id: number;
+  blockId: number;
+  block: Block;
+  name: string;
+  text: string;
+  attributes: object;
+}
+
+export interface BlockAttributes {
+  id: number;
+  cards: PageCard[];
+  name: string;
+  title: string;
+  content: string;
+  type: string;
+  image_url: string;
+  video_url: string;
+}
+
+export interface CardToBlockAttributes {
+  id: number;
+  pageCardId: number;
+  blockId: number;
+  card: PageCard;
+  block: Block;
+}
+
 export interface UserToWebsiteAttributes {
   id: number;
   websiteId: string;
@@ -43,37 +103,6 @@ export interface UserToWebsiteAttributes {
   owner: number;
   role: string;
 }
-
-export enum UserRole {
-  Owner = "owner",
-  Admin = "admin",
-  Editor = "editor",
-  User = "user",
-}
-
-export interface NewUserInput {
-  username: string;
-  email: string;
-  password: string;
-}
-
-export type UserResponse = {
-  id: number;
-  username: string;
-  email: string;
-  role: string;
-};
-
-export type UserPayload = {
-  id: number;
-  email: string;
-  role: string;
-};
-
-export type UserVerification = {
-  id: number;
-  code: string;
-};
 
 export interface NewWebsiteInput {
   name: string;
@@ -92,9 +121,83 @@ export interface NewPageInput {
   type: string;
 }
 
+export interface NewPageCardInput {
+  url: string;
+  // video: Video;
+  name: string;
+  description: string;
+  type: string;
+}
+
+export interface NewSiteDataInput {
+  name: string;
+  value: string;
+}
+
+export interface NewComponentInput {
+  pageId: number;
+  elementType: string;
+  content: string;
+  attributes: object;
+  name: string;
+  text: string;
+  blockId: number;
+}
+
+export interface NewBlockComponentInput {
+  blockId: number;
+  name: string;
+  text: string;
+  componentId: number;
+}
+
+export interface NewBlockInput {
+  name: string;
+  title: string;
+  description: string;
+  type: string;
+  css_link: string;
+  image_url?: string;
+  video_url?: string;
+}
+
+export interface NewUserInput {
+  username: string;
+  email: string;
+  password: string;
+}
+
+// Типы для нумерация
+export enum UserRole {
+  Owner = "owner",
+  Admin = "admin",
+  SparkAdmin = "sparkAdmin",
+  Editor = "editor",
+  User = "user",
+}
+
 export enum WebsiteCommand {
   update = "Update",
   create = "Create",
   delete = "Delete",
   get = "Get",
 }
+
+// Типы
+export type UserResponse = {
+  id: number;
+  username: string;
+  email: string;
+  role: string;
+};
+
+export type UserPayload = {
+  id: number;
+  email: string;
+  role: string;
+};
+
+export type UserVerification = {
+  id: number;
+  code: string;
+};

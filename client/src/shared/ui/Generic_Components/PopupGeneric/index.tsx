@@ -5,7 +5,6 @@ import styles from "./styles.module.scss";
 
 interface PopupProps {
   children: ReactNode;
-
   onClose: MouseEventHandler<HTMLDivElement>;
 }
 

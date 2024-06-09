@@ -1,0 +1,61 @@
+@import "breakpoint-slicer";
+@import "../../shared/styles/mixins";
+@import "../../shared/styles/variables";
+
+.page_card {
+  width: clamp(125px, 13.02vw, 500px);
+  min-height: clamp(150px, 15.624vw, 600px);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: 0.3s all;
+  border: none;
+  @apply rounded-md;
+  @apply bg-gray-100;
+
+  @include respond-to("md") {
+    width: clamp(112.5px, 22.681vw, 450px);
+    min-height: clamp(100px, 20.161vw, 400px);
+    @apply pb-4;
+  }
+
+  &__image {
+    width: 100%;
+    height: clamp(90px, 9.3744vw, 360px);
+    @apply rounded-t-md;
+
+    @include respond-to("md") {
+      height: 100%;
+    }
+  }
+
+  &__section {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    @apply pl-4 pt-4;
+
+    &__heading {
+      @apply text-lg;
+      @apply font-bold;
+      @apply text-gray-800;
+    }
+
+    &__paragraph {
+      width: 95%;
+      @apply text-xs;
+      @apply mt-2;
+      @apply text-gray-800;
+
+      @include respond-to("md") {
+        height: 100%;
+      }
+    }
+  }
+
+  &:hover {
+    @apply shadow-md;
+  }
+}

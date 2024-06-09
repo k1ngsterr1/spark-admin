@@ -4,45 +4,56 @@ import { IJWTService } from "core/interfaces/IJWTService";
 import { JWTService } from "core/use_cases/User/JWTService";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { LoginRequest } from "@core/utils/User/Request";
+import { ErrorDetails } from "@core/utils/utils";
 
 export type UserResponse = {
   id: number;
   username: string;
   email: string;
   role: string;
+  isVerified: boolean;
 };
 
 export class Login {
   private userRepository: IUserRepository;
   private jwtService: IJWTService;
   constructor() {
-    this.userRepository = new UserRepository(); 
+    this.userRepository = new UserRepository();
     this.jwtService = new JWTService();
   }
 
-  async execute(request: LoginRequest): Promise<{
+  async execute(
+    request: LoginRequest,
+    errors: ErrorDetails[]
+  ): Promise<{
     user: UserResponse;
     accessToken: string;
     refreshToken: string;
   }> {
     const { email, password } = request;
-    const user = await this.userRepository.findOne({ where: { email } });
+    const user = await this.userRepository.findOne({ where: { email: email } });
+    console.log(user);
 
-    if (!user) {
-      throw new Error("Пользователь не найден!");
+    if (user === null) {
+      errors.push(new ErrorDetails(404, "Не удалось найти пользователя."));
+      console.log(errors);
+      return;
     }
 
     const isMatch: boolean = await bcryptjs.compare(password, user.password);
 
     if (!isMatch) {
-      throw new Error("Неверный пароль!");
+      errors.push(new ErrorDetails(404, "Неверный пароль!"));
+      return;
     }
+    console.log(user);
 
     const userResponse: UserResponse = {
       id: user.id,
       username: user.username,
       email: user.email,
       role: user.role,
+      isVerified: user.isVerified,
     };
 
     const accessToken = this.jwtService.generateAccessToken(userResponse);

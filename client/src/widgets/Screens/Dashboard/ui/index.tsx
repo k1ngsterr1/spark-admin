@@ -1,7 +1,10 @@
-import { Button } from "@shared/ui/Buttons_Components/Buttons";
+import { Button, ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
+import { useGetWebsites } from "@shared/lib/hooks/useGetWebsites";
+import { EmptySvg } from "@assets/index";
+import { useCheckIsAdmin } from "@shared/lib/hooks/useCheckIsAdmin";
 import Heading from "@shared/ui/Heading/index";
-import { faLink, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import WebsiteTab from "@entities/Tabs_Components/WebsiteTab/index";
+import SkeletonLoader from "@shared/ui/Skeleton_Loader";
 
 import styles from "./styles.module.scss";
 
@@ -10,9 +13,58 @@ interface DashboardProps {
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
+  const { isLoading, hasWebsites } = useGetWebsites();
+  const { isAdmin } = useCheckIsAdmin();
+
+  if (isLoading) {
+    return (
+      <div>
+        <SkeletonLoader />
+      </div>
+    );
+  }
+
+  if (!hasWebsites) {
+    return (
+      <>
+        <div className={styles.container}>
+          <div className="flex justify-between w-[90%] items-center mb-24">
+            <Heading text="Ваши Сайты" />
+            <div className="flex items-center-justify-center gap-4">
+              <Button
+                text="Добавить сайт"
+                buttonType="regular--small"
+                functionType="webPopup"
+              />
+              <Button
+                text="Верифицировать сайт"
+                buttonType="regular--small"
+                functionType="verifyPopup"
+              />
+              <ButtonLink
+                text="Создать сайт"
+                href="/websites/build"
+                buttonType="regular--small"
+              />
+              {isAdmin && (
+                <Button
+                  text="Залить сайт"
+                  buttonType="regular--small"
+                  functionType="websiteUploadPopup"
+                />
+              )}
+            </div>
+          </div>
+          <EmptySvg />
+          <p className={styles.container__already}>У вас еще нет сайтов</p>
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="flex flex-col">
-      <div className="flex w-[90%] justify-between items-center m-auto">
+      <div className="flex w-[90%]  justify-between items-center m-auto">
         <Heading text="Ваши Сайты" />
         <div className="flex items-center-justify-center gap-4">
           <Button
@@ -25,37 +77,21 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
             buttonType="regular--small"
             functionType="verifyPopup"
           />
+          <ButtonLink
+            text="Создать сайт"
+            href="/websites/build"
+            buttonType="regular--small"
+          />
         </div>
       </div>
-      <section className={styles.sites_section}>
-        <ul>
-          {sites.map((site) => (
-            <div key={site.id}>
-              <span className={styles.sites_section__name}>{site.name}</span>
-              <div className={styles.sites_section__row}>
-                <span className={styles.sites_section__row__click}>
-                  <FontAwesomeIcon
-                    icon={faEdit}
-                    className={styles.sites_section__row__item}
-                    size="md"
-                    color="#FF5722"
-                  />
-                  Редактировать Сайт
-                </span>
-                <a href={site.url} className={styles.sites_section__row__hover}>
-                  <FontAwesomeIcon
-                    icon={faLink}
-                    className={styles.sites_section__row__item}
-                    size="md"
-                    color="#FF5722"
-                  />
-                  {site.url}
-                </a>
-              </div>
-            </div>
-          ))}
-        </ul>
-      </section>
+      {sites.map((site: any | unknown) => (
+        <WebsiteTab
+          key={site.id}
+          name={site.name}
+          url={site.url}
+          href={site.url}
+        />
+      ))}
     </div>
   );
 };

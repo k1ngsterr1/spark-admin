@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosInstance } from "./../useInterceptor";
 
 interface IData {
   username: string;
@@ -9,15 +9,7 @@ interface IData {
 
 export async function useRegister(data: IData): Promise<string | void> {
   try {
-    const response = await axios.post(
-      "https://spark-admin-production.up.railway.app/api/auth/register",
-      data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await axiosInstance.post("/api/auth/register", data);
 
     console.log("Data created:", response.data);
     window.location.href = "/login";
