@@ -26,7 +26,7 @@ const Cursor = () => {
         height: "64px",
         borderRadius: "50%",
         backgroundColor: "#FF5722",
-        boxShadow: "0 0 30px 5px #FF5722",
+        boxShadow: "0px 0px 300px 50px #FF5722",
         pointerEvents: "none", // This prevents the cursor element from interfering with mouse events
         transform: "translate(-50%, -50%)", // Centers the cursor effect on the cursor
         zIndex: 9999,

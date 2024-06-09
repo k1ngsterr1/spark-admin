@@ -1,0 +1,15 @@
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__heading {
+    font-size: 48px;
+    font-weight: bold;
+    @apply text-primary;
+  }
+
+  &__under_heading {
+    @apply mt-2;
+  }
+}

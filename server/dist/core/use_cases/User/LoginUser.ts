@@ -11,17 +11,21 @@ export type UserResponse = {
   username: string;
   email: string;
   role: string;
+  isVerified: boolean;
 };
 
 export class Login {
   private userRepository: IUserRepository;
   private jwtService: IJWTService;
   constructor() {
-    this.userRepository = new UserRepository(); 
+    this.userRepository = new UserRepository();
     this.jwtService = new JWTService();
   }
 
-  async execute(request: LoginRequest, errors: ErrorDetails[]): Promise<{
+  async execute(
+    request: LoginRequest,
+    errors: ErrorDetails[]
+  ): Promise<{
     user: UserResponse;
     accessToken: string;
     refreshToken: string;
@@ -36,7 +40,6 @@ export class Login {
       return;
     }
 
-
     const isMatch: boolean = await bcryptjs.compare(password, user.password);
 
     if (!isMatch) {
@@ -50,6 +53,7 @@ export class Login {
       username: user.username,
       email: user.email,
       role: user.role,
+      isVerified: user.isVerified,
     };
 
     const accessToken = this.jwtService.generateAccessToken(userResponse);

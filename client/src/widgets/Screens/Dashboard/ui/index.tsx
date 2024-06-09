@@ -1,10 +1,10 @@
 import { Button, ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
+import { useGetWebsites } from "@shared/lib/hooks/useGetWebsites";
+import { EmptySvg } from "@assets/index";
+import { useCheckIsAdmin } from "@shared/lib/hooks/useCheckIsAdmin";
 import Heading from "@shared/ui/Heading/index";
 import WebsiteTab from "@entities/Tabs_Components/WebsiteTab/index";
-import { useGetWebsites } from "@shared/lib/hooks/useGetWebsites";
 import SkeletonLoader from "@shared/ui/Skeleton_Loader";
-
-import { EmptySvg } from "@assets/index";
 
 import styles from "./styles.module.scss";
 
@@ -14,6 +14,7 @@ interface DashboardProps {
 
 export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
   const { isLoading, hasWebsites } = useGetWebsites();
+  const { isAdmin } = useCheckIsAdmin();
 
   if (isLoading) {
     return (
@@ -45,6 +46,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
                 href="/websites/build"
                 buttonType="regular--small"
               />
+              {isAdmin && (
+                <Button
+                  text="Залить сайт"
+                  buttonType="regular--small"
+                  functionType="websiteUploadPopup"
+                />
+              )}
             </div>
           </div>
           <EmptySvg />

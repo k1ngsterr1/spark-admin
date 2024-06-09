@@ -1,0 +1,32 @@
+@import '../../styles/mixins';
+@import '../../styles/variables';
+
+
+.link--header {
+	display: flex;
+	align-items: center;
+	@apply gap-2;
+	@apply text-dark-super;
+	flex-grow: 1;
+    flex-shrink: 1;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: clamp(6px,0.62496vw,24px);
+    letter-spacing: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: clamp(8px,0.83328vw,32px);
+    line-height: clamp(9px,0.93744vw,36px);
+	transition: 0.3s ease-in-out;
+    cursor: pointer;
+
+	&:hover {
+		@apply text-primary;
+	}
+
+	.icon {
+		@apply text-sm;
+	}
+}
+
+

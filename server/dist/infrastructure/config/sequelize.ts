@@ -4,6 +4,7 @@ import CardToBlock from "@infrastructure/models/cardToblockModel";
 import { Component } from "@infrastructure/models/componentModel";
 import { PageCard } from "@infrastructure/models/pageCardModel";
 import { Page } from "@infrastructure/models/pageModel";
+import { SiteData } from "@infrastructure/models/siteDataModel";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import { User } from "infrastructure/models/userModel";
 import { Website } from "infrastructure/models/websiteModel";
@@ -35,6 +36,7 @@ const sequelize = new Sequelize({
     PageCard,
     CardToBlock,
     BlockComponent,
+    SiteData,
   ],
 });
 
