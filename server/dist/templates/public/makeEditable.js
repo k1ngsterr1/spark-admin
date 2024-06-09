@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   function makeElementsEditable() {
-    const editableElements = document.querySelectorAll("[id^='editable-agro-']");
+    const editableElements = document.querySelectorAll(
+      "[id^='editable-agro-']"
+    );
 
     editableElements.forEach((element) => {
       if (!element.getAttribute("contenteditable")) {
@@ -14,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const route = `https://spark-admin-production.up.railway.app/api/site/update/${siteName}/${componentId}`;
 
           const data = {
-            newValue: element.textContent.replace(/\u00a0/g, ' ').trim()
+            newValue: element.textContent.replace(/\u00a0/g, " ").trim(),
           };
 
           fetch(route, {
