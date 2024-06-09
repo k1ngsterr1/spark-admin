@@ -6,3 +6,9 @@ export type NewPageRequest  = {
     name: string;
     type: string;
 }
+
+export type NewPageDataRequest = {
+    userId: number;
+    pageUrl: string;
+    dataId: number;
+}

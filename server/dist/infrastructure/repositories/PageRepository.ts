@@ -4,6 +4,8 @@ import { Page } from "infrastructure/models/pageModel";
 import sequelize from "infrastructure/config/sequelize";
 import { Component } from "@infrastructure/models/componentModel";
 import { Block } from "@infrastructure/models/blockModel";
+import { SiteData } from "@infrastructure/models/siteDataModel";
+import { Website } from "@infrastructure/models/websiteModel";
 
 export class PageRepository implements IPageRepository {
   // Создание страницы для вебсайта
@@ -32,23 +34,39 @@ export class PageRepository implements IPageRepository {
     });
   }
 
-  // Найти страницу по URL
-  async findByUrl(url: string): Promise<Page> {
+  // Найти страницу с кодом
+  async findByUrlWithCode(url: string): Promise<Page>{
     return await sequelize.getRepository(Page).findOne({
       where: { url: url },
       include: [
         {
-          model: sequelize.getRepository(Component),
-          as: "components",
-          attributes: ["name", "text", "blockId"],
+          model: sequelize.getRepository(SiteData),
+          attributes: ["id", "name", "value"],
         },
         {
-          model: sequelize.getRepository(Block),
-          as: "blocks",
-          attributes: ["name", "title", "content", "image_url"]
+          model: sequelize.getRepository(Website),
+          attributes: ["websiteCode"],
         }
       ],
-      order: [["components", "name", "ASC"], ["blocks", "name", "ASC"]],
+      order: [
+        [{ model: SiteData, as:'siteData' }, 'name', 'ASC'],
+      ],
+    });
+  }
+
+  // Найти страницу по URL
+  async findByUrl(url: string): Promise<Page | null> {
+    return await sequelize.getRepository(Page).findOne({
+      where: { url: url },
+      include: [
+        {
+          model: sequelize.getRepository(SiteData),
+          attributes: ["id", "name", "value"],
+        }
+      ],
+      order: [
+        [{ model: SiteData, as: 'siteData' }, 'name', 'ASC'],
+      ],
     });
   }
 
