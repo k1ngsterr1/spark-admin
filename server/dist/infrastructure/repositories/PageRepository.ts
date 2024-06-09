@@ -5,6 +5,7 @@ import sequelize from "infrastructure/config/sequelize";
 import { Component } from "@infrastructure/models/componentModel";
 import { Block } from "@infrastructure/models/blockModel";
 import { SiteData } from "@infrastructure/models/siteDataModel";
+import { Website } from "@infrastructure/models/websiteModel";
 
 export class PageRepository implements IPageRepository {
   // Создание страницы для вебсайта
@@ -30,6 +31,26 @@ export class PageRepository implements IPageRepository {
   async findByWebsiteName(websiteName: string): Promise<Page[]> {
     return await sequelize.getRepository(Page).findAll({
       where: { name: websiteName },
+    });
+  }
+
+  // Найти страницу с кодом
+  async findByUrlWithCode(url: string): Promise<Page>{
+    return await sequelize.getRepository(Page).findOne({
+      where: { url: url },
+      include: [
+        {
+          model: sequelize.getRepository(SiteData),
+          attributes: ["id", "name", "value"],
+        },
+        {
+          model: sequelize.getRepository(Website),
+          attributes: ["websiteCode"],
+        }
+      ],
+      order: [
+        [{ model: SiteData, as:'siteData' }, 'name', 'ASC'],
+      ],
     });
   }
 

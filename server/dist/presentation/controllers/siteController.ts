@@ -23,11 +23,12 @@ class EditController {
     const errors: ErrorDetails[] = [];
     try {
       const userId: number = req.user.id;
+      const url: string = req.body.url;
       const pageUrl: string = req.body.pageUrl;
-      const siteName: string = req.params.siteName;
+      const componentName: string = req.body.componentName;
       const value: string = req.body.value;
 
-      await this.addSiteDataComponent.execute(userId, pageUrl, siteName, value, errors);
+      await this.addSiteDataComponent.execute(userId, url, pageUrl, componentName, value, errors);
 
       if (errors.length > 0) {
         const current_errors = errors[0];
@@ -47,10 +48,18 @@ class EditController {
   async updateSite(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
     try {
+      const userId: number = req.user.id;
+      const websiteId: string = req.body.websiteId;
+      const url: string = req.body.url;
+      const pageUrl: string = req.body.pageUrl;
       const componentId: number = req.params.componentId;
       const newValue: string = req.body.newValue;
 
       await this.updateSiteComponent.execute(
+        userId,
+        websiteId,
+        url,
+        pageUrl,
         componentId,
         newValue,
         errors
@@ -74,10 +83,14 @@ class EditController {
   async uploadImage(req: Request, res: Response): Promise<void>{
     const errors: ErrorDetails[] = [];
     try {
+      const userId: number = req.user.id;
+      const websiteId: string = req.body.websiteId;
+      const url: string = req.body.url;
+      const pageUrl: string = req.body.pageUrl;
       const componentId: number = req.body.componentId;
       const imagePath: string = path.join(uploadPath, req.body.image);
 
-      await this.uploadImageToSite.execute(componentId, imagePath, errors);
+      await this.uploadImageToSite.execute(userId, websiteId, url, pageUrl,componentId, imagePath, errors);
 
       if (errors.length > 0) {
         const current_errors = errors[0];
@@ -103,9 +116,10 @@ class EditController {
   async getSite(req: Request, res: Response): Promise<void>{
     const errors: ErrorDetails[] = [];
     try{
-      const siteName: string = req.params.siteName;
+      const url: string = req.params.url;
+      console.log(url);
 
-      const components = await this.getSiteDatas.execute(siteName, errors);
+      const components = await this.getSiteDatas.execute(url, errors);
 
       if(errors.length > 0){
         const current_error = errors[0];

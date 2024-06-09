@@ -5,14 +5,17 @@ import { ErrorDetails } from "@core/utils/utils";
 import { validWebsiteUser } from "@core/utils/validators";
 import { ImageUpload } from "@infrastructure/config/cloudinary";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import RequestManager from "@services/createRequest";
 
 export class UpdateCart{
     private userRepository: IUserRepository;
+    private requestManager: RequestManager;
     constructor(){
         this.userRepository = new UserRepository();
+        this.requestManager = new RequestManager();
     }
-    async execute(userId: number, websiteId: string, cartId: number, cartDetails: CartDetails, errors: ErrorDetails[]){
-        const user = await this.userRepository.getUserFromWebsite(websiteId, userId);
+    async execute(userId: number, websiteId: string, url: string, cartId: number, cartDetails: CartDetails, errors: ErrorDetails[]){
+        const user = await this.userRepository.getUserFromWebsiteWithCode(websiteId, userId);
         if(!user){
             errors.push(new ErrorDetails(404, "Пользователь не найден."));
             return;
@@ -28,6 +31,13 @@ export class UpdateCart{
             cartDetails.img_url = await ImageUpload(cartDetails.img_url, errors);
         }
 
-        // Upload changes to their DB
+        url += `/${cartId}`;
+
+        const body = cartDetails;
+        const params = { url: url };
+
+        body['code'] = user.website.websiteCode;
+
+        await this.requestManager.postRequest(params, body, errors);
     }
 }

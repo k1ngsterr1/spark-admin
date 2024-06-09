@@ -1,16 +1,17 @@
-import { IUserRepository } from "@core/interfaces/IUserRepository";
-import { WebsiteCommand } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
-import { validWebsiteUser } from "@core/utils/validators";
-import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import RequestManager from "@services/createRequest";
 
 export class GetCarts{
-    private userRepository: IUserRepository;
+    private requestManager: RequestManager;
     constructor(){
-        this.userRepository = new UserRepository();
+        this.requestManager = new RequestManager();
     }
-    async execute(errors: ErrorDetails[]){
-        //Request for deleting cart
-        // return cart;
+    async execute(url: string = "http://localhost:4001/api/carts/get-carts", errors: ErrorDetails[]){
+        console.log(url);
+        const params = { url: url };
+
+        const carts = await this.requestManager.getRequest(params, errors);
+
+        return carts;
     }
 }

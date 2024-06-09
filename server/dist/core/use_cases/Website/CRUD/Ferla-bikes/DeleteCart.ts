@@ -5,14 +5,17 @@ import { ErrorDetails } from "@core/utils/utils";
 import { validWebsiteUser } from "@core/utils/validators";
 import { ImageUpload } from "@infrastructure/config/cloudinary";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import RequestManager from "@services/createRequest";
 
 export class DeleteCart{
     private userRepository: IUserRepository;
+    private requestManager: RequestManager;
     constructor(){
         this.userRepository = new UserRepository();
+        this.requestManager = new RequestManager();
     }
-    async execute(userId: number, websiteId: string, cartId: number, errors: ErrorDetails[]){
-        const user = await this.userRepository.getUserFromWebsite(websiteId, userId);
+    async execute(userId: number, websiteId: string, url: string, cartId: number, errors: ErrorDetails[]){
+        const user = await this.userRepository.getUserFromWebsiteWithCode(websiteId, userId);
         if(!user){
             errors.push(new ErrorDetails(404, "Пользователь не найден."));
             return;
@@ -24,6 +27,10 @@ export class DeleteCart{
             return;
         }
 
-        //Request for deleting cart
+        url += `/${cartId}`;
+
+        const params = { url: url };
+
+        await this.requestManager.deleteRequest(params, null, errors);
     }
 }

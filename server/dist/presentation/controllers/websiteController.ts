@@ -120,6 +120,7 @@ class WebsiteController {
     try{
       const userId: number = req.user.id;
       const websiteId: string = req.params.websiteId;
+      const url: string = req.body.url;
       const imgPath = path.join(uploadPath, req.body.image);
       const cartDetails: CartDetails = {
         name: req.body.name,
@@ -128,7 +129,7 @@ class WebsiteController {
         price: req.body.price
       }
 
-      const cart = await this.ferlaAddCart.execute(userId, websiteId, cartDetails, errors);
+      const cart = await this.ferlaAddCart.execute(userId, websiteId, url, cartDetails, errors);
 
       await fs.unlink(imgPath, (error: unknown | any) => {
         if (error) {
@@ -154,6 +155,7 @@ class WebsiteController {
     try{
       const userId: number = req.user.id;
       const websiteId: string = req.params.websiteId;
+      const url: string = req.body.url;
       const cartId: number = req.body.cartId;
       const imgPath = path.join(uploadPath, req.body.image);
       const cartDetails: CartDetails = {
@@ -163,7 +165,7 @@ class WebsiteController {
         price: req.body.price
       }
 
-      const cart = await this.ferlaUpdateCart.execute(userId, websiteId, cartId, cartDetails, errors);
+      const cart = await this.ferlaUpdateCart.execute(userId, websiteId, url, cartId, cartDetails, errors);
 
       if(imgPath){
         await fs.unlink(imgPath, (error: unknown | any) => {
@@ -191,9 +193,10 @@ class WebsiteController {
     try{
       const userId: number = req.user.id;
       const websiteId: string = req.params.websiteId;
+      const url: string = req.body.url;
       const cartId: number = req.body.cartId;
 
-      await this.ferlaDeleteCart.execute(userId, websiteId, cartId, errors);
+      await this.ferlaDeleteCart.execute(userId, websiteId, url, cartId, errors);
       
       if(errors.length > 0){
         const current_error = errors[0];
@@ -211,16 +214,17 @@ class WebsiteController {
   async getFerlaCarts(req: Request, res: Response): Promise<void>{
     const errors: ErrorDetails[] = [];
     try{
+      const url: string = req.params.url;
 
-      const carts = await this.ferlaGetCarts.execute(errors);
+      const carts = await this.ferlaGetCarts.execute(url, errors);
       
       if(errors.length > 0){
         const current_error = errors[0];
-        res.status(current_error.code).json(current_error.details);
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
-      res.status(200).json({ message: "Успешно удалили тележку.", carts: carts })
+      res.status(200).json({ message: "Успешно получили тележки.", carts });
     }catch(error){
       console.log(error);
       res.status(500).json({ message: "Ошибка при удаление тележки." });
