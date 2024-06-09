@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__logo {
+    margin-top: clamp(46px, 4.79136vw, 184px);
+    width: clamp(68px, 7.08288vw, 272px);
+    height: clamp(68px, 7.08288vw, 272px);
+  }
+
+  &__upload {
+    @apply mt-12;
+    @apply gap-4;
+    border: 4px solid #ff5722;
+    width: clamp(183px, 19.06128vw, 732px);
+    height: clamp(122px, 12.70752vw, 488px);
+    border-radius: clamp(5px, 0.5208vw, 20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &__icon {
+      font-size: clamp(30px, 3.1248vw, 120px);
+    }
+
+    &__previewImage {
+      @apply mt-12;
+      width: clamp(136px, 14.16576vw, 544px);
+      height: clamp(125px, 13.02vw, 500px);
+    }
+  }
+}
