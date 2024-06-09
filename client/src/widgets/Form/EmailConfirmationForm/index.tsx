@@ -50,7 +50,7 @@ const EmailConfirm = () => {
           onSubmit={handleSubmit}
         >
           <div className={styles.confirmation_input}>
-            {code.map((code, index) => (
+            {code.map((value, index) => (
               <Input
                 key={index}
                 inputType="email"
