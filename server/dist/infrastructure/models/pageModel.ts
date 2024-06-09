@@ -14,6 +14,7 @@ import {
 import { Website } from "./websiteModel";
 import { PageAttributes } from "@core/utils/types";
 import { Component } from "./componentModel";
+import { SiteData } from "./siteDataModel";
 
 // Модель для страниц
 @Table({
@@ -28,12 +29,14 @@ export class Page extends Model<PageAttributes> {
   @HasMany(() => Component)
   components!: Component[];
 
+  @HasMany(() => SiteData)
+  siteData!: SiteData[];
+
   @ForeignKey(() => Website)
   @Column({
     type: DataType.UUID,
     onDelete: "CASCADE",
   })
-  @Column(DataType.UUID)
   websiteId!: string;
 
   @BelongsTo(() => Website)

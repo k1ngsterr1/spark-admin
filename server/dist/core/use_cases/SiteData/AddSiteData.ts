@@ -1,29 +1,37 @@
+import { IPageRepository } from "@core/interfaces/IPageRepository";
 import { IUserRepository } from "@core/interfaces/IUserRepository";
-import { NewSiteDataInput } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
-import { SiteRepository } from "@infrastructure/repositories/SiteRepository";
+import { PageRepository } from "@infrastructure/repositories/PageRepository";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import RequestManager from "@services/createRequest";
 
 export class AddSiteData{
-    private siteRepository: SiteRepository;
     private userRepository: IUserRepository;
+    private pageRepository: IPageRepository;
+    private requestManager: RequestManager;
     constructor(){
-        this.siteRepository = new SiteRepository();
         this.userRepository = new UserRepository();
+        this.pageRepository = new PageRepository();
+        this.requestManager = new RequestManager();
     }
-    async execute(userId: number, siteName: string, value: string, errors: ErrorDetails[]): Promise<void>{
+    async execute(userId: number, url: string, pageUrl: string, componentName: string, value: string, errors: ErrorDetails[]): Promise<void>{
         const user = await this.userRepository.findByPk(userId);
-
-        if(!user.isSparkAdmin === null) {
+        
+        if(!user.isSparkAdmin) {
             errors.push(new ErrorDetails(403, "У вас нет таких прав."));
             return;
         }
 
-        const newSiteData: NewSiteDataInput = {
-            name: siteName,
-            value: value,
+        const page = await this.pageRepository.findByUrlWithCode(pageUrl);
+        if (page === null) {
+            errors.push(new ErrorDetails(404, "Страница с таким URL существует."));
+            return;
         }
+        console.log(page.websiteId);
 
-        await this.siteRepository.create(newSiteData);
+        const params = { url: url };
+        const body = { code: page.website.websiteCode, name: componentName, value: value };
+
+        await this.requestManager.postRequest(params, body, errors);
     } 
 }

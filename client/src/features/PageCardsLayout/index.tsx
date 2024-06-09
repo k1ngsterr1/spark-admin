@@ -1,6 +1,7 @@
 import React from "react";
 import image from "@assets/example.png";
 
+import { useGetPageCard } from '@shared/lib/hooks/Websites/useGetPageCard';
 import { PageCard } from "@entities/PageCard";
 
 import styles from "./styles.module.scss";
@@ -12,38 +13,27 @@ interface IPageCardsLayoutProps {
 export const PageCardsLayout: React.FC<IPageCardsLayoutProps> = ({
   pageType,
 }) => {
+  const { data: items, loading } = useGetPageCard();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  // Добавляем проверку, чтобы убедиться, что items - это массив
+  if (!Array.isArray(items)) {
+    return <div>Error: Data is not an array</div>;
+  }
+
   return (
     <div className={styles.page_cards_layout}>
-      <PageCard
-        name="Стандратный лэндинг"
-        description="Это макет для стандартного лэндинга чтобы сделать его пиздец крутым"
-        image={image}
-      />
-      <PageCard
-        name="Стандратный лэндинг"
-        description="Это макет для стандартного лэндинга чтобы сделать его пиздец крутым"
-        image={image}
-      />
-      <PageCard
-        name="Стандратный лэндинг"
-        description="Это макет для стандартного лэндинга чтобы сделать его пиздец крутым"
-        image={image}
-      />
-      <PageCard
-        name="Стандратный лэндинг"
-        description="Это макет для стандартного лэндинга чтобы сделать его пиздец крутым"
-        image={image}
-      />
-      <PageCard
-        name="Стандратный лэндинг"
-        description="Это макет для стандартного лэндинга чтобы сделать его пиздец крутым"
-        image={image}
-      />
-      <PageCard
-        name="Стандратный лэндинг"
-        description="Это макет для стандартного лэндинга чтобы сделать его пиздец крутым"
-        image={image}
-      />
+      {items.map((item) => (
+        <PageCard
+          key={item.id}
+          name={item.name}
+          description={item.description}
+          url={item.url}
+        />
+      ))}
     </div>
   );
 };

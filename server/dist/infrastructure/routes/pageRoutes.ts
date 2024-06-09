@@ -63,7 +63,7 @@ router.post("/add", (req, res) => pageController.addPage(req, res));
  *     bearerAuth:
  *       type: http
  *       scheme: bearer
- * /api/website/page/get-pages/{websiteId}:
+ * /api/website/page/get-pages/{websiteName}:
  *   get:
  *     summary: Получение списка страниц для вебсайта
  *     description: Получение списка страниц для вебсайта через вебсайт ID.
@@ -73,11 +73,11 @@ router.post("/add", (req, res) => pageController.addPage(req, res));
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: websiteId
+ *         name: websiteName
  *         required: true
  *         schema:
  *           type: string
- *         description: Уникальный идентификатор вебсайта
+ *         description: Уникальная имя вебсайта
  *     responses:
  *       200:
  *         description: Страницы вебсайт успешно получен

@@ -32,6 +32,7 @@ export class GetPages {
       errors.push(new ErrorDetails(404, "Не удалось найти пользователя"));
       return;
     }
+    console.log("pages", pages);
     return pages;
   }
 }
