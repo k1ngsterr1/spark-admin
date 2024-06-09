@@ -6,16 +6,16 @@ import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 
 interface IPageCard {
   name: string;
-  image: StaticImageData;
+  url: string;
   description: string;
 }
 
-export const PageCard: React.FC<IPageCard> = ({ name, image, description }) => {
+export const PageCard: React.FC<IPageCard> = ({ name, url, description }) => {
   return (
     <div
       className={`${styles.page_card} dark:bg-dark-lighter dark:hover:bg-dark-upper`}
     >
-      <Image className={styles.page_card__image} src={image} alt={name} />
+      <Image className={styles.page_card__image} src={url} alt={name} />
       <div className={styles.page_card__section}>
         <span
           className={`${styles.page_card__section__heading} dark:text-white`}

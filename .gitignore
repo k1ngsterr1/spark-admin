@@ -2,6 +2,8 @@
 # Dependency directories
 node_modules/
 
+/server/dist/config
+
 # Optional npm cache directory
 .npm
 

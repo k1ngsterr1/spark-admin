@@ -4,6 +4,8 @@ import { useState, FormEvent } from "react";
 import { useLogin } from "@shared/lib/hooks/Form/useLogin";
 import { useFieldValidator } from "./useValidate";
 
+/* eslint-disable react-hooks/rules-of-hooks */
+
 export const useSubmitLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,3 +46,5 @@ export const useSubmitLogin = () => {
     errors,
   };
 };
+
+/* eslint-disable react-hooks/rules-of-hooks */

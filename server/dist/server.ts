@@ -16,15 +16,12 @@ import { accessToken } from "@infrastructure/middleware/authMiddleware";
 import blockRoutes from "@infrastructure/routes/blockRoutes";
 import pageCardRoutes from "@infrastructure/routes/pageCardRoutes";
 import path from "path";
+import siteRoutes from "@infrastructure/routes/siteRoutes";
 
 const app = express();
 
-// Создание сваггера
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec, { explorer: true })
-);
+export const buildRoute = path.join(__dirname, "templates/build/");
+export const uploadPath = path.join(__dirname, "uploads");
 
 // Разрешены все Origins
 const corsOptions = {
@@ -35,47 +32,61 @@ const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: ["Authorization", "Content-Type"],
 };
-
-
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'templates'));
-app.use(express.static('templates/public'));
-app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
-const port = process.env.PORT;
-// const port = 4000;
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 50000,
+  })
+);
+
+// Создание сваггера
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, { explorer: true })
+);
+app.use(express.static(path.join(__dirname, "templates/public")));
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "templates"));
 
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
+// const port = process.env.PORT;
+const port = 4000;
+
+app.use(express.json());
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
 
-// Статичные файлы:
-
-app.use(express.static(path.join(__dirname, "public")));
+app.use("/ferla", express.static(path.join(__dirname, 'templates/build/ferla-bikes')));
 
 // Статичные стили
-app.use(
-  "/css",
-  express.static(path.join(__dirname, "public/css"), {
-    setHeaders: function (res, path, stat) {
-      // Кэширование
-      res.set("Cache-Control", "public, max-age=31557600"); // 1 год
-    },
-  })
-);
+// app.use(
+//   "/css",
+//   express.static(path.join(__dirname, "public/css"), {
+//     setHeaders: function (res, path, stat) {
+//       // Кэширование
+//       res.set("Cache-Control", "public, max-age=31557600"); // 1 год
+//     },
+//   })
+// );
 
 // Статичные скрипты
-app.use(
-  "/js",
-  express.static("templates/public", {
-    setHeaders: function (res, path, stat) {
-      // Кэширование
-      res.set("Cache-Control", "public, max-age=31557600"); // 1 год
-    },
-  })
-);
+// app.use(
+//   "/js",
+//   express.static("templates/public", {
+//     setHeaders: function (res, path, stat) {
+//       // Кэширование
+//       res.set("Cache-Control", "public, max-age=31557600"); // 1 год
+//     },
+//   })
+// );
 
 // Сжатие
 app.use(compression());
@@ -122,6 +133,8 @@ app.use("/api/website", websiteRoutes);
 app.use("/api/block", blockRoutes);
 
 app.use("/api/page-card", pageCardRoutes);
+
+app.use("/api/site", siteRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

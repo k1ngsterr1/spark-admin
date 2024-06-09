@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "migrate:prod": "set NODE_ENV=production && npx sequelize-cli db:migrate",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec  ts-node -r tsconfig-paths/register server.ts",
     "sequelize": "sequelize"
@@ -11,10 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.6.8",
+    "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
     "cheerio": "^1.0.0-rc.12",
     "chromium-bidi": "^0.4.32",
+    "cloudinary": "^2.2.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -25,6 +27,7 @@
     "handlebars": "^4.7.8",
     "jsdom": "^24.0.0",
     "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
     "node-fetch": "^2.7.0",
     "nodemailer": "^6.9.10",
     "nodemon": "^3.0.3",
@@ -34,6 +37,7 @@
     "redis": "^4.6.13",
     "redux": "^5.0.1",
     "sequelize": "^6.36.0",
+    "sequelize-cli": "^6.6.2",
     "sequelize-typescript": "^2.1.6",
     "socket.io": "^4.7.5",
     "swagger-jsdoc": "^6.2.8",
@@ -57,7 +61,6 @@
   "devDependencies": {
     "@types/node": "^20.11.17",
     "@types/sequelize": "^4.28.20",
-    "sequelize-cli": "^6.6.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.3"

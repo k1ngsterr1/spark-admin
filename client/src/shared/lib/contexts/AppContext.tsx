@@ -21,6 +21,9 @@ interface AppContextType {
   // Popup with form for page card
   isPageCardPopupVisible: boolean;
   togglePageCardPopup: () => void;
+  // Popup for uploading websites build
+  isWebsiteUploadVisible: boolean;
+  toggleWebsiteUploadPopup: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -57,12 +60,22 @@ export const usePageCardPopup = () => {
   return context;
 };
 
+export const useWebsiteUploadPopup = () => {
+  const context = useContext(AppContext);
+  if (context === undefined) {
+    throw new Error("usePopup must be used within a AppProvider");
+  }
+  return context;
+};
+
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [isWebPopupVisible, setIsWebPopupVisible] = useState<boolean>(false);
   const [isUserPopupVisible, setIsUserPopupVisible] = useState<boolean>(false);
   const [isWebVerifyPopupVisible, setIsWebVerifyPopupVisible] =
     useState<boolean>(false);
   const [isPageCardPopupVisible, setIsPageCardPopupVisible] =
+    useState<boolean>(false);
+  const [isWebsiteUploadVisible, setWebsitePopupVisible] =
     useState<boolean>(false);
 
   const toggleWebPopup = useCallback(() => {
@@ -81,6 +94,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setIsWebVerifyPopupVisible(!isWebVerifyPopupVisible);
   }, [isWebVerifyPopupVisible]);
 
+  const toggleWebsiteUploadPopup = useCallback(() => {
+    setWebsitePopupVisible(!isWebsiteUploadVisible);
+  }, [isWebsiteUploadVisible]);
+
   return (
     <AppContext.Provider
       value={{
@@ -92,6 +109,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         toggleWebVerifyPopup,
         isPageCardPopupVisible,
         togglePageCardPopup,
+        isWebsiteUploadVisible,
+        toggleWebsiteUploadPopup,
       }}
     >
       {children}

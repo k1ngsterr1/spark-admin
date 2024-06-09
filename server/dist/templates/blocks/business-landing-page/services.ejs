@@ -1,11 +1,11 @@
-<section class="business-landing-service">
+<section class="business-landing-service" id="<%= data.id %>">
   <div class="business-landing-service-heading-content">
-    <%- include('../../components/business-landing-page/mini-text', { text: service.miniText.value, id: service.miniText.id }) %>
-    <h3 contenteditable="true" id="<%= service.secondHeadingText.id %>" class="editable business-landing-heading">
-      <%= service.secondHeadingText.value %>
+    <%- include('../../components/business-landing-page/mini-text', { text: data.miniText.value, id: data.miniText.id }) %>
+    <h3 contenteditable="true" id="<%= data.secondHeadingText.id %>" class="editable business-landing-heading">
+      <%= data.secondHeadingText.value %>
     </h3>
-    <p contenteditable="true" id="<%= service.serviceParagraph.id %>" class="editable business-landing-paragraph">
-      <%= service.serviceParagraph.value %>
+    <p contenteditable="true" id="<%= data.serviceParagraph.id %>" class="editable business-landing-paragraph">
+      <%= data.serviceParagraph.value %>
     </p>
   </div>
 </section>

@@ -1,0 +1,17 @@
+.add_block_button {
+  width: clamp(16px, 32 / 1520 * 100vw, 64px);
+  height: clamp(16px, 32 / 1520 * 100vw, 64px);
+  font-size: clamp(8px, 16 / 1520 * 100vw, 32px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s all;
+  @apply p-2;
+  @apply rounded-full;
+  @apply text-white;
+  @apply bg-primary;
+
+  &:hover {
+    @apply bg-primary-dark;
+  }
+}

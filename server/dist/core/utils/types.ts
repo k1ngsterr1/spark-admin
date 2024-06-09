@@ -29,6 +29,17 @@ export interface WebsiteAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface BlogCardAttributes {
+  id: string | number;
+  image: string;
+  title: string;
+  href: string;
+  website: Website;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface PageAttributes {
   id: number;
   websiteId: string;
@@ -47,6 +58,14 @@ export interface PageCardAttributes {
   name: string;
   description: string;
   type: string;
+}
+
+export interface SiteDataAttributes {
+  id: number;
+  name: string;
+  value: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface ComponentAttributes {
@@ -75,6 +94,7 @@ export interface BlockAttributes {
   name: string;
   title: string;
   content: string;
+  type: string;
   image_url: string;
   video_url: string;
 }
@@ -120,6 +140,12 @@ export interface NewPageCardInput {
   type: string;
 }
 
+export interface NewSiteDataInput {
+  pageId: number;
+  name: string;
+  value: string;
+}
+
 export interface NewComponentInput {
   pageId: number;
   elementType: string;
@@ -140,7 +166,8 @@ export interface NewBlockComponentInput {
 export interface NewBlockInput {
   name: string;
   title: string;
-  content: string;
+  description: string;
+  type: string;
   css_link: string;
   image_url?: string;
   video_url?: string;
@@ -185,4 +212,11 @@ export type UserPayload = {
 export type UserVerification = {
   id: number;
   code: string;
+};
+
+// Типы для карточки блогов
+export type NewBlogCardInput = {
+  image: string;
+  title: string;
+  href: string;
 };

@@ -1,11 +1,11 @@
 import { useRef, useEffect, useCallback } from "react";
 import gsap from "gsap";
 
-export const useSideMenu = (isOpen) => {
+export const useSideMenu = (isOpen: boolean) => {
   const menuRef = useRef(null);
   const textRefs = useRef([]);
 
-  const getTextRef = useCallback((index) => {
+  const getTextRef = useCallback((index: number) => {
     if (!textRefs.current[index]) {
       textRefs.current[index] = { current: null };
     }

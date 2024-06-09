@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    <link rel="stylesheet" href="/business-landing-page/styles/style.css">
+    <link rel="stylesheet" href="https://spark-admin-production.up.railway.app/business-landing-page/styles/style.css">
 </head>
 <body>
     <%- include('../../components/business-landing-page/header', { header: header }) %>
-    <%- include('../../blocks/business-landing-page/main', { main: main }) %>
-    <%- include('../../blocks/business-landing-page/about-us', { about: about }) %>
-    <%- include('../../blocks/business-landing-page/services', { service: service }) %>
-    <%- include('../../blocks/business-landing-page/form', { form: form }) %>
+    <% block_name.forEach(function(name) { %>
+        <%- include(`../../blocks/business-landing-page/${name}`, { data: block_data[name] }) %>
+    <% }); %>
     <%- include('../../components/business-landing-page/footer', { footer: footer }) %>
     <button id="saveChanges">Save Changes</button>
     <script src="/business-landing-page/js/script.js"></script>

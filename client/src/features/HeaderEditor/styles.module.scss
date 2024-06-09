@@ -5,6 +5,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.05);
+
   @apply bg-white;
   @apply pt-4;
   @apply pb-4;
