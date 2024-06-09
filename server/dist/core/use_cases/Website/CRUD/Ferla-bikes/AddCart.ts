@@ -1,23 +1,21 @@
-import { IPageRepository } from "@core/interfaces/IPageRepository";
 import { IUserRepository } from "@core/interfaces/IUserRepository";
+import { CartDetails } from "@core/utils/Website/Ferla-bikes/types";
 import { WebsiteCommand } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
 import { validWebsiteUser } from "@core/utils/validators";
-import { PageRepository } from "@infrastructure/repositories/PageRepository";
+import { ImageUpload } from "@infrastructure/config/cloudinary";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import RequestManager from "@services/createRequest";
 
-export class UploadImage{
+export class AddCart{
     private userRepository: IUserRepository;
-    private pageRepository: IPageRepository;
     private requestManager: RequestManager;
     constructor(){
         this.userRepository = new UserRepository();
-        this.pageRepository = new PageRepository();
         this.requestManager = new RequestManager();
     }
-    async execute(userId: number, websiteId: string, url: string, pageUrl: string, componentId: number, imagePath: string, errors: ErrorDetails[]): Promise<void>{
-        const user = await this.userRepository.getUserFromWebsite(websiteId, userId);
+    async execute(userId: number, websiteId: string, url: string, cartDetails: CartDetails, errors: ErrorDetails[]){
+        const user = await this.userRepository.getUserFromWebsiteWithCode(websiteId, userId);
         if(!user){
             errors.push(new ErrorDetails(404, "Пользователь не найден."));
             return;
@@ -29,16 +27,13 @@ export class UploadImage{
             return;
         }
 
-        const page = await this.pageRepository.findByUrlWithCode(pageUrl);
-        if (page === null) {
-            errors.push(new ErrorDetails(404, "Страница с таким URL существует."));
-            return;
-        }
+        cartDetails.img_url = await ImageUpload(cartDetails.img_url, errors);
 
-        url += `/${componentId}`;
+        const body = cartDetails;
         const params = { url: url };
-        const body = { code: page.website.websiteCode ,value: imagePath };
 
-        await this.requestManager.postRequest(params, body, errors)
-    } 
+        body['code'] = user.website.websiteCode;
+
+        await this.requestManager.postRequest(params, body, errors);
+    }
 }

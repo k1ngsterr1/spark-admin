@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   function makeElementsEditable() {
-    const editableElements = document.querySelectorAll(
-      "[id^='editable-agro-']"
-    );
+    const editableElements = document.querySelectorAll("[id^='ferla-edit-']");
 
     editableElements.forEach((element) => {
       if (!element.getAttribute("contenteditable")) {
@@ -12,12 +10,14 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!element.getAttribute("data-blur-listener-added")) {
         element.setAttribute("data-blur-listener-added", "true");
         element.addEventListener("blur", function () {
-          const [_, siteName, componentId] = element.id.split("-");
-          const route = `https://spark-admin-production.up.railway.app/api/site/update/${siteName}/${componentId}`;
+          const [siteName, _, componentId] = element.id.split("-");
+          const route = `http://localhost:4000/`;
+          console.log(siteName, componentId);
 
           const data = {
             newValue: element.textContent.replace(/\u00a0/g, " ").trim(),
           };
+          console.log(data.newValue);
 
           fetch(route, {
             method: "POST",

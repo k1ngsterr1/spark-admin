@@ -1,14 +1,15 @@
 import { ErrorDetails } from "@core/utils/utils";
-import { SiteData } from "@infrastructure/models/siteDataModel";
-import { SiteRepository } from "@infrastructure/repositories/SiteRepository";
+import RequestManager from "@services/createRequest";
 
 export class GetSiteDatas {
-  private siteRepository: SiteRepository;
+  private requestManager: RequestManager;
   constructor() {
-    this.siteRepository = new SiteRepository();
+    this.requestManager = new RequestManager();
   }
-  async execute(siteName: string, errors: ErrorDetails[]): Promise<any> {
-    const components = await this.siteRepository.findByName(siteName);
+  async execute(url: string = "http://localhost:4001/api/components/get-components", errors: ErrorDetails[]): Promise<any> {
+    const params = { url: url };
+
+    const components = await this.requestManager.getRequest(params, errors);
 
     return components;
   }
