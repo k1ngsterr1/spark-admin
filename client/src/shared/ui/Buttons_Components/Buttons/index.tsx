@@ -91,7 +91,7 @@ const ButtonLink: React.FC<LinkButtonProps> = ({
 }) => {
   const buttonClass = `${styles.button} ${styles[`button--${buttonType}`]} ${
     margin ? margin : ""
-  }`;
+  } hoverable`;
 
   return (
     <Link className={buttonClass} href={href}>

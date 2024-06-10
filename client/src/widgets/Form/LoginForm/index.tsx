@@ -8,12 +8,15 @@ import { useSubmitLogin } from "@shared/lib/hooks/Form/useSubmitLogin";
 import { ErrorDisplay } from "@shared/ui/Error";
 import { useClickChangePassword } from "@shared/lib/hooks/Form/useClickChangePassword";
 import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import styles from "../styles/styles.module.scss";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
 
 const LoginForm = () => {
+  const t = useTranslations("LoginPage");
+
   const { handleClickChangePassword } = useClickChangePassword();
   const { locale } = useParams();
 
@@ -33,7 +36,7 @@ const LoginForm = () => {
         <div className={styles.registration__content__logo}>
           <SparkLogo />
         </div>
-        <Heading text="Войти" margin="mt-8" />
+        <Heading text={t("heading")} margin="mt-8" />
         <form
           className={styles.registration__content__form}
           onSubmit={handleSubmit}
@@ -47,7 +50,7 @@ const LoginForm = () => {
           />
           <ErrorDisplay message={errors.email} />
           <PasswordInput
-            placeholder="Пароль"
+            placeholder={t("password")}
             type="password"
             margin="mt-3"
             value={password}
@@ -57,17 +60,17 @@ const LoginForm = () => {
           <MiniText
             margin="mt-2"
             href="change-password"
-            text="Забыли ваш"
-            linktext="пароль?"
+            text={t("forgot_password")}
+            linktext={t("forgot_password_orange")}
             onClick={handleClickChangePassword}
           />
-          <Button text="Войти" buttonType="regular" margin="mt-4" />
+          <Button text={t("heading")} buttonType="regular" margin="mt-4" />
         </form>
         <MiniText
           margin="mt-2"
           href="registration"
-          text="Еще нет аккаунта?"
-          linktext="Создать аккаунт"
+          text={t("dont_have_account")}
+          linktext={t("create_account")}
         />
       </div>
     </section>

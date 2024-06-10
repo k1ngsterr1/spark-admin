@@ -1,5 +1,25 @@
 {
   "MainPage": {
-    "title": "Hello World"
+    "miniText": "An innovative solution for your websites.",
+    "paragraph": "Our innovative approaches allow you to create unique and effective websites tailored to your needs. We use cutting-edge technology to provide a fast, secure and convenient user experience. With our solutions, your website will stand out among competitors and attract more visitors",
+    "login": "Login",
+    "documentation": "Docs"
+  },
+  "LoginPage": {
+    "heading": "Login",
+    "password": "Password",
+    "forgot_password": "Forgot your",
+    "forgot_password_orange": "password?",
+    "dont_have_account": "Don't have an account?",
+    "create_account": "Create Account"
+  },
+  "RegistrationPage": {
+    "heading": "Welcome To Spark Admin",
+    "username": "Username",
+    "password": "Password",
+    "password_confirm": "Confirm Your Password",
+    "sign_up": "Sign Up",
+    "account": "Already have an account?",
+    "login": "Login"
   }
 }

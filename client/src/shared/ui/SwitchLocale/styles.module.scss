@@ -1,0 +1,16 @@
+@import "breakpoint-slicer";
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
+.locale_button {
+  cursor: none;
+  transition: 0.3s all;
+  @apply ml-2;
+  @apply mr-2;
+  @apply text-primary;
+  @apply text-xl;
+
+  &:hover {
+    @apply text-white;
+  }
+}
