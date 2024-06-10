@@ -14,7 +14,9 @@ router.use((req, res, next) => {
   }
   authenticateToken(req, res, next);
 });
+
 router.use(advancedLogger);
+router.use(authenticateToken);
 
 const multer = require("multer");
 const storage = multer.diskStorage({
