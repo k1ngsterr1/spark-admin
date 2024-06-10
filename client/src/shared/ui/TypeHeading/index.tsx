@@ -34,7 +34,6 @@ export const TypeHeading: React.FC<ITypeAnimation> = ({
       wrapper="h1"
       repeat={repeat}
       style={{
-        fontFamily: "Mulish",
         fontSize: "clamp(64px,6.66624vw,256px)",
         fontWeight: "bold",
         color: "#FF5722",
