@@ -68,6 +68,10 @@ app.use(
   "/ferla",
   express.static(path.join(__dirname, "templates/build/ferla-bikes"))
 );
+app.use(
+  "/ferla/*",
+  express.static(path.join(__dirname, "templates/build/ferla-bikes"))
+);
 
 // Статичные стили
 // app.use(
