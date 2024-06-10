@@ -1,0 +1,13 @@
+.textarea--blog {
+  font-size: clamp(9px, 0.93744vw, 36px);
+  width: clamp(175px, 18.228vw, 700px);
+  height: clamp(50px, 5.208vw, 200px);
+  text-align: left;
+  background-color: transparent;
+  border: 2px solid #ff5722;
+  @apply p-2;
+  border-radius: clamp(4px, 0.41664vw, 16px);
+  overflow: hidden;
+  outline: none;
+  color: #232323;
+}

@@ -5,6 +5,7 @@ import { Op } from "sequelize"; // Ensure this is imported correctly
 
 import sequelize from "infrastructure/config/sequelize";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
+import { Website } from "@infrastructure/models/websiteModel";
 
 export class UserRepository implements IUserRepository {
   // Создать пользователя
@@ -119,6 +120,32 @@ export class UserRepository implements IUserRepository {
             userId: userId,
             websiteId: websiteId,
           },
+        });
+      return userToWebsite;
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  }
+
+  async getUserFromWebsiteWithCode(
+    websiteId: string,
+    userId: number
+  ): Promise<UserToWebsite | null> {
+    try {
+      const userToWebsite = await sequelize
+        .getRepository(UserToWebsite)
+        .findOne({
+          where: {
+            userId: userId,
+            websiteId: websiteId,
+          },
+          include: [
+            {
+              model: sequelize.getRepository(Website),
+              attributes: ["websiteCode"]
+            }
+          ]
         });
       return userToWebsite;
     } catch (error) {

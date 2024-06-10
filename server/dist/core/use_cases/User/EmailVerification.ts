@@ -12,7 +12,9 @@ export class EmailService implements IEmailService {
       secure: true,
       auth: {
         user: process.env.EMAIL_USER,
+        // user: "info@sparkstudio.kz",
         pass: process.env.EMAIL_PASS,
+        // pass: "Askar2005",
       },
       tls: {
         rejectUnauthorized: false,

@@ -41,20 +41,21 @@ const router = express.Router();
 router.use(advancedLogger);
 
 router.post(
-  "/add/:siteName",
+  "/add",
   authenticateToken,
   async (req, res) => await siteController.addSiteData(req, res)
 );
 
 router.post(
-  "/update/:siteName/:componentId",
+  "/update/:componentId",
+  authenticateToken,
   async (req, res) => await siteController.updateSite(req, res)
 );
 
-router.post("/upload/image/:siteName", upload.single("editable-image"), async(req, res) => await siteController.uploadImage(req, res));
+router.post("/upload/image/", upload.single("editable-image"), async(req, res) => await siteController.uploadImage(req, res));
 
 router.get(
-  "/content/:siteName",
+  "/content",
   async (req, res) => await siteController.getSite(req, res)
 );
 

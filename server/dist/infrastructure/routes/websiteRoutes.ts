@@ -8,8 +8,39 @@ const express = require("express");
 const router = express.Router();
 
 // Проверка JWT токена
-router.use(authenticateToken);
+router.use((req, res, next) => {
+  if (req.path !== "/api/website/ferla-bikes/:websiteId/get-carts") {
+    return next();
+  }
+  authenticateToken(req, res, next);
+});
+
 router.use(advancedLogger);
+router.use(authenticateToken);
+
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads");
+  },
+  filename: function (req, file, cb) {
+    const currentDate = new Date()
+      .toJSON("kz-kz")
+      .slice(0, 10)
+      .replace(/:/g, "-");
+    const hours = new Date().getHours().toString().padStart(2, "0");
+    const minutes = new Date().getHours().toString().padStart(2, "0");
+    const seconds = new Date().getSeconds().toString().padStart(2, "0");
+    const currentTime = `H=${hours}-M=${minutes}-S=${seconds}`;
+    let result =
+      currentDate.toString() + "-" + currentTime + "-" + file.originalname;
+    req.body.image = result;
+
+    cb(null, result);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 /**
  * @swagger
@@ -260,6 +291,26 @@ router.post("/check-verification", (req, res) =>
  */
 router.delete("/delete", (req, res) =>
   websiteController.deleteWebsite(req, res)
+);
+
+router.post(
+  "/ferla-bikes/:websiteId/add-cart",
+  upload.single("image"),
+  (req, res) => websiteController.addFerlaCart(req, res)
+);
+
+router.post(
+  "/ferla-bikes/:websiteId/update-cart",
+  upload.single("image"),
+  (req, res) => websiteController.updateFerlaCart(req, res)
+);
+
+router.delete("/ferla-bikes/:websiteId/delete-cart", (req, res) =>
+  websiteController.deleteFerlaCart(req, res)
+);
+
+router.get("/ferla-bikes/:websiteId/get-carts", (req, res) =>
+  websiteController.getFerlaCarts(req, res)
 );
 
 router.use("/page", pageRoutes);

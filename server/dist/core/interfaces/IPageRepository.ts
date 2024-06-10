@@ -7,5 +7,6 @@ export interface IPageRepository {
   findByPageId?(pageId: string): Promise<Page>;
   findByWebsiteName?(websiteName: string): Promise<Page[]>;
   findByUrl(url: string): Promise<Page>;
+  findByUrlWithCode(url: string): Promise<Page>;
   deletePageByUrl?(websiteId: string, url: string): Promise<void>;
 }

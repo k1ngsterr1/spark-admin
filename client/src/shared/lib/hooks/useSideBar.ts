@@ -1,12 +1,13 @@
-import { useState } from 'react';
-import { sidebarContent } from '@shared/lib/content/sideBarContent';
-import { useFetchBlocks } from '@shared/lib/hooks/useGetBlocks'; 
+import { useState } from "react";
+import { sidebarContent } from "@shared/lib/content/sideBarContent";
+import { useFetchBlocks } from "@shared/lib/hooks/useGetBlocks";
 
 export const useSideBar = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [isBlockVisible, setIsBlockVisible] = useState(false);
 
-  const activeContentType = activeIndex !== null ? sidebarContent[activeIndex].type : null;
+  const activeContentType =
+    activeIndex !== null ? sidebarContent[activeIndex].type : null;
   const { data: blocksContent, loading } = useFetchBlocks(activeContentType);
 
   const handleButtonClick = (index: number) => {
@@ -27,4 +28,4 @@ export const useSideBar = () => {
     loading,
     handleButtonClick,
   };
-}
+};

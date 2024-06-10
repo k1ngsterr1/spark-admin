@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   function makeElementsEditable() {
-    const editableElements = document.querySelectorAll("[id^='editable-agro-']");
+    const editableElements = document.querySelectorAll("[id^='ferla_editable']");
 
     editableElements.forEach((element) => {
       if (!element.getAttribute("contenteditable")) {
@@ -10,17 +10,23 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!element.getAttribute("data-blur-listener-added")) {
         element.setAttribute("data-blur-listener-added", "true");
         element.addEventListener("blur", function () {
-          const [_, siteName, componentId] = element.id.split("-");
-          const route = `https://spark-admin-production.up.railway.app/api/site/update/${siteName}/${componentId}`;
+          const [name, _, websiteId, componentId] = element.id.split("_");
+          const route = `http://localhost:4000/api/site/update/${componentId}`;
 
           const data = {
-            newValue: element.textContent.replace(/\u00a0/g, ' ').trim()
+            newValue: element.textContent.replace(/\u00a0/g, " ").trim(),
+            websiteId: websiteId,
+            url: `http://localhost:4001/api/components/update/${componentId}`
           };
+          const userData = JSON.parse(localStorage.getItem('userData'));
+          const access = userData.accessToken;
+
 
           fetch(route, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${access}`,
             },
             body: JSON.stringify(data),
           })
