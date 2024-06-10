@@ -15,8 +15,8 @@ export function useCheckWebsite() {
     try {
       const data: ICheckWebsiteData = { url };
       const response = await axiosInstance.post(
-        "/api/website/check-website", {}
         "/api/website/check-website",
+        {},
         data
       );
       console.log("Data created:", response.data);

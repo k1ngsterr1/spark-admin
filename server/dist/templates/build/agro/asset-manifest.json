@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/agro/static/css/main.43811044.css",
+    "main.js": "/agro/static/js/main.665f4795.js",
+    "static/media/wheat_main.webp": "/agro/static/media/wheat_main.43db6bd54cb75f40af58.webp",
+    "static/media/wheat_form.webp": "/agro/static/media/wheat_form.0a0ccc15aba5725e1ab0.webp",
+    "static/media/gothampro_bolditalic.ttf": "/agro/static/media/gothampro_bolditalic.045e34198ea694f1d3e4.ttf",
+    "static/media/gothampro_blackitalic.ttf": "/agro/static/media/gothampro_blackitalic.cd83f32f848f7f00de90.ttf",
+    "static/media/gothampro_bold.ttf": "/agro/static/media/gothampro_bold.764ba13de4409a990823.ttf",
+    "static/media/gothampro_medium.ttf": "/agro/static/media/gothampro_medium.dca4b95d345c2abd8661.ttf",
+    "static/media/gothampro.ttf": "/agro/static/media/gothampro.4f71921a0823129cd8ba.ttf",
+    "static/media/gothampro_black.ttf": "/agro/static/media/gothampro_black.8c2f478dfa880e2de0a1.ttf",
+    "static/media/loaderlogo.svg": "/agro/static/media/loaderlogo.04a6035b8dbeb16db0d3864b63f71ed7.svg",
+    "static/media/sparklogofooter.svg": "/agro/static/media/sparklogofooter.2c140179eab65b601bde028f6b54f185.svg",
+    "static/media/sparklogo.svg": "/agro/static/media/sparklogo.4eb8f70ad21f8979a53d7613664cd072.svg",
+    "static/media/logo.svg": "/agro/static/media/logo.21a3e4a5d960ba6f3945ca8b161706a7.svg",
+    "static/media/footerlogo.svg": "/agro/static/media/footerlogo.9c76aef0029b7fa5a31223a41e99943d.svg",
+    "static/media/teampicture.svg": "/agro/static/media/teampicture.3e03ddb079b732429c5f253c1264672c.svg",
+    "index.html": "/agro/index.html",
+    "main.43811044.css.map": "/agro/static/css/main.43811044.css.map",
+    "main.665f4795.js.map": "/agro/static/js/main.665f4795.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.43811044.css",
+    "static/js/main.665f4795.js"
+  ]
+}

@@ -7,7 +7,7 @@ import InputProp from "@shared/ui/Inputs/DefaultInport";
 
 import Logo from "@assets/spark_product_logo.svg";
 
-import styles from "./styles.module.scss";
+import styles from "../CodePopup/styles.module.scss";
 
 export const WebsitePopup = () => {
   const { isWebPopupVisible, toggleWebPopup } = useWebPopup();

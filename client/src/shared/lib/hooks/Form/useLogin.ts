@@ -8,20 +8,23 @@ interface IData {
 export async function useLogin(data: IData): Promise<string | void> {
   try {
     const response = await axiosInstance.post("/api/auth/login", data);
+    const isVerified = response.data.user.isVerified;
 
-    console.log("Data created:", response.data);
-    window.location.href = "/email-confirmation";
+    if (isVerified === true) {
+      window.location.href = "/websites";
+    } else {
+      window.location.href = "/email-confirmation";
+    }
 
     const userData = {
       id: response.data.user.id,
       username: response.data.user.username,
       email: response.data.user.email,
+      refreshToken: response.data.refreshToken,
       accessToken: response.data.accessToken,
     };
 
     localStorage.setItem("userData", JSON.stringify(userData));
-
-    console.log(response.data.user);
   } catch (error: unknown | any) {
     console.error("Failed to create data:", error);
     if (error.response) {

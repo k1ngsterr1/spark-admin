@@ -1,10 +1,10 @@
-'use client'
-import { useState, useEffect } from 'react';
-import { axiosInstance } from './useInterceptor';
+"use client";
+import { useState, useEffect } from "react";
+import { axiosInstance } from "./useInterceptor";
 
 // функция для получения списка вебсайтов
 export function useGetWebsites() {
-  const [data, setData] = useState([]); 
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasWebsites, setHasWebsites] = useState(false);
 
@@ -24,5 +24,5 @@ export function useGetWebsites() {
     fetchWebsites();
   }, []);
 
-  return { isLoading, data, hasWebsites }; 
+  return { isLoading, data, hasWebsites };
 }

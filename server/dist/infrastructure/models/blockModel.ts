@@ -39,13 +39,16 @@ export class Block extends Model<BlockAttributes> {
     @Column(DataType.STRING)
     name!: string;
   
-    @Default('Your title is here')
+    @Default('Название блока')
     @Column(DataType.STRING)
     title!: string;
 
-    @Default('Your content is here')
+    @Default('Описание блока')
     @Column(DataType.STRING)
-    content!: string;
+    description!: string;
+
+    @Column(DataType.STRING)
+    type!: string;
 
     @Column(DataType.STRING)
     image_url?: string;

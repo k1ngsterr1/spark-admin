@@ -4,10 +4,10 @@
 
 %button-common {
   width: clamp(175px, 18.228vw, 700px);
-  border-radius: clamp(4px, 0.41664vw, 16px);
+  border-radius: clamp(3px, 0.31248vw, 12px);
   color: #fff3ef;
   padding: clamp(6px, 0.62496vw, 24px);
-  font-size: clamp(9px, 0.93744vw, 36px);
+  font-size: clamp(7px, 0.72912vw, 28px);
   transition: 0.3s ease-in-out;
   text-align: center;
   @apply bg-primary;
@@ -29,14 +29,23 @@
   color: #fff3ef;
 
   @include respond-to("md") {
-    // width: clamp(45px, 9.073vw, 180px);
-    @apply pl-1 pr-1;
+    width: auto;
+    @apply pl-11 pr-11;
     @apply pt-2 pb-2;
   }
 
   &:hover {
     background-color: darken(#ff5722, 10%);
   }
+}
+
+.button--regular--bigger {
+  @extend .button--regular;
+  height: auto !important;
+  @apply pl-14;
+  @apply pr-14;
+  @apply pt-3;
+  @apply pb-3;
 }
 
 .button--transparent {
@@ -48,6 +57,16 @@
     color: #fff3ef;
     background-color: #ff5722;
   }
+}
+
+.button--transparent--small {
+  @extend .button--transparent;
+  width: auto !important;
+  height: auto !important;
+  padding-top: clamp(3px, 5 / 1520 * 100vw, 12px);
+  padding-bottom: clamp(3px, 5 / 1520 * 100vw, 12px);
+  @apply pl-8;
+  @apply pr-8;
 }
 
 .button--regular--small {

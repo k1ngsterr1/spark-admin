@@ -7,8 +7,8 @@ const express = require("express");
 const router = express.Router();
 
 // Проверка JWT токена
-// router.use(authenticateToken);
-// router.use(advancedLogger);
+router.use(authenticateToken);
+router.use(advancedLogger);
 
 /**
  * @swagger
@@ -29,18 +29,21 @@ const router = express.Router();
  *             required:
  *               - name
  *               - title
- *               - content
- *               - css_link
+ *               - description
+ *               - type
  *             properties:
  *               name:
  *                 type: string
  *                 description: Уникальное имя блока
  *               title:
  *                 type: string
- *                 description: Заголовок блока
- *               content:
+ *                 description: Имя блока
+ *               description:
  *                 type: string
- *                 description: Содержимое блока
+ *                 description: Описание блока
+ *               type:
+ *                 type: string
+ *                 description: Тип блока
  *               css_link:
  *                 type: string
  *                 description: Ссылка на CSS файл блока
@@ -59,6 +62,34 @@ const router = express.Router();
  *         description: Произошла серверная ошибка.
  */
 router.post("/add", (req, res) => blockController.addBlock(req, res));
+
+/**
+ * @swagger
+ * /api/block/get-blocks/{type}:
+ *   get:
+ *     summary: Получение всех блоков через их тип
+ *     description: Получение всех блоков через их тип, только для верифицированных пользователей
+ *     tags:
+ *       - Блоки
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: type
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: header
+ *         description: Тип блока
+ *     responses:
+ *       200:
+ *         description: Блок успешно получен
+ *       400:
+ *         description: Ошибка в данных.
+ *       500:
+ *         description: Произошла серверная ошибка.
+ */
+router.get("/get-blocks/:type", (req, res) => blockController.getBlocks(req, res));
 
 router.use("/component", blockComponentRoutes);
 

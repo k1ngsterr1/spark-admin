@@ -49,6 +49,14 @@ export interface PageCardAttributes {
   type: string;
 }
 
+export interface SiteDataAttributes{
+  id: number;
+  name: string;
+  value: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface ComponentAttributes {
   id: number;
   pageId: number;
@@ -75,6 +83,7 @@ export interface BlockAttributes {
   name: string;
   title: string;
   content: string;
+  type: string;
   image_url: string;
   video_url: string;
 }
@@ -120,6 +129,12 @@ export interface NewPageCardInput {
   type: string;
 }
 
+export interface NewSiteDataInput {
+  pageId: number;
+  name: string;
+  value: string;
+}
+
 export interface NewComponentInput {
   pageId: number;
   elementType: string;
@@ -140,7 +155,8 @@ export interface NewBlockComponentInput {
 export interface NewBlockInput {
   name: string;
   title: string;
-  content: string;
+  description: string;
+  type: string;
   css_link: string;
   image_url?: string;
   video_url?: string;
