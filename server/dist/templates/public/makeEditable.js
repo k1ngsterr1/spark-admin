@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
           console.log(siteName, componentId);
 
           const data = {
-            newValue: element.textContent.replace(/\u00a0/g, ' ').trim()
+            newValue: element.textContent.replace(/\u00a0/g, " ").trim(),
           };
           console.log(data.newValue);
 
