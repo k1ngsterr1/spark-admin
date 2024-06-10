@@ -27,7 +27,8 @@ export class AddCart{
             return;
         }
 
-        cartDetails.img_url = await ImageUpload(cartDetails.img_url, errors);
+        //NEED TO SEND TO FILE
+        cartDetails.img_url = '';
 
         const body = cartDetails;
         const params = { url: url };

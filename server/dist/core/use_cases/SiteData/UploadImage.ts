@@ -26,7 +26,7 @@ export class UploadImage{
             return;
         }
 
-        const img_url = await ImageUpload(imagePath, errors);
+        const img_url = 'https://spark-admin-production.up.railway.app/images/' + imagePath;
 
         url += `/${componentId}`;
         const params = { url: url };

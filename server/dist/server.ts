@@ -66,6 +66,8 @@ app.use(cookieParser());
 app.use("/ferla", express.static(path.join(__dirname, 'templates/build/ferla-bikes')));
 app.use("/ferla/*", express.static(path.join(__dirname, 'templates/build/ferla-bikes')));
 
+app.use("/images", express.static(path.join(__dirname, 'uploads')));
+
 // Статичные стили
 // app.use(
 //   "/css",

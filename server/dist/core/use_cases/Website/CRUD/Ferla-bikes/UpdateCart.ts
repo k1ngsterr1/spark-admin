@@ -28,7 +28,8 @@ export class UpdateCart{
         }
 
         if(cartDetails.img_url){
-            cartDetails.img_url = await ImageUpload(cartDetails.img_url, errors);
+            //NEED TO SEND FILE
+            cartDetails.img_url = cartDetails.img_url;
         }
 
         url += `/${cartId}`;
