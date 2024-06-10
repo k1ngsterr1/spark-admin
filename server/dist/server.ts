@@ -57,11 +57,10 @@ app.set("views", path.join(__dirname, "templates"));
 
 app.use(express.json());
 
-// const port = process.env.PORT;
-const port = 4000;
+const port = process.env.PORT;
+// const port = 4000;
 
 app.use(express.json());
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
 
 app.use("/ferla", express.static(path.join(__dirname, 'templates/build/ferla-bikes')));
