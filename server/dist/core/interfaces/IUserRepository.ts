@@ -19,4 +19,8 @@ export interface IUserRepository {
     websiteId: string,
     userId: number
   ): Promise<UserToWebsite | null>;
+  getUserFromWebsiteWithCode(
+    websiteId: string,
+    userId: number
+  ): Promise<UserToWebsite | null>
 }

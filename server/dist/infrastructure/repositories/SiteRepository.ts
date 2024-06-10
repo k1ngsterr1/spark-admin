@@ -8,11 +8,10 @@ export class SiteRepository implements ISiteRepository {
     return await sequelize.getRepository(SiteData).create(siteData);
   }
 
-  async findById(name: string, id: number): Promise<SiteData> {
+  async findById(id: number): Promise<SiteData> {
     return await sequelize.getRepository(SiteData).findOne({
       where: {
         id: id,
-        name: name,
       },
     });
   }

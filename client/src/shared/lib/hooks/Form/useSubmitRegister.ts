@@ -1,7 +1,5 @@
 "use client";
 
-/* eslint-disable react-hooks/rules-of-hooks */
-
 import { useState, FormEvent } from "react";
 import { useRegister } from "@shared/lib/hooks/Form/useRegister";
 import { useFieldValidator } from "./useValidate";
@@ -19,6 +17,7 @@ export const useSubmitRegister = () => {
     event.preventDefault();
     let isValid = true;
 
+    // Validate email format
     if (
       !validateField(
         "email",
@@ -30,6 +29,7 @@ export const useSubmitRegister = () => {
       isValid = false;
     }
 
+    // Validate that the password confirmation matches the password
     if (
       !validateField(
         "passwordConfirmation",
@@ -41,6 +41,7 @@ export const useSubmitRegister = () => {
       isValid = false;
     }
 
+    // Validate password requirements
     if (
       !validateField("password", password, /^.{8,16}$/, "AMOUNT_OF_SYMBOLS") ||
       !validateField("password", password, /[A-Z]/, "CAPITAL_LETTER") ||
@@ -83,5 +84,3 @@ export const useSubmitRegister = () => {
     backendError,
   };
 };
-
-/* eslint-disable react-hooks/rules-of-hooks */

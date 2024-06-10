@@ -31,6 +31,7 @@ const Form = () => {
 
   return (
     <section className={styles.registration}>
+      <SideBarMenu/>
       <div className={styles.registration__content}>
         <div className={styles.registration__content__logo}>
           <SparkLogo />
