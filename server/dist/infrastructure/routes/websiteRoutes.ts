@@ -9,8 +9,8 @@ const router = express.Router();
 
 // Проверка JWT токена
 router.use((req, res, next) => {
-  if (req.path !== '/api/website/ferla-bikes/:websiteId/get-carts') {
-      return next();
+  if (req.path !== "/api/website/ferla-bikes/:websiteId/get-carts") {
+    return next();
   }
   authenticateToken(req, res, next);
 });
@@ -256,8 +256,6 @@ router.post("/check-verification", (req, res) =>
   websiteController.checkVerification(req, res)
 );
 
-
-
 /**
  * @swagger
  * /api/website/delete:
@@ -293,13 +291,25 @@ router.delete("/delete", (req, res) =>
   websiteController.deleteWebsite(req, res)
 );
 
-router.post("/ferla-bikes/:websiteId/add-cart", upload.single("image"), (req, res) => websiteController.addFerlaCart(req, res));
+router.post(
+  "/ferla-bikes/:websiteId/add-cart",
+  upload.single("image"),
+  (req, res) => websiteController.addFerlaCart(req, res)
+);
 
-router.post("/ferla-bikes/:websiteId/update-cart", upload.single("image"), (req, res) => websiteController.updateFerlaCart(req, res));
+router.post(
+  "/ferla-bikes/:websiteId/update-cart",
+  upload.single("image"),
+  (req, res) => websiteController.updateFerlaCart(req, res)
+);
 
-router.delete("/ferla-bikes/:websiteId/delete-cart", (req, res) => websiteController.deleteFerlaCart(req, res));
+router.delete("/ferla-bikes/:websiteId/delete-cart", (req, res) =>
+  websiteController.deleteFerlaCart(req, res)
+);
 
-router.get("/ferla-bikes/:websiteId/get-carts", (req, res) => websiteController.getFerlaCarts(req, res));
+router.get("/ferla-bikes/:websiteId/get-carts", (req, res) =>
+  websiteController.getFerlaCarts(req, res)
+);
 
 router.use("/page", pageRoutes);
 

@@ -1,8 +1,8 @@
 "use client";
+import React from "react";
 import { HeaderEditor } from "@features/HeaderEditor";
 import { useFetchUploadedPage } from "@shared/lib/hooks/useFetchUploadedPage";
 import { useParams } from "next/navigation";
-import React from "react";
 
 import styles from "./styles.module.scss";
 

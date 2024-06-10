@@ -4,6 +4,8 @@ import { useState, FormEvent } from "react";
 import { useRegister } from "@shared/lib/hooks/Form/useRegister";
 import { useFieldValidator } from "./useValidate";
 
+/* eslint-disable react-hooks/rules-of-hooks */
+
 export const useSubmitRegister = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -84,3 +86,5 @@ export const useSubmitRegister = () => {
     backendError,
   };
 };
+
+/* eslint-disable react-hooks/rules-of-hooks */
