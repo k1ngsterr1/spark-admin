@@ -9,7 +9,7 @@ const router = express.Router();
 
 // Проверка JWT токена
 router.use((req, res, next) => {
-  if (req.path !== '/api/website/ferla-bikes/:websiteId/get-carts') {
+  if (req.path === '/api/website/ferla-bikes/:websiteId/get-carts') {
       return next();
   }
   authenticateToken(req, res, next);
