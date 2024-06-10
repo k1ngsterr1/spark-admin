@@ -1,23 +1,25 @@
+"use client";
 import React from "react";
 import { MainPageHeader } from "@features/MainPageHeader";
 import { TypeHeading } from "@shared/ui/TypeHeading";
 import { useTranslation } from "next-i18next";
 import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 import { AboutBlock } from "@widgets/Screens/About";
+import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import Cursor from "@shared/ui/Cursor";
 import DynamicGrid from "@shared/ui/DynamicGrid";
-
-import { useTranslations } from "next-intl";
 
 import styles from "./styles.module.scss";
 
 const MainPage = () => {
   const t = useTranslations("MainPage");
+  const { locale } = useParams();
 
   return (
     <>
       <Cursor />
-      <MainPageHeader />
+      <MainPageHeader locale={locale} />
       <DynamicGrid />
       <div className={styles.container}>
         <div className="flex flex-col items-center justify-center mt-32">
@@ -43,7 +45,7 @@ const MainPage = () => {
               text="Войти"
               margin="!cursor-none"
               buttonType="regular--bigger"
-              href="login"
+              href={`/${locale}/login`}
             />
           </div>
         </div>

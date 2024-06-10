@@ -4,10 +4,11 @@ const cookieParser = require("cookie-parser");
 const compression = require("compression");
 const bodyParser = require("body-parser");
 
-const dotenv = require("dotenv").config({ path: ".env" });
+const dotenv = require("dotenv").config({ path: "../.env" });
 
 // imports
 import authRoutes from "infrastructure/routes/authRoutes";
+import blogRoutes from "@infrastructure/routes/blogRoutes";
 import websiteRoutes from "infrastructure/routes/websiteRoutes";
 import pageRoutes from "@infrastructure/routes/pageRoutes";
 import userRoutes from "@infrastructure/routes/userRoutes";
@@ -63,7 +64,10 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/ferla", express.static(path.join(__dirname, 'templates/build/ferla-bikes')));
+app.use(
+  "/ferla",
+  express.static(path.join(__dirname, "templates/build/ferla-bikes"))
+);
 
 // Статичные стили
 // app.use(
@@ -119,6 +123,8 @@ app.post("/access", (req, res) => accessToken(req, res));
 
 // Логика для аутентификация
 app.use("/api/auth", authRoutes);
+
+app.use("/api/blog", blogRoutes);
 
 // Логика для пользователей
 app.use("/api/user", userRoutes);

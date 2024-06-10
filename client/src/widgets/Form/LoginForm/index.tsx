@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import PasswordInput from "@shared/ui/Inputs/PasswordInput";
@@ -8,6 +7,7 @@ import Heading from "@shared/ui/Heading/index";
 import { useSubmitLogin } from "@shared/lib/hooks/Form/useSubmitLogin";
 import { ErrorDisplay } from "@shared/ui/Error";
 import { useClickChangePassword } from "@shared/lib/hooks/Form/useClickChangePassword";
+import { useParams } from "next/navigation";
 
 import styles from "../styles/styles.module.scss";
 
@@ -15,6 +15,7 @@ import SparkLogo from "@assets/spark_product_logo.svg";
 
 const LoginForm = () => {
   const { handleClickChangePassword } = useClickChangePassword();
+  const { locale } = useParams();
 
   const {
     email,
@@ -24,7 +25,7 @@ const LoginForm = () => {
     passwordError,
     handleSubmit,
     errors,
-  } = useSubmitLogin();
+  } = useSubmitLogin(locale);
 
   return (
     <section className={styles.registration}>

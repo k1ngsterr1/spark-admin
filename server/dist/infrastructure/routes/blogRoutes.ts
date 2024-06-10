@@ -7,3 +7,5 @@ const router = express.Router();
 router.use(authenticateToken);
 
 router.post("/add", (req, res) => blogController.addCardBlog(req, res));
+
+export default router;

@@ -5,7 +5,11 @@ import { ThemeButton } from "@entities/DarkTheme";
 import Logo from "@assets/spark_product_logo.svg";
 import styles from "./styles.module.scss";
 
-export const MainPageHeader = () => {
+interface IMainPageHeader {
+  locale: string | string[];
+}
+
+export const MainPageHeader: React.FC<IMainPageHeader> = ({ locale }) => {
   return (
     <header className={`${styles.header} dark:border-dark-lighter`}>
       <div className={styles.header__container}>
@@ -27,7 +31,7 @@ export const MainPageHeader = () => {
             text="Войти"
             margin="!cursor-none"
             buttonType="regular--small"
-            href="login"
+            href={`/${locale}/login`}
           />
         </div>
       </div>

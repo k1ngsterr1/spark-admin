@@ -10,6 +10,7 @@ import { CodePopup } from "@entities/Popup_Components/CodePopup";
 import { WebsiteUploadPopup } from "@entities/Popup_Components/WebsiteUploadPopup";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { useParams } from "next/navigation";
 
 /* eslint-disable react-hooks/rules-of-hooks */
 
@@ -20,6 +21,7 @@ interface DashboardProps {
 
 const WebsitesPage: React.FC<DashboardProps> = () => {
   const [data, setData] = useState<WebsiteItem[]>([]);
+  const { locale } = useParams();
 
   useEffect(() => {
     const usefetchData = async () => {
@@ -42,7 +44,7 @@ const WebsitesPage: React.FC<DashboardProps> = () => {
         <WebsitePopup />
         <CodePopup />
         <WebsiteUploadPopup />
-        <Dashboard sites={data} />
+        <Dashboard sites={data} locale={locale} />
       </main>
     </div>
   );
