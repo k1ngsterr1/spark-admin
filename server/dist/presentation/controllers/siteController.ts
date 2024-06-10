@@ -48,10 +48,10 @@ class EditController {
   async updateSite(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
     try {
+      console.log(req.user);
       const userId: number = req.user.id;
       const websiteId: string = req.body.websiteId;
       const url: string = req.body.url;
-      const pageUrl: string = req.body.pageUrl;
       const componentId: number = req.params.componentId;
       const newValue: string = req.body.newValue;
 
@@ -59,7 +59,6 @@ class EditController {
         userId,
         websiteId,
         url,
-        pageUrl,
         componentId,
         newValue,
         errors
@@ -86,11 +85,10 @@ class EditController {
       const userId: number = req.user.id;
       const websiteId: string = req.body.websiteId;
       const url: string = req.body.url;
-      const pageUrl: string = req.body.pageUrl;
       const componentId: number = req.body.componentId;
       const imagePath: string = path.join(uploadPath, req.body.image);
 
-      await this.uploadImageToSite.execute(userId, websiteId, url, pageUrl,componentId, imagePath, errors);
+      await this.uploadImageToSite.execute(userId, websiteId, url,componentId, imagePath, errors);
 
       if (errors.length > 0) {
         const current_errors = errors[0];
