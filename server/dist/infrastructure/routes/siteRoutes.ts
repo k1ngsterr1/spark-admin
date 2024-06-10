@@ -48,6 +48,7 @@ router.post(
 
 router.post(
   "/update/:componentId",
+  authenticateToken,
   async (req, res) => await siteController.updateSite(req, res)
 );
 

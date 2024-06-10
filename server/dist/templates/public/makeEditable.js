@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   function makeElementsEditable() {
-    const editableElements = document.querySelectorAll("[id^='ferla-edit-']");
+    const editableElements = document.querySelectorAll("[id^='ferla_editable']");
 
     editableElements.forEach((element) => {
       if (!element.getAttribute("contenteditable")) {
@@ -10,19 +10,23 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!element.getAttribute("data-blur-listener-added")) {
         element.setAttribute("data-blur-listener-added", "true");
         element.addEventListener("blur", function () {
-          const [siteName, _, componentId] = element.id.split("-");
-          const route = `http://localhost:4000/`;
-          console.log(siteName, componentId);
+          const [name, _, websiteId, componentId] = element.id.split("_");
+          const route = `http://localhost:4000/api/site/update/${componentId}`;
 
           const data = {
             newValue: element.textContent.replace(/\u00a0/g, " ").trim(),
+            websiteId: websiteId,
+            url: `http://localhost:4001/api/components/update/${componentId}`
           };
-          console.log(data.newValue);
+          const userData = JSON.parse(localStorage.getItem('userData'));
+          const access = userData.accessToken;
+
 
           fetch(route, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${access}`,
             },
             body: JSON.stringify(data),
           })
