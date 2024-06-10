@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const data = {
             newValue: element.textContent.replace(/\u00a0/g, " ").trim(),
             websiteId: websiteId,
-            url: `http://localhost:4001/api/components/update/${componentId}`
+            url: `http://localhost:4001/api/components/update`
           };
           const userData = JSON.parse(localStorage.getItem('userData'));
           const access = userData.accessToken;
