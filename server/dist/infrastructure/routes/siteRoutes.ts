@@ -52,7 +52,7 @@ router.post(
   async (req, res) => await siteController.updateSite(req, res)
 );
 
-router.post("/upload/image/", upload.single("editable-image"), async(req, res) => await siteController.uploadImage(req, res));
+router.post("/upload/image", authenticateToken, upload.single("editable-image"), async(req, res) => await siteController.uploadImage(req, res));
 
 router.get(
   "/content/:url",

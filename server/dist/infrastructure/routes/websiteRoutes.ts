@@ -16,7 +16,6 @@ router.use((req, res, next) => {
 });
 
 router.use(advancedLogger);
-router.use(authenticateToken);
 
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -32,7 +31,7 @@ const storage = multer.diskStorage({
     const minutes = new Date().getHours().toString().padStart(2, "0");
     const seconds = new Date().getSeconds().toString().padStart(2, "0");
     const currentTime = `H=${hours}-M=${minutes}-S=${seconds}`;
-    let result =
+    const result =
       currentDate.toString() + "-" + currentTime + "-" + file.originalname;
     req.body.image = result;
 
