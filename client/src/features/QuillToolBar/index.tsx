@@ -117,8 +117,6 @@ export const QuillToolbar = () => (
       <button className="ql-indent" value="+1" />
     </span>
     <span className="ql-formats">
-      <button className="ql-script" value="super" />
-      <button className="ql-script" value="sub" />
       <button className="ql-blockquote" />
       <button className="ql-direction" />
     </span>
@@ -131,11 +129,6 @@ export const QuillToolbar = () => (
       <button className="ql-link" />
       <button className="ql-image" />
       <button className="ql-video" />
-    </span>
-    <span className="ql-formats">
-      <button className="ql-formula" />
-      <button className="ql-code-block" />
-      <button className="ql-clean" />
     </span>
     <span className="ql-formats">
       <button className="ql-undo">
