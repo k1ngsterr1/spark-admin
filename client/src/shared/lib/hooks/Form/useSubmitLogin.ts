@@ -6,7 +6,7 @@ import { useFieldValidator } from "./useValidate";
 
 /* eslint-disable react-hooks/rules-of-hooks */
 
-export const useSubmitLogin = () => {
+export const useSubmitLogin = (locale: string | string[]) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -29,7 +29,7 @@ export const useSubmitLogin = () => {
     }
 
     if (isValid) {
-      const result = await useLogin({ email, password });
+      const result = await useLogin({ email, password }, locale);
       if (typeof result === "string") {
         setPasswordError(result);
       }

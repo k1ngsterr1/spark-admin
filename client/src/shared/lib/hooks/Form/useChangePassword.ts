@@ -1,5 +1,4 @@
 "use client";
-
 import { axiosInstance } from "./../useInterceptor";
 import { useUserData } from "./useGetData";
 
@@ -7,6 +6,8 @@ interface IData {
   newPassword: string;
   code: string;
 }
+
+/* eslint-disable react-hooks/rules-of-hooks */
 
 export const useChangePassword = () => {
   const changePassword = async (data: IData): Promise<string | void> => {
@@ -57,3 +58,5 @@ export const useChangePassword = () => {
 
   return changePassword;
 };
+
+/* eslint-disable react-hooks/rules-of-hooks */

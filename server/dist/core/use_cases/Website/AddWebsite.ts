@@ -29,6 +29,9 @@ export class AddWebsite {
   ): Promise<Website> {
     try {
       const { name, url, ownerID, ownerEmail } = request;
+
+      console.log("URL:", url);
+
       const isValidUrl = await validURL(url);
       const isValidEmail = await validEmail(ownerEmail);
 

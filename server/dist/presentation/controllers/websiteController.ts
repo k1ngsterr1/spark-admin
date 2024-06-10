@@ -88,7 +88,9 @@ class WebsiteController {
         .status(201)
         .json({ message: "Веб-сайт успешно добавлен", website: newWebsite });
     } catch (error) {
-      return res.status(500).json({ error: "Ошибка с созданием веб-сайта" });
+      return res
+        .status(500)
+        .json({ error: `Ошибка с созданием веб-сайта: ${error}` });
     }
   }
 
@@ -115,9 +117,9 @@ class WebsiteController {
   }
 
   //Add cart to ferla-bikes
-  async addFerlaCart(req: Request, res: Response): Promise<void>{
+  async addFerlaCart(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
-    try{
+    try {
       const userId: number = req.user.id;
       const websiteId: string = req.params.websiteId;
       const url: string = req.body.url;
@@ -126,33 +128,39 @@ class WebsiteController {
         name: req.body.name,
         description: req.body.description,
         img_url: imgPath,
-        price: req.body.price
-      }
+        price: req.body.price,
+      };
 
-      const cart = await this.ferlaAddCart.execute(userId, websiteId, url, cartDetails, errors);
+      const cart = await this.ferlaAddCart.execute(
+        userId,
+        websiteId,
+        url,
+        cartDetails,
+        errors
+      );
 
       await fs.unlink(imgPath, (error: unknown | any) => {
         if (error) {
           throw new Error(error.message);
         }
       });
-      
-      if(errors.length > 0){
+
+      if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json(current_error.details);
         return;
       }
 
-      res.status(201).json({ message: "Успешно создали тележку.", cart: cart})
-    }catch(error){
+      res.status(201).json({ message: "Успешно создали тележку.", cart: cart });
+    } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Ошибка при добавление тележки." });
     }
   }
 
-  async updateFerlaCart(req: Request, res: Response): Promise<void>{
+  async updateFerlaCart(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
-    try{
+    try {
       const userId: number = req.user.id;
       const websiteId: string = req.params.websiteId;
       const url: string = req.body.url;
@@ -162,70 +170,85 @@ class WebsiteController {
         name: req.body.name,
         description: req.body.description,
         img_url: imgPath,
-        price: req.body.price
-      }
+        price: req.body.price,
+      };
 
-      const cart = await this.ferlaUpdateCart.execute(userId, websiteId, url, cartId, cartDetails, errors);
+      const cart = await this.ferlaUpdateCart.execute(
+        userId,
+        websiteId,
+        url,
+        cartId,
+        cartDetails,
+        errors
+      );
 
-      if(imgPath){
+      if (imgPath) {
         await fs.unlink(imgPath, (error: unknown | any) => {
           if (error) {
             throw new Error(error.message);
           }
         });
       }
-      
-      if(errors.length > 0){
+
+      if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json(current_error.details);
         return;
       }
 
-      res.status(200).json({ message: "Успешно обновили тележку.", cart: cart})
-    }catch(error){
+      res
+        .status(200)
+        .json({ message: "Успешно обновили тележку.", cart: cart });
+    } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Ошибка при обновление тележки." });
     }
   }
 
-  async deleteFerlaCart(req: Request, res: Response): Promise<void>{
+  async deleteFerlaCart(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
-    try{
+    try {
       const userId: number = req.user.id;
       const websiteId: string = req.params.websiteId;
       const url: string = req.body.url;
       const cartId: number = req.body.cartId;
 
-      await this.ferlaDeleteCart.execute(userId, websiteId, url, cartId, errors);
-      
-      if(errors.length > 0){
+      await this.ferlaDeleteCart.execute(
+        userId,
+        websiteId,
+        url,
+        cartId,
+        errors
+      );
+
+      if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json(current_error.details);
         return;
       }
 
-      res.status(200).json({ message: "Успешно удалили тележку." })
-    }catch(error){
+      res.status(200).json({ message: "Успешно удалили тележку." });
+    } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Ошибка при удаление тележки." });
     }
   }
 
-  async getFerlaCarts(req: Request, res: Response): Promise<void>{
+  async getFerlaCarts(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
-    try{
+    try {
       const url: string = req.params.url;
 
       const carts = await this.ferlaGetCarts.execute(url, errors);
-      
-      if(errors.length > 0){
+
+      if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
       res.status(200).json({ message: "Успешно получили тележки.", carts });
-    }catch(error){
+    } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Ошибка при удаление тележки." });
     }

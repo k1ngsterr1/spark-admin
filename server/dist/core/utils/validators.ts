@@ -14,21 +14,41 @@ export async function validEmail(email: string): Promise<boolean> {
 }
 
 // Валидация пароля
-export async function validPassword(password: string, errors: ErrorDetails[]): Promise<boolean> {
+export async function validPassword(
+  password: string,
+  errors: ErrorDetails[]
+): Promise<boolean> {
   if (!validator.isLength(password, { min: 8, max: 16 })) {
-    errors.push(new ErrorDetails(400, "Длина пароля должна быть от 8 до 16 символов"));
+    errors.push(
+      new ErrorDetails(400, "Длина пароля должна быть от 8 до 16 символов")
+    );
     return false;
   }
   if (!/[!@#$%^&*()_+{}\[\]:;<>,.?~]/.test(password)) {
-    errors.push(new ErrorDetails(400, "Пароль должен содержать хотя бы один специальный символ"));
+    errors.push(
+      new ErrorDetails(
+        400,
+        "Пароль должен содержать хотя бы один специальный символ"
+      )
+    );
     return false;
   }
   if (!/[A-Z]/.test(password)) {
-    errors.push(new ErrorDetails(400, "Пароль должен содержать хотя бы одну заглавную букву"));
+    errors.push(
+      new ErrorDetails(
+        400,
+        "Пароль должен содержать хотя бы одну заглавную букву"
+      )
+    );
     return false;
   }
   if (!/[a-z]/.test(password)) {
-    errors.push(new ErrorDetails(400, "Пароль должен содержать хотя бы одну строчную букву"));
+    errors.push(
+      new ErrorDetails(
+        400,
+        "Пароль должен содержать хотя бы одну строчную букву"
+      )
+    );
     return false;
   }
   return true;
