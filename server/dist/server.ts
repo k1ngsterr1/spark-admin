@@ -57,8 +57,8 @@ app.set("views", path.join(__dirname, "templates"));
 
 app.use(express.json());
 
-// const port = process.env.PORT;
-const port = 4000;
+const port = process.env.PORT;
+// const port = 4000;
 
 app.use(express.json());
 app.use(cookieParser());
