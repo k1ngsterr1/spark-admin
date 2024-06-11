@@ -65,6 +65,8 @@ export async function validURL(url: string): Promise<boolean> {
       require_valid_protocol: true,
       validate_length: true,
       allow_underscores: false,
+      require_host: false,
+      require_tld: false
     })
   ) {
     return true;

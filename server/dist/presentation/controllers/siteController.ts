@@ -48,7 +48,6 @@ class EditController {
   async updateSite(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
     try {
-      console.log(req.user);
       const userId: number = req.user.id;
       const websiteId: string = req.body.websiteId;
       const url: string = req.body.url;
@@ -88,7 +87,13 @@ class EditController {
       const componentId: number = req.body.componentId;
       const imagePath: string = path.join(uploadPath, req.body.image);
 
-      await this.uploadImageToSite.execute(userId, websiteId, url,componentId, imagePath, errors);
+      await this.uploadImageToSite.execute(userId, websiteId, url, componentId, imagePath, errors);
+
+      await fs.unlink(imagePath, (error: unknown | any) => {
+        if (error) {
+          throw new Error(error.message);
+        }
+      });
 
       if (errors.length > 0) {
         const current_errors = errors[0];
@@ -97,16 +102,18 @@ class EditController {
           .json({ message: current_errors.details });
         return;
       }
-      
-      await fs.unlink(imagePath, (error: unknown | any) => {
-        if (error) {
-          throw new Error(error.message);
-        }
-      });
 
       res.status(200).json({ message: "Сайт успешно обновлен" });
     } catch (error) {
       console.log(error);
+
+      const imgPath = path.join(uploadPath, req.body.image);
+      try {
+          await fs.unlink(imgPath);
+      } catch (fileError) {
+          console.log("Image problem in upload image");
+      }
+
       res.status(500).json({ message: "Ошибка при обновлении сайта" });
     }
   }

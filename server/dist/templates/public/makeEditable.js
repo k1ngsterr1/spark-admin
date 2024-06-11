@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   function makeElementsEditable() {
-    const editableElements = document.querySelectorAll(
-      "[id^='ferla_editable']"
-    );
+    const editableElements = document.querySelectorAll("[id^='editable']");
 
     editableElements.forEach((element) => {
       if (!element.getAttribute("contenteditable")) {

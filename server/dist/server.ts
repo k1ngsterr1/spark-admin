@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser");
 const compression = require("compression");
 const bodyParser = require("body-parser");
 
-const dotenv = require("dotenv").config({ path: "../.env" });
+const dotenv = require("dotenv").config({ path: "./.env" });
 
 // imports
 import authRoutes from "infrastructure/routes/authRoutes";
@@ -80,6 +80,8 @@ app.use(
   "/ferla/*",
   express.static(path.join(__dirname, "templates/build/ferla-bikes"))
 );
+
+app.use("/images", express.static(path.join(__dirname, 'uploads')));
 
 // Статичные стили
 // app.use(
