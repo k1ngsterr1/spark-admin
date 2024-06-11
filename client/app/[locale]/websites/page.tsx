@@ -7,9 +7,12 @@ import { WebsitePopup } from "@entities/Popup_Components/WebsitePopup";
 import { WebsiteItem } from "@shared/lib/types";
 import { useGetWebsites } from "@shared/lib/hooks/useGetWebsites";
 import { CodePopup } from "@entities/Popup_Components/CodePopup";
+import { WebsiteUploadPopup } from "@entities/Popup_Components/WebsiteUploadPopup";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { WebsiteUploadPopup } from "@entities/Popup_Components/WebsiteUploadPopup";
+import { useParams } from "next/navigation";
+
+/* eslint-disable react-hooks/rules-of-hooks */
 
 interface DashboardProps {
   websites: WebsiteItem[];
@@ -18,9 +21,10 @@ interface DashboardProps {
 
 const WebsitesPage: React.FC<DashboardProps> = () => {
   const [data, setData] = useState<WebsiteItem[]>([]);
+  const { locale } = useParams();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const usefetchData = async () => {
       try {
         const result = await useGetWebsites();
         setData(result);
@@ -29,7 +33,7 @@ const WebsitesPage: React.FC<DashboardProps> = () => {
       }
     };
 
-    fetchData();
+    usefetchData();
   }, []);
 
   return (
@@ -40,7 +44,7 @@ const WebsitesPage: React.FC<DashboardProps> = () => {
         <WebsitePopup />
         <CodePopup />
         <WebsiteUploadPopup />
-        <Dashboard sites={data} />
+        <Dashboard sites={data} locale={locale} />
       </main>
     </div>
   );

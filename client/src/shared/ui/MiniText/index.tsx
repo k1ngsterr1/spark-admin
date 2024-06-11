@@ -18,8 +18,11 @@ const MiniText: React.FC<MiniTextProps> = ({
 }) => {
   return (
     <div className={styles.mini_text} style={{ margin }}>
-      <span className="dark:text-white">{text} </span>
+      <span className="dark:text-white">
+        {text} {""}
+      </span>
       <Link href={href} className={styles.orange_text} onClick={onClick}>
+        {""}
         {linktext}
       </Link>
     </div>

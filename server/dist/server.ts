@@ -4,10 +4,11 @@ const cookieParser = require("cookie-parser");
 const compression = require("compression");
 const bodyParser = require("body-parser");
 
-const dotenv = require("dotenv").config({ path: ".env" });
+const dotenv = require("dotenv").config({ path: "../.env" });
 
 // imports
 import authRoutes from "infrastructure/routes/authRoutes";
+import blogRoutes from "@infrastructure/routes/blogRoutes";
 import websiteRoutes from "infrastructure/routes/websiteRoutes";
 import pageRoutes from "@infrastructure/routes/pageRoutes";
 import userRoutes from "@infrastructure/routes/userRoutes";
@@ -43,6 +44,14 @@ app.use(
     parameterLimit: 50000,
   })
 );
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 50000,
+  })
+);
 
 // Создание сваггера
 app.use(
@@ -57,14 +66,20 @@ app.set("views", path.join(__dirname, "templates"));
 
 app.use(express.json());
 
-// const port = process.env.PORT;
-const port = 4000;
+const port = process.env.PORT;
+// const port = 4000;
 
 app.use(express.json());
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
 
-app.use("/ferla", express.static(path.join(__dirname, 'templates/build/ferla-bikes')));
+app.use(
+  "/ferla",
+  express.static(path.join(__dirname, "templates/build/ferla-bikes"))
+);
+app.use(
+  "/ferla/*",
+  express.static(path.join(__dirname, "templates/build/ferla-bikes"))
+);
 
 // Статичные стили
 // app.use(
@@ -120,6 +135,8 @@ app.post("/access", (req, res) => accessToken(req, res));
 
 // Логика для аутентификация
 app.use("/api/auth", authRoutes);
+
+app.use("/api/blog", blogRoutes);
 
 // Логика для пользователей
 app.use("/api/user", userRoutes);

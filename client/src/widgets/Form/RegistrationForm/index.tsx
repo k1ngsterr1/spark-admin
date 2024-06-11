@@ -1,20 +1,22 @@
 "use client";
 
 import React from "react";
-import { SideBarMenu } from "@features/SideBarBuilder";
-import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import PasswordInput from "@shared/ui/Inputs/PasswordInput";
 import MiniText from "@shared/ui/MiniText/index";
 import Heading from "@shared/ui/Heading/index";
 import { ErrorDisplay } from "@shared/ui/Error";
 import { useSubmitRegister } from "@shared/lib/hooks/Form/useSubmitRegister";
+import { useTranslations } from "next-intl";
+import { Button } from "@shared/ui/Buttons_Components/Buttons";
 
 import styles from "../styles/styles.module.scss";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
 
 const Form = () => {
+  const t = useTranslations("RegistrationPage");
+
   const {
     username,
     setUsername,
@@ -31,12 +33,11 @@ const Form = () => {
 
   return (
     <section className={styles.registration}>
-      <SideBarMenu />
       <div className={styles.registration__content}>
         <div className={styles.registration__content__logo}>
           <SparkLogo />
         </div>
-        <Heading text="Добро пожаловать" margin="mt-8" />
+        <Heading text={t("heading")} margin="mt-8" />
         <form
           className={styles.registration__content__form}
           onSubmit={handleSubmit}
@@ -44,7 +45,7 @@ const Form = () => {
           <Input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Имя пользователя"
+            placeholder={t("username")}
             type="text"
             inputType="default"
             required
@@ -63,7 +64,7 @@ const Form = () => {
           <PasswordInput
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Пароль"
+            placeholder={t("password")}
             margin="mt-3"
             type="password"
             required
@@ -73,7 +74,7 @@ const Form = () => {
           <PasswordInput
             value={passwordConfirmation}
             onChange={(e) => setPasswordConfirmation(e.target.value)}
-            placeholder="Подтвердить пароль"
+            placeholder={t("password_confirm")}
             margin="mt-3"
             type="password"
             required
@@ -82,7 +83,7 @@ const Form = () => {
           <ErrorDisplay message={backendError} />
           <ErrorDisplay message={errors.passwordConfirmation || ""} />
           <Button
-            text="Зарегистрироваться"
+            text={t("sign_up")}
             buttonType="regular"
             margin="mt-8"
             type="submit"
@@ -91,8 +92,8 @@ const Form = () => {
         <MiniText
           margin="mt-2"
           href="login"
-          text="Уже есть аккаунт? "
-          linktext="Войти"
+          text={t("account")}
+          linktext={t("login")}
         />
       </div>
     </section>

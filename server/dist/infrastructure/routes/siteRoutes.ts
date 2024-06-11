@@ -48,10 +48,15 @@ router.post(
 
 router.post(
   "/update/:componentId",
+  authenticateToken,
   async (req, res) => await siteController.updateSite(req, res)
 );
 
-router.post("/upload/image/", upload.single("editable-image"), async(req, res) => await siteController.uploadImage(req, res));
+router.post(
+  "/upload/image/",
+  upload.single("editable-image"),
+  async (req, res) => await siteController.uploadImage(req, res)
+);
 
 router.get(
   "/content",

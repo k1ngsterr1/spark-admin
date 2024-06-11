@@ -11,8 +11,8 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 
 export default async function RootLayout({
   children,
-  title = "Default Title", // Default title if none provided
-  description = "Default description", // Default description if none provided
+  title = "Spark Admin", // Default title if none provided
+  description = "Spark Admin", // Default description if none provided
   params: { locale },
 }: {
   children: React.ReactNode;

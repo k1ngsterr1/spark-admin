@@ -9,10 +9,11 @@ import SkeletonLoader from "@shared/ui/Skeleton_Loader";
 import styles from "./styles.module.scss";
 
 interface DashboardProps {
-  sites: [];
+  sites: [] | any;
+  locale: string | string[];
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ sites, locale }) => {
   const { isLoading, hasWebsites } = useGetWebsites();
   const { isAdmin } = useCheckIsAdmin();
 
@@ -43,7 +44,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
               />
               <ButtonLink
                 text="Создать сайт"
-                href="/websites/build"
+                href={`/${locale}/websites/build`}
                 buttonType="regular--small"
               />
               {isAdmin && (
@@ -79,7 +80,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites }) => {
           />
           <ButtonLink
             text="Создать сайт"
-            href="/websites/build"
+            href={`/${locale}/websites/build`}
             buttonType="regular--small"
           />
         </div>

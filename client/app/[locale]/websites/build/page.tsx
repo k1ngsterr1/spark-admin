@@ -1,8 +1,6 @@
 "use client";
-
 import React from "react";
 import Heading from "@shared/ui/Heading";
-
 import { Header } from "@features/Header";
 import { Menu } from "@features/Menu";
 import { PageTypeSelector } from "@features/PageTypeSelector";
