@@ -1,7 +1,7 @@
 import React from "react";
 import { Quill } from "react-quill";
 
-import styles from "./styles.module.scss";
+import "./styles.scss";
 
 const CustomUndo = () => (
   <svg viewBox="0 0 18 18">
@@ -85,12 +85,24 @@ export const QuillToolbar = () => (
   <div id="toolbar">
     <span className="ql-formats">
       <select className="ql-font" defaultValue="arial">
-        <option value="arial">Arial</option>
-        <option value="comic-sans">Comic Sans</option>
-        <option value="courier-new">Courier New</option>
-        <option value="georgia">Georgia</option>
-        <option value="helvetica">Helvetica</option>
-        <option value="lucida">Lucida</option>
+        <option value="arial" className="font-color">
+          Arial
+        </option>
+        <option value="comic-sans" className="font-color">
+          Comic Sans
+        </option>
+        <option value="courier-new" className="font-color">
+          Courier New
+        </option>
+        <option value="georgia" className="font-color">
+          Georgia
+        </option>
+        <option value="helvetica" className="font-color">
+          Helvetica
+        </option>
+        <option value="lucida" className="font-color">
+          Lucida
+        </option>
       </select>
       <select className="ql-size" defaultValue="medium">
         <option value="extra-small">Size 1</option>
@@ -100,7 +112,9 @@ export const QuillToolbar = () => (
       </select>
       <select className="ql-header" defaultValue="3">
         <option value="1">Heading</option>
-        <option value="2">Subheading</option>
+        <option value="2" className="subheading mr-2">
+          Subheading
+        </option>
         <option value="3">Normal</option>
       </select>
     </span>
