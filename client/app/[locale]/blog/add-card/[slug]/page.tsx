@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useBlogCard } from "@shared/lib/hooks/useBlog";
 import useFileUpload from "@shared/lib/hooks/usePreviewPhoto";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import { TextArea } from "@shared/ui/TextArea/index";
@@ -16,12 +17,10 @@ import styles from "./styles.module.scss";
 
 const AddBlogCard: React.FC = () => {
   const { previewUrl, handleFileChange, selectedFile } = useFileUpload();
-  const [productName, setProductName] = useState("");
-  const [productDescription, setProductDescription] = useState("");
-  const [productPrice, setProductPrice] = useState("");
+  const { image, title, setTitle, href, setHref, handleSubmit } = useBlogCard();
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className={styles.container}>
         <div className={styles.container__logo}>
           <SparkLogo />
@@ -41,7 +40,7 @@ const AddBlogCard: React.FC = () => {
             />
             <p className=" text-2xl ">Attach photo</p>
             <input
-              name="pictureName"
+              name="image"
               id="file-upload"
               type="file"
               style={{ display: "none" }}
@@ -53,18 +52,18 @@ const AddBlogCard: React.FC = () => {
           placeholder="Add name"
           textareaType="blog"
           margin="mt-8"
-          name="description"
-          // value={productDescription}
-          // onChange={(e) => setProductDescription(e.target.value)}
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
         <Input
           inputType="default"
           type="text"
           placeholder="Add url"
           margin="mt-16"
-          name="name"
-          // value={productName}
-          // onChange={(e) => setProductName(e.target.value)}
+          name="href"
+          value={href}
+          onChange={(e) => setHref(e.target.value)}
         />
         <Button buttonType="regular" text="Add" type="submit" margin="mt-8" />
       </div>
