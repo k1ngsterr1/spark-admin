@@ -53,7 +53,7 @@ router.post(
 );
 
 router.post(
-  "/upload/image/",
+  "/upload/image",
   upload.single("editable-image"),
   async (req, res) => await siteController.uploadImage(req, res)
 );

@@ -28,7 +28,14 @@ class EditController {
       const componentName: string = req.body.componentName;
       const value: string = req.body.value;
 
-      await this.addSiteDataComponent.execute(userId, url, pageUrl, componentName, value, errors);
+      await this.addSiteDataComponent.execute(
+        userId,
+        url,
+        pageUrl,
+        componentName,
+        value,
+        errors
+      );
 
       if (errors.length > 0) {
         const current_errors = errors[0];
@@ -79,16 +86,29 @@ class EditController {
     }
   }
 
-  async uploadImage(req: Request, res: Response): Promise<void>{
+  async uploadImage(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
     try {
-      const userId: number = req.user.id;
+      const userId: number = req.body.userId;
       const websiteId: string = req.body.websiteId;
       const url: string = req.body.url;
       const componentId: number = req.body.componentId;
       const imagePath: string = path.join(uploadPath, req.body.image);
 
-      await this.uploadImageToSite.execute(userId, websiteId, url,componentId, imagePath, errors);
+      await this.uploadImageToSite.execute(
+        userId,
+        websiteId,
+        url,
+        componentId,
+        imagePath,
+        errors
+      );
+
+      await fs.unlink(imagePath, (error: unknown | any) => {
+        if (error) {
+          throw new Error(error.message);
+        }
+      });
 
       if (errors.length > 0) {
         const current_errors = errors[0];
@@ -97,12 +117,6 @@ class EditController {
           .json({ message: current_errors.details });
         return;
       }
-      
-      await fs.unlink(imagePath, (error: unknown | any) => {
-        if (error) {
-          throw new Error(error.message);
-        }
-      });
 
       res.status(200).json({ message: "Сайт успешно обновлен" });
     } catch (error) {
@@ -110,23 +124,23 @@ class EditController {
       res.status(500).json({ message: "Ошибка при обновлении сайта" });
     }
   }
-  
-  async getSite(req: Request, res: Response): Promise<void>{
+
+  async getSite(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
-    try{
+    try {
       const url: string = req.params.url;
       console.log(url);
 
       const components = await this.getSiteDatas.execute(url, errors);
 
-      if(errors.length > 0){
+      if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
       res.status(200).json({ content: components });
-    }catch(error){
+    } catch (error) {
       res.status(500).json({ message: "Не удалось получить контент с сайта" });
     }
   }
