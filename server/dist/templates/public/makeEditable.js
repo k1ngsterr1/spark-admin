@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         element.setAttribute("data-blur-listener-added", "true");
         element.addEventListener("blur", function () {
           const [name, _, websiteId, componentId] = element.id.split("_");
-          const route = `https://spark-admin-production.up.railway.app/api/site/update`;
+          const route = `https://spark-admin-production.up.railway.app/api/site/update/${componentId}`;
 
           const data = {
             newValue: element.textContent.replace(/\u00a0/g, " ").trim(),
