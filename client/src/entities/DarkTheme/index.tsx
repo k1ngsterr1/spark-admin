@@ -32,7 +32,7 @@ export const ThemeButton = () => {
 
   return (
     <button
-      className={`${styles.button} dark:hover:bg-gray-800`}
+      className={`${styles.button} dark:hover:bg-gray-800 hoverable`}
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
     >
       <FontAwesomeIcon
