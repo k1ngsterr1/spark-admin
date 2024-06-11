@@ -48,7 +48,6 @@ class EditController {
   async updateSite(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
     try {
-      console.log(req.user);
       const userId: number = req.user.id;
       const websiteId: string = req.body.websiteId;
       const url: string = req.body.url;
