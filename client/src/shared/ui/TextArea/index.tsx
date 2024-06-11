@@ -17,6 +17,10 @@ export const TextArea: React.FC<TextAreaProps> = ({
   const textAreaClass = `${styles.textarea} ${textareaType ? styles[`textarea--${textareaType}`] : ""} ${margin ? margin : ""}`;
 
   return (
-    <textarea className={textAreaClass} placeholder={placeholder} {...rest} />
+    <textarea
+      className={`${textAreaClass} dark:text-primary`}
+      placeholder={placeholder}
+      {...rest}
+    />
   );
 };

@@ -6,6 +6,7 @@ import useFileUpload from "@shared/lib/hooks/usePreviewPhoto";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import { TextArea } from "@shared/ui/TextArea/index";
 import { Button } from "@shared/ui/Buttons_Components/Buttons/index";
+import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons/index";
 import Heading from "@shared/ui/Heading/index";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -43,6 +44,7 @@ const AddBlogCard: React.FC = () => {
               name="image"
               id="file-upload"
               type="file"
+              required
               style={{ display: "none" }}
               onChange={handleFileChange}
             />
@@ -53,6 +55,7 @@ const AddBlogCard: React.FC = () => {
           textareaType="blog"
           margin="mt-8"
           name="title"
+          required
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -62,10 +65,18 @@ const AddBlogCard: React.FC = () => {
           placeholder="Add url"
           margin="mt-16"
           name="href"
+          required
           value={href}
           onChange={(e) => setHref(e.target.value)}
         />
-        <Button buttonType="regular" text="Add" type="submit" margin="mt-8" />
+        <div className=" flex flex-col mt-8 gap-4">
+          <Button buttonType="regular" text="Add" type="submit" />
+          <ButtonLink
+            buttonType="regular"
+            text="Show all"
+            href="/ru/blog/add-card/all"
+          />
+        </div>
       </div>
     </form>
   );

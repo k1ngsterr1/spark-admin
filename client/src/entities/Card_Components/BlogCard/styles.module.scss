@@ -1,0 +1,23 @@
+// &__upload {
+//     @apply mt-12;
+//     @apply gap-4;
+//     border: 4px solid #ff5722;
+//     width: clamp(183px, 19.06128vw, 732px);
+//     height: clamp(122px, 12.70752vw, 488px);
+//     border-radius: clamp(5px, 0.5208vw, 20px);
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     flex-direction: column;
+
+//     &__icon {
+//       font-size: clamp(30px, 3.1248vw, 120px);
+//     }
+//   }
+
+//   &__previewImage {
+//     @apply mt-12;
+//     border-radius: clamp(5px, 0.5208vw, 20px);
+//     width: clamp(183px, 19.06128vw, 732px);
+//     height: clamp(122px, 12.70752vw, 488px);
+//   }

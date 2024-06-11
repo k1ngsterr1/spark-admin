@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__logo {
+    margin-top: clamp(46px, 4.79136vw, 184px);
+    width: clamp(68px, 7.08288vw, 272px);
+    height: clamp(68px, 7.08288vw, 272px);
+  }
+}
