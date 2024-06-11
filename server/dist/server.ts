@@ -153,7 +153,10 @@ app.use("/api/block", blockRoutes);
 
 app.use("/api/page-card", pageCardRoutes);
 
+// Логика для данных сайта
 app.use("/api/site", siteRoutes);
+
+app.use("/api/article", articleRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
