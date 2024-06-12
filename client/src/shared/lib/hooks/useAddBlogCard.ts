@@ -1,6 +1,6 @@
 "use client";
 
-import axios from "axios";
+import { axiosInstance } from "../hooks/useInterceptor";
 import { StaticImageData } from "next/image";
 
 interface IData {
@@ -11,7 +11,7 @@ interface IData {
 
 export async function useAddBlogCard(data: IData): Promise<void> {
   try {
-    const response = await axios.post(
+    const response = await axiosInstance.post(
       "https://ferla-backend-production.up.railway.app/api/blog/add",
       data
     );

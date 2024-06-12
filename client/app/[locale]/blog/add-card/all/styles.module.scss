@@ -9,4 +9,13 @@
     width: clamp(68px, 7.08288vw, 272px);
     height: clamp(68px, 7.08288vw, 272px);
   }
+
+  &__cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    @apply m-12;
+  }
 }
