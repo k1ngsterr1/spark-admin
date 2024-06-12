@@ -81,7 +81,7 @@ app.use(
   express.static(path.join(__dirname, "templates/build/ferla-bikes"))
 );
 
-app.use("/images", express.static(path.join(__dirname, 'uploads')));
+app.use("/images", express.static(path.join(__dirname, "uploads")));
 
 // Статичные стили
 // app.use(
@@ -149,6 +149,7 @@ app.use("/api/page", pageRoutes);
 // Логика для вебсайта
 app.use("/api/website", websiteRoutes);
 
+// Логика для блоков
 app.use("/api/block", blockRoutes);
 
 app.use("/api/page-card", pageCardRoutes);
