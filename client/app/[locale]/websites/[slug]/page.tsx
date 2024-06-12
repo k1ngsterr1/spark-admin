@@ -11,7 +11,7 @@ export default function WebsitePage() {
   const { htmlContent } = useFetchUploadedPage(slug);
 
   return (
-    <div className="flex flex-col h-full">
+    <div className={`flex flex-col ${styles.page}`}>
       <HeaderEditor
         isLoading={false}
         websiteName="Test"
