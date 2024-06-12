@@ -14,10 +14,10 @@ export default function WebsitePage() {
     <div className={`flex flex-col ${styles.page}`}>
       <HeaderEditor
         isLoading={false}
-        websiteName="Test"
+        websiteName={slug}
         websiteURL="Test"
-        pageURL="Test"
-        pageType="Test"
+        pageURL={slug}
+        pageType={slug}
       />
       <main className="flex flex-col w-full h-full border-2">
         <iframe

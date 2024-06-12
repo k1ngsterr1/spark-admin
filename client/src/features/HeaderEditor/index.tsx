@@ -8,10 +8,10 @@ import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import styles from "./styles.module.scss";
 
 interface HeaderEditorProps {
-  websiteName: string;
-  websiteURL: string;
-  pageType: string;
-  pageURL: string;
+  websiteName: string | string[];
+  websiteURL: string | string[];
+  pageType: string | string[];
+  pageURL: string | string[];
   isLoading: boolean;
 }
 
