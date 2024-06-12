@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useBlogCard } from "@shared/lib/hooks/useBlog";
+import { useUpdateBlogCard } from "@shared/lib/hooks/useUpdateBlogCard";
 import { Button } from "@shared/ui/Buttons_Components/Buttons/index";
 import useFileUpload from "@shared/lib/hooks/usePreviewPhoto";
 import Input from "@shared/ui/Inputs/DefaultInport";
@@ -33,8 +34,27 @@ export const EditBlogCard: React.FC<IBlogCard> = ({
   const { image, title, setTitle, href, setHref } = useBlogCard();
   const [editing, setEditing] = useState(initialEditing);
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const updateData = {
+      title: title,
+      href: href,
+      image: selectedFile,
+    };
+
+    await useUpdateBlogCard(
+      "https://ferla-backend-production.up.railway.app/api/blog/update",
+      updateData
+    );
+    setEditing(false);
+  };
+
   return (
-    <form className="flex flex-col justify-center items-center">
+    <form
+      className="flex flex-col justify-center items-center"
+      onSubmit={handleSubmit}
+    >
       {editing ? (
         <div className={styles.container}>
           <div className=" flex flex-col items-center justify-center">
