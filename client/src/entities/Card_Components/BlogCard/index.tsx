@@ -20,6 +20,7 @@ interface IBlogCard {
   blogImage: string | StaticImageData;
   blogTitle: string;
   blogHref: string;
+  blogId: number;
 }
 
 export const EditBlogCard: React.FC<IBlogCard> = ({
@@ -106,7 +107,6 @@ export const EditBlogCard: React.FC<IBlogCard> = ({
             margin="mt-10"
             onClick={() => setEditing(true)}
           />
-          <Button buttonType="regular" text="Delete" margin="mt-6" />
         </>
       )}
     </form>

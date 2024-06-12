@@ -5,7 +5,9 @@ import React, { useState } from "react";
 import Heading from "@shared/ui/Heading/index";
 import { EditBlogCard } from "@entities/Card_Components/BlogCard";
 import { useGetBlogs } from "@shared/lib/hooks/useGetBlogs";
+import { useDeleteBlogs } from "@shared/lib/hooks/useDeleteBlogs";
 import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons/index";
+import { Button } from "@shared/ui/Buttons_Components/Buttons/index";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
 
@@ -14,7 +16,9 @@ import styles from "./styles.module.scss";
 const AddBlogCard: React.FC = () => {
   const { data } = useGetBlogs();
 
-  console.log("data:", data);
+  const handleDelete = async (blogId: string) => {
+    await useDeleteBlogs(blogId);
+  };
 
   return (
     <div className=" flex flex-col items-center justify-center ">
@@ -26,12 +30,19 @@ const AddBlogCard: React.FC = () => {
       </div>
       <div className={styles.container__cards}>
         {data?.map((blog) => (
-          <div className=" ml-8">
+          <div className=" ml-8 flex flex-col justify-center items-center">
             <EditBlogCard
+              blogId={blog.id}
               editing={false}
               blogImage={blog.Blogimage}
               blogTitle={blog.title}
               blogHref={blog.href}
+            />
+            <Button
+              buttonType="regular"
+              text="Delete"
+              margin="mt-6"
+              onClick={() => handleDelete(blog.id)}
             />
           </div>
         ))}
