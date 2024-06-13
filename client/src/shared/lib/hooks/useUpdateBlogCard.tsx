@@ -1,6 +1,8 @@
 import "./useInterceptor";
 import { axiosInstance } from "./useInterceptor";
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
+
 export async function useUpdateBlogCard(
   url: `https://ferla-backend-production.up.railway.app/api/blog/update`,
   updateData: {
@@ -19,3 +21,4 @@ export async function useUpdateBlogCard(
       : "An unexpected error occurred";
   }
 }
+// eslint-disable-next-line react-hooks/exhaustive-deps

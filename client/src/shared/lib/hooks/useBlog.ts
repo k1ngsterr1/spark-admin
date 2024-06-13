@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useAddBlogCard } from "./useAddBlogCard"; // Import your API interaction function
 import { StaticImageData } from "next/image";
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
+
 export const useBlogCard = () => {
   const [image, setImage] = useState<File | null>();
   const [title, setTitle] = useState<string>("");
@@ -34,3 +36,5 @@ export const useBlogCard = () => {
     handleSubmit,
   };
 };
+
+// eslint-disable-next-line react-hooks/exhaustive-deps

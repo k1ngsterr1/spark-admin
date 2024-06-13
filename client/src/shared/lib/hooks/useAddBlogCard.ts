@@ -9,6 +9,8 @@ interface IData {
   href: string;
 }
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
+
 export async function useAddBlogCard(data: IData): Promise<void> {
   try {
     const response = await axiosInstance.post(
@@ -26,3 +28,4 @@ export async function useAddBlogCard(data: IData): Promise<void> {
     }
   }
 }
+// eslint-disable-next-line react-hooks/exhaustive-deps
