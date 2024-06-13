@@ -7,6 +7,7 @@ export async function useUpdateBlogCard(
     title: string;
     href: string;
     image: File;
+    code: string;
   }
 ): Promise<void> {
   try {

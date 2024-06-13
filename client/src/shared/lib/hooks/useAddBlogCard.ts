@@ -7,6 +7,7 @@ interface IData {
   image: File | null;
   title: string;
   href: string;
+  code: string;
 }
 
 export async function useAddBlogCard(data: IData): Promise<void> {
@@ -26,3 +27,5 @@ export async function useAddBlogCard(data: IData): Promise<void> {
     }
   }
 }
+
+// "code": "SPARK-STUDIO-85209af2e07011fafd442671ef8ae84b647be17c7f517ea5942075dda6fbeeb7"

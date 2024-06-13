@@ -8,11 +8,8 @@ import { TextArea } from "@shared/ui/TextArea/index";
 import Image from "next/image";
 import Link from "next/link";
 import { StaticImageData } from "next/image";
-
-import photo from "@assets/example.png";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { AttachmentFileInput } from "@shared/ui/Inputs/AttachmentInput";
+import { useUpdateBlog } from "@shared/lib/hooks/useUpdateBlog";
 
 import styles from "./styles.module.scss";
 
@@ -30,18 +27,13 @@ export const EditBlogCard: React.FC<IBlogCard> = ({
   blogImage,
   blogTitle,
 }) => {
-  const { previewUrl, handleFileChange, selectedFile } = useFileUpload();
-  const { image, title, setTitle, href, setHref } = useBlogCard();
   const [editing, setEditing] = useState(initialEditing);
+
+  const { image, setImage, title, setTitle, href, setHref, code, setCode } =
+    useUpdateBlog();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const updateData = {
-      title: title,
-      href: href,
-      image: selectedFile,
-    };
 
     await useUpdateBlogCard(
       "https://ferla-backend-production.up.railway.app/api/blog/update/blogId",
@@ -58,29 +50,12 @@ export const EditBlogCard: React.FC<IBlogCard> = ({
       {editing ? (
         <div className={styles.container}>
           <div className=" flex flex-col items-center justify-center">
-            {previewUrl ? (
-              <img
-                src={previewUrl}
-                alt="Preview"
-                className={styles.container__previewImage}
-              />
-            ) : (
-              <label htmlFor="file-upload" className={styles.container__upload}>
-                <FontAwesomeIcon
-                  className={styles.container__upload__icon}
-                  icon={faImage}
-                />
-                <p className=" text-2xl ">Attach photo</p>
-                <input
-                  name="image"
-                  id="file-upload"
-                  type="file"
-                  required
-                  style={{ display: "none" }}
-                  onChange={handleFileChange}
-                />
-              </label>
-            )}
+            <AttachmentFileInput
+              placeholder="Add image"
+              onChange={(e) => setImage(e.target.files[0])}
+              name="image"
+              margin="mt-12"
+            />
             <TextArea
               placeholder="Add name"
               textareaType="blog"
@@ -100,6 +75,16 @@ export const EditBlogCard: React.FC<IBlogCard> = ({
               value={href}
               onChange={(e) => setHref(e.target.value)}
             />
+            <Input
+              inputType="default"
+              type="text"
+              placeholder="Add code"
+              margin="mt-16"
+              name="href"
+              required
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+            />
           </div>
         </div>
       ) : (
@@ -115,6 +100,16 @@ export const EditBlogCard: React.FC<IBlogCard> = ({
           <Link className={styles.container__card__href} href={blogHref}>
             Read More
           </Link>
+          <Input
+            inputType="default"
+            type="text"
+            placeholder="Add code"
+            margin="mt-16"
+            name="href"
+            required
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+          />
         </div>
       )}
       {editing ? (
