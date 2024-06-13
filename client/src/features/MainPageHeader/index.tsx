@@ -18,7 +18,7 @@ export const MainPageHeader: React.FC<IMainPageHeader> = ({ locale }) => {
     <header className={`${styles.header} dark:border-dark-lighter`}>
       <div className={styles.header__container}>
         <div className="flex  items-center gap-2">
-          <div className={styles.header__logo}>
+          <div className={`${styles.header__logo} hoverable`}>
             <Logo />
           </div>
           <span className={styles.header__logo_text}>Spark Admin</span>

@@ -2,15 +2,14 @@
 
 import React, { useState } from "react";
 import { useBlogCard } from "@shared/lib/hooks/useBlog";
-import useFileUpload from "@shared/lib/hooks/usePreviewPhoto";
-import Input from "@shared/ui/Inputs/DefaultInport";
 import { TextArea } from "@shared/ui/TextArea/index";
 import { Button } from "@shared/ui/Buttons_Components/Buttons/index";
 import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons/index";
-import Heading from "@shared/ui/Heading/index";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
+import Heading from "@shared/ui/Heading/index";
+import useFileUpload from "@shared/lib/hooks/usePreviewPhoto";
+import Input from "@shared/ui/Inputs/DefaultInport";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
 

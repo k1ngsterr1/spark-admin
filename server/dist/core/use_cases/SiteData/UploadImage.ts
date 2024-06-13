@@ -1,20 +1,18 @@
-import { IPageRepository } from "@core/interfaces/IPageRepository";
 import { IUserRepository } from "@core/interfaces/IUserRepository";
 import { WebsiteCommand } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
 import { validWebsiteUser } from "@core/utils/validators";
 import { ImageUpload } from "@infrastructure/config/cloudinary";
-import { PageRepository } from "@infrastructure/repositories/PageRepository";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import RequestManager from "@services/createRequest";
+import path from "path";
+import fs from "fs";
 
 export class UploadImage {
   private userRepository: IUserRepository;
-  private pageRepository: IPageRepository;
   private requestManager: RequestManager;
   constructor() {
     this.userRepository = new UserRepository();
-    this.pageRepository = new PageRepository();
     this.requestManager = new RequestManager();
   }
   async execute(
@@ -25,15 +23,11 @@ export class UploadImage {
     imagePath: string,
     errors: ErrorDetails[]
   ): Promise<void> {
-    const user = await this.userRepository.getUserFromWebsite(
+    const user = await this.userRepository.getUserFromWebsiteWithCode(
       websiteId,
       userId
     );
-
-    console.log(websiteId, user, userId);
-
     if (!user) {
-      console.log("POPKA");
       errors.push(new ErrorDetails(404, "Пользователь не найден."));
       return;
     }
@@ -44,12 +38,15 @@ export class UploadImage {
       return;
     }
 
-    const img_url = await ImageUpload(imagePath, errors);
+    const form = new FormData();
+    const image = new Blob([await fs.promises.readFile(imagePath)]);
+    form.append("image", image, path.basename(imagePath));
+    form.append("code", user.website.websiteCode);
 
     url += `/${componentId}`;
     const params = { url: url };
-    const body = { code: user.website.websiteCode, value: img_url };
+    console.log(form);
 
-    await this.requestManager.postRequest(params, body, errors);
+    await this.requestManager.postRequest(params, form, errors);
   }
 }
