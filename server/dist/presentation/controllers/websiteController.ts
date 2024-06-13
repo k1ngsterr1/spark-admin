@@ -147,13 +147,19 @@ class WebsiteController {
 
       if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json(current_error.details);
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
       res.status(201).json({ message: "Успешно создали тележку.", cart: cart });
     } catch (error) {
       console.log(error);
+      const imgPath = path.join(uploadPath, req.body.image);
+      try {
+          await fs.unlink(imgPath);
+      } catch (fileError) {
+          console.log("Image problem in add ferla cart");
+      }
       res.status(500).json({ message: "Ошибка при добавление тележки." });
     }
   }
@@ -192,7 +198,7 @@ class WebsiteController {
 
       if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json(current_error.details);
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
@@ -223,7 +229,7 @@ class WebsiteController {
 
       if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json(current_error.details);
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 

@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser");
 const compression = require("compression");
 const bodyParser = require("body-parser");
 
-const dotenv = require("dotenv").config({ path: "../.env" });
+const dotenv = require("dotenv").config({ path: "./.env" });
 
 // imports
 import authRoutes from "infrastructure/routes/authRoutes";
@@ -81,6 +81,8 @@ app.use(
   express.static(path.join(__dirname, "templates/build/ferla-bikes"))
 );
 
+app.use("/images", express.static(path.join(__dirname, "uploads")));
+
 // Статичные стили
 // app.use(
 //   "/css",
@@ -147,11 +149,15 @@ app.use("/api/page", pageRoutes);
 // Логика для вебсайта
 app.use("/api/website", websiteRoutes);
 
+// Логика для блоков
 app.use("/api/block", blockRoutes);
 
 app.use("/api/page-card", pageCardRoutes);
 
+// Логика для данных сайта
 app.use("/api/site", siteRoutes);
+
+// app.use("/api/article", articleRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
