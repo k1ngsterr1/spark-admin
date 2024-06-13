@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useBlogCard } from "@shared/lib/hooks/useBlog";
-import { useUpdateBlogCard } from "@shared/lib/hooks/useUpdateBlogCard";
 import { Button } from "@shared/ui/Buttons_Components/Buttons/index";
 import useFileUpload from "@shared/lib/hooks/usePreviewPhoto";
 import Input from "@shared/ui/Inputs/DefaultInport";
@@ -8,38 +7,52 @@ import { TextArea } from "@shared/ui/TextArea/index";
 import Image from "next/image";
 import Link from "next/link";
 import { StaticImageData } from "next/image";
-import { AttachmentFileInput } from "@shared/ui/Inputs/AttachmentInput";
-import { useUpdateBlog } from "@shared/lib/hooks/useUpdateBlog";
+import { useUpdateBlog } from "@shared/lib/hooks/useUpdateBlogCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./styles.module.scss";
 
 interface IBlogCard {
   editing: boolean;
-  blogImage: string | StaticImageData;
+  image: string | StaticImageData;
   blogTitle: string;
   blogHref: string;
   blogId: number;
 }
 
 export const EditBlogCard: React.FC<IBlogCard> = ({
-  editing: initialEditing,
-  blogHref,
-  blogImage,
+  image,
   blogTitle,
+  blogHref,
+  blogId,
+  editing: initialEditing,
 }) => {
   const [editing, setEditing] = useState(initialEditing);
 
-  const { image, setImage, title, setTitle, href, setHref, code, setCode } =
-    useUpdateBlog();
+  const { previewUrl, handleFileChange, selectedFile } = useFileUpload();
+  const [title, setTitle] = useState("");
+  const [href, setHref] = useState("");
+  const [code, setCode] = useState("");
+  const { updateBlog } = useUpdateBlog(blogId);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    await useUpdateBlogCard(
-      "https://ferla-backend-production.up.railway.app/api/blog/update/blogId",
-      updateData
-    );
-    setEditing(false);
+    console.log("id", blogId);
+
+    if (title && href && code && selectedFile) {
+      const formData = new FormData();
+      formData.append("image", selectedFile);
+      formData.append("title", title);
+      formData.append("href", href);
+      formData.append("code", code);
+      formData.append("blogId", blogId.toString());
+
+      await updateBlog(formData);
+    } else {
+      console.log("All fields are required");
+    }
   };
 
   return (
@@ -50,12 +63,28 @@ export const EditBlogCard: React.FC<IBlogCard> = ({
       {editing ? (
         <div className={styles.container}>
           <div className=" flex flex-col items-center justify-center">
-            <AttachmentFileInput
-              placeholder="Add image"
-              onChange={(e) => setImage(e.target.files[0])}
-              name="image"
-              margin="mt-12"
-            />
+            {previewUrl ? (
+              <img
+                src={previewUrl}
+                alt="Preview"
+                className={styles.container__previewImage}
+              />
+            ) : (
+              <label htmlFor="file-upload" className={styles.container__upload}>
+                <FontAwesomeIcon
+                  icon={faImage}
+                  className={styles.container__upload__icon}
+                />
+                <p className="text-xl text-primary-red">Add image</p>
+                <input
+                  name="pictureName"
+                  id="file-upload"
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={handleFileChange}
+                />
+              </label>
+            )}
             <TextArea
               placeholder="Add name"
               textareaType="blog"
@@ -90,9 +119,12 @@ export const EditBlogCard: React.FC<IBlogCard> = ({
       ) : (
         <div className={styles.container__card}>
           <Image
-            src={blogImage}
+            src={image}
             alt="Blog card"
             className={styles.container__card__image}
+            width={200}
+            height={200}
+            unoptimized={true}
           />
           <span className={`${styles.container__card__title} dark:text-white`}>
             {blogTitle}
