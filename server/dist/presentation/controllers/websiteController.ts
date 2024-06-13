@@ -131,6 +131,8 @@ class WebsiteController {
         price: req.body.price,
       };
 
+      console.log(imgPath, "image from body:", req.body.image);
+
       const cart = await this.ferlaAddCart.execute(
         userId,
         websiteId,
@@ -154,11 +156,12 @@ class WebsiteController {
       res.status(201).json({ message: "Успешно создали тележку.", cart: cart });
     } catch (error) {
       console.log(error);
+      console.log("image from body:", req.body);
       const imgPath = path.join(uploadPath, req.body.image);
       try {
-          await fs.unlink(imgPath);
+        await fs.unlink(imgPath);
       } catch (fileError) {
-          console.log("Image problem in add ferla cart");
+        console.log("Image problem in add ferla cart");
       }
       res.status(500).json({ message: "Ошибка при добавление тележки." });
     }

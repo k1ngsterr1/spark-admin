@@ -21,5 +21,8 @@
     "sign_up": "Sign Up",
     "account": "Already have an account?",
     "login": "Login"
+  },
+  "Website": {
+    "websites": "Websites"
   }
 }
