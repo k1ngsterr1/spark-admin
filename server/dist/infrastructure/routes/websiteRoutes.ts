@@ -298,7 +298,7 @@ router.post(
   (req, res) => websiteController.updateFerlaCart(req, res)
 );
 
-router.patch("/ferla-bikes/:websiteId/delete-cart/:cartId/:url", (req, res) =>
+router.delete("/ferla-bikes/:websiteId/delete-cart/:cartId/:url", (req, res) =>
   websiteController.deleteFerlaCart(req, res)
 );
 
