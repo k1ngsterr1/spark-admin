@@ -2,7 +2,7 @@ import "./useInterceptor";
 import { axiosInstance } from "./useInterceptor";
 
 export async function useUpdateBlogCard(
-  url: `https://ferla-backend-production.up.railway.app/api/blog/update`,
+  url: `https://ferla-backend-production.up.railway.app/api/blog/update/blogId`,
   updateData: {
     title: string;
     href: string;

@@ -44,7 +44,7 @@ export const EditBlogCard: React.FC<IBlogCard> = ({
     };
 
     await useUpdateBlogCard(
-      "https://ferla-backend-production.up.railway.app/api/blog/update",
+      "https://ferla-backend-production.up.railway.app/api/blog/update/blogId",
       updateData
     );
     setEditing(false);
