@@ -8,13 +8,7 @@ const express = require("express");
 const router = express.Router();
 
 // Проверка JWT токена
-router.use((req, res, next) => {
-  if (req.path === '/api/website/ferla-bikes/:websiteId/get-carts') {
-      return next();
-  }
-  authenticateToken(req, res, next);
-});
-
+router.use(authenticateToken);
 router.use(advancedLogger);
 
 const multer = require("multer");
@@ -304,7 +298,7 @@ router.post(
   (req, res) => websiteController.updateFerlaCart(req, res)
 );
 
-router.delete("/ferla-bikes/:websiteId/delete-cart", (req, res) =>
+router.patch("/ferla-bikes/:websiteId/delete-cart/:cartId/:url", (req, res) =>
   websiteController.deleteFerlaCart(req, res)
 );
 

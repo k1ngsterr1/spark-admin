@@ -216,8 +216,8 @@ class WebsiteController {
     try {
       const userId: number = req.user.id;
       const websiteId: string = req.params.websiteId;
-      const url: string = req.body.url;
-      const cartId: number = req.body.cartId;
+      const url: string = req.params.url;
+      const cartId: number = req.params.cartId;
 
       await this.ferlaDeleteCart.execute(
         userId,
