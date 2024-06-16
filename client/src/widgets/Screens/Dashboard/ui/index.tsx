@@ -7,6 +7,8 @@ import WebsiteTab from "@entities/Tabs_Components/WebsiteTab/index";
 import SkeletonLoader from "@shared/ui/Skeleton_Loader";
 
 import styles from "./styles.module.scss";
+import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 
 interface DashboardProps {
   sites: [] | any;
@@ -14,6 +16,7 @@ interface DashboardProps {
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ sites, locale }) => {
+  const t = useTranslations("Dashboard");
   const { isLoading, hasWebsites } = useGetWebsites();
   const { isAdmin } = useCheckIsAdmin();
 
@@ -30,26 +33,26 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites, locale }) => {
       <>
         <div className={styles.container}>
           <div className="flex justify-between w-[90%] items-center mb-24">
-            <Heading text="Ваши Сайты" />
+            <Heading text={t("websites")} />
             <div className="flex items-center-justify-center gap-4">
               <Button
-                text="Добавить сайт"
+                text={t("add_website")}
                 buttonType="regular--small"
                 functionType="webPopup"
               />
               <Button
-                text="Верифицировать сайт"
+                text={t("verify_website")}
                 buttonType="regular--small"
                 functionType="verifyPopup"
               />
               <ButtonLink
-                text="Создать сайт"
+                text={t("create_website")}
                 href={`/${locale}/websites/build`}
                 buttonType="regular--small"
               />
               {isAdmin && (
                 <Button
-                  text="Залить сайт"
+                  text={t("upload_website")}
                   buttonType="regular--small"
                   functionType="websiteUploadPopup"
                 />
@@ -57,7 +60,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites, locale }) => {
             </div>
           </div>
           <EmptySvg />
-          <p className={styles.container__already}>У вас еще нет сайтов</p>
+          <p className={styles.container__already}>{t("empty")}</p>
         </div>
       </>
     );
@@ -66,20 +69,20 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites, locale }) => {
   return (
     <div className="flex flex-col">
       <div className="flex w-[90%]  justify-between items-center m-auto">
-        <Heading text="Ваши Сайты" />
+        <Heading text={t("websites")} />
         <div className="flex items-center-justify-center gap-4">
           <Button
-            text="Добавить сайт"
+            text={t("add_website")}
             buttonType="regular--small"
             functionType="webPopup"
           />
           <Button
-            text="Верифицировать сайт"
+            text={t("verify_website")}
             buttonType="regular--small"
             functionType="verifyPopup"
           />
           <ButtonLink
-            text="Создать сайт"
+            text={t("create_website")}
             href={`/${locale}/websites/build`}
             buttonType="regular--small"
           />

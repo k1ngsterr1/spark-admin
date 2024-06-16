@@ -1,5 +1,5 @@
 interface ImgProps {
-  className: string;
+  className?: string;
 }
 export const EmptySvg: React.FC<ImgProps> = ({ className }) => {
   return (

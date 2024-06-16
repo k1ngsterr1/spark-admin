@@ -6,6 +6,8 @@ import { faFile, faGlobe, faHome } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
 
 import styles from "./styles.module.scss";
+import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 
 interface HeaderEditorProps {
   websiteName: string | string[];
@@ -22,10 +24,12 @@ export const HeaderEditor: React.FC<HeaderEditorProps> = ({
   pageURL,
   isLoading,
 }) => {
+  const t = useTranslations("Website");
+
   const breadcrumbData = [
-    { label: "Веб-сайты", path: "/websites", icon: faHome },
+    { label: t("websites"), path: "/websites", icon: faHome },
     { label: websiteName, path: websiteURL, icon: faGlobe },
-    { label: pageType, path: pageURL, icon: faFile },
+    // { label: pageType, path: pageURL, icon: faFile },
   ];
 
   if ((!websiteName && !websiteURL && !pageType) || !pageURL) {
@@ -60,10 +64,10 @@ export const HeaderEditor: React.FC<HeaderEditorProps> = ({
           </div>
           <Breadcrumbs crumbs={breadcrumbData} isLoading={isLoading} />
         </nav>
-        <div className="flex items-center gap-4">
+        {/* <div className="flex items-center gap-4">
           <Button text="Предпросмотр" buttonType="regular--text" />
           <Button text="Сохранить" buttonType="regular--small" />
-        </div>
+        </div> */}
       </div>
     </header>
   );

@@ -27,7 +27,10 @@ const AddBlogCard: React.FC = () => {
       </div>
       <div className={styles.container__cards}>
         {data?.map((blog, index) => (
-          <div className=" ml-8 flex flex-col justify-center items-center">
+          <div
+            className=" ml-8 flex flex-col justify-center items-center"
+            key={index}
+          >
             <EditBlogCard
               blogId={blog.id}
               editing={false}

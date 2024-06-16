@@ -1,5 +1,7 @@
 import { axiosInstance } from "./useInterceptor";
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
+
 export async function useDeleteBlogs(url: string): Promise<void> {
   try {
     const response = await axiosInstance.delete(
@@ -13,3 +15,4 @@ export async function useDeleteBlogs(url: string): Promise<void> {
       : "An unexpected error occurred";
   }
 }
+// eslint-disable-next-line react-hooks/exhaustive-deps

@@ -3,6 +3,8 @@
 import { axiosInstance } from "../hooks/useInterceptor";
 import { useState } from "react";
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
+
 export function useAddBlogCard() {
   const [blogData, setBlogData] = useState<any>();
 
@@ -26,3 +28,4 @@ export function useAddBlogCard() {
 }
 
 // "code": "SPARK-STUDIO-85209af2e07011fafd442671ef8ae84b647be17c7f517ea5942075dda6fbeeb7"
+// eslint-disable-next-line react-hooks/exhaustive-deps

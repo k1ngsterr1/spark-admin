@@ -47,14 +47,18 @@ export default class RequestManager {
   ): Promise<void> {
     try {
       const response = await axios.delete(params.url, body);
-      console.log("Response:", response.data);
+      console.log("Response:", response.data, body);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const status_code = error.response?.status || 500;
         const message =
           error.response?.data?.message || "Произошла неизветсная ошибка";
+        console.log("ОШИБКА БЛЯ:", error);
+
         errors.push(new ErrorDetails(status_code, message));
       } else {
+        console.log("ОШИБКА БЛЯ:", error);
+
         errors.push(new ErrorDetails(500, "Произошла неизветсная ошибка"));
       }
       console.error("Error making POST request:", error.message);

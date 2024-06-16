@@ -1,6 +1,5 @@
 import "./useInterceptor";
 import { axiosInstance } from "./useInterceptor";
-import { useState } from "react";
 
 export function useUpdateBlog(blogId: number) {
   const [blogData, setBlogData] = useState<any>();
@@ -21,3 +20,4 @@ export function useUpdateBlog(blogId: number) {
 
   return { updateBlog, blogData };
 }
+// eslint-disable-next-line react-hooks/exhaustive-deps

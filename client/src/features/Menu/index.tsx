@@ -5,11 +5,15 @@ import { CloseMenuButton } from "@shared/ui/CloseMenuButton";
 import { useSideMenu } from "@shared/lib/hooks/animations/useSideMenuAnimations";
 import { navlinks } from "@shared/lib/hooks/content/linksContent";
 import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { useTranslations } from "next-intl";
 import SparkLogo from "@assets/spark_product_logo.svg";
 
 import styles from "./styles.module.scss";
+import { useParams } from "next/navigation";
 
 export const Menu = () => {
+  const t = useTranslations("Menu");
+  const { locale } = useParams();
   const [isOpen, setIsOpen] = useState(true);
   const { menuRef, getTextRef } = useSideMenu(isOpen);
 
@@ -31,8 +35,8 @@ export const Menu = () => {
           <NavButton
             key={index}
             icon={link.icon}
-            href={link.href}
-            text={link.text}
+            href={`/${locale}${link.href}`}
+            text={t(link.textKey)}
             margin={link.margin}
             textRef={getTextRef(index)}
             isOpen={isOpen}
@@ -42,7 +46,7 @@ export const Menu = () => {
       <NavButton
         icon={faArrowRightToBracket}
         href="/login"
-        text="Выйти"
+        text={t("logout")}
         margin="mb-8"
         textRef={getTextRef(navlinks.length)}
         isOpen={isOpen}
