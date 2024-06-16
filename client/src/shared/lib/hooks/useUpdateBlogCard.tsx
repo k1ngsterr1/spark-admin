@@ -1,5 +1,5 @@
 import "./useInterceptor";
-import { axiosInstance } from "./useInterceptor";
+import axios from "axios";
 import { useState } from "react";
 
 export function useUpdateBlog(blogId: number) {
@@ -8,14 +8,14 @@ export function useUpdateBlog(blogId: number) {
   const updateBlog = async (data: any) => {
     try {
       const formData = new FormData();
-      const response = await axiosInstance.patch(
+      const response = await axios.post(
         `https://ferla-backend-production.up.railway.app/api/blog/update/${blogId}`,
         data
       );
       console.log("here is my data:", data, response.data);
       setBlogData(response.data);
     } catch (error) {
-      console.error("There was an error with updating showman");
+      console.error("There was an error with update blog card");
     }
   };
 

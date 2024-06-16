@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useBlogCard } from "@shared/lib/hooks/useBlog";
 import { Button } from "@shared/ui/Buttons_Components/Buttons/index";
 import useFileUpload from "@shared/lib/hooks/usePreviewPhoto";
 import Input from "@shared/ui/Inputs/DefaultInport";
@@ -109,7 +108,7 @@ export const EditBlogCard: React.FC<IBlogCard> = ({
               type="text"
               placeholder="Add code"
               margin="mt-16"
-              name="href"
+              name="code"
               required
               value={code}
               onChange={(e) => setCode(e.target.value)}
@@ -129,19 +128,9 @@ export const EditBlogCard: React.FC<IBlogCard> = ({
           <span className={`${styles.container__card__title} dark:text-white`}>
             {blogTitle}
           </span>
-          <Link className={styles.container__card__href} href={blogHref}>
+          <Link className={styles.container__card__href} href={blogHref} target="_blank">
             Read More
           </Link>
-          <Input
-            inputType="default"
-            type="text"
-            placeholder="Add code"
-            margin="mt-16"
-            name="href"
-            required
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-          />
         </div>
       )}
       {editing ? (
