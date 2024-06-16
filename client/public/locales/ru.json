@@ -24,5 +24,22 @@
   },
   "Website": {
     "websites": "Веб-сайты"
+  },
+  "Menu": {
+    "websites": "Мои сайты",
+    "users": "Мои юзеры",
+    "analytics": "Аналитика",
+    "access": "Мой доступ",
+    "support": "Поддержка",
+    "settings": "Настройки",
+    "logout": "Выйти"
+  },
+  "Dashboard": {
+    "websites": "Ваши Сайты",
+    "add_website": "Добавить сайт",
+    "verify_website": "Верифицировать сайт",
+    "create_website": "Создать сайт",
+    "upload_website": "Залить сайт",
+    "empty": "You don't have any websites"
   }
 }
