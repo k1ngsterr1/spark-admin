@@ -1,24 +1,24 @@
 import "./useInterceptor";
-import { axiosInstance } from "./useInterceptor";
+import axios from "axios";
+import { useState } from "react";
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
+export function useUpdateBlog(blogId: number) {
+  const [blogData, setBlogData] = useState<any>();
 
-export async function useUpdateBlogCard(
-  url: `https://ferla-backend-production.up.railway.app/api/blog/update`,
-  updateData: {
-    title: string;
-    href: string;
-    image: File;
-  }
-): Promise<void> {
-  try {
-    const response = await axiosInstance.patch(url, updateData);
-    console.log("Resource updated successfully:", response.data);
-  } catch (error: unknown | any) {
-    console.error("Failed to update resource:", error);
-    return error.response
-      ? error.response.data.message
-      : "An unexpected error occurred";
-  }
+  const updateBlog = async (data: any) => {
+    try {
+      const formData = new FormData();
+      const response = await axios.post(
+        `https://ferla-backend-production.up.railway.app/api/blog/update/${blogId}`,
+        data
+      );
+      console.log("here is my data:", data, response.data);
+      setBlogData(response.data);
+    } catch (error) {
+      console.error("There was an error with update blog card");
+    }
+  };
+
+  return { updateBlog, blogData };
 }
 // eslint-disable-next-line react-hooks/exhaustive-deps
