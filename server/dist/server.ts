@@ -52,7 +52,6 @@ app.use(
     parameterLimit: 50000,
   })
 );
-
 // Создание сваггера
 app.use(
   "/api-docs",
