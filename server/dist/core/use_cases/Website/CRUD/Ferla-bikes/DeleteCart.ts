@@ -1,9 +1,7 @@
 import { IUserRepository } from "@core/interfaces/IUserRepository";
-import { CartDetails } from "@core/utils/Website/Ferla-bikes/types";
 import { WebsiteCommand } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
 import { validWebsiteUser } from "@core/utils/validators";
-import { ImageUpload } from "@infrastructure/config/cloudinary";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import RequestManager from "@services/createRequest";
 
@@ -32,7 +30,7 @@ export class DeleteCart {
     const isValidUser = await validWebsiteUser(user, WebsiteCommand.update);
 
     if (!isValidUser) {
-      errors.push(new ErrorDetails(403, "У вас не достаточно прав."));
+      errors.push(new ErrorDetails(403, "У вас недостаточно прав."));
       return;
     }
 

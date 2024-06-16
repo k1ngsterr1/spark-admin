@@ -7,7 +7,6 @@ export class GetCarts{
         this.requestManager = new RequestManager();
     }
     async execute(url: string, errors: ErrorDetails[]){
-        console.log(url);
         const params = { url: url };
 
         const carts = await this.requestManager.getRequest(params, errors);
