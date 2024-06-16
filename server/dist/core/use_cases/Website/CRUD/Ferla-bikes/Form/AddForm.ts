@@ -27,18 +27,19 @@ export class AddForm{
             return;
         }
 
-        const form = new FormData();
+        const body = {};
         for (const key in formDetails){
             if (formDetails.hasOwnProperty(key)){
                 const value = formDetails[key as keyof FormDetails] as string;
-                form.append(key, value)
+                body[key] = value;
             }
         }
 
         const params = {url: url};
 
-        form.append('code', user.website.websiteCode)  
+        body['code'] = user.website.websiteCode;
+        console.log(body);
         
-        await this.requestManager.postRequest(params, form, errors)
+        await this.requestManager.postRequest(params, body, errors)
     }
 }
