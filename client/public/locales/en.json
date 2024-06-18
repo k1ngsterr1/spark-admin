@@ -47,6 +47,7 @@
   },
   "Requests": {
     "requests": "Requests",
-    "delete": "Delete"
+    "delete": "Delete",
+    "empty": "You don't have any requests"
   }
 }

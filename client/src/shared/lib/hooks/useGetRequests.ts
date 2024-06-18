@@ -13,7 +13,7 @@ export function useGetForms() {
         const response = await axiosInstance.get(
           "/api/website/ferla-bikes/89d6700c-288d-46c6-b463-60aae8b1b830/get-forms/https%3A%2F%2Fferla-backend-production.up.railway.app%2Fapi%2Fforms%2Fget-forms"
         );
-        setData(response.data.forms);
+        setData(response.data.forms.forms);
         setIsLoading(false);
       } catch (error: unknown | any) {
         setError(
@@ -26,8 +26,6 @@ export function useGetForms() {
 
     fetchData();
   });
-
-  console.log("data:", data);
 
   return { data, isLoading, error };
 }
