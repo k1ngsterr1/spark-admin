@@ -4,34 +4,23 @@ import React, { useState } from "react";
 import Heading from "@shared/ui/Heading/index";
 import { EditBlogCard } from "@entities/Card_Components/BlogCard";
 import { useGetBlogs } from "@shared/lib/hooks/useGetBlogs";
-import { useDeleteBlog } from "@shared/lib/hooks/useDeleteBlogs";
-import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons/index";
+import { useDeleteBlogCard } from "@shared/lib/hooks/useDeleteBlogs"; // Update import path as necessary
+import { ButtonLink, Button } from "@shared/ui/Buttons_Components/Buttons/index";
 import Input from "@shared/ui/Inputs/DefaultInport";
-import { Button } from "@shared/ui/Buttons_Components/Buttons/index";
 import SparkLogo from "@assets/spark_product_logo.svg";
 import styles from "./styles.module.scss";
 
-
-interface IBlogCard {
-  blogId: number;
-}
-
-const AddBlogCard: React.FC<IBlogCard> = ({blogId}) => {
+const AddBlogCard = () => {
   const { data } = useGetBlogs();
-  const { deleteBlog } = useDeleteBlog(blogId);
-  const [code, setCode] = useState("");
+  const { deleteBlog } = useDeleteBlogCard();
+  const [code, setCode] = useState(""); 
 
-  const handleDelete = async (blogId: string) => {
-
-    console.log("id", blogId);
-
+  const handleDeleteBlog = (blogId: number) => {
     if (code) {
-      const formData = new FormData();
-      formData.append("code", code);
-      formData.append("blogId", blogId);
-      await deleteBlog(formData);
+      deleteBlog({ blogId, code });
+      console.log(blogId);
     } else {
-      console.log("All fields are required");
+      console.error("Special code is required", blogId);
     }
   };
 
@@ -40,7 +29,6 @@ const AddBlogCard: React.FC<IBlogCard> = ({blogId}) => {
       <div className={styles.container}>
         <div className={styles.container__logo}><SparkLogo /></div>
         <Heading text="All cards" margin="mt-8" />
-        
       </div>
       <div className={styles.container__cards}>
         {data?.map((blog) => (
@@ -56,17 +44,15 @@ const AddBlogCard: React.FC<IBlogCard> = ({blogId}) => {
               buttonType="regular"
               text="Delete"
               margin="mt-6"
-              onClick={() => handleDelete(blog.id)}
+              onClick={() => handleDeleteBlog(blog.id)}
             />
             <Input
-          inputType="default"
+        inputType="default"
           type="text"
-          placeholder="Add code for all deletes"
-          margin="mt-20"
-          name="code"
-          required
+          placeholder="Enter special code"
           value={code}
           onChange={(e) => setCode(e.target.value)}
+          margin="mt-4"
         />
           </div>
         ))}
