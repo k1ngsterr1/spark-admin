@@ -40,6 +40,13 @@
     "verify_website": "Верифицировать сайт",
     "create_website": "Создать сайт",
     "upload_website": "Залить сайт",
-    "empty": "You don't have any websites"
+    "empty": "У вас пока нет веб-сайтов"
+  },
+  "Search": {
+    "search": "Поиск"
+  },
+  "Requests": {
+    "requests": "Заявки",
+    "delete": "Удалить"
   }
 }

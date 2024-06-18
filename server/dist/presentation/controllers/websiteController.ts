@@ -14,7 +14,10 @@ import { AllWebsitesUsers } from "@core/use_cases/Website/GetAllWebsitesUsers";
 import { DeleteWebsite } from "@core/use_cases/Website/DeleteWebsite";
 import { CheckVerification } from "@core/use_cases/Website/CheckVerification";
 import WebsiteService from "@services/websiteService";
-import { CartDetails, FormDetails } from "@core/utils/Website/Ferla-bikes/types";
+import {
+  CartDetails,
+  FormDetails,
+} from "@core/utils/Website/Ferla-bikes/types";
 import { AddCart } from "@core/use_cases/Website/CRUD/Ferla-bikes/AddCart";
 const fs = require("fs").promises;
 import path from "path";
@@ -258,7 +261,6 @@ class WebsiteController {
     const errors: ErrorDetails[] = [];
     try {
       const url: string = req.params.url;
-
       const carts = await this.ferlaGetCarts.execute(url, errors);
 
       if (errors.length > 0) {
@@ -275,26 +277,34 @@ class WebsiteController {
   }
 
   // Получение заявок для ферла
-  async getFerlaForms(req: Request, res: Response): Promise<void>{
+  async getFerlaForms(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
     try {
       const url: string = req.params.url;
-      const forms = await this.ferlaGetForm.execute(url, errors)
-      if (errors.length > 0){
+      const userID: number = req.user.id;
+      const websiteID: string = req.params.websiteId;
+
+      const forms = await this.ferlaGetForm.execute(
+        url,
+        websiteID,
+        userID,
+        errors
+      );
+      if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json({message: current_error.details})
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
-      res.status(200).json({message: "Успешно получили формы.", forms})
+      res.status(200).json({ message: "Успешно получили формы.", forms });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       res.status(500).json({ message: "Ошибка при получении форм." });
     }
   }
 
   // Удалени заявок для ферла
-  async deleteFerlaForms(req: Request, res: Response): Promise<void>{
+  async deleteFerlaForms(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
     try {
       const userId: number = req.user.id;
@@ -303,44 +313,12 @@ class WebsiteController {
       const formId: number = req.params.formId;
 
       await this.ferlaDeleteForm.execute(
-        userId, 
+        userId,
         websiteId,
         url,
         formId,
         errors
-      )
-
-      if (errors.length > 0){
-        const current_error = errors[0];
-        res.status(current_error.code).json({message: current_error.details})
-        return;
-      }
-
-      res.status(200).json({message: "Успешно удалили форму."})
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({message: "Ошибка при удаление тележки."})
-    }
-  }
-
-
-  async addFerlaForms(req: Request, res: Response): Promise<void>{
-    const errors: ErrorDetails[] = [];
-    try {
-      const userId: number = req.user.id;
-      const websiteId: string = req.params.websiteId;
-      const url: string = req.body.url;
-
-
-      const formDetails: FormDetails = {
-        name: req.body.name,
-        phoneNumber: req.body.phoneNumber,
-        email: req.body.email,
-        date: req.body.date,
-      }
-  
-      const form = await this.ferlaAddForm.execute(userId, websiteId, url, formDetails, errors )
-
+      );
 
       if (errors.length > 0) {
         const current_error = errors[0];
@@ -348,10 +326,46 @@ class WebsiteController {
         return;
       }
 
-      res.status(201).json({message: "Успешно создали заявку формы", form: form})
-
+      res.status(200).json({ message: "Успешно удалили форму." });
     } catch (error) {
-      res.status(500).json({message: "Ошибка при создании формы"})
+      console.log(error);
+      res.status(500).json({ message: "Ошибка при удаление тележки." });
+    }
+  }
+
+  async addFerlaForms(req: Request, res: Response): Promise<void> {
+    const errors: ErrorDetails[] = [];
+    try {
+      const userId: number = req.user.id;
+      const websiteId: string = req.params.websiteId;
+      const url: string = req.body.url;
+
+      const formDetails: FormDetails = {
+        name: req.body.name,
+        phoneNumber: req.body.phoneNumber,
+        email: req.body.email,
+        date: req.body.date,
+      };
+
+      const form = await this.ferlaAddForm.execute(
+        userId,
+        websiteId,
+        url,
+        formDetails,
+        errors
+      );
+
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json({ message: current_error.details });
+        return;
+      }
+
+      res
+        .status(201)
+        .json({ message: "Успешно создали заявку формы", form: form });
+    } catch (error) {
+      res.status(500).json({ message: "Ошибка при создании формы" });
     }
   }
 
@@ -441,8 +455,6 @@ class WebsiteController {
     try {
       const url: string = req.params.url;
       const userID: number = req.user.id;
-
-      console.log("get elements from website");
 
       const isVerified = await this.checkVerificationUseCase.execute(
         userID,

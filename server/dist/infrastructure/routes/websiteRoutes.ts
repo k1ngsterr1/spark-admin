@@ -286,7 +286,6 @@ router.delete("/delete", (req, res) =>
   websiteController.deleteWebsite(req, res)
 );
 
-
 // Ferla Bikes here:
 router.post(
   "/ferla-bikes/:websiteId/add-cart",
@@ -308,14 +307,20 @@ router.get("/ferla-bikes/:websiteId/get-carts", (req, res) =>
   websiteController.getFerlaCarts(req, res)
 );
 
+router.get("/ferla-bikes/:websiteId/get-forms/:url", (req, res) =>
+  websiteController.getFerlaForms(req, res)
+);
 
-router.get("/ferla-bikes/:websiteId/get-forms", (req, res)=> websiteController.getFerlaForms(req, res))
+router.delete(
+  "/ferla-bikes/:websiteId/delete-form/:formId/:url",
+  (req, res) => {
+    websiteController.deleteFerlaForms(req, res);
+  }
+);
 
-router.delete("/ferla-bikes/:websiteId/delete-form/:formId/:url", (req, res)=> {
-  websiteController.deleteFerlaForms(req, res)
-})
-
-router.post("/ferla-bikes/:websiteId/add-form", (req, res)=>  websiteController.addFerlaForms(req, res))
+router.post("/ferla-bikes/:websiteId/add-form", (req, res) =>
+  websiteController.addFerlaForms(req, res)
+);
 
 router.use("/page", pageRoutes);
 
