@@ -6,7 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from "./styles.module.scss";
 
-export const KebabMenu = () => {
+interface IKebabMenu {
+  buttons: React.ReactNode[] | React.ReactNode;
+}
+
+export const KebabMenu: React.FC<IKebabMenu> = ({ buttons }) => {
   const [isKebabOpen, setKebabOpen] = useState(false);
 
   const handleOpenMenu = () => {
@@ -22,10 +26,11 @@ export const KebabMenu = () => {
           size="xl"
         />
         {isKebabOpen && (
-          <div className={styles.kebab_opened}>
-            <span className="mt-2">Добавить</span>
+          <div className={`${styles.kebab_opened} dark:bg-dark-upper`}>
+            {buttons}
+            {/* <span className="mt-2">Добавить</span>
             <span className="mt-2">Изменить</span>
-            <span className="mt-2 mb-2">Удалить</span>
+            <span className="mt-2 mb-2">Удалить</span> */}
           </div>
         )}
       </button>

@@ -21,3 +21,4 @@ export function useUpdateBlog(blogId: number) {
 
   return { updateBlog, blogData };
 }
+// eslint-disable-next-line react-hooks/exhaustive-deps

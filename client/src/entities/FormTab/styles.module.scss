@@ -1,0 +1,88 @@
+.form_tab {
+  position: relative;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  transition: 0.3s all;
+  border: 2px solid;
+  cursor: pointer;
+  transition: 0.3s all;
+  @apply rounded-lg;
+  @apply p-5;
+  @apply mt-8;
+  @apply border-primary;
+
+  &:hover {
+    @apply shadow-xl;
+  }
+
+  &__name {
+    display: flex;
+    align-items: center;
+    transition: 0.3s all;
+    @apply gap-2;
+    @apply text-2xl;
+    @apply text-primary;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &__icon {
+      @apply text-2xl;
+    }
+  }
+
+  &__phoneNumber {
+    display: flex;
+    align-items: center;
+    @apply mt-4;
+    @apply gap-2;
+    @apply text-lg;
+    @apply text-white;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &__icon {
+      @apply text-xl;
+    }
+  }
+
+  &__email {
+    display: flex;
+    align-items: center;
+    @apply mt-4;
+    @apply gap-2;
+    @apply text-lg;
+    @apply text-white;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &__icon {
+      @apply text-xl;
+    }
+  }
+
+  &__date {
+    display: flex;
+    align-items: center;
+    @apply mt-4;
+    @apply gap-2;
+    @apply text-lg;
+    @apply text-white;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &__icon {
+      @apply text-xl;
+    }
+  }
+}

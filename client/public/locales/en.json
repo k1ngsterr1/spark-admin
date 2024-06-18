@@ -21,5 +21,33 @@
     "sign_up": "Sign Up",
     "account": "Already have an account?",
     "login": "Login"
+  },
+  "Website": {
+    "websites": "Websites"
+  },
+  "Menu": {
+    "websites": "Websites",
+    "users": "My users",
+    "analytics": "Analytics",
+    "access": "My access",
+    "support": "Support",
+    "settings": "Settings",
+    "logout": "Log out"
+  },
+  "Dashboard": {
+    "websites": "Your Websites",
+    "add_website": "Add website",
+    "verify_website": "Verify website",
+    "create_website": "Create website",
+    "upload_website": "Upload website",
+    "empty": "You don't have any websites"
+  },
+  "Search": {
+    "search": "Search"
+  },
+  "Requests": {
+    "requests": "Requests",
+    "delete": "Delete",
+    "empty": "You don't have any requests"
   }
 }

@@ -24,7 +24,7 @@ export class AddCart{
         const isValidUser = await validWebsiteUser(user, WebsiteCommand.update);
 
         if(!isValidUser){
-            errors.push(new ErrorDetails(403, "У вас не достаточно прав."));
+            errors.push(new ErrorDetails(403, "У вас недостаточно прав."));
             return;
         }
 
@@ -43,10 +43,8 @@ export class AddCart{
         }
         const params = { url: url };
 
-        console.log(user.website.websiteCode);
 
         form.append('code', user.website.websiteCode);
-        console.log(form);
 
         await this.requestManager.postRequest(params, form, errors);
     }

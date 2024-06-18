@@ -1,8 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
 
+<<<<<<< HEAD
 export function useDeleteBlogCard() {
   const [blogData, setBlogData] = useState();
+=======
+// eslint-disable-next-line react-hooks/exhaustive-deps
+
+export function useDeleteBlog(blogId: number) {
+  const [blogData, setBlogData] = useState<any>();
+>>>>>>> origin/gaidarka
 
   const deleteBlog = async ({ blogId, code}) => {
     try {
@@ -25,3 +32,4 @@ export function useDeleteBlogCard() {
 
   return { deleteBlog, blogData };
 }
+// eslint-disable-next-line react-hooks/exhaustive-deps

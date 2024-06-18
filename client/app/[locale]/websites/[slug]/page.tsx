@@ -8,7 +8,6 @@ import styles from "./styles.module.scss";
 
 export default function WebsitePage() {
   const { slug } = useParams();
-  const { htmlContent } = useFetchUploadedPage(slug);
 
   return (
     <div className={`flex flex-col ${styles.page}`}>
@@ -19,7 +18,7 @@ export default function WebsitePage() {
         pageURL={slug}
         pageType={slug}
       />
-      <main className="flex flex-col w-full h-full border-2">
+      <main className="flex flex-col w-full h-full ">
         <iframe
           src={`https://spark-admin-production.up.railway.app/${slug}/`}
           width="100%"

@@ -68,6 +68,15 @@ export interface SiteDataAttributes {
   updatedAt: Date;
 }
 
+export interface FormAttributes{
+    id: number;
+    code: string;
+    name: string;
+    phoneNumber: string;
+    email: string;
+    date: Date;
+}
+
 export interface ComponentAttributes {
   id: number;
   pageId: number;
@@ -123,6 +132,13 @@ export interface NewWebsiteInput {
   websiteCode: string;
   websiteSignature: string;
   websiteCodeSignature: string;
+}
+
+export interface NewFormInput{
+  name: string;
+  phoneNumber: string;
+  email: string;
+  date: Date;
 }
 
 export interface NewPageInput {
