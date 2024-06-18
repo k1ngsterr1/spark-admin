@@ -14,6 +14,7 @@ export function useUpdateBlog(blogId: number) {
       );
       console.log("here is my data:", data, response.data);
       setBlogData(response.data);
+      window.location.reload();
     } catch (error) {
       console.error("There was an error with update blog card");
     }
@@ -21,4 +22,3 @@ export function useUpdateBlog(blogId: number) {
 
   return { updateBlog, blogData };
 }
-// eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,35 +1,33 @@
-import axios from "axios";
-import { useState } from "react";
+'use client';
 
-<<<<<<< HEAD
+import axios from 'axios';
+import { useState } from 'react';
+
 export function useDeleteBlogCard() {
-  const [blogData, setBlogData] = useState();
-=======
-// eslint-disable-next-line react-hooks/exhaustive-deps
 
-export function useDeleteBlog(blogId: number) {
-  const [blogData, setBlogData] = useState<any>();
->>>>>>> origin/gaidarka
+  const deleteBlog = async (blogId) => {
+    if (!blogId) {
+      console.error('blogId is required');
+      return;
+    }
 
-  const deleteBlog = async ({ blogId, code}) => {
+    const blogIdString = String(blogId);
+
     try {
-      const formData = new FormData();
-      formData.append('blogId', blogId);
-      formData.append("SPARK-STUDIO-85209af2e07011fafd442671ef8ae84b647be17c7f517ea5942075dda6fbeeb7", code);
-
       const response = await axios.delete(
-        `https://ferla-backend-production.up.railway.app/api/blog/delete/${blogId}/${code}`, 
+        `https://ferla-backend-production.up.railway.app/api/blog/delete/${blogIdString}/SPARK-STUDIO-85209af2e07011fafd442671ef8ae84b647be17c7f517ea5942075dda6fbeeb7`, 
         {
-          data: formData  
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
       );
-      console.log("Deleted blog data:", response.data);
-      setBlogData(response.data);
+      console.log('Deleted blog data:', response.data);
+      window.location.reload(); 
     } catch (error) {
-      console.error("There was an error deleting the blog:", error);
+      console.error('There was an error deleting the blog:', error);
     }
   };
 
-  return { deleteBlog, blogData };
+  return { deleteBlog};
 }
-// eslint-disable-next-line react-hooks/exhaustive-deps
