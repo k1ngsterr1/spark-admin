@@ -7,23 +7,25 @@ export function useGetForms() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchData = async () => {
-    try {
-      const response = await axiosInstance.get(
-        "/api/website/ferla-bikes/89d6700c-288d-46c6-b463-60aae8b1b830/get-forms/https%3A%2F%2Fferla-backend-production.up.railway.app%2Fapi%2Fforms%2Fget-forms"
-      );
-      setData(response.data.forms.forms);
-      setIsLoading(false);
-    } catch (error: unknown | any) {
-      setError(
-        "Failed to fetch data: " +
-          (error.response?.data.message || error.message)
-      );
-      setIsLoading(false);
-    }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.get(
+          "/api/website/ferla-bikes/89d6700c-288d-46c6-b463-60aae8b1b830/get-forms/https%3A%2F%2Fferla-backend-production.up.railway.app%2Fapi%2Fforms%2Fget-forms"
+        );
+        setData(response.data.forms.forms);
+        setIsLoading(false);
+      } catch (error: unknown | any) {
+        setError(
+          "Failed to fetch data: " +
+            (error.response?.data.message || error.message)
+        );
+        setIsLoading(false);
+      }
+    };
 
-  fetchData();
+    fetchData();
+  }, []); // The empty array ensures this effect runs only once
 
   return { data, isLoading, error };
 }
