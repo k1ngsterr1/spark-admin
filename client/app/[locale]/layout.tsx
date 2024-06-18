@@ -33,7 +33,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <AppProvider>
             <ThemeProvider attribute="class" enableSystem={true}>
-              <div className="main">{children}</div>
+              {children}
             </ThemeProvider>
           </AppProvider>
         </NextIntlClientProvider>

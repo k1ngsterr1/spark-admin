@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { SearchBar } from "@features/SearchBar";
 import { ThemeButton } from "@entities/DarkTheme";

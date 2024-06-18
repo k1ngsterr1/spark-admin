@@ -41,5 +41,13 @@
     "create_website": "Create website",
     "upload_website": "Upload website",
     "empty": "You don't have any websites"
+  },
+  "Search": {
+    "search": "Search"
+  },
+  "Requests": {
+    "requests": "Requests",
+    "delete": "Delete",
+    "empty": "You don't have any requests"
   }
 }

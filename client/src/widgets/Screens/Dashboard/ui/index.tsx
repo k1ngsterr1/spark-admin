@@ -70,7 +70,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites, locale }) => {
     <div className="flex flex-col">
       <div className="flex w-[90%]  justify-between items-center m-auto">
         <Heading text={t("websites")} />
-        <div className="flex items-center-justify-center gap-4">
+        <div className="flex items-center justify-center gap-4">
           <Button
             text={t("add_website")}
             buttonType="regular--small"

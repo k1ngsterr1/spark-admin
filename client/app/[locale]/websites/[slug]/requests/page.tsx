@@ -1,21 +1,25 @@
-"use client";
 import React from "react";
-import { HeaderEditor } from "@features/HeaderEditor";
-import { useParams } from "next/navigation";
-
-import styles from "../styles.module.scss";
-import Heading from "@shared/ui/Heading";
+import { Metadata } from "next";
 import { Menu } from "@features/Menu";
 import { Header } from "@features/Header";
+import { RequestsDashboard } from "@widgets/Screens/RequestsDashboard/ui";
+
+import styles from "./styles.module.scss";
+
+export async function generateMetadata({ params }): Promise<Metadata> {
+  return {
+    title: "Your Requests | Spark Admin",
+    description: "Your Requests",
+  };
+}
 
 const RequestsPage = () => {
-  const { slug } = useParams();
-
   return (
     <div className={`flex`}>
       <Menu />
-      <main className="flex flex-col w-full h-full">
+      <main className={`flex flex-col w-full ${styles.main}`}>
         <Header />
+        <RequestsDashboard />
       </main>
     </div>
   );
