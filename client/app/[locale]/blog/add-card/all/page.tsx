@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Heading from "@shared/ui/Heading/index";
 import { EditBlogCard } from "@entities/Card_Components/BlogCard";
 import { useGetBlogs } from "@shared/lib/hooks/useGetBlogs";
-import { useDeleteBlog } from "@shared/lib/hooks/useDeleteBlogs";
-import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons/index";
-import Input from "@shared/ui/Inputs/DefaultInport";
-import { Button } from "@shared/ui/Buttons_Components/Buttons/index";
+import { useDeleteBlogCard } from "@shared/lib/hooks/useDeleteBlogs"; 
+import { ButtonLink, Button } from "@shared/ui/Buttons_Components/Buttons/index";
 import SparkLogo from "@assets/spark_product_logo.svg";
 import styles from "./styles.module.scss";
 
@@ -15,26 +13,17 @@ interface IBlogCard {
   blogId: number;
 }
 
-const AddBlogCard: React.FC<IBlogCard> = ({ blogId }) => {
+const AddBlogCard: React.FC<IBlogCard> = () => {
   const { data } = useGetBlogs();
-  const { deleteBlog } = useDeleteBlog(blogId);
-  const [code, setCode] = useState("");
+  const { deleteBlog } = useDeleteBlogCard();
 
-  const handleDelete = async (blogId: string) => {
-    console.log("id", blogId);
-
-    if (code) {
-      const formData = new FormData();
-      formData.append("code", code);
-      formData.append("blogId", blogId);
-      await deleteBlog(formData);
-    } else {
-      console.log("All fields are required");
-    }
+  const handleDeleteBlog = (blogId: string) => {
+    deleteBlog(blogId);
+    console.log(blogId);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center m-auto">
       <div className={styles.container}>
         <div className={styles.container__logo}>
           <SparkLogo />
@@ -42,11 +31,10 @@ const AddBlogCard: React.FC<IBlogCard> = ({ blogId }) => {
         <Heading text="All cards" margin="mt-8" />
       </div>
       <div className={styles.container__cards}>
-        {data?.map((blog) => (
+        {data?.map((blog, index) => (
           <div
             key={blog.id}
             className="ml-8 flex flex-col justify-center items-center"
-            key={index}
           >
             <EditBlogCard
               blogId={blog.id}
@@ -59,17 +47,7 @@ const AddBlogCard: React.FC<IBlogCard> = ({ blogId }) => {
               buttonType="regular"
               text="Delete"
               margin="mt-6"
-              onClick={() => handleDelete(blog.id)}
-            />
-            <Input
-              inputType="default"
-              type="text"
-              placeholder="Add code for all deletes"
-              margin="mt-20"
-              name="code"
-              required
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
+              onClick={() => handleDeleteBlog(blog.id)}
             />
           </div>
         ))}
