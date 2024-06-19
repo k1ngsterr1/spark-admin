@@ -23,7 +23,8 @@
     "login": "Login"
   },
   "Website": {
-    "websites": "Websites"
+    "websites": "Websites",
+    "requests": "Requests"
   },
   "Menu": {
     "websites": "Websites",
@@ -49,5 +50,8 @@
     "requests": "Requests",
     "delete": "Delete",
     "empty": "You don't have any requests"
+  },
+  "Editor": {
+    "editor": "Text Editor"
   }
 }

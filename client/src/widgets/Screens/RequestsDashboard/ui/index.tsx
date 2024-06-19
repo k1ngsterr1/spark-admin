@@ -4,11 +4,10 @@ import { useTranslations } from "next-intl";
 import { useGetForms } from "@shared/lib/hooks/useGetRequests";
 import { FormTab } from "@entities/FormTab";
 import { EmptySvg } from "@assets/index";
+import { SkeletonFormTab } from "@entities/SkeletonFormTab";
 import Heading from "@shared/ui/Heading";
 
 import styles from "../../../../../app/[locale]/websites/[slug]/requests/styles.module.scss";
-import SkeletonLoader from "@shared/ui/Skeleton_Loader";
-import { SkeletonFormTab } from "@entities/SkeletonFormTab";
 
 export const RequestsDashboard = () => {
   const t = useTranslations("Requests");

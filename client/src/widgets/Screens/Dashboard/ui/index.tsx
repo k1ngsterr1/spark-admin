@@ -1,24 +1,37 @@
+"use client";
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
 import { Button, ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 import { useGetWebsites } from "@shared/lib/hooks/useGetWebsites";
 import { EmptySvg } from "@assets/index";
 import { useCheckIsAdmin } from "@shared/lib/hooks/useCheckIsAdmin";
+import { useTranslations } from "next-intl";
+import { WebsiteItem } from "@shared/lib/types";
 import Heading from "@shared/ui/Heading/index";
 import WebsiteTab from "@entities/Tabs_Components/WebsiteTab/index";
 import SkeletonLoader from "@shared/ui/Skeleton_Loader";
 
 import styles from "./styles.module.scss";
-import { useTranslations } from "next-intl";
-import { useParams } from "next/navigation";
 
-interface DashboardProps {
-  sites: [] | any;
-  locale: string | string[];
-}
-
-export const Dashboard: React.FC<DashboardProps> = ({ sites, locale }) => {
+export const Dashboard = () => {
   const t = useTranslations("Dashboard");
   const { isLoading, hasWebsites } = useGetWebsites();
   const { isAdmin } = useCheckIsAdmin();
+  const [data, setData] = useState<WebsiteItem[]>([]);
+  const { locale } = useParams();
+
+  useEffect(() => {
+    const usefetchData = async () => {
+      try {
+        const result = await useGetWebsites();
+        setData(result);
+      } catch (error) {
+        console.error("Failed to fetch websites:", error);
+      }
+    };
+
+    usefetchData();
+  }, []);
 
   if (isLoading) {
     return (
@@ -88,7 +101,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ sites, locale }) => {
           />
         </div>
       </div>
-      {sites.map((site: any | unknown) => (
+      {data.map((site: any | unknown) => (
         <WebsiteTab
           key={site.id}
           name={site.name}
