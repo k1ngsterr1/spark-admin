@@ -17,7 +17,6 @@ import "./styles.scss";
 export const Editor = () => {
   const { locale } = useParams();
   const t = useTranslations("Editor");
-  const [state, setState] = React.useState({ value: null });
   const [content, setContent] = useState("");
   const { addArticle } = useAddArticle();
   const predefinedCode =
@@ -61,7 +60,7 @@ export const Editor = () => {
           text="Go Back"
           buttonType="regular"
           href={`/${locale}/websites`}
-          margin="mt-8"
+          margin="mt-8 mb-8"
         />
       </div>
     </section>

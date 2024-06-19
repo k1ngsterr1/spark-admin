@@ -1,0 +1,22 @@
+.support_tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @apply gap-4;
+
+  &__icon {
+    width: 32px;
+    height: 32px;
+    font-size: 32px;
+    @apply text-primary;
+  }
+
+  &__name {
+    @apply font-bold;
+    @apply text-lg;
+  }
+
+  &__description {
+    @apply mt-4;
+  }
+}
