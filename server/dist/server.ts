@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser");
 const compression = require("compression");
 const bodyParser = require("body-parser");
 
-const dotenv = require("dotenv").config({ path: "../.env" });
+const dotenv = require("dotenv").config({ path: "./.env" });
 
 // imports
 import authRoutes from "infrastructure/routes/authRoutes";

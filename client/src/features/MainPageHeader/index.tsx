@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 import { ThemeButton } from "@entities/DarkTheme";
@@ -6,13 +7,11 @@ import Logo from "@assets/spark_product_logo.svg";
 import styles from "./styles.module.scss";
 import { useTranslations } from "next-intl";
 import { SwitchLocale } from "@shared/ui/SwitchLocale";
+import { useParams } from "next/navigation";
 
-interface IMainPageHeader {
-  locale: string | string[];
-}
-
-export const MainPageHeader: React.FC<IMainPageHeader> = ({ locale }) => {
+export const MainPageHeader = () => {
   const t = useTranslations("MainPage");
+  const { locale } = useParams();
 
   return (
     <header className={`${styles.header} dark:border-dark-lighter`}>

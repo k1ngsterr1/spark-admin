@@ -38,12 +38,14 @@
   &__phoneNumber {
     display: flex;
     align-items: center;
+    transition: 0.3s all;
     @apply mt-4;
     @apply gap-2;
     @apply text-lg;
-    @apply text-white;
+    @apply text-dark-lighter;
 
     &:hover {
+      @apply text-primary;
       text-decoration: underline;
     }
 
@@ -55,12 +57,14 @@
   &__email {
     display: flex;
     align-items: center;
+    transition: 0.3s all;
     @apply mt-4;
     @apply gap-2;
     @apply text-lg;
-    @apply text-white;
+    @apply text-dark-lighter;
 
     &:hover {
+      @apply text-primary;
       text-decoration: underline;
     }
 
@@ -72,12 +76,14 @@
   &__date {
     display: flex;
     align-items: center;
+    transition: 0.3s all;
     @apply mt-4;
     @apply gap-2;
     @apply text-lg;
-    @apply text-white;
+    @apply text-dark-lighter;
 
     &:hover {
+      @apply text-primary;
       text-decoration: underline;
     }
 

@@ -23,7 +23,8 @@
     "login": "Login"
   },
   "Website": {
-    "websites": "Websites"
+    "websites": "Websites",
+    "requests": "Requests"
   },
   "Menu": {
     "websites": "Websites",
@@ -49,5 +50,31 @@
     "requests": "Requests",
     "delete": "Delete",
     "empty": "You don't have any requests"
+  },
+  "Editor": {
+    "editor": "Text Editor"
+  },
+  "Support": {
+    "support": "Support",
+    "Accounts": {
+      "title": "Accounts",
+      "description": "Update your account information, change your password, and manage linked accounts."
+    },
+    "Websites": {
+      "title": "Websites",
+      "description": "Manage your websites, update site settings, and troubleshoot common issues."
+    },
+    "Users": {
+      "title": "Users",
+      "description": "Manage user accounts, permissions, and roles within your organization."
+    },
+    "Analytics": {
+      "title": "Analytics",
+      "description": "View and analyze your data with detailed reports and insights."
+    },
+    "Access": {
+      "title": "Access",
+      "description": "Control access settings, manage security options, and set up multi-factor authentication."
+    }
   }
 }

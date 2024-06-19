@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 70vh;
+  min-height: 70vh;
   &__already {
     @apply mt-12;
     font-size: clamp(9px, 18 / 1360 * 100vw, 36px);

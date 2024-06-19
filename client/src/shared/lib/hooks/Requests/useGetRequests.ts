@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { axiosInstance } from "./useInterceptor";
+import { axiosInstance } from "../useInterceptor";
 
 export function useGetForms() {
   const [data, setData] = useState<any | null>(null);
@@ -25,7 +25,7 @@ export function useGetForms() {
     };
 
     fetchData();
-  });
+  }, []); // The empty array ensures this effect runs only once
 
   return { data, isLoading, error };
 }

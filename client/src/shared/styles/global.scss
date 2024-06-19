@@ -40,6 +40,16 @@ body {
   min-height: 100vh;
 }
 
+body.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
 .main {
   min-height: 100vh;
 }

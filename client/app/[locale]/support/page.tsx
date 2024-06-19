@@ -1,24 +1,26 @@
 import React from "react";
 import { Menu } from "@features/Menu";
-import SettingsPage from "@widgets/Screens/Settings";
+import { SupportScreen } from "@widgets/Screens/Support";
+import { Metadata } from "next";
 import { Header } from "@features/Header";
 
 export async function generateMetadata({ params }): Promise<Metadata> {
   return {
-    title: "Settings | Spark Admin",
-    description: "Your Settings",
+    title: "Support | Spark Admin",
+    description: "Support",
   };
 }
 
-export const Settings = () => {
+const Support = () => {
   return (
     <div className="flex">
       <Menu />
-      <div className="flex flex-col w-full">
+      <main className="flex flex-col w-full">
         <Header />
-        <SettingsPage />
-      </div>
+        <SupportScreen />
+      </main>
     </div>
   );
 };
-export default Settings;
+
+export default Support;

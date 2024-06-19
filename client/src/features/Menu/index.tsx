@@ -15,7 +15,7 @@ export const Menu = () => {
   const t = useTranslations("Menu");
   const { locale } = useParams();
   const [isOpen, setIsOpen] = useState(true);
-  const { menuRef, getTextRef } = useSideMenu(isOpen);
+  const { menuRef, getTextRef, logoRef } = useSideMenu(isOpen);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -27,7 +27,7 @@ export const Menu = () => {
       ref={menuRef}
     >
       <CloseMenuButton onClick={toggleMenu} isOpen />
-      <div className={styles.menu__logo}>
+      <div className={styles.menu__logo} ref={logoRef}>
         <SparkLogo />
       </div>
       <nav className={styles.menu__nav}>
