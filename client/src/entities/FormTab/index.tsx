@@ -1,6 +1,4 @@
 import React from "react";
-
-import styles from "./styles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendar,
@@ -11,12 +9,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { KebabMenu } from "@shared/ui/KebabMenu";
 import { useTranslations } from "next-intl";
+import { useDeleteRequest } from "@shared/lib/hooks/Requests/useDeleteRequests";
+
+import styles from "./styles.module.scss";
 
 interface IFormTab {
   name: string;
   phoneNumber: string;
   email: string;
   date: string;
+  index: number;
 }
 
 export const FormTab: React.FC<IFormTab> = ({
@@ -24,8 +26,10 @@ export const FormTab: React.FC<IFormTab> = ({
   phoneNumber,
   email,
   date,
+  index,
 }) => {
   const t = useTranslations("Requests");
+  const { deleteRequest } = useDeleteRequest();
 
   return (
     <div className={`${styles.form_tab} dark:bg-dark-lighter`}>
@@ -36,7 +40,7 @@ export const FormTab: React.FC<IFormTab> = ({
         />
         {name}
       </span>
-      <span className={styles.form_tab__phoneNumber}>
+      <span className={`${styles.form_tab__phoneNumber} dark:text-white`}>
         {" "}
         <FontAwesomeIcon
           icon={faPhone}
@@ -44,7 +48,7 @@ export const FormTab: React.FC<IFormTab> = ({
         />{" "}
         {phoneNumber}
       </span>
-      <span className={styles.form_tab__email}>
+      <span className={`${styles.form_tab__email} dark:text-white`}>
         {" "}
         <FontAwesomeIcon
           icon={faEnvelope}
@@ -52,7 +56,7 @@ export const FormTab: React.FC<IFormTab> = ({
         />{" "}
         {email}
       </span>
-      <span className={styles.form_tab__date}>
+      <span className={`${styles.form_tab__date} dark:text-white`}>
         {" "}
         <FontAwesomeIcon
           icon={faCalendar}
@@ -60,7 +64,13 @@ export const FormTab: React.FC<IFormTab> = ({
         />{" "}
         {date}
       </span>
-      <KebabMenu buttons={<span className="mt-2 mb-2">{t("delete")}</span>} />
+      <KebabMenu
+        buttons={
+          <span className="mt-2 mb-2" onClick={() => deleteRequest(index)}>
+            {t("delete")}
+          </span>
+        }
+      />
     </div>
   );
 };

@@ -1,26 +1,33 @@
-import "./useInterceptor";
-import axios from "axios";
-import { useState } from "react";
+'use client';
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
+import axios from 'axios';
+import { useState } from 'react';
 
-export function useDeleteBlog(blogId: number) {
-  const [blogData, setBlogData] = useState<any>();
+export function useDeleteBlogCard() {
 
-  const deleteBlog = async (data: any) => {
+  const deleteBlog = async (blogId) => {
+    if (!blogId) {
+      console.error('blogId is required');
+      return;
+    }
+
+    const blogIdString = String(blogId);
+
     try {
-      const formData = new FormData();
       const response = await axios.delete(
-        `https://ferla-backend-production.up.railway.app/api/blog/delete/${blogId}`,
-        data
+        `https://ferla-backend-production.up.railway.app/api/blog/delete/${blogIdString}/SPARK-STUDIO-85209af2e07011fafd442671ef8ae84b647be17c7f517ea5942075dda6fbeeb7`, 
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
       );
-      console.log("here is my data:", data, response.data);
-      setBlogData(response.data);
+      console.log('Deleted blog data:', response.data);
+      window.location.reload(); 
     } catch (error) {
-      console.error("There was an error with update blog card");
+      console.error('There was an error deleting the blog:', error);
     }
   };
 
-  return { deleteBlog, blogData };
+  return { deleteBlog};
 }
-// eslint-disable-next-line react-hooks/exhaustive-deps

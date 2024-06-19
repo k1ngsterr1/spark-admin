@@ -5,27 +5,30 @@ import ReactQuill from "react-quill";
 import EditorToolbar, { modules, formats } from "@features/QuillToolBar";
 import { Button, ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 import Heading from "@shared/ui/Heading/index";
-
 import SparkLogo from "@assets/spark_product_logo.svg";
-
 import "react-quill/dist/quill.snow.css";
 import "./styles.scss";
 import { useParams } from "next/navigation";
 import { Header } from "@features/Header";
 import { useTranslations } from "next-intl";
+import { useAddArticle } from "@shared/lib/hooks/useAddArticle";
 
 export const Editor = () => {
   const { locale } = useParams();
   const t = useTranslations("Editor");
   const [state, setState] = React.useState({ value: null });
-  const [isFullscreen, setFullscreen] = useState<boolean>(false);
+  const [content, setContent] = useState("");
+  const { addArticle } = useAddArticle();
+  const predefinedCode =
+    "SPARK-STUDIO-85209af2e07011fafd442671ef8ae84b647be17c7f517ea5942075dda6fbeeb7";
 
-  const handleFullscreen = () => {
-    setFullscreen(!isFullscreen);
+  const handleChange = (value: any) => {
+    setContent(value);
   };
 
-  const handleChange = (value) => {
-    setState({ value });
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    addArticle(content, predefinedCode);
   };
 
   return (
@@ -39,7 +42,7 @@ export const Editor = () => {
         <EditorToolbar />
         <ReactQuill
           theme="snow"
-          value={state.value}
+          value={content}
           onChange={handleChange}
           modules={modules}
           formats={formats}
@@ -49,8 +52,9 @@ export const Editor = () => {
         <Button
           text="Publish"
           buttonType="regular"
-          margin="mt-8"
+          margin="mt-8 mb-8"
           type="submit"
+          onClick={handleSubmit}
         />
         <ButtonLink
           text="Go Back"
