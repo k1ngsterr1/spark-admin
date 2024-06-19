@@ -1,3 +1,7 @@
+@import "breakpoint-slicer";
+@import "../../../shared/styles/mixins";
+@import "../../../shared/styles/variables";
+
 .sites_section {
   @apply p-8;
   width: 40%;
@@ -15,6 +19,34 @@
   &__name {
     font-size: clamp(20px, 2.0832vw, 80px);
     font-weight: 500;
+
+    @include respond-to("md") {
+      font-size: clamp(12px, 24 / 992 * 100vw, 48px);
+    }
+
+    @include respond-to("lg") {
+      font-size: clamp(12px, 24 / 1200 * 100vw, 48px);
+    }
+
+    @include respond-to("xl") {
+      font-size: clamp(12px, 24 / 1360 * 100vw, 48px);
+    }
+
+    @include respond-to("2xl") {
+      font-size: clamp(12px, 24 / 1520 * 100vw, 48px);
+    }
+
+    @include respond-to("3xl") {
+      font-size: clamp(12px, 24 / 1680 * 100vw, 48px);
+    }
+
+    @include respond-to("4xl") {
+      font-size: clamp(12px, 24 / 1920 * 100vw, 48px);
+    }
+
+    @include respond-to("5xl") {
+      font-size: clamp(12px, 24 / 2560 * 100vw, 48px);
+    }
   }
 
   &__row {
@@ -28,12 +60,69 @@
     &__item {
       @apply mr-1.5;
       align-items: center;
+
+      @include respond-to("md") {
+        font-size: clamp(8px, 16 / 992 * 100vw, 32px);
+      }
+
+      @include respond-to("lg") {
+        font-size: clamp(8px, 16 / 1200 * 100vw, 32px);
+      }
+
+      @include respond-to("xl") {
+        font-size: clamp(8px, 16 / 1360 * 100vw, 32px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(8px, 16 / 1520 * 100vw, 32px);
+      }
+
+      @include respond-to("3xl") {
+        font-size: clamp(8px, 16 / 1680 * 100vw, 32px);
+      }
+
+      @include respond-to("4xl") {
+        font-size: clamp(8px, 16 / 1920 * 100vw, 32px);
+      }
+
+      @include respond-to("5xl") {
+        font-size: clamp(8px, 16 / 2560 * 100vw, 32px);
+      }
     }
 
     &__hover {
       width: 100%;
-      font-size: clamp(10px,1.0416vw,40px);
+      font-size: clamp(10px, 1.0416vw, 40px);
       transition: 0.3s all;
+
+      @include respond-to("md") {
+        font-size: clamp(8px, 16 / 992 * 100vw, 32px);
+      }
+
+      @include respond-to("lg") {
+        font-size: clamp(8px, 16 / 1200 * 100vw, 32px);
+      }
+
+      @include respond-to("xl") {
+        font-size: clamp(8px, 16 / 1360 * 100vw, 32px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(8px, 16 / 1520 * 100vw, 32px);
+      }
+
+      @include respond-to("3xl") {
+        font-size: clamp(8px, 16 / 1680 * 100vw, 32px);
+      }
+
+      @include respond-to("4xl") {
+        font-size: clamp(8px, 16 / 1920 * 100vw, 32px);
+      }
+
+      @include respond-to("5xl") {
+        font-size: clamp(8px, 16 / 2560 * 100vw, 32px);
+      }
+
       &:hover {
         @apply text-primary;
       }
@@ -41,8 +130,37 @@
 
     &__click {
       width: 100%;
-      font-size: clamp(10px,1.0416vw,40px);
+      font-size: clamp(10px, 1.0416vw, 40px);
       transition: 0.3s all;
+
+      @include respond-to("md") {
+        font-size: clamp(8px, 16 / 992 * 100vw, 32px);
+      }
+
+      @include respond-to("lg") {
+        font-size: clamp(8px, 16 / 1200 * 100vw, 32px);
+      }
+
+      @include respond-to("xl") {
+        font-size: clamp(8px, 16 / 1360 * 100vw, 32px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(8px, 16 / 1520 * 100vw, 32px);
+      }
+
+      @include respond-to("3xl") {
+        font-size: clamp(8px, 16 / 1680 * 100vw, 32px);
+      }
+
+      @include respond-to("4xl") {
+        font-size: clamp(8px, 16 / 1920 * 100vw, 32px);
+      }
+
+      @include respond-to("5xl") {
+        font-size: clamp(8px, 16 / 2560 * 100vw, 32px);
+      }
+
       &:hover {
         @apply text-primary;
         cursor: pointer;

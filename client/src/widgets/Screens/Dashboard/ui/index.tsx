@@ -15,23 +15,9 @@ import styles from "./styles.module.scss";
 
 export const Dashboard = () => {
   const t = useTranslations("Dashboard");
-  const { isLoading, hasWebsites } = useGetWebsites();
+  const { isLoading, hasWebsites, data } = useGetWebsites();
   const { isAdmin } = useCheckIsAdmin();
-  const [data, setData] = useState<WebsiteItem[]>([]);
   const { locale } = useParams();
-
-  useEffect(() => {
-    const usefetchData = async () => {
-      try {
-        const result = await useGetWebsites();
-        setData(result);
-      } catch (error) {
-        console.error("Failed to fetch websites:", error);
-      }
-    };
-
-    usefetchData();
-  }, []);
 
   if (isLoading) {
     return (
