@@ -3,15 +3,16 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import EditorToolbar, { modules, formats } from "@features/QuillToolBar";
-import { Button, ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 import Heading from "@shared/ui/Heading/index";
 import SparkLogo from "@assets/spark_product_logo.svg";
-import "react-quill/dist/quill.snow.css";
-import "./styles.scss";
 import { useParams } from "next/navigation";
 import { Header } from "@features/Header";
 import { useTranslations } from "next-intl";
 import { useAddArticle } from "@shared/lib/hooks/useAddArticle";
+import { Button, ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
+
+import "react-quill/dist/quill.snow.css";
+import "./styles.scss";
 
 export const Editor = () => {
   const { locale } = useParams();
