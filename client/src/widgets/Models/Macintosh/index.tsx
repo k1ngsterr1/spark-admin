@@ -14,12 +14,7 @@ const Macintosh = () => {
 
 export const ModelViewer = () => {
   return (
-    <Canvas
-      className={styles.canvas}
-      style={{
-        height: "100vh",
-      }}
-    >
+    <Canvas className={styles.canvas}>
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
       <Macintosh />

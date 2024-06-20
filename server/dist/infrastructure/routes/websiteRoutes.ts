@@ -307,9 +307,7 @@ router.get("/ferla-bikes/:websiteId/get-carts", (req, res) =>
   websiteController.getFerlaCarts(req, res)
 );
 
-router.get("/ferla-bikes/:websiteId/get-forms/:url", (req, res) =>
-  websiteController.getFerlaForms(req, res)
-);
+
 
 router.delete(
   "/ferla-bikes/:websiteId/delete-form/:formId/:url",
