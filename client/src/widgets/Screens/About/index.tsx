@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+import { ModelViewer } from "@widgets/Models/Macintosh";
 
 import styles from "./styles.module.scss";
 
@@ -10,6 +12,7 @@ export const AboutBlock = () => {
         <span className={styles.about__under_heading}>
           Unleashing the Power of Efficient Management!
         </span>
+        <ModelViewer />
       </div>
     </section>
   );

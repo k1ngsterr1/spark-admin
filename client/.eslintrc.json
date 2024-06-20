@@ -1,5 +1,10 @@
 {
-  "extends": "next/core-web-vitals",
+  "extends": ["next", "next/core-web-vitals"],
+  "parserOptions": {
+    "babelOptions": {
+      "presets": ["next/babel"]
+    }
+  },
   "rules": {
     "react-hooks/rules-of-hooks": "off" // to turn off globally
   }
