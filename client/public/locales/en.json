@@ -3,7 +3,25 @@
     "miniText": "An innovative solution for your websites.",
     "paragraph": "Our innovative approaches allow you to create unique and effective websites tailored to your needs. We use cutting-edge technology to provide a fast, secure and convenient user experience. With our solutions, your website will stand out among competitors and attract more visitors",
     "login": "Login",
-    "documentation": "Docs"
+    "documentation": "Docs",
+    "cards": {
+      "card_first": {
+        "name": "Convenience",
+        "description": "Manage your tasks and projects with maximum comfort and ease."
+      },
+      "card_second": {
+        "name": "Efficiency",
+        "description": "Optimize your workflows and achieve your goals faster."
+      },
+      "card_third": {
+        "name": "Reliability",
+        "description": "Trust our tool for stable and reliable project management."
+      }
+    },
+    "about": {
+      "heading": "What is Spark Admin?",
+      "under_heading": "Unleashing the Power of Efficient Management."
+    }
   },
   "LoginPage": {
     "heading": "Login",

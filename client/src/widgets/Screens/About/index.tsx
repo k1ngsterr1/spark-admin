@@ -3,11 +3,13 @@ import React from "react";
 import { ModelViewer } from "@widgets/Models/Macintosh";
 import { SwiperCard } from "@entities/Swiper_Card";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useTranslations } from "next-intl";
 
 import styles from "./styles.module.scss";
-import { useHolographicAnimation } from "@shared/lib/hooks/animations/useHolographicAnimation";
 
 export const AboutBlock = () => {
+  const t = useTranslations("MainPage");
+
   return (
     <section className={styles.about}>
       <div className="flex flex-col items-center">
@@ -15,11 +17,7 @@ export const AboutBlock = () => {
         <span className={styles.about__under_heading}>
           Unleashing the Power of Efficient Management.
         </span>
-        <SwiperCard
-          name="Удобство"
-          description="Lorem Ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum"
-          icon={faUser}
-        />
+        {}
       </div>
     </section>
   );
