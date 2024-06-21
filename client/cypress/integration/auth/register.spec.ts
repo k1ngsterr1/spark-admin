@@ -25,8 +25,8 @@ describe("Registration", () => {
     // Fill out the registration form with an existing email
     cy.get('input[name="username"]').type("existinguser");
     cy.get('input[name="email"]').type("existinguser@example.com");
-    cy.get('input[name="password"]').type("Password123");
-    cy.get('input[name="passwordConfirmation"]').type("Password123");
+    cy.get('input[name="password"]').type("Password123@_@");
+    cy.get('input[name="passwordConfirmation"]').type("Password123@_@");
 
     // Submit the form
     cy.get("form").submit();
