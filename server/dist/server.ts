@@ -5,21 +5,21 @@ const compression = require("compression");
 const bodyParser = require("body-parser");
 // const { convert_to_webp } = require("wasm_image_converter");
 const fs = require("fs");
-
 const dotenv = require("dotenv").config({ path: "../.env" });
 
-// imports
+// Routes
 import authRoutes from "infrastructure/routes/authRoutes";
 import blogRoutes from "@infrastructure/routes/blogRoutes";
 import websiteRoutes from "infrastructure/routes/websiteRoutes";
 import pageRoutes from "@infrastructure/routes/pageRoutes";
 import userRoutes from "@infrastructure/routes/userRoutes";
-import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
-import { accessToken } from "@infrastructure/middleware/authMiddleware";
 import blockRoutes from "@infrastructure/routes/blockRoutes";
 import pageCardRoutes from "@infrastructure/routes/pageCardRoutes";
-import path from "path";
 import siteRoutes from "@infrastructure/routes/siteRoutes";
+
+import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
+import { accessToken } from "@infrastructure/middleware/authMiddleware";
+import path from "path";
 
 const app = express();
 
@@ -145,7 +145,6 @@ app.use("/images", express.static(path.join(__dirname, "uploads")));
 app.use(compression());
 
 // Роуты:
-
 /**
  * @swagger
  * components:
@@ -174,6 +173,7 @@ app.post("/access", (req, res) => accessToken(req, res));
 // Логика для аутентификация
 app.use("/api/auth", authRoutes);
 
+// Логика для написания блога
 app.use("/api/blog", blogRoutes);
 
 // Логика для пользователей
@@ -188,6 +188,7 @@ app.use("/api/website", websiteRoutes);
 // Логика для блоков
 app.use("/api/block", blockRoutes);
 
+// Логика для добавления карточек страниц
 app.use("/api/page-card", pageCardRoutes);
 
 // Логика для данных сайта

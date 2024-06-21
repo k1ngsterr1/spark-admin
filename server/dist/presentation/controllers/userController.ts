@@ -94,6 +94,9 @@ class UserController {
       // Check if the user is verified
       if (!user.isVerified) {
         const verificationCode = generateVerificationCode();
+
+        await this.userRepository.saveVerificationCode(user, verificationCode);
+
         await this.emailVerification.sendVerificationEmail(
           user.email,
           user.username,
