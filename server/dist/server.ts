@@ -3,7 +3,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const compression = require("compression");
 const bodyParser = require("body-parser");
-const { convert_to_webp } = require("wasm_image_converter");
+// const { convert_to_webp } = require("wasm_image_converter");
 const fs = require("fs");
 
 const dotenv = require("dotenv").config({ path: "../.env" });
@@ -108,16 +108,16 @@ app.use(
 
 app.use("/images", express.static(path.join(__dirname, "uploads")));
 
-app.post("/convert", upload.single("image"), (req, res) => {
-  const imgBuffer = fs.readFileSync(req.file.path);
-  const quality = 25; // Set the desired quality for the WebP image
+// app.post("/convert", upload.single("image"), (req, res) => {
+//   const imgBuffer = fs.readFileSync(req.file.path);
+//   const quality = 25; // Set the desired quality for the WebP image
 
-  const webpImage = convert_to_webp(new Uint8Array(imgBuffer), quality);
+//   const webpImage = convert_to_webp(new Uint8Array(imgBuffer), quality);
 
-  // Optionally save or immediately send the image
-  fs.writeFileSync("output.webp", Buffer.from(webpImage));
-  res.download("output.webp", "converted_image.webp"); // This sends the converted file to the client
-});
+//   // Optionally save or immediately send the image
+//   fs.writeFileSync("output.webp", Buffer.from(webpImage));
+//   res.download("output.webp", "converted_image.webp"); // This sends the converted file to the client
+// });
 
 // Статичные стили
 // app.use(
