@@ -16,7 +16,6 @@ export default function useSubmitEmail() {
     const newCode = [...code];
     newCode[index] = value.slice(0, 1); // Assuming you want only the first character
     setCode(newCode);
-    console.log("Updated code array:", newCode);
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -26,7 +25,6 @@ export default function useSubmitEmail() {
     let concatenatedCode = code.join("");
 
     concatenatedCode = concatenatedCode.toUpperCase();
-    console.log("Submitting concatenated code:", concatenatedCode);
 
     // Pass the concatenated code as a string
     const result = await useEmailConfirm({ code: concatenatedCode });
