@@ -13,7 +13,7 @@ const PopupGeneric: React.FC<PopupProps> = ({ children, onClose }) => {
     e.stopPropagation();
 
   return (
-    <div className={styles.overlay}>
+    <div className={styles.overlay} onClick={onClose}>
       <div
         className={`${styles.popup} dark:bg-dark-lighter`}
         onClick={handlePopupContentClick}

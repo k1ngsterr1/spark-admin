@@ -3,6 +3,7 @@ import React, { SyntheticEvent } from "react";
 import { useWebPopup } from "@shared/lib/contexts/AppContext";
 import { useAddWebsite } from "@shared/lib/hooks/Websites/useAddWebsite";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
+import { useTranslations } from "next-intl";
 import InputProp from "@shared/ui/Inputs/DefaultInport";
 
 import Logo from "@assets/spark_product_logo.svg";
@@ -12,6 +13,7 @@ import styles from "../CodePopup/styles.module.scss";
 export const WebsitePopup = () => {
   const { isWebPopupVisible, toggleWebPopup } = useWebPopup();
   const { addWebsite, url, setUrl, name, setName } = useAddWebsite();
+  const t = useTranslations("Popups");
 
   const handlePopupClick = (event: SyntheticEvent) => {
     event.stopPropagation();
@@ -30,10 +32,10 @@ export const WebsitePopup = () => {
         <div className={styles.website_popup__logo}>
           <Logo />
         </div>
-        <span className={styles.website_popup__text}>Добавьте веб-сайт</span>
+        <span className={styles.website_popup__text}>{t("website.text")}</span>
         <form onSubmit={addWebsite} className="flex flex-col items-center">
           <InputProp
-            placeholder="Имя сайта"
+            placeholder={t("website.name")}
             margin="mt-8"
             inputType="default"
             name="name"
@@ -41,7 +43,7 @@ export const WebsitePopup = () => {
             onChange={(e) => setName(e.target.value)}
           />
           <InputProp
-            placeholder="URL вашего сайта"
+            placeholder={t("website.url")}
             margin="mt-8"
             inputType="default"
             name="url"

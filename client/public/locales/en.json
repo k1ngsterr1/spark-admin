@@ -23,6 +23,21 @@
       "under_heading": "Unleashing the Power of Efficient Management."
     }
   },
+  "Popups": {
+    "website": {
+      "text": "Add website",
+      "name": "Website Name",
+      "url": "Website URL"
+    },
+    "code": {
+      "text": "Get your verification code",
+      "url": "Website URL",
+      "get_code": "Get code",
+      "loading": "Loading...",
+      "check_code": "Check code",
+      "close": "Close"
+    }
+  },
   "LoginPage": {
     "heading": "Login",
     "password": "Password",
