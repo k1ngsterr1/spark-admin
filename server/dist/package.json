@@ -6,7 +6,7 @@
   "scripts": {
     "migrate:prod": "set NODE_ENV=production && npx sequelize-cli db:migrate",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec  ts-node -r ts1fig-paths/register server.ts",
+    "start": "nodemon --exec  ts-node -r tsconfig-paths/register server.ts",
     "sequelize": "sequelize"
   },
   "author": "",
