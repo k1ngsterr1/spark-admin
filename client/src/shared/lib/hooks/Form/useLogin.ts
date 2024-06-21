@@ -14,9 +14,9 @@ export async function useLogin(
     const isVerified = response.data.user.isVerified;
 
     if (isVerified === true) {
-      window.location.href = `/${locale}/websites`;
+      window.location.href = `websites`;
     } else {
-      window.location.href = `${locale}/email-confirmation`;
+      window.location.href = `email-confirmation`;
     }
 
     const userData = {

@@ -99,7 +99,7 @@ class UserController {
     const errors: ErrorDetails[] = [];
     try {
       const request: Request = {
-        id: req.body.id,
+        id: req.user.id,
         code: req.body.code,
       };
       const verifyUser = await this.verifyService.execute(request, errors);

@@ -54,8 +54,9 @@ const EmailConfirm = () => {
               <Input
                 key={index}
                 inputType="email"
+                placeholder=""
                 autoComplete="off"
-                value={code}
+                // value={code}
                 name={`code-${index}`}
                 onChange={(e) => handleInputChange(index, e.target.value)}
                 maxLength={1}
