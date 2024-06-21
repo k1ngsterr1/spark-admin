@@ -32,7 +32,6 @@ export class Login {
   }> {
     const { email, password } = request;
     const user = await this.userRepository.findOne({ where: { email: email } });
-    console.log(user);
 
     if (user === null) {
       errors.push(new ErrorDetails(404, "Не удалось найти пользователя."));
@@ -46,7 +45,6 @@ export class Login {
       errors.push(new ErrorDetails(404, "Неверный пароль!"));
       return;
     }
-    console.log(user);
 
     const userResponse: UserResponse = {
       id: user.id,

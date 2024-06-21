@@ -13,10 +13,15 @@ import {
 import { Login } from "@core/use_cases/User/LoginUser";
 import { ErrorDetails } from "@core/utils/utils";
 import { CheckAdminRole } from "@core/use_cases/User/CheckAdmin";
+import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import { generateVerificationCode } from "@core/utils/generateCode"; // Ensure the path is correct
+import EmailService from "@core/use_cases/User/EmailVerification";
 
 class UserController {
   private createUserUseCase: CreateUser;
   private loginLogic: Login;
+  private emailVerification: EmailService;
+  private userRepository: UserRepository;
   private isSparkAdminLogic: CheckAdminRole;
   private changeUserRoleService: ChangeUserRoleService;
   private verifyService: VerifyService;
@@ -25,6 +30,8 @@ class UserController {
 
   constructor() {
     this.jwtService = new JWTService();
+    this.emailVerification = new EmailService();
+    this.userRepository = new UserRepository();
     this.isSparkAdminLogic = new CheckAdminRole();
     this.changeUserRoleService = new ChangeUserRoleService();
     this.verifyService = new VerifyService();
@@ -60,6 +67,7 @@ class UserController {
   }
 
   // Вход в систему
+  // Вход в систему
   async login(req: Request, res: Response, next: any): Promise<void> {
     const errors: ErrorDetails[] = [];
     try {
@@ -79,9 +87,30 @@ class UserController {
       const { user, accessToken, refreshToken } = data;
 
       res.cookie("refreshToken", refreshToken, {
-        maxAge: process.env.COOKIE_LIFESPAN,
+        maxAge: parseInt(process.env.COOKIE_LIFESPAN || "3600000"), // Ensure COOKIE_LIFESPAN is an integer
         httpOnly: true,
       });
+
+      // Check if the user is verified
+      if (!user.isVerified) {
+        const verificationCode = generateVerificationCode();
+        await this.emailVerification.sendVerificationEmail(
+          user.email,
+          user.username,
+          verificationCode
+        );
+
+        res.status(200).json({
+          message:
+            "Пользователь вошёл успешно. Код подтверждения отправлен на почту.",
+          user,
+          accessToken,
+          refreshToken,
+        });
+
+        return;
+      }
+
       res.status(200).json({
         message: "Пользователь вошёл успешно",
         user,
@@ -113,6 +142,44 @@ class UserController {
       res
         .status(201)
         .json({ message: "Пользователь успешно подтвержден!", verifyUser });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: error.message });
+    }
+  }
+
+  // Отправка письма еще раз
+  async resendVerificationEmail(req: Request, res: Response): Promise<void> {
+    const errors: ErrorDetails[] = [];
+
+    try {
+      const userId = req.user.id;
+      const user = await this.userRepository.findByPk(userId);
+
+      if (!user) {
+        errors.push(new ErrorDetails(404, "Пользователь не найден."));
+        res.status(404).json({ message: "Пользователь не найден." });
+        return;
+      }
+
+      if (user.isVerified) {
+        res.status(400).json({ message: "Пользователь уже подтвержден." });
+        return;
+      }
+
+      // Generate a new verification code using the function
+      const verificationCode = generateVerificationCode();
+
+      // Send the verification email
+      await this.emailVerification.sendVerificationEmail(
+        user.email,
+        user.username,
+        verificationCode
+      );
+
+      res
+        .status(200)
+        .json({ message: "Письмо с подтверждением отправлено повторно." });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });
@@ -205,6 +272,7 @@ class UserController {
     }
   }
 
+  // Проверка является ли пользователь Spark Admin'ом
   async checkSparkAdmin(req: Request, res: Response): Promise<boolean> {
     const userID = req.user.id;
 
