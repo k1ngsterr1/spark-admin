@@ -13,6 +13,7 @@ export function useGetWebsites() {
       try {
         setIsLoading(true);
         const response = await axiosInstance.get("/api/website");
+        console.log("websites:", response);
         setData(response.data);
         setHasWebsites(response.data.length > 0);
       } catch (error) {

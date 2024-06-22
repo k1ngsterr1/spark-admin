@@ -1,9 +1,12 @@
 {
   "devDependencies": {
     "breakpoint-slicer": "^3.0.0-beta.1",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "tsconfig-paths": "^4.2.0"
   },
   "dependencies": {
-    "puppeteer": "^22.7.1"
+    "@react-three/a11y": "^3.0.0",
+    "puppeteer": "^22.7.1",
+    "three": "^0.165.0"
   }
 }

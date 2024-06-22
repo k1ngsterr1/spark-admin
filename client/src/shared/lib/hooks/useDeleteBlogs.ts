@@ -1,18 +1,33 @@
-import { axiosInstance } from "./useInterceptor";
+'use client';
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
+import axios from 'axios';
+import { useState } from 'react';
 
-export async function useDeleteBlogs(url: string): Promise<void> {
-  try {
-    const response = await axiosInstance.delete(
-      `https://ferla-backend-production.up.railway.app/api/blog/delete`
-    );
-    console.log("Resource deleted successfully:", response.data);
-  } catch (error: unknown | any) {
-    console.error("Failed to delete resource:", error);
-    return error.response
-      ? error.response.data.message
-      : "An unexpected error occurred";
-  }
+export function useDeleteBlogCard() {
+
+  const deleteBlog = async (blogId) => {
+    if (!blogId) {
+      console.error('blogId is required');
+      return;
+    }
+
+    const blogIdString = String(blogId);
+
+    try {
+      const response = await axios.delete(
+        `https://ferla-backend-production.up.railway.app/api/blog/delete/${blogIdString}/SPARK-STUDIO-85209af2e07011fafd442671ef8ae84b647be17c7f517ea5942075dda6fbeeb7`, 
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log('Deleted blog data:', response.data);
+      window.location.reload(); 
+    } catch (error) {
+      console.error('There was an error deleting the blog:', error);
+    }
+  };
+
+  return { deleteBlog};
 }
-// eslint-disable-next-line react-hooks/exhaustive-deps

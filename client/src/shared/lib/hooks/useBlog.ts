@@ -10,6 +10,7 @@ export const useBlogCard = () => {
   const [image, setImage] = useState<File | null>();
   const [title, setTitle] = useState<string>("");
   const [href, setHref] = useState<string>("");
+  const [code, setCode] = useState<string>("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -17,6 +18,7 @@ export const useBlogCard = () => {
       image, // Assuming image is already in the required format (URL or base64)
       title,
       href,
+      code,
     };
     try {
       await useAddBlogCard(data);
@@ -34,6 +36,8 @@ export const useBlogCard = () => {
     href,
     setHref,
     handleSubmit,
+    code,
+    setCode,
   };
 };
 

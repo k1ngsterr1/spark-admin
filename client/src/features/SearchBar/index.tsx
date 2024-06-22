@@ -4,8 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./styles.module.scss";
+import { useTranslations } from "next-intl";
 
 export const SearchBar = () => {
+  const t = useTranslations("Search");
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -24,7 +26,7 @@ export const SearchBar = () => {
           type="text"
           className={`${styles.search_tab__input}`}
           value={searchTerm}
-          placeholder="Поиск"
+          placeholder={t("search")}
           onChange={(e) => setSearchTerm(e.target.value)}
           //   onBlur={() => setIsExpanded(false)}
           //   onKeyPress={(e) => e.key === 'Enter' && handleSearch()}

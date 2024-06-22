@@ -1,27 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
-
+import React from "react";
 import Heading from "@shared/ui/Heading/index";
 import { EditBlogCard } from "@entities/Card_Components/BlogCard";
 import { useGetBlogs } from "@shared/lib/hooks/useGetBlogs";
-import { useDeleteBlogs } from "@shared/lib/hooks/useDeleteBlogs";
-import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons/index";
-import { Button } from "@shared/ui/Buttons_Components/Buttons/index";
-
+import { useDeleteBlogCard } from "@shared/lib/hooks/useDeleteBlogs"; 
+import { ButtonLink, Button } from "@shared/ui/Buttons_Components/Buttons/index";
 import SparkLogo from "@assets/spark_product_logo.svg";
-
 import styles from "./styles.module.scss";
 
-const AddBlogCard: React.FC = () => {
-  const { data } = useGetBlogs();
+interface IBlogCard {
+  blogId: number;
+}
 
-  const handleDelete = async (blogId: string) => {
-    await useDeleteBlogs(blogId);
+const AddBlogCard: React.FC<IBlogCard> = () => {
+  const { data } = useGetBlogs();
+  const { deleteBlog } = useDeleteBlogCard();
+
+  const handleDeleteBlog = (blogId: string) => {
+    deleteBlog(blogId);
+    console.log(blogId);
   };
 
   return (
-    <div className=" flex flex-col items-center justify-center ">
+    <div className="flex flex-col items-center justify-center m-auto">
       <div className={styles.container}>
         <div className={styles.container__logo}>
           <SparkLogo />
@@ -31,13 +33,13 @@ const AddBlogCard: React.FC = () => {
       <div className={styles.container__cards}>
         {data?.map((blog, index) => (
           <div
-            className=" ml-8 flex flex-col justify-center items-center"
-            key={index}
+            key={blog.id}
+            className="ml-8 flex flex-col justify-center items-center"
           >
             <EditBlogCard
               blogId={blog.id}
               editing={false}
-              blogImage={blog.Blogimage}
+              image={blog.image}
               blogTitle={blog.title}
               blogHref={blog.href}
             />
@@ -45,7 +47,7 @@ const AddBlogCard: React.FC = () => {
               buttonType="regular"
               text="Delete"
               margin="mt-6"
-              onClick={() => handleDelete(blog.id)}
+              onClick={() => handleDeleteBlog(blog.id)}
             />
           </div>
         ))}

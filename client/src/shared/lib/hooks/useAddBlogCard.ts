@@ -1,31 +1,27 @@
 "use client";
 
 import { axiosInstance } from "../hooks/useInterceptor";
-import { StaticImageData } from "next/image";
+import { useState } from "react";
 
-interface IData {
-  image: File | null;
-  title: string;
-  href: string;
-}
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
+export function useAddBlogCard() {
+  const [blogData, setBlogData] = useState<any>();
 
-export async function useAddBlogCard(data: IData): Promise<void> {
-  try {
-    const response = await axiosInstance.post(
-      "https://ferla-backend-production.up.railway.app/api/blog/add",
-      data
-    );
-    console.log("Data created:", response.data);
-    // window.location.reload();
-  } catch (error: unknown | any) {
-    console.error("Failed to create data:", error);
-    if (error.response) {
-      return error.response.data.message;
-    } else {
-      return "An unexpected error occurred";
+  const addBlog = async (data: any) => {
+    try {
+      const formData = new FormData();
+      Object.keys(data).forEach((key) => formData.append(key, data[key]));
+
+      const response = await axiosInstance.post(
+        "https://ferla-backend-production.up.railway.app/api/blog/add",
+        data
+      );
+      console.log("here is my data:", data, response.data);
+      setBlogData(response.data);
+    } catch (error) {
+      console.error("There was an error with adding product");
     }
-  }
+  };
+
+  return { addBlog, blogData };
 }
-// eslint-disable-next-line react-hooks/exhaustive-deps
