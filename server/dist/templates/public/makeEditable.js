@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("SCRIPT IMPLEMENTED");
   function makeElementsEditable() {
     const editableElements = document.querySelectorAll("[id^='editable']");
 
@@ -12,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         element.addEventListener("blur", function () {
           const [name, _, websiteId, componentId] = element.id.split("_");
           const route = `https://spark-admin-production.up.railway.app/api/site/update/${componentId}`;
-//<script src="https://spark-admin-production.up.railway.app/makeEditable.js"></script>
+          //<script src="https://spark-admin-production.up.railway.app/makeEditable.js"></script>
           const data = {
             newValue: element.textContent.replace(/\u00a0/g, " ").trim(),
             websiteId: websiteId,
