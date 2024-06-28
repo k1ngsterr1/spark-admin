@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { axiosInstance } from './useInterceptor';
+import { useState, useEffect } from "react";
+import { axiosInstance } from "./useInterceptor";
 
 // Function to fetch blocks
 export function useFetchBlocks(type) {
@@ -9,10 +9,12 @@ export function useFetchBlocks(type) {
   useEffect(() => {
     const fetchBlocks = async () => {
       try {
-        const response = await axiosInstance.get(`/api/block/get-blocks/${type}`);
+        const response = await axiosInstance.get(
+          `/api/block/get-blocks/${type}`
+        );
         setData(response.data);
       } catch (error) {
-        console.error('Failed to fetch blocks:', error);
+        console.error("Failed to fetch blocks:", error);
       } finally {
         setLoading(false);
       }

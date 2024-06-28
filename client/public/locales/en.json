@@ -36,6 +36,11 @@
       "loading": "Loading...",
       "check_code": "Check code",
       "close": "Close"
+    },
+    "upload": {
+      "upload": "Upload Website",
+      "your_build": "Your Build",
+      "button": "Upload"
     }
   },
   "LoginPage": {

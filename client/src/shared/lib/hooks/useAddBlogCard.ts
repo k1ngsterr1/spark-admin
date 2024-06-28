@@ -3,7 +3,6 @@
 import { axiosInstance } from "../hooks/useInterceptor";
 import { useState } from "react";
 
-
 export function useAddBlogCard() {
   const [blogData, setBlogData] = useState<any>();
 

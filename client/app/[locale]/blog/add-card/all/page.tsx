@@ -11,6 +11,7 @@ import {
 } from "@shared/ui/Buttons_Components/Buttons/index";
 import SparkLogo from "@assets/spark_product_logo.svg";
 import styles from "./styles.module.scss";
+import { useTranslations } from "next-intl";
 
 interface IBlogCard {
   blogId: number;
@@ -18,11 +19,11 @@ interface IBlogCard {
 
 const AddBlogCard: React.FC<IBlogCard> = () => {
   const { data } = useGetBlogs();
+  const t = useTranslations("");
   const { deleteBlog } = useDeleteBlogCard();
 
   const handleDeleteBlog = (blogId: string) => {
     deleteBlog(blogId);
-    console.log(blogId);
   };
 
   return (

@@ -36,6 +36,11 @@
       "loading": "Загрузка...",
       "check_code": "Проверить код",
       "close": "Закрыть"
+    },
+    "upload": {
+      "upload": "Залить веб-сайт",
+      "your_build": "Ваш Билд",
+      "button": "Залить"
     }
   },
   "LoginPage": {

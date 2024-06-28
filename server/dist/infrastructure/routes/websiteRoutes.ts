@@ -6,9 +6,11 @@ import authenticateToken from "@infrastructure/middleware/authMiddleware";
 
 const express = require("express");
 const router = express.Router();
+const { extractZip } = require("@services/extractZip");
 
 // Проверка JWT токена
 router.use(authenticateToken);
+// Логгер
 router.use(advancedLogger);
 
 const multer = require("multer");
@@ -33,7 +35,14 @@ const storage = multer.diskStorage({
   },
 });
 
+const buildTemporaryStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "templates/temporary");
+  },
+});
+
 const upload = multer({ storage: storage });
+const uploadWebsite = multer({ storage: buildTemporaryStorage });
 
 /**
  * @swagger
@@ -148,10 +157,73 @@ router.post("/add-user", (req, res) =>
  */
 router.get("/", (req, res) => websiteController.getWebsites(req, res));
 
+/**
+ * @swagger
+ * /verify-website:
+ *   post:
+ *     summary: Проверка веб-сайта
+ *     description: Проверяет веб-сайт по предоставленной ссылке и коду верификации.
+ *     tags:
+ *       - Верификация
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               url:
+ *                 type: string
+ *                 description: Ссылка на веб-сайт для проверки
+ *               code:
+ *                 type: string
+ *                 description: Код верификации, полученный ранее
+ *     responses:
+ *       201:
+ *         description: Сайт был успешно проверен
+ *       400:
+ *         description: Некорректный запрос (неправильная ссылка или отсутствует код)
+ *       404:
+ *         description: Веб-сайт с указанной ссылкой не найден
+ *       422:
+ *         description: Введенный код не соответствует ожидаемому
+ *       500:
+ *         description: Внутренняя ошибка сервера
+ */
 router.post("/verify-website", (req, res) =>
   websiteController.verifyWebsite(req, res)
 );
 
+/**
+ * @swagger
+ * /get-code:
+ *   post:
+ *     summary: Получение кода верификации для веб-сайта
+ *     description: Возвращает метатег с кодом верификации для вставки на веб-сайт.
+ *     tags:
+ *       - Верификация
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               url:
+ *                 type: string
+ *                 description: Ссылка на веб-сайт для получения кода
+ *     responses:
+ *       200:
+ *         description: Код успешно сгенерирован и возвращен в виде метатега
+ *       400:
+ *         description: Некорректный запрос или ошибка в данных
+ *       500:
+ *         description: Внутренняя ошибка сервера
+ */
 router.post("/get-code", (req, res) =>
   websiteController.getWebsiteCode(req, res)
 );
@@ -216,6 +288,69 @@ router.get("/get-users/:websiteID", (req, res) =>
 router.get("/users", (req, res) =>
   websiteController.getAllWebsitesUsers(req, res)
 );
+
+/**
+ * @swagger
+ * /upload-website:
+ *   post:
+ *     summary: Загрузка клиентского билда
+ *     description: Загрузите файл билда вебсайта на сервер.
+ *     tags:
+ *       - Вебсайт
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               build:
+ *                 type: string
+ *                 format: binary
+ *                 description: Файл билда вебсайта для загрузки
+ *     responses:
+ *       200:
+ *         description: Файл успешно загружен
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Файл успешно загружен
+ *       400:
+ *         description: Ошибка в данных запроса
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       details:
+ *                         type: string
+ *                         example: Файл не предоставлен
+ *                       code:
+ *                         type: string
+ *                         example: UPLOAD_ERROR
+ *       500:
+ *         description: Произошла ошибка при загрузке вебсайта
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Произошла ошибка при загрузке вебсайта.
+ */
+router.post("/upload-website", uploadWebsite.single("file"), (req, res) => {
+  websiteController.uploadWebsite(req, res);
+});
 
 /**
  * @swagger

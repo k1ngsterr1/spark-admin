@@ -15,6 +15,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   margin?: string;
   text: string;
   href?: string;
+
   buttonType:
     | "regular"
     | "transparent"

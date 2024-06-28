@@ -58,7 +58,8 @@ export const Dashboard = () => {
               )}
             </div>
           </div>
-          <EmptySvg />
+
+          <EmptySvg className={styles.container__svg} />
           <p className={styles.container__already}>{t("empty")}</p>
         </div>
       </>
