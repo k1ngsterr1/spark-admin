@@ -1,8 +1,7 @@
 import React from "react";
-import image from "@assets/example.png";
-
-import { useGetPageCard } from '@shared/lib/hooks/Websites/useGetPageCard';
+import { useGetPageCard } from "@shared/lib/hooks/Websites/useGetPageCard";
 import { PageCard } from "@entities/PageCard";
+import { EmtpyScreen } from "@shared/ui/EmptyScreen";
 
 import styles from "./styles.module.scss";
 
@@ -15,8 +14,14 @@ export const PageCardsLayout: React.FC<IPageCardsLayoutProps> = ({
 }) => {
   const { data: items, loading } = useGetPageCard();
 
+  console.log(items);
+
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (!items || items.length == 0) {
+    return <EmtpyScreen text="There is no cards yet" />;
   }
 
   // Добавляем проверку, чтобы убедиться, что items - это массив

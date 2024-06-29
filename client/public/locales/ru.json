@@ -98,11 +98,11 @@
     "editor": "Редактор Текста"
   },
   "BuildWebsite": {
-    "heading": "Новая страница",
+    "heading": "Создайте свой сайт",
     "landing": "Лэндинг",
     "shop": "Магазин",
     "blog": "Блог",
-    "Events": "Ивенты"
+    "events": "Ивенты"
   },
   "Support": {
     "support": "Поддержка",

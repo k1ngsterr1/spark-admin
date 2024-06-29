@@ -93,11 +93,11 @@
     "editor": "Text Editor"
   },
   "BuildWebsite": {
-    "heading": "New Page",
+    "heading": "Build Your Own Website",
     "landing": "Landing",
     "shop": "Shop",
     "blog": "Blog",
-    "Events": "Events"
+    "events": "Events"
   },
   "Users": {
     "heading": "Users",
