@@ -6,7 +6,7 @@ import { TextArea } from "@shared/ui/TextArea/index";
 import Image from "next/image";
 import Link from "next/link";
 import { StaticImageData } from "next/image";
-import { useUpdateBlog } from "@shared/lib/hooks/useUpdateBlogCard";
+import { useUpdateBlog } from "@shared/lib/hooks/Blogs/useUpdateBlogCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 

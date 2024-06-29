@@ -1,7 +1,7 @@
 "use client";
 import React, { ReactNode, useEffect, useState } from "react";
 import { useFetchPageContent } from "@shared/lib/hooks/Fetching/useFetchPageContent";
-import { useParseHTMLContent } from "@shared/lib/hooks/useParseHTMLContent";
+import { useParseHTMLContent } from "@shared/lib/hooks/Fetching/useParseHTMLContent";
 import { useParams } from "next/navigation";
 import { BlockButton } from "@shared/ui/BlockButton";
 import {
