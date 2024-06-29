@@ -6,8 +6,7 @@ export const SettingsPage = () => {
   return (
     <div className="flex flex-col">
       <main className="flex w-[90%] flex-col items-start m-auto">
-        <Heading text="Настройки" />
-        <UserTab />
+        <Heading text="Settings" />
       </main>
     </div>
   );
