@@ -97,6 +97,13 @@
   "Editor": {
     "editor": "Редактор Текста"
   },
+  "BuildWebsite": {
+    "heading": "Новая страница",
+    "landing": "Лэндинг",
+    "shop": "Магазин",
+    "blog": "Блог",
+    "Events": "Ивенты"
+  },
   "Support": {
     "support": "Поддержка",
     "Accounts": {

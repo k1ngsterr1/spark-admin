@@ -92,6 +92,13 @@
   "Editor": {
     "editor": "Text Editor"
   },
+  "BuildWebsite": {
+    "heading": "New Page",
+    "landing": "Landing",
+    "shop": "Shop",
+    "blog": "Blog",
+    "Events": "Events"
+  },
   "Users": {
     "heading": "Users",
     "add_user": "Add User",
