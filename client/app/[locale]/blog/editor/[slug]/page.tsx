@@ -8,7 +8,7 @@ import SparkLogo from "@assets/spark_product_logo.svg";
 import { useParams } from "next/navigation";
 import { Header } from "@features/Header";
 import { useTranslations } from "next-intl";
-import { useAddArticle } from "@shared/lib/hooks/useAddArticle";
+import { useAddArticle } from "@shared/lib/hooks/Articles/useAddArticle";
 import { Button, ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 
 import "react-quill/dist/quill.snow.css";

@@ -3,8 +3,8 @@
 import React from "react";
 import Heading from "@shared/ui/Heading/index";
 import { EditBlogCard } from "@entities/Card_Components/BlogCard";
-import { useGetBlogs } from "@shared/lib/hooks/useGetBlogs";
-import { useDeleteBlogCard } from "@shared/lib/hooks/useDeleteBlogs";
+import { useGetBlogs } from "@shared/lib/hooks/Blogs/useGetBlogs";
+import { useDeleteBlogCard } from "@shared/lib/hooks/Blogs/useDeleteBlogs";
 import {
   ButtonLink,
   Button,
