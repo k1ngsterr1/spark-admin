@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { axiosInstance } from "../../lib/hooks/useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 
 export const useFetchHTMLContent = (url: string, pageID: string | number) => {
   const [content, setContent] = useState(null);

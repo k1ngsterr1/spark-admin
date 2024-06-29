@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { Button, ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
-import { useGetWebsites } from "@shared/lib/hooks/useGetWebsites";
+import { useGetWebsites } from "@shared/lib/hooks/Websites/useGetWebsites";
 import { EmptySvg } from "@assets/index";
-import { useCheckIsAdmin } from "@shared/lib/hooks/useCheckIsAdmin";
+import { useCheckIsAdmin } from "@shared/lib/hooks/Misc/useCheckIsAdmin";
 import { useTranslations } from "next-intl";
 import { WebsiteItem } from "@shared/lib/types";
 import Heading from "@shared/ui/Heading/index";

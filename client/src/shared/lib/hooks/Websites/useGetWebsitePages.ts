@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, useCallback } from "react";
-import { axiosInstance } from "../../lib/hooks/useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 
 export const useGetWebsitePages = (websiteName: string) => {
   const [pageContent, setPageContent] = useState(null);

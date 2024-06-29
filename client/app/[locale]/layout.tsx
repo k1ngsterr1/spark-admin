@@ -8,6 +8,7 @@ import Head from "next/head";
 import "@shared/styles/global.scss";
 import "react-loading-skeleton/dist/skeleton.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { AuthProvider } from "@widgets/Contexts/AuthContext";
 
 export default async function RootLayout({
   children,
@@ -33,7 +34,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <AppProvider>
             <ThemeProvider attribute="class" enableSystem={true}>
-              {children}
+              <AuthProvider>{children}</AuthProvider>
             </ThemeProvider>
           </AppProvider>
         </NextIntlClientProvider>

@@ -1,5 +1,5 @@
 "use client";
-import { axiosInstance } from "./../useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 
 export const useInitiateChangePassword = () => {
   const initiateChangePassword = async (): Promise<void | string> => {

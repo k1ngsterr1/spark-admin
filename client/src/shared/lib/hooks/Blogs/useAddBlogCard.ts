@@ -1,6 +1,6 @@
 "use client";
 
-import { axiosInstance } from "../hooks/useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 import { useState } from "react";
 
 export function useAddBlogCard() {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { axiosInstance } from "./useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 
 // Function to fetch blocks
 export function useGetBlogs() {

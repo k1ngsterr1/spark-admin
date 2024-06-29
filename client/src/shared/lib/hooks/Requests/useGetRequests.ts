@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { axiosInstance } from "../useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 
 export function useGetForms() {
   const [data, setData] = useState<any | null>(null);

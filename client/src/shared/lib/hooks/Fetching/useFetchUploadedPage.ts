@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { axiosInstance } from "./useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 
 // Получаем изменяемый контент из залитых сайтов
 export function useFetchUploadedPage(slug: any) {

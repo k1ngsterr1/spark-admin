@@ -1,4 +1,4 @@
-import { axiosInstance } from "./useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 
 // Function to upload website
 export function useUploadWebsite() {

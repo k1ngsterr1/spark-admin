@@ -1,4 +1,4 @@
-import { axiosInstance } from "../useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 
 export function useDeleteRequest() {
   const deleteRequest = async (id: number | string) => {

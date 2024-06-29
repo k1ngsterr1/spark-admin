@@ -92,6 +92,10 @@
   "Editor": {
     "editor": "Text Editor"
   },
+  "Users": {
+    "heading": "Users",
+    "no_users": "You don't have any users"
+  },
   "Support": {
     "support": "Support",
     "Accounts": {

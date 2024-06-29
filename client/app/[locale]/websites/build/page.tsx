@@ -5,7 +5,7 @@ import { Header } from "@features/Header";
 import { Menu } from "@features/Menu";
 import { PageTypeSelector } from "@features/PageTypeSelector";
 import { PageCardsLayout } from "@features/PageCardsLayout";
-import { useCheckIsAdmin } from "@shared/lib/hooks/useCheckIsAdmin";
+import { useCheckIsAdmin } from "@shared/lib/hooks/Misc/useCheckIsAdmin";
 import { PageCardPopup } from "@entities/Popup_Components/PageCardPopup";
 
 const BuildWebsite = () => {

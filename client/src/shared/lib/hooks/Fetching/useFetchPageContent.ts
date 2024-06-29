@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { axiosInstance } from "./useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 
 // Получаем изменяемый контент из шаблона для сайта
 export function useFetchPageContent(slug: any) {

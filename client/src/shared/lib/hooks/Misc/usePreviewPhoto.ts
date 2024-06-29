@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useBlogCard } from "@shared/lib/hooks/useBlog";
+import { useBlogCard } from "@shared/lib/hooks/Blogs/useBlog";
 
 const useFileUpload = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);

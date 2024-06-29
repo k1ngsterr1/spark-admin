@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, useCallback } from "react";
-import { axiosInstance } from "./useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 
 export const useGetWebsitePageByID = (websiteName: string, pageID: string) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);

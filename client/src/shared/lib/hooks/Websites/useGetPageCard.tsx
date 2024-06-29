@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { axiosInstance } from '../useInterceptor';
+import { useState, useEffect } from "react";
+import { axiosInstance } from "../Misc/useInterceptor";
 
 export function useGetPageCard() {
   const [data, setData] = useState([]);
@@ -8,10 +8,12 @@ export function useGetPageCard() {
   useEffect(() => {
     const getCards = async () => {
       try {
-        const response = await axiosInstance.get(`/api/page-card/render/business-landing`);
+        const response = await axiosInstance.get(
+          `/api/page-card/render/business-landing`
+        );
         setData(response.data);
       } catch (error) {
-        console.error('Failed to fetch blocks:', error);
+        console.error("Failed to fetch blocks:", error);
       } finally {
         setLoading(false);
       }

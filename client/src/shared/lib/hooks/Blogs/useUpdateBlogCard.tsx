@@ -1,4 +1,4 @@
-import "./useInterceptor";
+import "../Misc/useInterceptor";
 import axios from "axios";
 import { useState } from "react";
 

@@ -4,7 +4,7 @@ import { useWebsiteUploadPopup } from "@shared/lib/contexts/AppContext";
 import { AttachmentFileInput } from "@shared/ui/Inputs/AttachmentInput";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import { useTranslations } from "next-intl";
-import { useUploadWebsite } from "@shared/lib/hooks/useUploadWebsite";
+import { useUploadWebsite } from "@shared/lib/hooks/Websites/useUploadWebsite";
 
 import Logo from "@assets/spark_product_logo.svg";
 

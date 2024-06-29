@@ -4,7 +4,7 @@ import { HeaderEditor } from "@features/HeaderEditor";
 import { UserWebsite } from "@widgets/Screens/UserWebsite";
 import { useGetWebsitePageByID } from "@shared/lib/hooks/useGetPageById";
 import { DynamicContent } from "@features/DynamicContent";
-import { useFetchHTMLContent } from "@shared/lib/hooks/useFetchHTMLContent";
+import { useFetchHTMLContent } from "@shared/lib/hooks/Fetching/useFetchHTMLContent";
 
 const WebsiteEditablePage = ({ params }: { params: { pageID: string } }) => {
   const [websiteName, setWebsiteName] = useState<string>("");
