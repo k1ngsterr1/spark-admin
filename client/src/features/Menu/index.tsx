@@ -8,12 +8,14 @@ import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { Logo } from "@shared/ui/Logo";
+import { useLogout } from "@shared/lib/hooks/Form/useLogout";
 
 import styles from "./styles.module.scss";
 
 export const Menu = () => {
   const t = useTranslations("Menu");
   const { locale } = useParams();
+  const logOut = useLogout();
   const [isOpen, setIsOpen] = useState(true);
   const { menuRef, getTextRef, logoRef } = useSideMenu(isOpen);
 
@@ -44,6 +46,7 @@ export const Menu = () => {
         ))}
       </nav>
       <NavButton
+        onClick={() => logOut()}
         icon={faArrowRightToBracket}
         href="login"
         text={t("logout")}

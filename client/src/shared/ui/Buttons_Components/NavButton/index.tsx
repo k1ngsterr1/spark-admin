@@ -12,6 +12,7 @@ interface NavButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   href: string;
   isOpen: boolean;
   textRef: LegacyRef<HTMLSpanElement>;
+  onClick?: () => void;
 }
 
 export const NavButton: React.FC<NavButtonProps> = ({
@@ -21,10 +22,15 @@ export const NavButton: React.FC<NavButtonProps> = ({
   href,
   isOpen,
   textRef,
+  onClick,
 }) => {
   return (
     <>
-      <Link className={`${styles.nav_button} ${margin}`} href={href}>
+      <Link
+        className={`${styles.nav_button} ${margin}`}
+        href={href}
+        onClick={onClick}
+      >
         <FontAwesomeIcon
           icon={icon}
           className={styles.nav_button__icon}
