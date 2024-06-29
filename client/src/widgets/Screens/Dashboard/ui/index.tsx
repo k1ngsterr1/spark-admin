@@ -12,6 +12,7 @@ import WebsiteTab from "@entities/Tabs_Components/WebsiteTab/index";
 import SkeletonLoader from "@shared/ui/Skeleton_Loader";
 
 import styles from "./styles.module.scss";
+import { EmtpyScreen } from "@shared/ui/EmptyScreen";
 
 export const Dashboard = () => {
   const t = useTranslations("Dashboard");
@@ -58,9 +59,7 @@ export const Dashboard = () => {
               )}
             </div>
           </div>
-
-          <EmptySvg className={styles.container__svg} />
-          <p className={styles.container__already}>{t("empty")}</p>
+          <EmtpyScreen text={t("empty")} />
         </div>
       </>
     );

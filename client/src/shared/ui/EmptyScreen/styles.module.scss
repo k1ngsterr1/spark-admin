@@ -12,11 +12,11 @@
 
   &__image {
     @include respond-to("lg") {
-      width: clamp(300px, 600 / 1200 * 100vw, 1200px);
+      width: clamp(225px, 450 / 1200 * 100vw, 900px);
     }
 
     @include respond-to("xl") {
-      width: clamp(300px, 600 / 1360 * 100vw, 1200px);
+      width: clamp(225px, 450 / 1360 * 100vw, 900px);
     }
 
     @include respond-to("2xl") {
