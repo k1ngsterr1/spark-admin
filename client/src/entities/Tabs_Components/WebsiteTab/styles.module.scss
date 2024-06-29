@@ -3,14 +3,15 @@
 @import "../../../shared/styles/variables";
 
 .sites_section {
-  @apply p-8;
   width: 40%;
   margin-right: auto;
+  border-radius: 6px;
+  transition: 0.3s all;
+  @apply p-8;
   @apply mt-8;
   @apply ml-20;
   @apply bg-gray-100;
-  border-radius: 6px;
-  transition: 0.3s all;
+
   &:hover {
     @apply bg-primary-BG_LIGHT;
     cursor: pointer;

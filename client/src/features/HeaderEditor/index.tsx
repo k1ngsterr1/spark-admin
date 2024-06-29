@@ -5,6 +5,7 @@ import { Breadcrumbs } from "@shared/ui/Breadcrumbs_Components/Breadcrumbs";
 import { faGlobe, faHome } from "@fortawesome/free-solid-svg-icons";
 import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 import { useTranslations } from "next-intl";
+import { Logo } from "@shared/ui/Logo";
 
 import styles from "./styles.module.scss";
 
@@ -64,7 +65,7 @@ export const HeaderEditor: React.FC<HeaderEditorProps> = ({
       <div className={styles.header_edit__content}>
         <nav className="flex items-center gap-8">
           <div className={styles.header_edit__content__logo}>
-            <SparkLogo />
+            <Logo url={`/${locale}/websites`} />
           </div>
           <Breadcrumbs crumbs={breadcrumbData} isLoading={isLoading} />
         </nav>

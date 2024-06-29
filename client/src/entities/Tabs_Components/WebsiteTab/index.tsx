@@ -24,8 +24,9 @@ export const WebsiteTab: React.FC<IWebsiteTabProps> = ({ name, href, url }) => {
   };
 
   return (
-    <div className="flex flex-col" onClick={(e) => handleClick(name, e)}>
+    <div>
       <div
+        onClick={(e) => handleClick(name, e)}
         className={`${styles.sites_section} dark:bg-dark-lighter hover:dark:bg-dark-upper`}
       >
         <div className={styles.sites_section__name}>{name}</div>

@@ -6,10 +6,10 @@ import { useSideMenu } from "@shared/lib/hooks/animations/useSideMenuAnimations"
 import { navlinks } from "@shared/lib/hooks/content/linksContent";
 import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useTranslations } from "next-intl";
-import SparkLogo from "@assets/spark_product_logo.svg";
+import { useParams } from "next/navigation";
+import { Logo } from "@shared/ui/Logo";
 
 import styles from "./styles.module.scss";
-import { useParams } from "next/navigation";
 
 export const Menu = () => {
   const t = useTranslations("Menu");
@@ -28,7 +28,7 @@ export const Menu = () => {
     >
       <CloseMenuButton onClick={toggleMenu} isOpen />
       <div className={styles.menu__logo} ref={logoRef}>
-        <SparkLogo />
+        <Logo url="/" />
       </div>
       <nav className={styles.menu__nav}>
         {navlinks.map((link, index) => (

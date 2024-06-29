@@ -94,6 +94,7 @@
   },
   "Users": {
     "heading": "Users",
+    "add_user": "Add User",
     "no_users": "You don't have any users"
   },
   "Support": {
