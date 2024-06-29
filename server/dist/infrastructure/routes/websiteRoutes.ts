@@ -39,6 +39,19 @@ const buildTemporaryStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "templates/temporary");
   },
+  filename: function (req, file, cb) {
+    const currentDate = new Date()
+      .toJSON("kz-kz")
+      .slice(0, 10)
+      .replace(/:/g, "-");
+    const seconds = new Date().getSeconds().toString().padStart(2, "0");
+    const currentTime = `SPARK-${seconds}`;
+    const result =
+      currentDate.toString() + "-" + currentTime + "-" + file.originalname;
+    req.body.file = result;
+
+    cb(null, result);
+  },
 });
 
 const upload = multer({ storage: storage });

@@ -5,7 +5,7 @@ const compression = require("compression");
 const bodyParser = require("body-parser");
 // const { convert_to_webp } = require("wasm_image_converter");
 const fs = require("fs");
-const dotenv = require("dotenv").config({ path: "../.env" });
+const dotenv = require("dotenv").config({ path: "./.env" });
 
 // Routes
 import authRoutes from "infrastructure/routes/authRoutes";
@@ -86,6 +86,7 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(swaggerSpec, { explorer: true })
 );
+
 app.use(express.static(path.join(__dirname, "templates/public")));
 
 app.set("view engine", "ejs");

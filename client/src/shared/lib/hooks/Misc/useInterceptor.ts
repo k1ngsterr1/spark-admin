@@ -10,7 +10,7 @@ console.log(parsedData.id);
 
 // Создание экземпляра Axios с предустановленными конфигурациями
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000/",
+  baseURL: "https://spark-admin-production.up.railway.app",
 });
 
 // Добавление интерсептора для вставки JWT в заголовки каждого запроса

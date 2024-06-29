@@ -15,16 +15,7 @@ export class UploadWebsite {
     this.websiteRepository = new WebsiteRepository();
   }
 
-  async execute(request: Request, errors: ErrorDetails[]): Promise<any> {
-    console.log("request:", request);
-
-    const file = (request as any).file;
-
-    if (!file) {
-      errors.push({ details: "No file provided", code: "UPLOAD_ERROR" });
-      return;
-    }
-
+  async execute(file: any, errors: ErrorDetails[]): Promise<any> {
     const targetDir = path.join(__dirname, "templates/temporary");
     const targetPath = path.join(targetDir, file.originalName);
 

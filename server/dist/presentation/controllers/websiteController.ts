@@ -145,8 +145,6 @@ class WebsiteController {
       const file = req.body.file;
       const isSparkAdmin = await this.isSparkAdminUseCase.execute(userId);
 
-      console.log("BODY:", req.body);
-
       if (isSparkAdmin) {
         const result = await this.uploadWebsiteUseCase.execute(file, errors);
 
