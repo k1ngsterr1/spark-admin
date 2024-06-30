@@ -4,7 +4,10 @@
 
 .customFileInputLabel {
   width: 100%;
-  display: block;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 2px solid;
   color: rgba(26, 26, 26, 0.5);
   font-size: clamp(8px, 0.83328vw, 32px);

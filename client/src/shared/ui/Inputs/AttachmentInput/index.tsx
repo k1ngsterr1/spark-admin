@@ -42,8 +42,10 @@ export const AttachmentFileInput: React.FC<IAttachmentFileInput> = ({
         htmlFor="websiteFolder"
         className={`${styles.customFileInputLabel} dark:border-primary dark:text-dark-text`}
       >
-        <FontAwesomeIcon className="mr-2" icon={faPaperclip} />
-        {fileName || placeholder}{" "}
+        <div className="flex flex-col items-center justify-center gap-2">
+          <FontAwesomeIcon className="mr-2" icon={faPaperclip} />
+          {fileName || placeholder}{" "}
+        </div>
       </label>
     </div>
   );
