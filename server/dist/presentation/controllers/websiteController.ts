@@ -142,7 +142,10 @@ class WebsiteController {
     const errors: ErrorDetails[] = [];
     try {
       const userId: number = req.user.id;
-      const file = req.body.file;
+      const file = req.file;
+
+      console.log("file is here:", file);
+
       const isSparkAdmin = await this.isSparkAdminUseCase.execute(userId);
 
       if (isSparkAdmin) {

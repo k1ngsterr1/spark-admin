@@ -1,3 +1,5 @@
+const path = require("path");
+
 export function getFileType(filePath) {
   const ext = path.extname(filePath).toLowerCase();
 

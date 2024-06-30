@@ -362,6 +362,9 @@ router.get("/users", (req, res) =>
  *                   example: Произошла ошибка при загрузке вебсайта.
  */
 router.post("/upload-website", uploadWebsite.single("file"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).send("No file uploaded");
+  }
   websiteController.uploadWebsite(req, res);
 });
 
