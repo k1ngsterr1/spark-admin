@@ -5,7 +5,7 @@ const compression = require("compression");
 const bodyParser = require("body-parser");
 // const { convert_to_webp } = require("wasm_image_converter");
 const fs = require("fs");
-const dotenv = require("dotenv").config({ path: "./.env" });
+const dotenv = require("dotenv").config({ path: "../.env" });
 
 // Routes
 import authRoutes from "infrastructure/routes/authRoutes";
@@ -26,6 +26,7 @@ const app = express();
 
 export const buildRoute = path.join(__dirname, "templates/build/");
 export const uploadPath = path.join(__dirname, "uploads");
+
 // Testing
 const multer = require("multer");
 const storage = multer.diskStorage({

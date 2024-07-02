@@ -1,0 +1,40 @@
+.text_menu {
+  width: 300px;
+  min-height: 200px;
+  @apply bg-white;
+  @apply shadow-xl;
+  @apply rounded-lg;
+  @apply p-4;
+
+  &__border {
+    @apply mt-2;
+    @apply border-dark-lighter;
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__text {
+      @apply text-primary;
+    }
+
+    &__icon {
+      transition: 0.3s all;
+      @apply p-2;
+      @apply text-primary;
+
+      &:hover {
+        @apply bg-dark-lighter;
+        @apply rounded-full;
+      }
+    }
+  }
+
+  //   &__border {
+  //     width: 100%;
+  //     height: 4px;
+  //     @apply bg-primary;
+  //   }
+}

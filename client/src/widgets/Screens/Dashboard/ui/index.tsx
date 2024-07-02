@@ -13,12 +13,31 @@ import SkeletonLoader from "@shared/ui/Skeleton_Loader";
 
 import styles from "./styles.module.scss";
 import { EmtpyScreen } from "@shared/ui/EmptyScreen";
+import { ContextMenu } from "@features/ContextMenu";
 
 export const Dashboard = () => {
   const t = useTranslations("Dashboard");
   const { isLoading, hasWebsites, data } = useGetWebsites();
   const { isAdmin } = useCheckIsAdmin();
   const { locale } = useParams();
+
+  useEffect(() => {
+    const handleCopy = (e) => {
+      const selection = window.getSelection();
+      if (selection && selection.toString().length > 0) {
+        const { clientX: x, clientY: y } = e;
+        setMenuPosition({ x, y });
+        setMenuVisible(true);
+      } else {
+        setMenuVisible(false);
+      }
+    };
+
+    document.addEventListener("copy", handleCopy);
+    return () => {
+      document.removeEventListener("copy", handleCopy);
+    };
+  }, []);
 
   if (isLoading) {
     return (
