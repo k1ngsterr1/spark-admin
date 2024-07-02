@@ -41,14 +41,14 @@ export const AuthProvider = ({ children }) => {
           const timeout = setTimeout(() => {
             localStorage.removeItem("accessToken"); // Remove expired token
             setIsAuthenticated(false); // Set authenticated to false on token expiration
-            router.push("login"); // Redirect to login page
+            router.push("/en/login"); // Redirect to login page
           }, timeUntilExpiration);
 
           return () => clearTimeout(timeout);
         }
       } else {
         setIsAuthenticated(false); // No token or expired token
-        router.push("login"); // Redirect to login page
+        router.push("/en/login"); // Redirect to login page
       }
     };
 
