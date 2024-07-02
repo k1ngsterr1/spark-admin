@@ -15,6 +15,7 @@
     "adm-zip": "^0.5.14",
     "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
+    "bundler": "^0.1.0",
     "cheerio": "^1.0.0-rc.12",
     "chromium-bidi": "^0.4.32",
     "cloudinary": "^2.2.0",
