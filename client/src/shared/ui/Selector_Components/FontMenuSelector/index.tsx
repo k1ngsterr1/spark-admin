@@ -50,7 +50,7 @@ export const FontMenuSelector: React.FC<StyleSelectorProps> = ({
               key={option.value}
               onClick={() => handleSelect(option.value)}
               className={styles.selector__tab}
-              style={{ fontSize: option.fontSize }}
+              style={{ fontSize: option.fontSize, fontFamily: option.value }}
             >
               {option.label}
             </li>
@@ -59,6 +59,9 @@ export const FontMenuSelector: React.FC<StyleSelectorProps> = ({
             <li
               key={font.value}
               className={styles.selector__tab}
+              style={{
+                fontFamily: `${font.label}`,
+              }}
               onClick={() => handleSelect(font.value)}
             >
               {font.label}

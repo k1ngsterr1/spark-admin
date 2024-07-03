@@ -65,7 +65,11 @@ export const TextMenu = () => {
           />
         </button>
       </div>
-      <FontSizeRange />
+      <hr className={`${styles.text_menu__border} !mt-2`} />
+      <div className="flex flex-col items-start mt-4">
+        <span className={styles.text_menu__text}>Font size(px)</span>
+        <FontSizeRange />
+      </div>
       <hr className={`${styles.text_menu__border} !mt-2`} />
       <div className={styles.text_menu__buttons}>
         <button className={styles.text_menu__buttons__alignment}>
