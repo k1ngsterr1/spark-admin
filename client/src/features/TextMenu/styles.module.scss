@@ -32,6 +32,11 @@
     }
   }
 
+  &__text {
+    @apply text-primary;
+    @apply text-xs;
+  }
+
   //   &__border {
   //     width: 100%;
   //     height: 4px;

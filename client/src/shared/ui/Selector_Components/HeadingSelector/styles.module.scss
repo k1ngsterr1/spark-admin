@@ -1,0 +1,128 @@
+@import "../../../styles/mixins";
+@import "../../../styles/variables";
+@import "breakpoint-slicer";
+
+.selector {
+  width: 100%;
+  position: relative;
+  border: 1px solid;
+  cursor: pointer;
+  transition: 0.3s all;
+  @apply border-primary;
+  @apply p-1;
+  @apply rounded-sm;
+
+  &__selected {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @apply p-1;
+    @apply text-primary;
+  }
+
+  &__dropdown {
+    overflow-y: scroll;
+    max-height: clamp(125px, 250 / 1200 * 100vw, 500px);
+    @apply bg-dark-super;
+
+    @include respond-to("xl") {
+      max-height: clamp(125px, 250 / 1360 * 100vw, 500px);
+    }
+
+    @include respond-to("2xl") {
+      max-height: clamp(125px, 250 / 1520 * 100vw, 500px);
+    }
+
+    @include respond-to("3xl") {
+      max-height: clamp(125px, 250 / 1680 * 100vw, 500px);
+    }
+
+    @include respond-to("4xl") {
+      max-height: clamp(125px, 250 / 1920 * 100vw, 500px);
+    }
+
+    @include respond-to("5xl") {
+      max-height: clamp(125px, 250 / 2560 * 100vw, 500px);
+    }
+  }
+
+  &__tab {
+    display: flex;
+    align-items: center;
+    transition: 0.3s all;
+    @apply gap-2;
+    @apply p-1;
+
+    &__color {
+      width: clamp(12px, 24 / 1200 * 100vw, 48px);
+      height: clamp(12px, 24 / 1200 * 100vw, 48px);
+      border: 1px solid;
+      @apply border-dark-upper;
+      @apply rounded-full;
+
+      @include respond-to("xl") {
+        width: clamp(12px, 24 / 1360 * 100vw, 48px);
+        height: clamp(12px, 24 / 1360 * 100vw, 48px);
+      }
+
+      @include respond-to("2xl") {
+        width: clamp(12px, 24 / 1520 * 100vw, 48px);
+        height: clamp(12px, 24 / 1520 * 100vw, 48px);
+      }
+
+      @include respond-to("3xl") {
+        width: clamp(12px, 24 / 1680 * 100vw, 48px);
+        height: clamp(12px, 24 / 1680 * 100vw, 48px);
+      }
+
+      @include respond-to("4xl") {
+        width: clamp(12px, 24 / 1920 * 100vw, 48px);
+        height: clamp(12px, 24 / 1920 * 100vw, 48px);
+      }
+
+      @include respond-to("5xl") {
+        width: clamp(12px, 24 / 2560 * 100vw, 48px);
+        height: clamp(12px, 24 / 2560 * 100vw, 48px);
+      }
+    }
+
+    &__size {
+      font-size: clamp(6px, 12 / 992 * 100vw, 24px);
+      @apply mt-1;
+      @apply text-dark-upper2;
+
+      @include respond-to("lg") {
+        font-size: clamp(6px, 12 / 1200 * 100vw, 24px);
+      }
+
+      @include respond-to("xl") {
+        font-size: clamp(6px, 12 / 1360 * 100vw, 24px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(6px, 12 / 1520 * 100vw, 24px);
+      }
+
+      @include respond-to("3xl") {
+        font-size: clamp(6px, 12 / 1680 * 100vw, 24px);
+      }
+
+      @include respond-to("4xl") {
+        font-size: clamp(6px, 12 / 1920 * 100vw, 24px);
+      }
+
+      @include respond-to("5xl") {
+        font-size: clamp(6px, 12 / 2560 * 100vw, 24px);
+      }
+    }
+
+    &:hover {
+      background-color: rgba(255, 87, 34, 0.2);
+      @apply text-primary;
+    }
+  }
+
+  &:hover {
+    background-color: rgba(255, 87, 34, 0.2);
+  }
+}
