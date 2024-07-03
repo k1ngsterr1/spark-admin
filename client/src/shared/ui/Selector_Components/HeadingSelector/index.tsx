@@ -19,8 +19,6 @@ export const HeadingSelector: React.FC<HeadingSelectorProps> = ({
   const [selectedValue, setSelectedValue] = useState(options[0]?.value || "");
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log("Options:", options);
-
   const handleSelect = (value: string) => {
     setSelectedValue(value);
     onSelect(value);

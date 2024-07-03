@@ -1,13 +1,24 @@
 "use client";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose, faLink } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAlignCenter,
+  faAlignLeft,
+  faArrowsLeftRight,
+  faChevronDown,
+  faClose,
+  faDroplet,
+  faIndent,
+  faLink,
+  faList,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontMenuSelector } from "@shared/ui/Selector_Components/FontMenuSelector";
 import { useFetchFonts } from "@shared/lib/hooks/Fonts/useFetchFonts";
 import { HeadingSelector } from "@shared/ui/Selector_Components/HeadingSelector";
+import { headingContent } from "@shared/lib/content/headingContent";
 
 import styles from "./styles.module.scss";
-import { headingContent } from "@shared/lib/content/headingContent";
+import { FontSizeRange } from "@shared/ui/FontSizeRange";
 
 export const TextMenu = () => {
   const googleFonts = useFetchFonts();
@@ -26,11 +37,11 @@ export const TextMenu = () => {
         <span className={styles.text_menu__text}>Style</span>
         <HeadingSelector options={headingContent} margin="mt-2" />
       </div>
-      <div className="flex flex-col items-start justify-end mt-4">
+      <div className="flex flex-col items-start justify-end mt-4 mb-5">
         <span className={styles.text_menu__text}>Fonts</span>
         <FontMenuSelector options={googleFonts} margin="mt-2" />
       </div>
-      <hr className={styles.text_menu__border} />
+      <hr className={`${styles.text_menu__border} !mt-2`} />
       <div className={styles.text_menu__buttons}>
         <button className={styles.text_menu__buttons__bold}>
           <strong>B</strong>
@@ -42,13 +53,64 @@ export const TextMenu = () => {
           <u>U</u>
         </button>
         <button className={styles.text_menu__buttons__color}>
-          <div className={styles.text_menu__buttons__color__tab} />
+          <FontAwesomeIcon
+            icon={faDroplet}
+            className={styles.text_menu__buttons__color__tab}
+          />{" "}
         </button>
         <button className={styles.text_menu__buttons__link}>
           <FontAwesomeIcon
             icon={faLink}
             className={styles.text_menu__buttons__link__icon}
           />
+        </button>
+      </div>
+      <FontSizeRange />
+      <hr className={`${styles.text_menu__border} !mt-2`} />
+      <div className={styles.text_menu__buttons}>
+        <button className={styles.text_menu__buttons__alignment}>
+          <div className="flex items-center justify-center gap-2">
+            <FontAwesomeIcon
+              icon={faAlignLeft}
+              className={styles.text_menu__buttons__color__icon}
+            />
+            <FontAwesomeIcon
+              icon={faChevronDown}
+              className={styles.text_menu__buttons__chevron}
+            />
+          </div>
+        </button>
+        <button className={styles.text_menu__buttons__alignment}>
+          <div className="flex items-center justify-center gap-2">
+            <FontAwesomeIcon
+              icon={faList}
+              className={styles.text_menu__buttons__color__icon}
+            />
+            <FontAwesomeIcon
+              icon={faChevronDown}
+              className={styles.text_menu__buttons__chevron}
+            />
+          </div>
+        </button>
+        <button className={styles.text_menu__buttons__alignment}>
+          <div className="flex items-center justify-center gap-2">
+            <FontAwesomeIcon
+              icon={faIndent}
+              className={styles.text_menu__buttons__color__icon}
+            />
+            <FontAwesomeIcon
+              icon={faChevronDown}
+              className={styles.text_menu__buttons__chevron}
+            />
+          </div>
+        </button>
+        <button className={styles.text_menu__buttons__alignment}>
+          <div className="flex items-center justify-center gap-2">
+            <FontAwesomeIcon
+              icon={faArrowsLeftRight}
+              className={styles.text_menu__buttons__color__icon}
+            />
+          </div>
         </button>
       </div>
     </div>
