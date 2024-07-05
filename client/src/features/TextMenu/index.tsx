@@ -1,8 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faAlignCenter,
   faAlignLeft,
   faArrowsLeftRight,
   faChevronDown,
@@ -16,12 +15,21 @@ import { FontMenuSelector } from "@shared/ui/Selector_Components/FontMenuSelecto
 import { useFetchFonts } from "@shared/lib/hooks/Fonts/useFetchFonts";
 import { HeadingSelector } from "@shared/ui/Selector_Components/HeadingSelector";
 import { headingContent } from "@shared/lib/content/headingContent";
+import { FontSizeRange } from "@shared/ui/FontSizeRange";
+import { useDispatch } from "react-redux";
+import { generalColorMenu, openColorMenu } from "@redux/slices/colorMenuSlice";
 
 import styles from "./styles.module.scss";
-import { FontSizeRange } from "@shared/ui/FontSizeRange";
+import { ReactTooltip } from "@shared/ui/Tooltip";
+import { MenuIconButton } from "@shared/ui/MenuIconButton";
 
 export const TextMenu = () => {
+  const dispatch = useDispatch();
   const googleFonts = useFetchFonts();
+
+  const handleOpenColorMenu = () => {
+    dispatch(generalColorMenu());
+  };
 
   return (
     <div className={`${styles.text_menu} dark:bg-dark-super `}>
@@ -43,27 +51,60 @@ export const TextMenu = () => {
       </div>
       <hr className={`${styles.text_menu__border} !mt-2`} />
       <div className={styles.text_menu__buttons}>
-        <button className={styles.text_menu__buttons__bold}>
-          <strong>B</strong>
-        </button>
-        <button className={styles.text_menu__buttons__italic}>
-          <i>I</i>
-        </button>
-        <button className={styles.text_menu__buttons__underline}>
-          <u>U</u>
-        </button>
-        <button className={styles.text_menu__buttons__color}>
-          <FontAwesomeIcon
-            icon={faDroplet}
-            className={styles.text_menu__buttons__color__tab}
-          />{" "}
-        </button>
-        <button className={styles.text_menu__buttons__link}>
-          <FontAwesomeIcon
-            icon={faLink}
-            className={styles.text_menu__buttons__link__icon}
-          />
-        </button>
+        <MenuIconButton
+          text="B"
+          id="bold"
+          isChevron={false}
+          isIcon={false}
+          isBold
+          data_tooltip_content="Bold"
+          data_tooltip_id="bold"
+          data_tooltip_place="top"
+        />
+        <ReactTooltip id="bold" />
+        <MenuIconButton
+          text="I"
+          id="italic"
+          isChevron={false}
+          isIcon={false}
+          isItalic
+          data_tooltip_content="Italic"
+          data_tooltip_id="italic"
+          data_tooltip_place="top"
+        />
+        <ReactTooltip id="italic" />
+        <MenuIconButton
+          text="U"
+          id="underline"
+          isChevron={false}
+          isIcon={false}
+          isUnderline
+          data_tooltip_content="Underline"
+          data_tooltip_id="underline"
+          data_tooltip_place="top"
+        />
+        <ReactTooltip id="underline" />
+        <MenuIconButton
+          id="droplet"
+          isIcon
+          onClick={() => handleOpenColorMenu()}
+          isChevron={false}
+          data_tooltip_id="droplet"
+          data_tooltip_content="Change your color"
+          data_tooltip_place="top"
+          icon={faDroplet}
+        />
+        <ReactTooltip id="droplet" />
+        <MenuIconButton
+          id="link"
+          isIcon
+          isChevron={false}
+          data_tooltip_id="link"
+          data_tooltip_content="Insert Links In Your Text"
+          data_tooltip_place="top"
+          icon={faLink}
+        />
+        <ReactTooltip id="link" />
       </div>
       <hr className={`${styles.text_menu__border} !mt-2`} />
       <div className="flex flex-col items-start mt-4">

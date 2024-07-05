@@ -2,57 +2,54 @@
 @import "../../shared/styles/variables";
 @import "breakpoint-slicer";
 
-.text_menu {
-  width: clamp(150px, 300 / 1200 * 100vw, 600px);
+.color_menu {
+  position: absolute;
+  width: clamp(125px, 250 / 1200 * 100vw, 500px);
   min-height: clamp(100px, 200 / 1200 * 100vw, 400px);
+  display: flex;
+  cursor: move;
+  flex-direction: column;
   @apply bg-white;
   @apply shadow-xl;
   @apply rounded-lg;
   @apply p-4;
 
   @include respond-to("xl") {
-    width: clamp(150px, 300 / 1360 * 100vw, 600px);
+    width: clamp(125px, 250 / 1360 * 100vw, 500px);
     min-height: clamp(100px, 200 / 1360 * 100vw, 400px);
   }
 
   @include respond-to("2xl") {
-    width: clamp(150px, 300 / 1520 * 100vw, 600px);
+    width: clamp(125px, 250 / 1520 * 100vw, 500px);
     min-height: clamp(100px, 200 / 1520 * 100vw, 400px);
   }
 
   @include respond-to("3xl") {
-    width: clamp(150px, 300 / 1680 * 100vw, 600px);
+    width: clamp(125px, 250 / 1680 * 100vw, 500px);
     min-height: clamp(100px, 200 / 1680 * 100vw, 400px);
   }
 
   @include respond-to("4xl") {
-    width: clamp(150px, 300 / 1920 * 100vw, 600px);
+    width: clamp(125px, 250 / 1920 * 100vw, 500px);
     min-height: clamp(100px, 200 / 1920 * 100vw, 400px);
   }
 
   @include respond-to("5xl") {
-    width: clamp(150px, 300 / 2560 * 100vw, 600px);
+    width: clamp(125px, 250 / 2560 * 100vw, 500px);
     min-height: clamp(100px, 200 / 2560 * 100vw, 400px);
   }
 
   @include respond-to("6xl") {
-    width: clamp(150px, 300 / 3840 * 100vw, 600px);
+    width: clamp(125px, 250 / 3840 * 100vw, 500px);
     min-height: clamp(100px, 200 / 3840 * 100vw, 400px);
   }
 
-  &__border {
-    @apply mt-2;
-    @apply border-dark-lighter;
-  }
-
-  &__container {
+  &__upper {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    &__text {
-      @apply text-primary;
-    }
+    @apply text-primary;
 
     &__icon {
       cursor: pointer;
@@ -67,39 +64,37 @@
     }
   }
 
-  &__text {
-    @apply text-primary;
-    @apply text-xs;
+  &__border {
+    @apply mt-2;
+    @apply border-dark-lighter;
   }
 
-  &__buttons {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  &__theme_colors {
     @apply mt-4;
 
-    &__bold,
-    &__italic,
-    &__underline,
-    &__color,
-    &__link,
-    &__alignment {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.3s all;
-      @apply text-2xl;
-      @apply p-2;
+    &__text {
       @apply text-primary;
-      @apply rounded-md;
+    }
+
+    &__link {
+      transition: 0.3s all;
+      text-decoration: underline;
+      @apply text-primary;
+
       &:hover {
-        @apply bg-dark-upper;
+        @apply text-functional;
       }
     }
 
-    &__chevron {
-      @apply text-sm;
+    &__colors {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .color_row {
+      display: contents;
     }
   }
 }

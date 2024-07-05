@@ -1,0 +1,14 @@
+.color_tab {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: 0.3s all;
+  border: 1px solid;
+  @apply rounded-md;
+
+  &:hover {
+    border: 1px solid;
+    @apply shadow-md;
+    @apply border-primary;
+  }
+}

@@ -1,17 +1,12 @@
-import { Header } from "@features/Header";
-import { Menu } from "@features/Menu";
-import { TextMenu } from "@features/TextMenu";
 import React from "react";
+import { Menu } from "@features/Menu";
+import { TestScreen } from "@widgets/Screens/TestScreen";
 
 const Testing = () => {
   return (
     <div className="flex">
       <Menu />
-      <main className="flex flex-col w-full p-8">
-        <Header />
-        <TextMenu />
-        <span className="w-[90%]">Testing the text menu</span>
-      </main>
+      <TestScreen />
     </div>
   );
 };
