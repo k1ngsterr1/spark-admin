@@ -67,7 +67,6 @@ class UserController {
   }
 
   // Вход в систему
-  // Вход в систему
   async login(req: Request, res: Response, next: any): Promise<void> {
     const errors: ErrorDetails[] = [];
     try {
