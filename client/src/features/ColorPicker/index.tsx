@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { SketchPicker } from "react-color";
-import styles from "./styles.module.scss"; // Make sure to create this file
+import { HexColorPicker } from "react-colorful";
+import styles from "./styles.module.scss";
+import { Button } from "@shared/ui/Buttons_Components/Buttons";
 
-const ColorPicker = ({ initialColor = "#ff00bf", onCancel, onApply }) => {
-  const [color, setColor] = useState(initialColor);
+const ColorPicker = ({ onCancel, onApply }) => {
+  const [color, setColor] = useState("#FF5722");
   const [activeTab, setActiveTab] = useState("hex");
 
   const handleColorChange = (color) => {
@@ -17,7 +18,17 @@ const ColorPicker = ({ initialColor = "#ff00bf", onCancel, onApply }) => {
 
   return (
     <div className={`${styles.color_picker} dark:bg-dark-super`}>
-      <SketchPicker color={color} onChangeComplete={handleColorChange} />
+      <HexColorPicker
+        color={color}
+        onChange={setColor}
+        className={styles.color_picker__scheme}
+      />
+      <div
+        className={styles.color_picker__tab}
+        style={{
+          backgroundColor: color,
+        }}
+      />
       <div className={styles.color_picker__tabs}>
         <button
           className={activeTab === "hex" ? styles.active : ""}
@@ -30,12 +41,6 @@ const ColorPicker = ({ initialColor = "#ff00bf", onCancel, onApply }) => {
           onClick={() => setActiveTab("rgb")}
         >
           RGB
-        </button>
-        <button
-          className={activeTab === "hsb" ? styles.active : ""}
-          onClick={() => setActiveTab("hsb")}
-        >
-          HSB
         </button>
       </div>
       <div className={styles.color_picker__input}>
@@ -50,13 +55,14 @@ const ColorPicker = ({ initialColor = "#ff00bf", onCancel, onApply }) => {
             readOnly
           />
         )}
-        {activeTab === "hsb" && (
-          <input type="text" value="HSB value here" readOnly /> // Update to actual HSB value
-        )}
       </div>
       <div className={styles.color_picker__buttons}>
-        <button onClick={onCancel}>Cancel</button>
-        <button onClick={handleApply}>Apply</button>
+        <Button
+          buttonType="regular--xxs--cancel"
+          text="Cancel"
+          margin="!rounded-full"
+        />
+        <Button buttonType="regular--xxs" text="Apply" margin="!rounded-full" />
       </div>
     </div>
   );

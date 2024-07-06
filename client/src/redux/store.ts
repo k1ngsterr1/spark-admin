@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import colorSlice from "@redux/slices/colorMenuSlice";
+import customColorMenuSlice from "./slices/customColorMenuSlice";
+import textMenuSlice from "./slices/textMenuSlice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       colorMenu: colorSlice,
+      textMenu: textMenuSlice,
+      customColorMenu: customColorMenuSlice,
     },
     devTools: process.env.NODE_ENV !== "production",
   });

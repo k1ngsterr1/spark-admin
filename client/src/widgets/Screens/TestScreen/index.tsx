@@ -5,12 +5,12 @@ import { Header } from "@features/Header";
 import { TextMenu } from "@features/TextMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomColorMenu } from "@features/CustomColor";
+import { useAppSelector } from "@shared/lib/hooks/hooks";
 
 export const TestScreen = () => {
-  const isColorMenuOpen = useSelector(
-    (state: any) => state.colorMenu.colorMenu
+  const isColorMenuOpen = useAppSelector(
+    (state: any) => state.colorMenu.isOpen
   );
-  const dispatch = useDispatch();
 
   return (
     <main className="flex flex-col w-full p-8">

@@ -84,6 +84,87 @@
   @apply pb-2;
 }
 
+.button--regular--xxs {
+  @extend .button--regular;
+  width: clamp(40px, 80 / 1200 * 100vw, 160px);
+  height: clamp(22.5px, 45 / 1200 * 100vw, 90px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @apply text-sm;
+
+  @include respond-to("xl") {
+    width: clamp(40px, 80 / 1360 * 100vw, 160px);
+    height: clamp(22.5px, 45 / 1360 * 100vw, 90px);
+  }
+
+  @include respond-to("2xl") {
+    width: clamp(40px, 80 / 1520 * 100vw, 160px);
+    height: clamp(22.5px, 45 / 1520 * 100vw, 90px);
+  }
+
+  @include respond-to("3xl") {
+    width: clamp(40px, 80 / 1680 * 100vw, 160px);
+    height: clamp(22.5px, 45 / 1680 * 100vw, 90px);
+  }
+
+  @include respond-to("4xl") {
+    width: clamp(40px, 80 / 1920 * 100vw, 160px);
+    height: clamp(22.5px, 45 / 1920 * 100vw, 90px);
+  }
+
+  @include respond-to("5xl") {
+    width: clamp(40px, 80 / 2560 * 100vw, 160px);
+    height: clamp(22.5px, 45 / 2560 * 100vw, 90px);
+  }
+
+  @include respond-to("6xl") {
+    width: clamp(40px, 80 / 3840 * 100vw, 160px);
+    height: clamp(22.5px, 45 / 3840 * 100vw, 90px);
+  }
+}
+
+.button--regular--xxs--cancel {
+  @extend .button--regular;
+  width: clamp(40px, 80 / 1200 * 100vw, 160px);
+  height: clamp(22.5px, 45 / 1200 * 100vw, 90px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @apply bg-primary-TRANSPARENT;
+  @apply text-sm;
+
+  @include respond-to("xl") {
+    width: clamp(40px, 80 / 1360 * 100vw, 160px);
+    height: clamp(22.5px, 45 / 1360 * 100vw, 90px);
+  }
+
+  @include respond-to("2xl") {
+    width: clamp(40px, 80 / 1520 * 100vw, 160px);
+    height: clamp(22.5px, 45 / 1520 * 100vw, 90px);
+  }
+
+  @include respond-to("3xl") {
+    width: clamp(40px, 80 / 1680 * 100vw, 160px);
+    height: clamp(22.5px, 45 / 1680 * 100vw, 90px);
+  }
+
+  @include respond-to("4xl") {
+    width: clamp(40px, 80 / 1920 * 100vw, 160px);
+    height: clamp(22.5px, 45 / 1920 * 100vw, 90px);
+  }
+
+  @include respond-to("5xl") {
+    width: clamp(40px, 80 / 2560 * 100vw, 160px);
+    height: clamp(22.5px, 45 / 2560 * 100vw, 90px);
+  }
+
+  @include respond-to("6xl") {
+    width: clamp(40px, 80 / 3840 * 100vw, 160px);
+    height: clamp(22.5px, 45 / 3840 * 100vw, 90px);
+  }
+}
+
 .button--regular--text {
   width: auto !important;
   font-size: clamp(8px, 0.83328vw, 32px);
@@ -91,6 +172,23 @@
   transition: 0.3s all;
   @apply text-primary;
   @apply font-bold;
+
+  &:hover {
+    @apply underline;
+    background-color: darken(#ff5722, 10%);
+  }
+}
+
+.button--regular--text--xs {
+  width: 0px !important;
+  height: 0px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  transition: 0.3s all;
+  @apply text-sm;
+  @apply text-primary;
 
   &:hover {
     @apply underline;

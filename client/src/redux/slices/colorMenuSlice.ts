@@ -3,19 +3,19 @@ import { createSlice } from "@reduxjs/toolkit";
 const colorMenuSlice = createSlice({
   name: "colorMenu",
   initialState: {
-    colorMenu: false,
+    isOpen: false,
   },
   reducers: {
     closeColorMenu: (state) => {
-      state.colorMenu = false;
+      state.isOpen = false;
     },
 
     openColorMenu: (state) => {
-      state.colorMenu = true;
+      state.isOpen = true;
     },
 
     generalColorMenu: (state) => {
-      state.colorMenu = !state.colorMenu;
+      state.isOpen = !state.isOpen;
     },
   },
 });

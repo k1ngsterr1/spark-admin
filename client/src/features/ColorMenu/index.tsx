@@ -6,6 +6,7 @@ import { ColorTab } from "@shared/ui/ColorTab";
 import { AddColorTab } from "@shared/ui/AddColorTab";
 import { useDispatch } from "react-redux";
 import { closeColorMenu } from "@redux/slices/colorMenuSlice";
+import { openCustomColorMenu } from "@redux/slices/customColorMenuSlice";
 import Draggable from "react-draggable";
 
 import styles from "./styles.module.scss";
@@ -31,6 +32,10 @@ export const ColorMenu = () => {
 
   const handleCloseColorMenu = () => {
     dispatch(closeColorMenu());
+  };
+
+  const handleOpenCustomColorMenu = () => {
+    dispatch(openCustomColorMenu());
   };
 
   return (
@@ -61,7 +66,7 @@ export const ColorMenu = () => {
                   <ColorTab key={index} color={color} />
                 ))}
                 {rowIndex === rows.length - 1 && (
-                  <AddColorTab onClick={() => console.log("LOL")} />
+                  <AddColorTab onClick={handleOpenCustomColorMenu} />
                 )}
               </div>
             ))}

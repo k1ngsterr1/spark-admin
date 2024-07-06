@@ -48,6 +48,7 @@
   &__container {
     display: flex;
     align-items: center;
+    cursor: move;
     justify-content: space-between;
 
     &__text {

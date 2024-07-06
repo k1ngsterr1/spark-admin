@@ -1,14 +1,20 @@
 "use client";
 import React, { useState } from "react";
 import Draggable from "react-draggable";
-import styles from "./styles.module.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faClose } from "@fortawesome/free-solid-svg-icons";
 import ColorPicker from "@features/ColorPicker";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { MenuSeparator } from "@shared/ui/MenuSeparator";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "@shared/lib/hooks/hooks";
+import styles from "./styles.module.scss";
+import { closeCustomColorMenu } from "@redux/slices/customColorMenuSlice";
 
 export const CustomColorMenu = () => {
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [selectedColor, setSelectedColor] = useState("#ff00bf");
+  const isOpen = useAppSelector((state) => state.customColorMenu.isOpen);
+  const dispatch = useDispatch();
 
   const handleOpenColorPicker = () => {
     setShowColorPicker(true);
@@ -23,25 +29,26 @@ export const CustomColorMenu = () => {
     setShowColorPicker(false);
   };
 
+  const handleCloseMenuColor = () => {
+    dispatch(closeCustomColorMenu());
+  };
+
+  if (!isOpen) {
+    return null;
+  }
+
   return (
     <Draggable handle=".handle">
       <div className={`${styles.custom_color} dark:bg-dark-super`}>
         <div className={`${styles.custom_color__upper} handle`}>
-          <div className="flex items-center gap-4">
-            <FontAwesomeIcon
-              icon={faChevronLeft}
-              className={styles.custom_color__upper__icon}
-            />
-            <span className={styles.custom_color__upper__text}>
-              Custom Color
-            </span>
-          </div>
+          <span className={styles.custom_color__upper__text}>Custom Color</span>
           <FontAwesomeIcon
             icon={faClose}
+            onClick={handleCloseMenuColor}
             className={styles.custom_color__upper__close}
           />
         </div>
-        <hr className={styles.custom_color__border} />
+        <MenuSeparator margin="mt-2" />
         <ColorPicker
           initialColor={selectedColor}
           onCancel={handleCloseColorPicker}

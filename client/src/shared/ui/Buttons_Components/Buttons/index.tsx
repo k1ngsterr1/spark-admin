@@ -20,8 +20,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | "regular"
     | "transparent"
     | "regular--small"
+    | "regular--xxs--cancel"
     | "regular--xs"
-    | "regular--text";
+    | "regular--xxs"
+    | "regular--text"
+    | "regular--text--xs";
+
   functionType?: FunctionTypes;
 }
 
