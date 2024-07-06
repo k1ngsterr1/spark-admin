@@ -6,6 +6,7 @@ import { TextMenu } from "@features/TextMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomColorMenu } from "@features/CustomColor";
 import { useAppSelector } from "@shared/lib/hooks/hooks";
+import { HeaderEditor } from "@features/HeaderEditor";
 
 export const TestScreen = () => {
   const isColorMenuOpen = useAppSelector(
