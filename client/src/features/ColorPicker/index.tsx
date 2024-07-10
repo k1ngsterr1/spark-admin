@@ -3,10 +3,17 @@ import React, { useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import styles from "./styles.module.scss";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
+import { useDispatch } from "react-redux";
+import { closeCustomColorMenu } from "@redux/slices/customColorMenuSlice";
 
 const ColorPicker = ({ onCancel, onApply }) => {
   const [color, setColor] = useState("#FF5722");
   const [activeTab, setActiveTab] = useState("hex");
+  const dispatch = useDispatch();
+
+  const handleCloseMenuColor = () => {
+    dispatch(closeCustomColorMenu());
+  };
 
   const handleColorChange = (color) => {
     setColor(color.hex);
@@ -60,6 +67,7 @@ const ColorPicker = ({ onCancel, onApply }) => {
         <Button
           buttonType="regular--xxs--cancel"
           text="Cancel"
+          onClick={handleCloseMenuColor}
           margin="!rounded-full"
         />
         <Button buttonType="regular--xxs" text="Apply" margin="!rounded-full" />

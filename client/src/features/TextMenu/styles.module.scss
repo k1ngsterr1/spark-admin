@@ -3,6 +3,7 @@
 @import "breakpoint-slicer";
 
 .text_menu {
+  position: absolute;
   width: clamp(150px, 300 / 1200 * 100vw, 600px);
   min-height: clamp(100px, 200 / 1200 * 100vw, 400px);
   @apply bg-white;

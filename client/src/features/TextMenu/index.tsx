@@ -22,9 +22,9 @@ import { generalColorMenu, openColorMenu } from "@redux/slices/colorMenuSlice";
 import { ReactTooltip } from "@shared/ui/Tooltip";
 import { MenuIconButton } from "@shared/ui/MenuIconButton";
 import { closeTextMenu } from "@redux/slices/textMenuSlice";
+import { useAppSelector } from "@shared/lib/hooks/hooks";
 
 import styles from "./styles.module.scss";
-import { useAppSelector } from "@shared/lib/hooks/hooks";
 
 export const TextMenu = () => {
   const dispatch = useDispatch();
@@ -129,7 +129,13 @@ export const TextMenu = () => {
         </div>
         <hr className={`${styles.text_menu__border} !mt-2`} />
         <div className={styles.text_menu__buttons}>
-          <button className={styles.text_menu__buttons__alignment}>
+          <button
+            className={styles.text_menu__buttons__alignment}
+            id="alignment"
+            data-tooltip-id="alignment"
+            data-tooltip-content="Alignment"
+            data-tooltip-place="top"
+          >
             <div className="flex items-center justify-center gap-2">
               <FontAwesomeIcon
                 icon={faAlignLeft}
@@ -141,7 +147,14 @@ export const TextMenu = () => {
               />
             </div>
           </button>
-          <button className={styles.text_menu__buttons__alignment}>
+          <ReactTooltip id="alignment" />
+          <button
+            className={styles.text_menu__buttons__alignment}
+            id="alignment"
+            data-tooltip-id="bullets"
+            data-tooltip-content="Bullets & numbering"
+            data-tooltip-place="top"
+          >
             <div className="flex items-center justify-center gap-2">
               <FontAwesomeIcon
                 icon={faList}
@@ -153,6 +166,8 @@ export const TextMenu = () => {
               />
             </div>
           </button>
+          <ReactTooltip id="bullets" />
+
           <button className={styles.text_menu__buttons__alignment}>
             <div className="flex items-center justify-center gap-2">
               <FontAwesomeIcon
