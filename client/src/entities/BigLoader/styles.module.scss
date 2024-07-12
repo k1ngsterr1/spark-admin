@@ -1,0 +1,79 @@
+@import "../../shared/styles/mixins";
+@import "../../shared/styles/variables";
+
+.loader {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  @apply bg-dark-lighter;
+
+  &__logo {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: clamp(64px, 128 / 992 * 100vw, 256px);
+    height: clamp(64px, 128 / 992 * 100vw, 256px);
+    @apply top-32;
+
+    &__text {
+      text-align: center;
+      @apply font-bold;
+      @apply text-2xl;
+      @apply text-primary;
+      @apply mt-2;
+    }
+
+    @include respond-to("tablet_sm") {
+      width: clamp(64px, 128 / 1024 * 100vw, 256px);
+      height: clamp(64px, 128 / 1024 * 100vw, 256px);
+    }
+
+    @include respond-to("tablet") {
+      width: clamp(64px, 128 / 1100 * 100vw, 256px);
+      height: clamp(64px, 128 / 1100 * 100vw, 256px);
+    }
+
+    @include respond-to("lg") {
+      width: clamp(64px, 128 / 1200 * 100vw, 256px);
+      height: clamp(64px, 128 / 1200 * 100vw, 256px);
+    }
+
+    @include respond-to("xl") {
+      width: clamp(64px, 128 / 1360 * 100vw, 256px);
+      height: clamp(64px, 128 / 1360 * 100vw, 256px);
+    }
+
+    @include respond-to("2xl") {
+      width: clamp(64px, 128 / 1520 * 100vw, 256px);
+      height: clamp(64px, 128 / 1520 * 100vw, 256px);
+    }
+
+    @include respond-to("3xl") {
+      width: clamp(64px, 128 / 1680 * 100vw, 256px);
+      height: clamp(64px, 128 / 1680 * 100vw, 256px);
+    }
+
+    @include respond-to("4xl") {
+      width: clamp(64px, 128 / 1920 * 100vw, 256px);
+      height: clamp(64px, 128 / 1920 * 100vw, 256px);
+    }
+
+    @include respond-to("5xl") {
+      width: clamp(64px, 128 / 2560 * 100vw, 256px);
+      height: clamp(64px, 128 / 2560 * 100vw, 256px);
+    }
+
+    @include respond-to("6xl") {
+      width: clamp(64px, 128 / 3840 * 100vw, 256px);
+      height: clamp(64px, 128 / 3840 * 100vw, 256px);
+    }
+  }
+}

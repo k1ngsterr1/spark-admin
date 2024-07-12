@@ -1,19 +1,18 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { Button, ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 import { useGetWebsites } from "@shared/lib/hooks/Websites/useGetWebsites";
-import { EmptySvg } from "@assets/index";
 import { useCheckIsAdmin } from "@shared/lib/hooks/Misc/useCheckIsAdmin";
 import { useTranslations } from "next-intl";
-import { WebsiteItem } from "@shared/lib/types";
 import Heading from "@shared/ui/Heading/index";
 import WebsiteTab from "@entities/Tabs_Components/WebsiteTab/index";
-import SkeletonLoader from "@shared/ui/Skeleton_Loader";
+import ClipLoader from "react-spinners/ClipLoader";
+import { EmtpyScreen } from "@shared/ui/EmptyScreen";
+import { Loading } from "@entities/Loading";
 
 import styles from "./styles.module.scss";
-import { EmtpyScreen } from "@shared/ui/EmptyScreen";
-import { ContextMenu } from "@features/ContextMenu";
+import { BigLoader } from "@entities/BigLoader";
 
 export const Dashboard = () => {
   const t = useTranslations("Dashboard");
@@ -41,9 +40,9 @@ export const Dashboard = () => {
 
   if (isLoading) {
     return (
-      <div>
-        <SkeletonLoader />
-      </div>
+      <>
+        <BigLoader />
+      </>
     );
   }
 
