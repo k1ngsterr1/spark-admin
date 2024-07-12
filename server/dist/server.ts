@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 // const bundler = require("bundler");
 // const { convert_to_webp } = require("wasm_image_converter");
 const fs = require("fs");
-const dotenv = require("dotenv").config({ path: "../.env" });
+const dotenv = require("dotenv").config({ path: "./.env" });
 
 // Routes
 import authRoutes from "infrastructure/routes/authRoutes";

@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, FormEvent } from "react";
 import { useLogin } from "@shared/lib/hooks/Form/useLogin";
 import { useFieldValidator } from "./useValidate";
@@ -7,9 +6,10 @@ import { useFieldValidator } from "./useValidate";
 /* eslint-disable react-hooks/rules-of-hooks */
 
 export const useSubmitLogin = (locale: string | string[]) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { errors, validateField } = useFieldValidator();
 
@@ -29,7 +29,10 @@ export const useSubmitLogin = (locale: string | string[]) => {
     }
 
     if (isValid) {
+      setLoading(true);
       const result = await useLogin({ email, password }, locale);
+      setLoading(false);
+
       if (typeof result === "string") {
         setPasswordError(result);
       }
@@ -41,6 +44,7 @@ export const useSubmitLogin = (locale: string | string[]) => {
     setEmail,
     password,
     setPassword,
+    loading,
     passwordError,
     handleSubmit,
     errors,
