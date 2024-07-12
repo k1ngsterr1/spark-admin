@@ -1,11 +1,10 @@
+import Heading from "@shared/ui/Heading";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import { UserTab } from "@entities/Tabs_Components/UserTab/index";
 import { useGetUsers } from "@shared/lib/hooks/Websites/useGetUsers";
 import { EmptySvg } from "@assets/index";
 import { useTranslations } from "next-intl";
-import SkeletonLoader from "@shared/ui/Skeleton_Loader";
-import Heading from "@shared/ui/Heading";
-
+import { BigLoader } from "@entities/BigLoader";
 import styles from "./styles.module.scss";
 
 interface UsersProps {
@@ -18,9 +17,9 @@ export const Users: React.FC<UsersProps> = ({ users }) => {
 
   if (isLoading) {
     return (
-      <div>
-        <SkeletonLoader />
-      </div>
+      <>
+        <BigLoader />
+      </>
     );
   }
 
