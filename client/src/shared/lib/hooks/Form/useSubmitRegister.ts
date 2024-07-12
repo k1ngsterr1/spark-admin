@@ -12,6 +12,7 @@ export const useSubmitRegister = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [backendError, setBackendError] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { errors, validateField } = useFieldValidator();
 
@@ -60,12 +61,14 @@ export const useSubmitRegister = () => {
     }
 
     if (isValid) {
+      setLoading(true);
       const result = await useRegister({
         username,
         email,
         password,
         passwordConfirmation,
       });
+      setLoading(false);
       if (typeof result === "string") {
         setBackendError(result);
       }
@@ -78,6 +81,7 @@ export const useSubmitRegister = () => {
     email,
     setEmail,
     password,
+    loading,
     setPassword,
     passwordConfirmation,
     setPasswordConfirmation,

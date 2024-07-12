@@ -12,6 +12,7 @@ import Heading from "@shared/ui/Heading/index";
 import SparkLogo from "@assets/spark_product_logo.svg";
 
 import styles from "../styles/styles.module.scss";
+import { Loading } from "@entities/Loading";
 
 const LoginForm = () => {
   const t = useTranslations("LoginPage");
@@ -41,7 +42,7 @@ const LoginForm = () => {
           className={styles.registration__content__form}
           onSubmit={handleSubmit}
         >
-          {loading && <span className="text-primary">KEKS!</span>}
+          {loading && <Loading />}
           <Input
             placeholder={"example@gmail.com"}
             inputType="default"
