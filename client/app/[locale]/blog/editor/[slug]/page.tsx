@@ -14,6 +14,8 @@ import { Button, ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
 import "react-quill/dist/quill.snow.css";
 import "./styles.scss";
 
+import { useArticle } from "@shared/lib/hooks/Isolated_Components/useAddArticle";
+
 export const Editor = () => {
   const { locale } = useParams();
   const t = useTranslations("Editor");
@@ -30,6 +32,8 @@ export const Editor = () => {
     e.preventDefault();
     addArticle(content, predefinedCode);
   };
+
+  const { content, handleChange, handleSubmit } = useArticle();
 
   return (
     <section className="flex items-center flex-col mb-10">
