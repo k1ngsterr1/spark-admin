@@ -45,7 +45,7 @@ export const Menu = () => {
       </nav>
       <NavButton
         icon={faArrowRightToBracket}
-        href="/login"
+        href="login"
         text={t("logout")}
         margin="mb-8"
         textRef={getTextRef(navlinks.length)}

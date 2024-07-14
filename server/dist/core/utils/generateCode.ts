@@ -1,5 +1,5 @@
 // Создание верификации кода
-const generateVerificationCode = (length = 5) => {
+export const generateVerificationCode = (length = 5) => {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let code = "";
 
@@ -9,5 +9,3 @@ const generateVerificationCode = (length = 5) => {
 
   return code;
 };
-
-module.exports = generateVerificationCode;

@@ -44,6 +44,7 @@ const LoginForm = () => {
           <Input
             placeholder={"example@gmail.com"}
             inputType="default"
+            name="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -52,6 +53,7 @@ const LoginForm = () => {
           <PasswordInput
             placeholder={t("password")}
             type="password"
+            name="password"
             margin="mt-3"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

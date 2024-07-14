@@ -8,8 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 const useScrollAnimation = (movement: any, theme: any) => {
   const pageSelectorRef = useRef(null);
 
-  console.log(theme);
-
   useEffect(() => {
     if (pageSelectorRef.current) {
       gsap.to(pageSelectorRef.current, {

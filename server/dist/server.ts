@@ -3,26 +3,52 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const compression = require("compression");
 const bodyParser = require("body-parser");
+// const { convert_to_webp } = require("wasm_image_converter");
+const fs = require("fs");
+const dotenv = require("dotenv").config({ path: "../.env" });
 
-const dotenv = require("dotenv").config({ path: "./.env" });
-
-// imports
+// Routes
 import authRoutes from "infrastructure/routes/authRoutes";
 import blogRoutes from "@infrastructure/routes/blogRoutes";
 import websiteRoutes from "infrastructure/routes/websiteRoutes";
 import pageRoutes from "@infrastructure/routes/pageRoutes";
 import userRoutes from "@infrastructure/routes/userRoutes";
-import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
-import { accessToken } from "@infrastructure/middleware/authMiddleware";
 import blockRoutes from "@infrastructure/routes/blockRoutes";
 import pageCardRoutes from "@infrastructure/routes/pageCardRoutes";
-import path from "path";
 import siteRoutes from "@infrastructure/routes/siteRoutes";
+
+import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
+import { accessToken } from "@infrastructure/middleware/authMiddleware";
+import path from "path";
 
 const app = express();
 
 export const buildRoute = path.join(__dirname, "templates/build/");
 export const uploadPath = path.join(__dirname, "uploads");
+// Testing
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads");
+  },
+  filename: function (req, file, cb) {
+    const currentDate = new Date()
+      .toJSON("kz-kz")
+      .slice(0, 10)
+      .replace(/:/g, "-");
+    const hours = new Date().getHours().toString().padStart(2, "0");
+    const minutes = new Date().getHours().toString().padStart(2, "0");
+    const seconds = new Date().getSeconds().toString().padStart(2, "0");
+    const currentTime = `H=${hours}-M=${minutes}-S=${seconds}`;
+    const result =
+      currentDate.toString() + "-" + currentTime + "-" + file.originalname;
+    req.body.image = result;
+
+    cb(null, result);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 // Разрешены все Origins
 const corsOptions = {
@@ -82,6 +108,17 @@ app.use(
 
 app.use("/images", express.static(path.join(__dirname, "uploads")));
 
+// app.post("/convert", upload.single("image"), (req, res) => {
+//   const imgBuffer = fs.readFileSync(req.file.path);
+//   const quality = 25; // Set the desired quality for the WebP image
+
+//   const webpImage = convert_to_webp(new Uint8Array(imgBuffer), quality);
+
+//   // Optionally save or immediately send the image
+//   fs.writeFileSync("output.webp", Buffer.from(webpImage));
+//   res.download("output.webp", "converted_image.webp"); // This sends the converted file to the client
+// });
+
 // Статичные стили
 // app.use(
 //   "/css",
@@ -108,7 +145,6 @@ app.use("/images", express.static(path.join(__dirname, "uploads")));
 app.use(compression());
 
 // Роуты:
-
 /**
  * @swagger
  * components:
@@ -137,6 +173,7 @@ app.post("/access", (req, res) => accessToken(req, res));
 // Логика для аутентификация
 app.use("/api/auth", authRoutes);
 
+// Логика для написания блога
 app.use("/api/blog", blogRoutes);
 
 // Логика для пользователей
@@ -151,6 +188,7 @@ app.use("/api/website", websiteRoutes);
 // Логика для блоков
 app.use("/api/block", blockRoutes);
 
+// Логика для добавления карточек страниц
 app.use("/api/page-card", pageCardRoutes);
 
 // Логика для данных сайта

@@ -34,7 +34,7 @@ export class DeleteCart {
       return;
     }
 
-    url += `/${cartId}`;
+    url += `/${cartId}/${user.website.websiteCode}`;
 
     const params = { url: url };
 

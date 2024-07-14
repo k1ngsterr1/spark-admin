@@ -5,8 +5,7 @@ import { validEmail, validPassword } from "@core/utils/validators";
 import EmailService from "./EmailVerification";
 import { RegisterRequest } from "@core/utils/User/Request";
 import { ErrorDetails } from "@core/utils/utils";
-
-const verificationCodeGenerator = require("@core/utils/generateCode");
+import { generateVerificationCode } from "@core/utils/generateCode";
 
 export class CreateUser {
   private userRepository: UserRepository;
@@ -21,6 +20,7 @@ export class CreateUser {
     errors: ErrorDetails[]
   ): Promise<User> {
     const { username, email, password, passwordConfirmation } = request;
+
     if (!email || !username || !password) {
       errors.push(new ErrorDetails(400, "Заполните необходимые поля!"));
       return;
@@ -42,7 +42,7 @@ export class CreateUser {
       return;
     }
 
-    const code = verificationCodeGenerator(5);
+    const code = generateVerificationCode(5);
 
     const newUser = await this.userRepository.create({
       username: username,

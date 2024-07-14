@@ -4,11 +4,13 @@ interface DefaultInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   margin?: string;
   inputType: "default" | "email";
+  autoCapitalize?: string;
 }
 
 const InputProp: React.FC<DefaultInputProps> = ({
   margin,
   inputType,
+  autoCapitalize,
   ...rest
 }) => {
   const inputClass = `${styles.input} dark:border-primary ${styles[`input--${inputType}`]} ${
@@ -16,7 +18,12 @@ const InputProp: React.FC<DefaultInputProps> = ({
   }`;
 
   return (
-    <input className={`${inputClass} dark:text-white`} {...rest} required />
+    <input
+      className={`${inputClass} dark:text-white`}
+      {...rest}
+      required
+      autoCapitalize={autoCapitalize}
+    />
   );
 };
 

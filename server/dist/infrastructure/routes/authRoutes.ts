@@ -196,4 +196,65 @@ router.post("/change-password", auth, (req, res) =>
  */
 router.post("/verify", auth, (req, res) => userController.verifyUser(req, res));
 
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ * /api/auth/send-email:
+ *   post:
+ *     summary: Отправка повторного подтверждения кода на почту
+ *     description: Отправка нового кода подтверждения на электронную почту пользователя.
+ *     tags:
+ *       - Аутентификация
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Письмо с подтверждением отправлено повторно.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Письмо с подтверждением отправлено повторно.
+ *       400:
+ *         description: Пользователь уже подтвержден или неверный запрос.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Пользователь уже подтвержден.
+ *       404:
+ *         description: Пользователь не найден.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Пользователь не найден.
+ *       500:
+ *         description: Произошла ошибка при верификации пользователя.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Произошла ошибка при верификации пользователя.
+ */
+router.post("/send-email", auth, (req, res) =>
+  userController.resendVerificationEmail(req, res)
+);
+
 export default router;
