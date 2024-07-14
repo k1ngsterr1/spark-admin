@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  min-height: 100vh;
+  // height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,7 +11,6 @@
 
   &__mini_text {
     font-size: clamp(7px, 14 / 1520 * 100vw, 28px);
-    font-family: "Mulish";
     @apply text-gray-800;
   }
 
@@ -19,7 +18,6 @@
     width: 60%;
     font-size: clamp(7.5px, 15 / 1520 * 100vw, 30px);
     text-align: center;
-    font-family: "Mulish";
     @apply text-gray-800;
     @apply mt-12;
   }

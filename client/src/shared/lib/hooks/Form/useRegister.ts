@@ -12,7 +12,7 @@ export async function useRegister(data: IData): Promise<string | void> {
     const response = await axiosInstance.post("/api/auth/register", data);
 
     console.log("Data created:", response.data);
-    window.location.href = "/login";
+    window.location.href = "login";
   } catch (error: any) {
     console.error("Failed to create data:", error);
     if (error.response) {

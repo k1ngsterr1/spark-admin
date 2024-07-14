@@ -1,0 +1,44 @@
+@keyframes shimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+.skeletonLoader {
+  background: #e0e0e0;
+  background-image: linear-gradient(
+    to right,
+    #e0e0e0 0%,
+    #f8f8f8 50%,
+    #e0e0e0 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 800px 104px;
+  display: inline-block;
+  line-height: 1;
+  width: 100%;
+  height: clamp(10px, 4.6728vw, 40px);
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 8px; // @apply rounded-lg
+}
+
+.skeletonDarkLoader {
+  background: #3a3846;
+  background-image: linear-gradient(
+    to right,
+    #3a3846 0%,
+    #474556 50%,
+    #3a3846 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 800px 104px;
+  display: inline-block;
+  line-height: 1;
+  width: 100%;
+  height: clamp(10px, 4.6728vw, 40px);
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 8px; // @apply rounded-lg
+}

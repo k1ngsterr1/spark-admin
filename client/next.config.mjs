@@ -17,6 +17,19 @@ const nextConfig = {
       test: /\.svg$/,
       use: ["@svgr/webpack"],
     });
+    config.module.rules.push({
+      test: /\.(obj|gltf|glb)$/,
+      use: [
+        {
+          loader: "file-loader",
+          options: {
+            publicPath: "/_next/static/files",
+            outputPath: "static/files",
+            name: "[name].[hash].[ext]",
+          },
+        },
+      ],
+    });
     return config;
   },
 };

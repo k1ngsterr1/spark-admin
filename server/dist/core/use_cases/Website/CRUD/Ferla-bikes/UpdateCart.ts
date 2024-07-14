@@ -3,9 +3,9 @@ import { CartDetails } from "@core/utils/Website/Ferla-bikes/types";
 import { WebsiteCommand } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
 import { validWebsiteUser } from "@core/utils/validators";
-import { ImageUpload } from "@infrastructure/config/cloudinary";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import RequestManager from "@services/createRequest";
+import fs from 'fs';
 
 export class UpdateCart{
     private userRepository: IUserRepository;
@@ -27,17 +27,27 @@ export class UpdateCart{
             return;
         }
 
-        if(cartDetails.img_url){
-            cartDetails.img_url = await ImageUpload(cartDetails.img_url, errors);
+        const form = new FormData();
+        for (const key in cartDetails) {
+            if (cartDetails.hasOwnProperty(key)) {
+                const value = cartDetails[key as keyof CartDetails] as string;
+                if(value !== undefined){
+                    if(key !== 'img_url'){
+                        form.append(key, value);
+                    }
+                    else{
+                        const image = new Blob([await fs.promises.readFile(value)]);
+                        form.append('image', image);
+                    }
+                }
+            }
         }
+        form.append('code', user.website.websiteCode);
 
         url += `/${cartId}`;
 
-        const body = cartDetails;
         const params = { url: url };
 
-        body['code'] = user.website.websiteCode;
-
-        await this.requestManager.postRequest(params, body, errors);
+        await this.requestManager.postRequest(params, form, errors);
     }
 }

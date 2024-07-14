@@ -24,6 +24,7 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-handlebars": "^7.1.2",
+    "form-data": "^4.0.0",
     "handlebars": "^4.7.8",
     "jsdom": "^24.0.0",
     "jsonwebtoken": "^9.0.2",
@@ -42,7 +43,8 @@
     "socket.io": "^4.7.5",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
-    "tsconfig-paths": "^4.2.0"
+    "tsconfig-paths": "^4.2.0",
+    "validator": "^13.12.0"
   },
   "_moduleAliases": {
     "@core": "./core",

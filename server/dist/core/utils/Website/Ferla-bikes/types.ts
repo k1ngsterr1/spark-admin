@@ -4,3 +4,10 @@ export type CartDetails = {
     img_url: string;
     price: number;
 }
+
+export type FormDetails = {
+    name: string;
+    phoneNumber: string;
+    email: string;
+    date: Date
+}

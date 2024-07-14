@@ -1,9 +1,10 @@
 "use client";
 
 import { faLink, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SyntheticEvent } from "react";
+import { useTranslations } from "next-intl";
 
 import styles from "./styles.module.scss";
 
@@ -15,10 +16,11 @@ interface IWebsiteTabProps {
 
 export const WebsiteTab: React.FC<IWebsiteTabProps> = ({ name, href, url }) => {
   const router = useRouter();
+  const t = useTranslations("WebsiteTab");
 
-  const handleClick = (slug: string, event: SyntheticEvent) => {
+  const handleClick = (slug, event: SyntheticEvent) => {
     event.stopPropagation();
-    router.push(`/websites/pages/${slug}`);
+    router.push(`websites/${slug}`);
   };
 
   return (
@@ -28,14 +30,17 @@ export const WebsiteTab: React.FC<IWebsiteTabProps> = ({ name, href, url }) => {
       >
         <div className={styles.sites_section__name}>{name}</div>
         <div className={styles.sites_section__row}>
-          <span className={styles.sites_section__row__click}>
+          <span
+            className={styles.sites_section__row__click}
+            onClick={(e) => handleClick(name, e)}
+          >
             <FontAwesomeIcon
               icon={faEdit}
               className={styles.sites_section__row__item}
               size="lg"
               color="#FF5722"
             />
-            Редактировать Сайт
+            {t("edit")}
           </span>
           <a
             href={href}

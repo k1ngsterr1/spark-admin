@@ -1,5 +1,116 @@
 {
   "MainPage": {
-    "title": "Hello World"
+    "miniText": "An innovative solution for your websites.",
+    "paragraph": "Our innovative approaches allow you to create unique and effective websites tailored to your needs. We use cutting-edge technology to provide a fast, secure and convenient user experience. With our solutions, your website will stand out among competitors and attract more visitors",
+    "login": "Login",
+    "documentation": "Docs",
+    "cards": {
+      "card_first": {
+        "name": "Convenience",
+        "description": "Manage your tasks and projects with maximum comfort and ease."
+      },
+      "card_second": {
+        "name": "Efficiency",
+        "description": "Optimize your workflows and achieve your goals faster."
+      },
+      "card_third": {
+        "name": "Reliability",
+        "description": "Trust our tool for stable and reliable project management."
+      }
+    },
+    "about": {
+      "heading": "What is Spark Admin?",
+      "under_heading": "Unleashing the Power of Efficient Management."
+    }
+  },
+  "Popups": {
+    "website": {
+      "text": "Add website",
+      "name": "Website Name",
+      "url": "Website URL"
+    },
+    "code": {
+      "text": "Get your verification code",
+      "url": "Website URL",
+      "get_code": "Get code",
+      "loading": "Loading...",
+      "check_code": "Check code",
+      "close": "Close"
+    }
+  },
+  "LoginPage": {
+    "heading": "Login",
+    "password": "Password",
+    "forgot_password": "Forgot your",
+    "forgot_password_orange": "password?",
+    "dont_have_account": "Don't have an account?",
+    "create_account": "Create Account"
+  },
+  "RegistrationPage": {
+    "heading": "Welcome To Spark Admin",
+    "username": "Username",
+    "password": "Password",
+    "password_confirm": "Confirm Your Password",
+    "sign_up": "Sign Up",
+    "account": "Already have an account?",
+    "login": "Login"
+  },
+  "Website": {
+    "websites": "Websites",
+    "requests": "Requests"
+  },
+  "Menu": {
+    "websites": "Websites",
+    "users": "My users",
+    "analytics": "Analytics",
+    "access": "My access",
+    "support": "Support",
+    "settings": "Settings",
+    "logout": "Log out"
+  },
+  "Dashboard": {
+    "websites": "Your Websites",
+    "add_website": "Add website",
+    "verify_website": "Verify website",
+    "create_website": "Create website",
+    "upload_website": "Upload website",
+    "empty": "You don't have any websites"
+  },
+  "Search": {
+    "search": "Search"
+  },
+  "Requests": {
+    "requests": "Requests",
+    "delete": "Delete",
+    "empty": "You don't have any requests"
+  },
+  "Editor": {
+    "editor": "Text Editor"
+  },
+  "Support": {
+    "support": "Support",
+    "Accounts": {
+      "title": "Accounts",
+      "description": "Update your account information, change your password, and manage linked accounts."
+    },
+    "Websites": {
+      "title": "Websites",
+      "description": "Manage your websites, update site settings, and troubleshoot common issues."
+    },
+    "Users": {
+      "title": "Users",
+      "description": "Manage user accounts, permissions, and roles within your organization."
+    },
+    "Analytics": {
+      "title": "Analytics",
+      "description": "View and analyze your data with detailed reports and insights."
+    },
+    "Access": {
+      "title": "Access",
+      "description": "Control access settings, manage security options, and set up multi-factor authentication."
+    }
+  },
+  "WebsiteTab": {
+    "edit": "Edit Website"
   }
 }

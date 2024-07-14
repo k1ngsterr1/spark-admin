@@ -11,6 +11,7 @@ import { StepIndicator } from "@entities/StepIndicator";
 import { useCheckWebsiteVerification } from "@shared/lib/hooks/Websites/useCheckWebsiteVerification";
 
 import styles from "./styles.module.scss";
+import { useTranslations } from "next-intl";
 
 // Попап для проверки верифицирован ли веб-сайт
 export const CodePopup = () => {
@@ -18,6 +19,7 @@ export const CodePopup = () => {
   const { checkVerificationWebsite, message } = useCheckWebsiteVerification();
   const { getWebsiteCode, url, setUrl, code } = useGetWebsiteCode();
   const [step, setStep] = useState<number>(1);
+  const t = useTranslations("Popups");
 
   if (!isWebVerifyPopupVisible) {
     return null;
@@ -46,7 +48,8 @@ export const CodePopup = () => {
         </div>
         <StepIndicator currentStep={step} />
         <span className={styles.website_popup__text}>
-          Получите ваш код для верификации
+          {/* Получите ваш код для верификации */}
+          {t("code.text")}
         </span>
         <form
           onSubmit={handleSubmit}
@@ -55,7 +58,7 @@ export const CodePopup = () => {
           {step === 1 && (
             <>
               <InputProp
-                placeholder="URL сайта"
+                placeholder={t("code.url")}
                 margin="mt-8"
                 inputType="default"
                 name="url"
@@ -64,7 +67,7 @@ export const CodePopup = () => {
               />
               <Button
                 buttonType="regular--small"
-                text="Получить код"
+                text={t("code.get_code")}
                 type="submit"
                 margin="mt-4"
               />
@@ -74,7 +77,7 @@ export const CodePopup = () => {
             <>
               <div className="flex w-[40%]">
                 {!code ? (
-                  <>Загрузка</>
+                  <>{t("code.loading")}</>
                 ) : (
                   <>
                     <CodeInterface code={code} />
@@ -84,18 +87,18 @@ export const CodePopup = () => {
               <Button
                 onClick={(e: any) => handleCheckSubmit(e)}
                 buttonType="regular--small"
-                text="Проверить код"
+                text={t("code.check_code")}
                 margin="mt-4"
               />
             </>
           )}
           {step === 3 && (
             <div className="flex flex-col items-center">
-              {!message ? <>Загрузка</> : <>{message}</>}
+              {!message ? <>{t("code.loading")}</> : <>{message}</>}
               <Button
                 onClick={toggleWebVerifyPopup}
                 buttonType="regular--small"
-                text="Закрыть"
+                text={t("code.close")}
                 margin="mt-4"
               />
             </div>

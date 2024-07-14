@@ -8,7 +8,7 @@ export async function useEmailConfirm(data: IData): Promise<void | string> {
   try {
     const response = await axiosInstance.post("/api/auth/verify", data);
 
-    window.location.href = "/websites";
+    window.location.href = "websites";
   } catch (error: unknown | any) {
     console.error("Failed to create data:", error);
     if (error.response) {

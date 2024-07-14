@@ -14,7 +14,10 @@ import { AllWebsitesUsers } from "@core/use_cases/Website/GetAllWebsitesUsers";
 import { DeleteWebsite } from "@core/use_cases/Website/DeleteWebsite";
 import { CheckVerification } from "@core/use_cases/Website/CheckVerification";
 import WebsiteService from "@services/websiteService";
-import { CartDetails } from "@core/utils/Website/Ferla-bikes/types";
+import {
+  CartDetails,
+  FormDetails,
+} from "@core/utils/Website/Ferla-bikes/types";
 import { AddCart } from "@core/use_cases/Website/CRUD/Ferla-bikes/AddCart";
 const fs = require("fs").promises;
 import path from "path";
@@ -22,6 +25,9 @@ import { uploadPath } from "server";
 import { UpdateCart } from "@core/use_cases/Website/CRUD/Ferla-bikes/UpdateCart";
 import { DeleteCart } from "@core/use_cases/Website/CRUD/Ferla-bikes/DeleteCart";
 import { GetCarts } from "@core/use_cases/Website/CRUD/Ferla-bikes/GetCarts";
+import { GetForms } from "@core/use_cases/Website/CRUD/Ferla-bikes/Form/GetForms";
+import { DeleteForm } from "@core/use_cases/Website/CRUD/Ferla-bikes/Form/DeleteForms";
+import { AddForm } from "@core/use_cases/Website/CRUD/Ferla-bikes/Form/AddForm";
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
@@ -41,6 +47,9 @@ class WebsiteController {
   private ferlaUpdateCart: UpdateCart;
   private ferlaGetCarts: GetCarts;
   private ferlaDeleteCart: DeleteCart;
+  private ferlaGetForm: GetForms;
+  private ferlaDeleteForm: DeleteForm;
+  private ferlaAddForm: AddForm;
 
   constructor() {
     this.websiteService = new WebsiteService();
@@ -59,10 +68,15 @@ class WebsiteController {
     this.getWebsiteElements = new GetWebsiteElements();
     this.allWebsitesUsers = new AllWebsitesUsers();
     this.deleteWebsiteByUrl = new DeleteWebsite();
+    // Ferla Carts
     this.ferlaAddCart = new AddCart();
     this.ferlaUpdateCart = new UpdateCart();
     this.ferlaGetCarts = new GetCarts();
     this.ferlaDeleteCart = new DeleteCart();
+    // Ferla Forms
+    this.ferlaAddForm = new AddForm();
+    this.ferlaDeleteForm = new DeleteForm();
+    this.ferlaGetForm = new GetForms();
   }
 
   // Добавление веб-сайта
@@ -88,7 +102,9 @@ class WebsiteController {
         .status(201)
         .json({ message: "Веб-сайт успешно добавлен", website: newWebsite });
     } catch (error) {
-      return res.status(500).json({ error: "Ошибка с созданием веб-сайта" });
+      return res
+        .status(500)
+        .json({ error: `Ошибка с созданием веб-сайта: ${error}` });
     }
   }
 
@@ -115,9 +131,9 @@ class WebsiteController {
   }
 
   //Add cart to ferla-bikes
-  async addFerlaCart(req: Request, res: Response): Promise<void>{
+  async addFerlaCart(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
-    try{
+    try {
       const userId: number = req.user.id;
       const websiteId: string = req.params.websiteId;
       const url: string = req.body.url;
@@ -126,33 +142,48 @@ class WebsiteController {
         name: req.body.name,
         description: req.body.description,
         img_url: imgPath,
-        price: req.body.price
-      }
+        price: req.body.price,
+      };
 
-      const cart = await this.ferlaAddCart.execute(userId, websiteId, url, cartDetails, errors);
+      console.log(imgPath, "image from body:", req.body.image);
+
+      const cart = await this.ferlaAddCart.execute(
+        userId,
+        websiteId,
+        url,
+        cartDetails,
+        errors
+      );
 
       await fs.unlink(imgPath, (error: unknown | any) => {
         if (error) {
           throw new Error(error.message);
         }
       });
-      
-      if(errors.length > 0){
+
+      if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json(current_error.details);
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
-      res.status(201).json({ message: "Успешно создали тележку.", cart: cart})
-    }catch(error){
+      res.status(201).json({ message: "Успешно создали тележку.", cart: cart });
+    } catch (error) {
       console.log(error);
+      console.log("image from body:", req.body);
+      const imgPath = path.join(uploadPath, req.body.image);
+      try {
+        await fs.unlink(imgPath);
+      } catch (fileError) {
+        console.log("Image problem in add ferla cart");
+      }
       res.status(500).json({ message: "Ошибка при добавление тележки." });
     }
   }
 
-  async updateFerlaCart(req: Request, res: Response): Promise<void>{
+  async updateFerlaCart(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
-    try{
+    try {
       const userId: number = req.user.id;
       const websiteId: string = req.params.websiteId;
       const url: string = req.body.url;
@@ -162,72 +193,179 @@ class WebsiteController {
         name: req.body.name,
         description: req.body.description,
         img_url: imgPath,
-        price: req.body.price
-      }
+        price: req.body.price,
+      };
 
-      const cart = await this.ferlaUpdateCart.execute(userId, websiteId, url, cartId, cartDetails, errors);
+      const cart = await this.ferlaUpdateCart.execute(
+        userId,
+        websiteId,
+        url,
+        cartId,
+        cartDetails,
+        errors
+      );
 
-      if(imgPath){
+      if (imgPath) {
         await fs.unlink(imgPath, (error: unknown | any) => {
           if (error) {
             throw new Error(error.message);
           }
         });
       }
-      
-      if(errors.length > 0){
+
+      if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json(current_error.details);
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
-      res.status(200).json({ message: "Успешно обновили тележку.", cart: cart})
-    }catch(error){
+      res
+        .status(200)
+        .json({ message: "Успешно обновили тележку.", cart: cart });
+    } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Ошибка при обновление тележки." });
     }
   }
 
-  async deleteFerlaCart(req: Request, res: Response): Promise<void>{
+  async deleteFerlaCart(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
-    try{
+    try {
       const userId: number = req.user.id;
       const websiteId: string = req.params.websiteId;
-      const url: string = req.body.url;
-      const cartId: number = req.body.cartId;
+      const url: string = req.params.url;
+      const cartId: number = req.params.cartId;
 
-      await this.ferlaDeleteCart.execute(userId, websiteId, url, cartId, errors);
-      
-      if(errors.length > 0){
+      await this.ferlaDeleteCart.execute(
+        userId,
+        websiteId,
+        url,
+        cartId,
+        errors
+      );
+
+      if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json(current_error.details);
+        res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
-      res.status(200).json({ message: "Успешно удалили тележку." })
-    }catch(error){
+      res.status(200).json({ message: "Успешно удалили тележку." });
+    } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Ошибка при удаление тележки." });
     }
   }
 
-  async getFerlaCarts(req: Request, res: Response): Promise<void>{
+  async getFerlaCarts(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
-    try{
+    try {
       const url: string = req.params.url;
-
       const carts = await this.ferlaGetCarts.execute(url, errors);
-      
-      if(errors.length > 0){
+
+      if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json({ message: current_error.details });
         return;
       }
 
       res.status(200).json({ message: "Успешно получили тележки.", carts });
-    }catch(error){
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Ошибка при получении тележки." });
+    }
+  }
+
+  // Получение заявок для ферла
+  async getFerlaForms(req: Request, res: Response): Promise<void> {
+    const errors: ErrorDetails[] = [];
+    try {
+      const url: string = req.params.url;
+      const userID: number = req.user.id;
+      const websiteID: string = req.params.websiteId;
+
+      const forms = await this.ferlaGetForm.execute(
+        url,
+        websiteID,
+        userID,
+        errors
+      );
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json({ message: current_error.details });
+        return;
+      }
+
+      res.status(200).json({ message: "Успешно получили формы.", forms });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Ошибка при получении форм." });
+    }
+  }
+
+  // Удалени заявок для ферла
+  async deleteFerlaForms(req: Request, res: Response): Promise<void> {
+    const errors: ErrorDetails[] = [];
+    try {
+      const userId: number = req.user.id;
+      const websiteId: string = req.params.websiteId;
+      const url: string = req.params.url;
+      const formId: number = req.params.formId;
+
+      await this.ferlaDeleteForm.execute(
+        userId,
+        websiteId,
+        url,
+        formId,
+        errors
+      );
+
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json({ message: current_error.details });
+        return;
+      }
+
+      res.status(200).json({ message: "Успешно удалили форму." });
+    } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Ошибка при удаление тележки." });
+    }
+  }
+
+  async addFerlaForms(req: Request, res: Response): Promise<void> {
+    const errors: ErrorDetails[] = [];
+    try {
+      const userId: number = req.user.id;
+      const websiteId: string = req.params.websiteId;
+      const url: string = req.body.url;
+
+      const formDetails: FormDetails = {
+        name: req.body.name,
+        phoneNumber: req.body.phoneNumber,
+        email: req.body.email,
+        date: req.body.date,
+      };
+
+      const form = await this.ferlaAddForm.execute(
+        userId,
+        websiteId,
+        url,
+        formDetails,
+        errors
+      );
+
+      if (errors.length > 0) {
+        const current_error = errors[0];
+        res.status(current_error.code).json({ message: current_error.details });
+        return;
+      }
+
+      res
+        .status(201)
+        .json({ message: "Успешно создали заявку формы", form: form });
+    } catch (error) {
+      res.status(500).json({ message: "Ошибка при создании формы" });
     }
   }
 
@@ -317,8 +455,6 @@ class WebsiteController {
     try {
       const url: string = req.params.url;
       const userID: number = req.user.id;
-
-      console.log("get elements from website");
 
       const isVerified = await this.checkVerificationUseCase.execute(
         userID,

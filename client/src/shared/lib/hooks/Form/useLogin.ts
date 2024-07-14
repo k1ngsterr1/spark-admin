@@ -5,15 +5,18 @@ interface IData {
   password: string;
 }
 
-export async function useLogin(data: IData): Promise<string | void> {
+export async function useLogin(
+  data: IData,
+  locale: string | string[]
+): Promise<string | void> {
   try {
     const response = await axiosInstance.post("/api/auth/login", data);
     const isVerified = response.data.user.isVerified;
 
     if (isVerified === true) {
-      window.location.href = "/websites";
+      window.location.href = `websites`;
     } else {
-      window.location.href = "/email-confirmation";
+      window.location.href = `email-confirmation`;
     }
 
     const userData = {

@@ -8,12 +8,7 @@ const express = require("express");
 const router = express.Router();
 
 // Проверка JWT токена
-router.use((req, res, next) => {
-  if (req.path !== '/api/website/ferla-bikes/:websiteId/get-carts') {
-      return next();
-  }
-  authenticateToken(req, res, next);
-});
+router.use(authenticateToken);
 router.use(advancedLogger);
 
 const multer = require("multer");
@@ -30,7 +25,7 @@ const storage = multer.diskStorage({
     const minutes = new Date().getHours().toString().padStart(2, "0");
     const seconds = new Date().getSeconds().toString().padStart(2, "0");
     const currentTime = `H=${hours}-M=${minutes}-S=${seconds}`;
-    let result =
+    const result =
       currentDate.toString() + "-" + currentTime + "-" + file.originalname;
     req.body.image = result;
 
@@ -256,8 +251,6 @@ router.post("/check-verification", (req, res) =>
   websiteController.checkVerification(req, res)
 );
 
-
-
 /**
  * @swagger
  * /api/website/delete:
@@ -293,13 +286,37 @@ router.delete("/delete", (req, res) =>
   websiteController.deleteWebsite(req, res)
 );
 
-router.post("/ferla-bikes/:websiteId/add-cart", upload.single("image"), (req, res) => websiteController.addFerlaCart(req, res));
+// Ferla Bikes here:
+router.post(
+  "/ferla-bikes/:websiteId/add-cart",
+  upload.single("image"),
+  (req, res) => websiteController.addFerlaCart(req, res)
+);
 
-router.post("/ferla-bikes/:websiteId/update-cart", upload.single("image"), (req, res) => websiteController.updateFerlaCart(req, res));
+router.post(
+  "/ferla-bikes/:websiteId/update-cart",
+  upload.single("image"),
+  (req, res) => websiteController.updateFerlaCart(req, res)
+);
 
-router.delete("/ferla-bikes/:websiteId/delete-cart", (req, res) => websiteController.deleteFerlaCart(req, res));
+router.delete("/ferla-bikes/:websiteId/delete-cart/:cartId/:url", (req, res) =>
+  websiteController.deleteFerlaCart(req, res)
+);
 
-router.get("/ferla-bikes/:websiteId/get-carts", (req, res) => websiteController.getFerlaCarts(req, res));
+router.get("/ferla-bikes/:websiteId/get-carts", (req, res) =>
+  websiteController.getFerlaCarts(req, res)
+);
+
+router.delete(
+  "/ferla-bikes/:websiteId/delete-form/:formId/:url",
+  (req, res) => {
+    websiteController.deleteFerlaForms(req, res);
+  }
+);
+
+router.post("/ferla-bikes/:websiteId/add-form", (req, res) =>
+  websiteController.addFerlaForms(req, res)
+);
 
 router.use("/page", pageRoutes);
 

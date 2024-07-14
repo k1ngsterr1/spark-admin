@@ -43,7 +43,7 @@ export class UserRepository implements IUserRepository {
 
   // Сохранение кода верификации
   async saveVerificationCode(
-    user: User,
+    user: any,
     verificationCode: string
   ): Promise<void> {
     const expirationTime = new Date();
@@ -56,7 +56,7 @@ export class UserRepository implements IUserRepository {
   }
 
   // Проверка кода
-  async verifyCode(user: User, verificationCode: string): Promise<boolean> {
+  async verifyCode(user, verificationCode: string): Promise<boolean> {
     const currentTime = new Date();
 
     if (
@@ -143,9 +143,9 @@ export class UserRepository implements IUserRepository {
           include: [
             {
               model: sequelize.getRepository(Website),
-              attributes: ["websiteCode"]
-            }
-          ]
+              attributes: ["websiteCode"],
+            },
+          ],
         });
       return userToWebsite;
     } catch (error) {

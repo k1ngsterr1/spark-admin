@@ -3,9 +3,10 @@ import { CartDetails } from "@core/utils/Website/Ferla-bikes/types";
 import { WebsiteCommand } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
 import { validWebsiteUser } from "@core/utils/validators";
-import { ImageUpload } from "@infrastructure/config/cloudinary";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import RequestManager from "@services/createRequest";
+import fs from 'fs';
+import path from "path";
 
 export class AddCart{
     private userRepository: IUserRepository;
@@ -23,17 +24,28 @@ export class AddCart{
         const isValidUser = await validWebsiteUser(user, WebsiteCommand.update);
 
         if(!isValidUser){
-            errors.push(new ErrorDetails(403, "У вас не достаточно прав."));
+            errors.push(new ErrorDetails(403, "У вас недостаточно прав."));
             return;
         }
 
-        cartDetails.img_url = await ImageUpload(cartDetails.img_url, errors);
-
-        const body = cartDetails;
+        const form = new FormData();
+        for (const key in cartDetails) {
+            if (cartDetails.hasOwnProperty(key)) {
+                const value = cartDetails[key as keyof CartDetails] as string;
+                if(key !== 'img_url'){
+                    form.append(key, value);
+                }
+                else{
+                    const image = new Blob([await fs.promises.readFile(value)]);
+                    form.append('image', image, path.basename(value));
+                }
+            }
+        }
         const params = { url: url };
 
-        body['code'] = user.website.websiteCode;
 
-        await this.requestManager.postRequest(params, body, errors);
+        form.append('code', user.website.websiteCode);
+
+        await this.requestManager.postRequest(params, form, errors);
     }
 }

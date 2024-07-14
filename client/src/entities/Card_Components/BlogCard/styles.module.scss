@@ -1,0 +1,152 @@
+@import "../../../shared/styles/mixins";
+@import "../../../shared//styles/variables";
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__logo {
+    margin-top: clamp(46px, 4.79136vw, 184px);
+    width: clamp(68px, 7.08288vw, 272px);
+    height: clamp(68px, 7.08288vw, 272px);
+  }
+
+  &__upload {
+    @apply mt-12;
+    @apply gap-4;
+    border: 4px solid #ff5722;
+    width: clamp(183px, 19.06128vw, 732px);
+    height: clamp(122px, 12.70752vw, 488px);
+    border-radius: clamp(5px, 0.5208vw, 20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &__icon {
+      font-size: clamp(30px, 3.1248vw, 120px);
+    }
+  }
+
+  &__previewImage {
+    @apply mt-12;
+    border-radius: clamp(5px, 0.5208vw, 20px);
+    width: clamp(183px, 19.06128vw, 732px);
+    height: clamp(122px, 12.70752vw, 488px);
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: 0.3s all;
+    @apply p-2;
+
+    &:hover &__title {
+      @apply font-bold;
+      color: #e33a3a;
+    }
+
+    &__image {
+      @apply mt-12;
+      width: 100%;
+      @apply rounded-lg;
+      width: clamp(183px, 19.06128vw, 732px);
+      height: clamp(122px, 12.70752vw, 488px);
+
+      @include respond-to("lg") {
+        height: clamp(130px, 260 / 1200 * 100vw, 520px);
+      }
+
+      @include respond-to("xl") {
+        height: clamp(80px, 160 / 1360 * 100vw, 320px);
+      }
+
+      @include respond-to("2xl") {
+        height: clamp(105px, 210 / 1520 * 100vw, 420px);
+      }
+
+      @include respond-to("3xl") {
+        height: clamp(110px, 220 / 1680 * 100vw, 440px);
+      }
+
+      @include respond-to("4xl") {
+        height: clamp(130px, 260 / 1920 * 100vw, 520px);
+      }
+
+      @include respond-to("5xl") {
+        height: clamp(170px, 340 / 2560 * 100vw, 680px);
+      }
+    }
+
+    &__title {
+      width: 100%;
+      text-align: left;
+      color: black;
+      font-size: clamp(9px, 18 / 1360 * 100vw, 36px);
+      @apply p-2;
+
+      @include respond-to("lg") {
+        font-size: clamp(9px, 18 / 1200 * 100vw, 36px);
+      }
+
+      @include respond-to("xl") {
+        font-size: clamp(9px, 18 / 1360 * 100vw, 36px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(9px, 18 / 1520 * 100vw, 36px);
+      }
+
+      @include respond-to("3xl") {
+        font-size: clamp(9px, 18 / 1680 * 100vw, 36px);
+      }
+
+      @include respond-to("4xl") {
+        font-size: clamp(9px, 18 / 1920 * 100vw, 36px);
+      }
+
+      @include respond-to("5xl") {
+        width: 80%;
+        text-wrap: pretty;
+        font-size: clamp(13px, 26 / 2560 * 100vw, 42px);
+      }
+    }
+
+    &__href {
+      text-decoration: none;
+      color: #e33a3a;
+      @apply p-2;
+
+      @include respond-to("lg") {
+        font-size: clamp(8.5px, 17 / 1200 * 100vw, 34px);
+      }
+
+      @include respond-to("xl") {
+        font-size: clamp(8.5px, 17 / 1360 * 100vw, 34px);
+      }
+
+      @include respond-to("2xl") {
+        font-size: clamp(8.5px, 17 / 1520 * 100vw, 34px);
+      }
+
+      @include respond-to("3xl") {
+        font-size: clamp(8.5px, 17 / 1680 * 100vw, 34px);
+      }
+
+      @include respond-to("4xl") {
+        font-size: clamp(8.5px, 17 / 1920 * 100vw, 34px);
+      }
+
+      @include respond-to("5xl") {
+        font-size: clamp(11px, 22 / 2560 * 100vw, 44px);
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
