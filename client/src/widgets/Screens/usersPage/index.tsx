@@ -5,6 +5,8 @@ import { useGetUsers } from "@shared/lib/hooks/Websites/useGetUsers";
 import { EmptySvg } from "@assets/index";
 import { useTranslations } from "next-intl";
 import { BigLoader } from "@entities/BigLoader";
+import { EmtpyScreen } from "@shared/ui/EmptyScreen";
+
 import styles from "./styles.module.scss";
 
 interface UsersProps {
@@ -35,8 +37,7 @@ export const Users: React.FC<UsersProps> = ({ users }) => {
               functionType="userPopup"
             />
           </div>
-          <EmptySvg className={styles.container__image} />
-          <p className={styles.container__already}>{t("no_users")}</p>
+          <EmtpyScreen text={t("You don't have any users")} />
         </div>
       </>
     );

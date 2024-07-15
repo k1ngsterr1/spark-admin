@@ -18,7 +18,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 70vh;
+  min-height: 90vh;
+
   &__already {
     @apply mt-8;
     font-size: clamp(8px, 16 / 1520 * 100vw, 32px);
@@ -39,14 +40,36 @@
       font-size: clamp(8px, 16 / 1520 * 100vw, 32px);
     }
   }
+
   &__image {
+    @apply mt-24;
+
     @include respond-to("md") {
-      width: clamp(100px, 20.161vw, 400px);
-      height: clamp(125px, 25.202vw, 500px);
+      width: clamp(80px, 450 / 992 * 100vw, 320px);
     }
 
     @include respond-to("lg") {
-      font-size: clamp(8px, 16 / 1200 * 100vw, 32px);
+      width: clamp(90px, 450 / 1200 * 100vw, 360px);
+    }
+
+    @include respond-to("xl") {
+      width: clamp(100px, 450 / 1360 * 100vw, 400px);
+    }
+
+    @include respond-to("2xl") {
+      width: clamp(110px, 600 / 1520 * 100vw, 440px);
+    }
+
+    @include respond-to("3xl") {
+      width: clamp(120px, 600 / 1680 * 100vw, 480px);
+    }
+
+    @include respond-to("4xl") {
+      width: clamp(130px, 600 / 1920 * 100vw, 520px);
+    }
+
+    @include respond-to("5xl") {
+      width: clamp(150px, 600 / 2560 * 100vw, 600px);
     }
   }
 }
