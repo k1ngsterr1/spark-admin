@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 
 export const BigLoader = () => {
   return (
-    <div className={styles.loader}>
+    <div className={`${styles.loader} dark:bg-dark-lighter`}>
       <div className="flex items-center justify-center flex-col">
         <div className={styles.loader__logo}>
           <Logo />
