@@ -11,7 +11,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  @apply bg-dark-lighter;
+  @apply bg-white;
+  // @apply bg-dark-lighter;
 
   &__logo {
     position: absolute;
@@ -24,6 +25,7 @@
     @apply top-32;
 
     &__text {
+      width: 100%;
       text-align: center;
       @apply font-bold;
       @apply text-2xl;

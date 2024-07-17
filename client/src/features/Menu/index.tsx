@@ -37,6 +37,10 @@ export const Menu = () => {
           <NavButton
             key={index}
             icon={link.icon}
+            id={link.id}
+            data_tooltip_content={t(link.data_tooltip)}
+            data_tooltip_id={link.data_id}
+            data_tooltip_place={link.data_place}
             href={`/${locale}${link.href}`}
             text={t(link.textKey)}
             margin={link.margin}
@@ -48,6 +52,10 @@ export const Menu = () => {
       <NavButton
         onClick={() => logOut()}
         icon={faArrowRightToBracket}
+        id="logout"
+        data_tooltip_content={t("logout")}
+        data_tooltip_id="logout"
+        data_tooltip_place="right"
         href="login"
         text={t("logout")}
         margin="mb-8"

@@ -7,6 +7,7 @@ import { SyntheticEvent } from "react";
 import { useTranslations } from "next-intl";
 
 import styles from "./styles.module.scss";
+import { KebabMenu } from "@shared/ui/KebabMenu";
 
 interface IWebsiteTabProps {
   name: string;
@@ -22,6 +23,9 @@ export const WebsiteTab: React.FC<IWebsiteTabProps> = ({ name, href, url }) => {
     event.stopPropagation();
     router.push(`websites/${slug}`);
   };
+  const handleKebabMenuClick = (event: SyntheticEvent) => {
+    event.stopPropagation();
+  };
 
   return (
     <div>
@@ -29,6 +33,20 @@ export const WebsiteTab: React.FC<IWebsiteTabProps> = ({ name, href, url }) => {
         onClick={(e) => handleClick(name, e)}
         className={`${styles.sites_section} dark:bg-dark-lighter hover:dark:bg-dark-upper`}
       >
+        <div onClick={handleKebabMenuClick}>
+          <KebabMenu
+            buttons={
+              <>
+                <button className="w-full transition hover:bg-primary dark:bg-dark-upper2">
+                  Edit
+                </button>
+                <button className="w-full transition hover:bg-primary dark:bg-dark-upper2">
+                  Delete
+                </button>
+              </>
+            }
+          />
+        </div>{" "}
         <div className={styles.sites_section__name}>{name}</div>
         <div className={styles.sites_section__row}>
           <span

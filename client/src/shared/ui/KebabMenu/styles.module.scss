@@ -1,3 +1,6 @@
+@import "../../../shared/styles/mixins";
+@import "../../../shared/styles/variables";
+
 .button_kebab {
   position: absolute;
   @apply p-3;
@@ -15,17 +18,88 @@
 }
 
 .kebab_opened {
+  width: clamp(60px, 120 / 992 * 100vw, 240px);
+  height: auto;
   position: absolute;
   z-index: 20;
   display: flex;
   flex-direction: column;
   align-items: center;
   @apply right-4;
-  @apply rounded-md;
+  @apply rounded-lg;
   @apply shadow-md;
   @apply bg-primary-ALMOST_WHITE;
 
+  @include respond-to("lg") {
+    width: clamp(60px, 120 / 1200 * 100vw, 240px);
+  }
+
+  @include respond-to("xl") {
+    width: clamp(60px, 120 / 1360 * 100vw, 240px);
+  }
+
+  @include respond-to("2xl") {
+    width: clamp(60px, 120 / 1520 * 100vw, 240px);
+  }
+
+  @include respond-to("3xl") {
+    width: clamp(60px, 120 / 1680 * 100vw, 240px);
+  }
+
+  @include respond-to("4xl") {
+    width: clamp(60px, 120 / 1920 * 100vw, 240px);
+  }
+
+  @include respond-to("5xl") {
+    width: clamp(60px, 120 / 2560 * 100vw, 240px);
+  }
+
+  // Apply padding to all direct children
+  * {
+    height: clamp(17.5px, 35 /992 * 100vw, 70px);
+    @apply rounded-md;
+    transition: 0.3s all;
+
+    @include respond-to("lg") {
+      height: clamp(17.5px, 35 / 1200 * 100vw, 70px);
+    }
+
+    @include respond-to("xl") {
+      height: clamp(17.5px, 35 / 1360 * 100vw, 70px);
+    }
+
+    @include respond-to("2xl") {
+      height: clamp(17.5px, 35 / 1520 * 100vw, 70px);
+    }
+
+    @include respond-to("3xl") {
+      height: clamp(17.5px, 35 / 1680 * 100vw, 70px);
+    }
+
+    @include respond-to("4xl") {
+      height: clamp(17.5px, 35 / 1920 * 100vw, 70px);
+    }
+
+    @include respond-to("5xl") {
+      height: clamp(17.5px, 35 / 2560 * 100vw, 70px);
+    }
+
+    &:hover {
+      @apply text-primary;
+    }
+  }
+
   span {
+    @apply pl-3;
+    @apply pr-3;
+    transition: 0.3s all;
+
+    &:hover {
+      @apply text-primary;
+    }
+  }
+
+  button {
     @apply pl-3;
     @apply pr-3;
     transition: 0.3s all;
