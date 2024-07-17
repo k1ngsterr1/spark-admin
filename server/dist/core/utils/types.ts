@@ -60,6 +60,11 @@ export interface PageCardAttributes {
   type: string;
 }
 
+export interface ThemeAttributes {
+  id: number;
+  theme: string;
+}
+
 export interface SiteDataAttributes {
   id: number;
   name: string;
@@ -68,13 +73,13 @@ export interface SiteDataAttributes {
   updatedAt: Date;
 }
 
-export interface FormAttributes{
-    id: number;
-    code: string;
-    name: string;
-    phoneNumber: string;
-    email: string;
-    date: Date;
+export interface FormAttributes {
+  id: number;
+  code: string;
+  name: string;
+  phoneNumber: string;
+  email: string;
+  date: Date;
 }
 
 export interface ComponentAttributes {
@@ -134,7 +139,7 @@ export interface NewWebsiteInput {
   websiteCodeSignature: string;
 }
 
-export interface NewFormInput{
+export interface NewFormInput {
   name: string;
   phoneNumber: string;
   email: string;
