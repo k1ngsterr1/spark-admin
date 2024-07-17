@@ -5,6 +5,7 @@ import { Component } from "@infrastructure/models/componentModel";
 import { PageCard } from "@infrastructure/models/pageCardModel";
 import { Page } from "@infrastructure/models/pageModel";
 import { SiteData } from "@infrastructure/models/siteDataModel";
+import { Theme } from "@infrastructure/models/themeModel";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import { User } from "infrastructure/models/userModel";
 import { Website } from "infrastructure/models/websiteModel";
@@ -34,6 +35,7 @@ const sequelize = new Sequelize({
     Component,
     Block,
     PageCard,
+    Theme,
     CardToBlock,
     BlockComponent,
     SiteData,

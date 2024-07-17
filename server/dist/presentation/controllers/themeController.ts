@@ -13,7 +13,13 @@ class ThemeController {
     try {
       const theme: "light" | "dark" = req.body.theme;
 
-      await this.changeThemeUseCase.execute(theme, errors);
+      const updatedTheme = await this.changeThemeUseCase.execute(theme, errors);
+
+      console.log("updatedTheme here:", updatedTheme);
+
+      res
+        .status(201)
+        .json({ message: "Тема успешно обновлена", theme: updatedTheme });
     } catch (error: any | unknown) {
       console.log(error);
       res.status(500).json({ message: `Ошибка при измении темы` });

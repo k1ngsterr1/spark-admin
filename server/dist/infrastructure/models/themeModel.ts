@@ -7,6 +7,8 @@ import {
   Default,
   PrimaryKey,
   AutoIncrement,
+  CreatedAt,
+  UpdatedAt,
 } from "sequelize-typescript";
 
 // Модель для цветовых тем в админке
@@ -18,6 +20,12 @@ export class Theme extends Model<ThemeAttributes> {
   @AutoIncrement
   @Column(DataType.INTEGER)
   id!: number;
+
+  @CreatedAt
+  createdAt!: Date;
+
+  @UpdatedAt
+  updatedAt!: Date;
 
   @Default("light")
   @Column(DataType.STRING)
