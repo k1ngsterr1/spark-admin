@@ -5,8 +5,7 @@ import themeController from "@presentation/controllers/themeController";
 const express = require("express");
 const router = express.Router();
 
-// Проверка JWT токена
-router.use(authenticateToken);
+// Логер
 router.use(advancedLogger);
 
 router.post("/change-theme", (req, res) =>
