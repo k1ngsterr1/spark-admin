@@ -1,15 +1,17 @@
 import { IThemeRepository } from "@core/interfaces/IThemeRepository";
 import { Theme } from "@infrastructure/models/themeModel";
 import sequelize from "@infrastructure/config/sequelize";
+import { ErrorDetails } from "@core/utils/utils";
 
 export class ThemeRepository implements IThemeRepository {
   // Смена темы
-  async changeTheme(theme: "dark" | "light"): Promise<Theme | null | string> {
+  async changeTheme(
+    theme: "dark" | "light",
+    errors: ErrorDetails[]
+  ): Promise<Theme | null | string> {
     try {
       // Find the Theme by primary key
       const themeInstance = await sequelize.getRepository(Theme).findByPk(1);
-
-      console.log("theme is here:", theme);
 
       if (!themeInstance) {
         // Optionally create a new theme if not found
@@ -23,8 +25,6 @@ export class ThemeRepository implements IThemeRepository {
       themeInstance.theme = theme;
       await themeInstance.save(); // Save the changes
 
-      console.log("theme instance is here:", themeInstance.theme);
-
       return themeInstance; // Return the updated theme
     } catch (error) {
       console.error("An error occurred while updating the theme:", error);
@@ -33,7 +33,7 @@ export class ThemeRepository implements IThemeRepository {
   }
 
   //   Получение темы
-  async getTheme(): Promise<string | Theme[]> {
+  async getTheme(errors: ErrorDetails[]): Promise<string | Theme[]> {
     return await sequelize.getRepository(Theme).findAll();
   }
 }

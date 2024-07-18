@@ -11,7 +11,6 @@ import {
   Default,
   BeforeCreate,
   BeforeUpdate,
-  ForeignKey,
   BelongsToMany,
 } from "sequelize-typescript";
 

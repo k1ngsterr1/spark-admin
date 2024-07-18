@@ -1,6 +1,10 @@
+import { ErrorDetails } from "@core/utils/utils";
 import { Theme } from "@infrastructure/models/themeModel";
 
 export interface IThemeRepository {
-  changeTheme(theme: "dark" | "light"): Promise<Theme | null | string>;
-  getTheme(): Promise<string | Theme[]>;
+  changeTheme(
+    theme: "dark" | "light",
+    errors: ErrorDetails[]
+  ): Promise<Theme | null | string>;
+  getTheme(errors: ErrorDetails[]): Promise<string | Theme[]>;
 }

@@ -13,4 +13,6 @@ router.post("/change-theme", (req, res) =>
   themeController.changeTheme(req, res)
 );
 
+router.get("/get-theme", (req, res) => themeController.getTheme(req, res));
+
 export default router;
