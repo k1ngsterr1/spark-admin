@@ -24,10 +24,17 @@ import { accessToken } from "@infrastructure/middleware/authMiddleware";
 
 import path from "path";
 
+import { registerSocketEvents } from "@presentation/controllers/websockets/socketController";
+import { SocketService } from "@infrastructure/websocket/socketServer";
+
 const app = express();
 
 export const buildRoute = path.join(__dirname, "templates/build/");
 export const uploadPath = path.join(__dirname, "uploads");
+
+// Server for sockets
+const httpServer = require("http").createServer(app);
+const socketService = new SocketService(httpServer);
 
 // Testing
 const multer = require("multer");
@@ -205,6 +212,6 @@ app.use("/api/site", siteRoutes);
 
 // app.use("/api/article", articleRoutes);
 
-app.listen(port, () => {
+httpServer.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

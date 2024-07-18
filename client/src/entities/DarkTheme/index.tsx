@@ -3,11 +3,18 @@ import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import { useChangeTheme } from "@shared/lib/hooks/Misc/useChangeTheme";
 
 import styles from "./styles.module.scss";
 
 export const ThemeButton = () => {
   const { theme, setTheme } = useTheme();
+  // const { changeTheme } = useChangeTheme();
+
+  const handleChangeTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+    // changeTheme(theme);
+  };
 
   console.log(
     `%c
@@ -33,7 +40,7 @@ export const ThemeButton = () => {
   return (
     <button
       className={`${styles.button} dark:hover:bg-gray-800 hoverable`}
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      onClick={handleChangeTheme}
     >
       <FontAwesomeIcon
         className={styles.button__icon}
