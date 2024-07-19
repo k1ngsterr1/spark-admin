@@ -9,11 +9,11 @@ import styles from "./styles.module.scss";
 
 export const ThemeButton = () => {
   const { theme, setTheme } = useTheme();
-  // const { changeTheme } = useChangeTheme();
+  const { changeTheme } = useChangeTheme();
 
   const handleChangeTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
-    // changeTheme(theme);
+    changeTheme(theme);
   };
 
   console.log(

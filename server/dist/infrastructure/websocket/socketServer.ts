@@ -1,7 +1,7 @@
 import { Server, Socket } from "socket.io";
 import { ChangeTheme } from "@core/use_cases/Theme/ChangeTheme";
 
-const userSockets = new Map();
+const userSockets = new Map<string, string>(); // Map to store userId and corresponding socketId
 
 export class SocketService {
   private io: Server;
@@ -24,27 +24,34 @@ export class SocketService {
   }
 
   private configureSocketListeners(): void {
-    this.io.on("connection", (socket: Socket) => {
+    this.io.on("connection", (socket: any) => {
       console.log(`Client connected with id: ${socket.id}`);
 
       socket.on("register", (userId) => {
         console.log("socket is registered!");
         userSockets.set(userId, socket.id);
+        socket.userId = userId; // Attach userId to the socket for later use
       });
 
-      console.log("userSockets are here:", userSockets);
+      socket.on("disconnect", () => {
+        userSockets.delete(socket.userId);
+        console.log(`Client disconnected: ${socket.id}`);
+      });
 
-      // Handle theme change requests individually
       socket.on(
         "changeThemeRequest",
-        async (theme: "light" | "dark", callback: Function) => {
+        async (theme: "light" | "dark", callback: Function, userId: string) => {
           try {
+            const socketId = userSockets.get(userId);
+
+            console.log("socket id is here:", socketId);
+
             const errors: any[] = [];
             const result = await this.changeThemeUseCase.execute(theme, errors);
             if (errors.length > 0) {
-              socket.emit("themeChangeError", { success: false, errors }); // Send errors back to the requester
+              socket.emit("themeChangeError", { success: false, errors });
             } else {
-              socket.emit("themeChanged", { success: true, theme: result }); // Send the new theme only to the requester
+              socket.emit("themeChanged", { success: true, theme: result });
             }
           } catch (error) {
             console.error("Error changing theme:", error);
@@ -55,11 +62,19 @@ export class SocketService {
           }
         }
       );
-
-      socket.on("disconnect", () => {
-        // userSockets.delete(socket.userId);
-        console.log(`Client disconnected: ${socket.id}`);
-      });
     });
   }
+
+  public changeUserTheme(userId: string, newTheme: "light" | "dark"): void {
+    const socketId = userSockets.get(userId);
+    console.log("socketId:", socketId);
+    if (socketId && this.io.sockets.sockets.get(socketId)) {
+      console.log("changed for specific user!");
+      this.io.to(socketId).emit("themeChanged", newTheme);
+    } else {
+      console.log("User socket not found or disconnected.");
+    }
+  }
 }
+
+export { userSockets };

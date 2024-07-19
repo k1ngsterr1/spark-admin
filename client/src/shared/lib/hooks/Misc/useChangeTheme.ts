@@ -1,7 +1,9 @@
 "use client";
-import { socket } from "@shared/lib/services/socketService";
+import { useSocket } from "@shared/lib/contexts/SocketContext";
 
 export function useChangeTheme() {
+  const socket = useSocket();
+
   const changeTheme = (newTheme: string | "dark" | "light") => {
     socket.emit("changeThemeRequest", newTheme, (response) => {
       if (response.success) {
@@ -11,6 +13,12 @@ export function useChangeTheme() {
       }
     });
   };
+
+  socket.on("themeChanged", (newTheme) => {
+    console.log("Theme changed to2:", newTheme);
+    // Update the theme in your application
+    // For example, update the theme in your state or context
+  });
 
   return { changeTheme };
 }
