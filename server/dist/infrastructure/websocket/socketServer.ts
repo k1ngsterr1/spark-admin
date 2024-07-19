@@ -1,8 +1,8 @@
-import { Server, Socket } from "socket.io";
+import { Server } from "socket.io";
 import { ChangeTheme } from "@core/use_cases/Theme/ChangeTheme";
 import { ChangeLanguage } from "@core/use_cases/Language/ChangeLanguage";
 
-const userSockets = new Map<string, string>(); // Map to store userId and corresponding socketId
+const userSockets = new Map<string, string>();
 
 export class SocketService {
   private io: Server;
