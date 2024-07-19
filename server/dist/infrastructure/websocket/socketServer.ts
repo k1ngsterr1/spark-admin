@@ -90,16 +90,16 @@ export class SocketService {
               errors
             );
             if (errors.length > 0) {
-              socket.emit("themeChangeError", { success: false, errors });
+              socket.emit("languageChangeError", { success: false, errors });
             } else {
-              socket.emit("themeChanged", {
+              socket.emit("languageChanged", {
                 success: true,
                 theme: result,
               });
             }
           } catch (error) {
-            console.error("Error changing theme:", error);
-            socket.emit("themeChangeError", {
+            console.error("Error changing language:", error);
+            socket.emit("languageChangeError", {
               success: false,
               error: "Internal server error",
             });
