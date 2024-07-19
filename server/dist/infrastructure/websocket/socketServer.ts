@@ -38,30 +38,35 @@ export class SocketService {
         console.log(`Client disconnected: ${socket.id}`);
       });
 
-      socket.on(
-        "changeThemeRequest",
-        async (theme: "light" | "dark", callback: Function, userId: string) => {
-          try {
-            const socketId = userSockets.get(userId);
+      socket.on("changeThemeRequest", async (data: any, callback: Function) => {
+        const { userId, theme } = data;
 
-            console.log("socket id is here:", socketId);
+        try {
+          const socketId = userSockets.get(userId);
 
-            const errors: any[] = [];
-            const result = await this.changeThemeUseCase.execute(theme, errors);
-            if (errors.length > 0) {
-              socket.emit("themeChangeError", { success: false, errors });
-            } else {
-              socket.emit("themeChanged", { success: true, theme: result });
-            }
-          } catch (error) {
-            console.error("Error changing theme:", error);
-            socket.emit("themeChangeError", {
-              success: false,
-              error: "Internal server error",
-            });
+          console.log(
+            "socket id is here:",
+            socketId,
+            "user sockets:",
+            userSockets
+          );
+
+          const errors: any[] = [];
+          const result = await this.changeThemeUseCase.execute(theme, errors);
+          if (errors.length > 0) {
+            socket.emit("themeChangeError", { success: false, errors });
+          } else {
+            console.log("theme changed here!");
+            socket.emit("themeChanged", { success: true, theme: result });
           }
+        } catch (error) {
+          console.error("Error changing theme:", error);
+          socket.emit("themeChangeError", {
+            success: false,
+            error: "Internal server error",
+          });
         }
-      );
+      });
     });
   }
 
