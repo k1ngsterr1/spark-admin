@@ -1,4 +1,5 @@
 import { Block } from "@infrastructure/models/blockModel";
+import { Color } from "@infrastructure/models/colorModel";
 import { PageCard } from "@infrastructure/models/pageCardModel";
 import { Page } from "@infrastructure/models/pageModel";
 import { User } from "@infrastructure/models/userModel";
@@ -19,6 +20,23 @@ export interface UserAttributes {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface UserToColorAttributes {
+  id: number;
+  userId: number;
+  colorId: number;
+  user: User;
+  color: Color;
+}
+
+export interface WebsiteToColorAttributes {
+  id: number;
+  websiteId: string;
+  colorId: number;
+  website: Website;
+  color: Color;
+}
+
 export interface WebsiteAttributes {
   id: string;
   users: User[];
@@ -118,6 +136,11 @@ export interface BlockAttributes {
   type: string;
   image_url: string;
   video_url: string;
+}
+
+export interface ColorAttributes {
+  id: number;
+  value: string;
 }
 
 export interface CardToBlockAttributes {

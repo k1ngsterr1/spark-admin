@@ -18,6 +18,8 @@ import bcryptjs from "bcryptjs";
 import { Website } from "./websiteModel";
 import { UserAttributes, UserRole } from "@core/utils/types";
 import UserToWebsite from "./userToWebsiteModel";
+import { Color } from "./colorModel";
+import { UserToColor } from "./userToColorModel";
 
 // Модель пользователя
 @Table({
@@ -31,6 +33,9 @@ export class User extends Model<UserAttributes> {
 
   @BelongsToMany(() => Website, () => UserToWebsite)
   websites!: Website;
+
+  @BelongsToMany(() => Color, () => UserToColor)
+  colors!: Color[];
 
   @Column(DataType.STRING)
   username!: string;
