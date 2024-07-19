@@ -1,11 +1,13 @@
 import { Server, Socket } from "socket.io";
 import { ChangeTheme } from "@core/use_cases/Theme/ChangeTheme";
+import { ChangeLanguage } from "@core/use_cases/Language/ChangeLanguage";
 
 const userSockets = new Map<string, string>(); // Map to store userId and corresponding socketId
 
 export class SocketService {
   private io: Server;
   private changeThemeUseCase: ChangeTheme;
+  private changeLanguageUseCase: ChangeLanguage;
 
   constructor(server: any) {
     this.io = new Server(server, {
@@ -66,6 +68,44 @@ export class SocketService {
           });
         }
       });
+
+      socket.on(
+        "changeLanguageRequest",
+        async (data: any, callback: Function) => {
+          const { userId, language } = data;
+
+          try {
+            const socketId = userSockets.get(userId);
+
+            console.log(
+              "socket id is here:",
+              socketId,
+              "user sockets:",
+              userSockets
+            );
+
+            const errors: any[] = [];
+            const result = await this.changeLanguageUseCase.execute(
+              language,
+              errors
+            );
+            if (errors.length > 0) {
+              socket.emit("themeChangeError", { success: false, errors });
+            } else {
+              socket.emit("themeChanged", {
+                success: true,
+                theme: result,
+              });
+            }
+          } catch (error) {
+            console.error("Error changing theme:", error);
+            socket.emit("themeChangeError", {
+              success: false,
+              error: "Internal server error",
+            });
+          }
+        }
+      );
     });
   }
 
@@ -75,6 +115,17 @@ export class SocketService {
     if (socketId && this.io.sockets.sockets.get(socketId)) {
       console.log("changed for specific user!");
       this.io.to(socketId).emit("themeChanged", newTheme);
+    } else {
+      console.log("User socket not found or disconnected.");
+    }
+  }
+
+  public changeUserLanguage(userId: string, newLanguage: "RU" | "EN"): void {
+    const socketId = userSockets.get(userId);
+    console.log("socketId:", socketId);
+    if (socketId && this.io.sockets.sockets.get(socketId)) {
+      console.log("changed for specific user!");
+      this.io.to(socketId).emit("languageChanged", newLanguage);
     } else {
       console.log("User socket not found or disconnected.");
     }
