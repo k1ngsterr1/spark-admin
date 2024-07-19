@@ -3,6 +3,7 @@ import { Block } from "@infrastructure/models/blockModel";
 import CardToBlock from "@infrastructure/models/cardToblockModel";
 import { Color } from "@infrastructure/models/colorModel";
 import { Component } from "@infrastructure/models/componentModel";
+import { Language } from "@infrastructure/models/languageModel";
 import { PageCard } from "@infrastructure/models/pageCardModel";
 import { Page } from "@infrastructure/models/pageModel";
 import { SiteData } from "@infrastructure/models/siteDataModel";
@@ -45,6 +46,7 @@ const sequelize = new Sequelize({
     Color,
     UserToColor,
     WebsiteToColor,
+    Language,
   ],
 });
 

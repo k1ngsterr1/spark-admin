@@ -197,7 +197,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/theme", themeRoutes);
 
 // Логика для языков тем
-app.use("/api/langauge", languageRoutes);
+app.use("/api/language", languageRoutes);
 
 // Логика для страниц
 app.use("/api/page", pageRoutes);

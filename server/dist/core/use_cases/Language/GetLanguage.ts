@@ -15,5 +15,7 @@ export class GetLanguage {
       errors.push(new ErrorDetails(404, "Не удалось найти язык."));
       return;
     }
+
+    return language;
   }
 }

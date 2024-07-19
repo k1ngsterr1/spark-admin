@@ -2,8 +2,9 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import styles from "./styles.module.scss";
 import { useChangeLanguage } from "@shared/lib/hooks/Misc/useChangeLanguage";
+
+import styles from "./styles.module.scss";
 
 export const SwitchLocale = ({ locale }) => {
   const t = useTranslations("MainPage");
