@@ -56,7 +56,6 @@ export class SocketService {
           if (errors.length > 0) {
             socket.emit("themeChangeError", { success: false, errors });
           } else {
-            console.log("theme changed here!");
             socket.emit("themeChanged", { success: true, theme: result });
           }
         } catch (error) {

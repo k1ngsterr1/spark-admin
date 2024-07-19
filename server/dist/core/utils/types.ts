@@ -65,6 +65,13 @@ export interface ThemeAttributes {
   theme: string;
 }
 
+export interface LanguageAttributes {
+  id: number;
+  language: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 export interface SiteDataAttributes {
   id: number;
   name: string;
