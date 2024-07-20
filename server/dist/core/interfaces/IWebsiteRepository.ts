@@ -1,5 +1,6 @@
 import { NewWebsiteInput, UserRole } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
+import { Color } from "@infrastructure/models/colorModel";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import { Website } from "@infrastructure/models/websiteModel";
 import { WebsiteRepository } from "@infrastructure/repositories/WebsiteRepository";
@@ -51,4 +52,10 @@ export interface IWebsiteRepository {
 
   //Interface для получение всех пользователей со всех вебсайтов
   findWebsitesUsers?(errors: ErrorDetails[]): Promise<Website[]>;
+
+  //Получение цветов вебсайта
+  findWebsiteColors(
+    websiteId: string,
+    errors: ErrorDetails[]
+  ): Promise<Color[]>;
 }

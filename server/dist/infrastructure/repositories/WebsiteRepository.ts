@@ -7,6 +7,7 @@ import { IWebsiteRepository } from "@core/interfaces/IWebsiteRepository";
 
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import sequelize from "infrastructure/config/sequelize";
+import { Color } from "@infrastructure/models/colorModel";
 
 export class WebsiteRepository implements IWebsiteRepository {
   // Создать веб-сайт
@@ -201,6 +202,31 @@ export class WebsiteRepository implements IWebsiteRepository {
           "Ошибка с проверкой верификации веб-сайта с базы данных"
         )
       );
+      return [];
+    }
+  }
+
+  async findWebsiteColors(
+    websiteId: string,
+    errors: ErrorDetails[]
+  ): Promise<Color[]> {
+    try {
+      const website = await sequelize.getRepository(Website).findOne({
+        where: { id: websiteId },
+        include: [
+          {
+            model: sequelize.getRepository(Color),
+            through: {
+              attributes: [],
+            },
+          },
+        ],
+      });
+
+      return website.colors;
+    } catch (error) {
+      console.log(error);
+      errors.push(new ErrorDetails(500, "Error finding website colors"));
       return [];
     }
   }

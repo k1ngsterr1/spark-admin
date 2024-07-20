@@ -176,7 +176,7 @@ export class UserRepository implements IUserRepository {
       return user.colors;
     } catch (error) {
       console.log(error);
-      errors.push(new ErrorDetails(500, "Error finding user color"));
+      errors.push(new ErrorDetails(500, "Error finding user colors"));
       return [];
     }
   }

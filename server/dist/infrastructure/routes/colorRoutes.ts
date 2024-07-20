@@ -18,4 +18,16 @@ router.delete("/user/:value", (req, res) =>
   colorController.deleteUserColor(req, res)
 );
 
+router.post("/website", (req, res) =>
+  colorController.addWebsiteColor(req, res)
+);
+
+router.get("/website/:websiteId", (req, res) =>
+  colorController.getWebsiteColor(req, res)
+);
+
+router.delete("/website/:websiteId/:value", (req, res) =>
+  colorController.deleteWebsiteColor(req, res)
+);
+
 export default router;

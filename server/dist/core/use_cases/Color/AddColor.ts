@@ -18,7 +18,8 @@ export class AddColor {
     request: AddColorRequest,
     errors: ErrorDetails[]
   ): Promise<Color> {
-    const { userId, value } = request;
+    const userId: number = request.id as number;
+    const value: string = request.value;
     const user = await this.userRepository.findByPk(userId);
     if (!user) {
       errors.push(new ErrorDetails(404, "User not found"));
