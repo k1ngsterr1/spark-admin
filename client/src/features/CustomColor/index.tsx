@@ -7,8 +7,9 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { MenuSeparator } from "@shared/ui/MenuSeparator";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "@shared/lib/hooks/hooks";
-import styles from "./styles.module.scss";
 import { closeCustomColorMenu } from "@redux/slices/customColorMenuSlice";
+
+import styles from "./styles.module.scss";
 
 export const CustomColorMenu = () => {
   const [showColorPicker, setShowColorPicker] = useState(false);
