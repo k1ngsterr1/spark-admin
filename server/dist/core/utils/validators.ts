@@ -54,6 +54,26 @@ export async function validPassword(
   return true;
 }
 
+export async function validColor(value: string): Promise<boolean> {
+  const errors = [];
+
+  const hexColorRegex = /^#([0-9A-F]{3}|[0-9A-F]{6})$/i;
+  const rgbColorRegex =
+    /^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/;
+  const rgbaColorRegex =
+    /^rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|1|0?\.\d+)\s*\)$/;
+
+  if (
+    !hexColorRegex.test(value) &&
+    !rgbColorRegex.test(value) &&
+    !rgbaColorRegex.test(value)
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
 // Проверка валидности URL
 export async function validURL(url: string): Promise<boolean> {
   if (!url) {
@@ -66,7 +86,7 @@ export async function validURL(url: string): Promise<boolean> {
       validate_length: true,
       allow_underscores: false,
       require_host: false,
-      require_tld: false
+      require_tld: false,
     })
   ) {
     return true;

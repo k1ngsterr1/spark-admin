@@ -18,6 +18,7 @@ import blockRoutes from "@infrastructure/routes/blockRoutes";
 import pageCardRoutes from "@infrastructure/routes/pageCardRoutes";
 import siteRoutes from "@infrastructure/routes/siteRoutes";
 import themeRoutes from "@infrastructure/routes/themeRoutes";
+import colorRoutes from "@infrastructure/routes/colorRoutes";
 
 import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
 import { accessToken } from "@infrastructure/middleware/authMiddleware";
@@ -209,6 +210,9 @@ app.use("/api/page-card", pageCardRoutes);
 
 // Логика для данных сайта
 app.use("/api/site", siteRoutes);
+
+// Логика для цветов
+app.use("/api/color", colorRoutes);
 
 // app.use("/api/article", articleRoutes);
 

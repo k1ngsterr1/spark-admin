@@ -6,6 +6,8 @@ import { Op } from "sequelize"; // Ensure this is imported correctly
 import sequelize from "infrastructure/config/sequelize";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import { Website } from "@infrastructure/models/websiteModel";
+import { ErrorDetails } from "@core/utils/utils";
+import { Color } from "@infrastructure/models/colorModel";
 
 export class UserRepository implements IUserRepository {
   // Создать пользователя
@@ -151,6 +153,31 @@ export class UserRepository implements IUserRepository {
     } catch (error) {
       console.log(error);
       return;
+    }
+  }
+
+  async findUserColors(
+    userId: number,
+    errors: ErrorDetails[]
+  ): Promise<Color[]> {
+    try {
+      const user = await sequelize.getRepository(User).findOne({
+        where: { id: userId },
+        include: [
+          {
+            model: sequelize.getRepository(Color),
+            through: {
+              attributes: [],
+            },
+          },
+        ],
+      });
+
+      return user.colors;
+    } catch (error) {
+      console.log(error);
+      errors.push(new ErrorDetails(500, "Error finding user color"));
+      return [];
     }
   }
 }

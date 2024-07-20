@@ -9,7 +9,8 @@ import { Website } from "@infrastructure/models/websiteModel";
 export interface UserAttributes {
   id: number;
   websiteId: string;
-  website: Website;
+  website: Website[];
+  colors: Color[];
   username: string;
   email: string;
   password: string;

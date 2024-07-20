@@ -1,5 +1,6 @@
 import { NewUserInput } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
+import { Color } from "@infrastructure/models/colorModel";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import { User } from "infrastructure/models/userModel";
 
@@ -23,4 +24,5 @@ export interface IUserRepository {
     websiteId: string,
     userId: number
   ): Promise<UserToWebsite | null>;
+  findUserColors(userId: number, errors: ErrorDetails[]): Promise<Color[]>;
 }
