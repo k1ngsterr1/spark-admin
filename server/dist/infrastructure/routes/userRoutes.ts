@@ -9,9 +9,16 @@ router.use(authenticateToken);
 router.use(advancedLogger);
 
 // Проверка является ли пользователь спарк админом
-
 router.post("/spark-check", (req, res) =>
   userController.checkSparkAdmin(req, res)
 );
+
+// Смена темы пользователя
+router.post("/change-theme", (req, res) =>
+  userController.changeTheme(req, res)
+);
+
+// Получение темы пользователя
+router.get("/get-theme", (req, res) => userController.getTheme(req, res));
 
 export default router;

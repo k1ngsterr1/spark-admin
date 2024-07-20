@@ -16,6 +16,8 @@ import { CheckAdminRole } from "@core/use_cases/User/CheckAdmin";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { generateVerificationCode } from "@core/utils/generateCode"; // Ensure the path is correct
 import EmailService from "@core/use_cases/User/EmailVerification";
+import { ChangeTheme } from "@core/use_cases/User/ChangeTheme";
+import { GetTheme } from "@core/use_cases/User/GetTheme";
 
 class UserController {
   private createUserUseCase: CreateUser;
@@ -26,6 +28,8 @@ class UserController {
   private changeUserRoleService: ChangeUserRoleService;
   private verifyService: VerifyService;
   private jwtService: JWTService;
+  private changeThemeUseCase: ChangeTheme;
+  private getThemeUseCase: GetTheme;
   private changeUserPasswordService: ChangePasswordService;
 
   constructor() {
@@ -37,6 +41,8 @@ class UserController {
     this.verifyService = new VerifyService();
     this.loginLogic = new Login();
     this.createUserUseCase = new CreateUser();
+    this.changeThemeUseCase = new ChangeTheme();
+    this.getThemeUseCase = new GetTheme();
     this.changeUserPasswordService = new ChangePasswordService();
   }
 
@@ -296,6 +302,47 @@ class UserController {
         message: "Ошибка с изменением роли:",
         error: error.message,
       });
+    }
+  }
+
+  // Смена темы
+  async changeTheme(req: Request, res: Response): Promise<void> {
+    const errors: ErrorDetails[] = [];
+    try {
+      const theme: "light" | "dark" = req.body.theme;
+      const userId = req.user.id;
+
+      const updatedTheme = await this.changeThemeUseCase.execute(
+        userId,
+        theme,
+        errors
+      );
+
+      res
+        .status(201)
+        .json({ message: "Тема успешно обновлена", theme: updatedTheme });
+    } catch (error: any | unknown) {
+      console.log(error);
+      res.status(500).json({ message: `Ошибка при измении темы` });
+    }
+  }
+
+  // Получение темы
+  async getTheme(req: Request, res: Response): Promise<void> {
+    const errors: ErrorDetails[] = [];
+    try {
+      const userId = req.user.id;
+
+      console.log("controller is working!");
+
+      const theme = await this.getThemeUseCase.execute(userId, errors);
+
+      res.status(201).json({ message: "Тема успешно получена:", theme: theme });
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .json({ message: `Ошибка при измении темы`, error: error.message });
     }
   }
 }

@@ -14,6 +14,7 @@ export interface UserAttributes {
   email: string;
   password: string;
   role: string;
+  theme: string;
   isSparkAdmin: boolean;
   verificationCode: string;
   isVerified: boolean;

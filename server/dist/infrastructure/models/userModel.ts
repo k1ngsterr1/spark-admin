@@ -65,6 +65,10 @@ export class User extends Model<UserAttributes> {
   @Column(DataType.BOOLEAN)
   isVerified!: boolean;
 
+  @Default("light")
+  @Column(DataType.STRING)
+  theme!: string;
+
   @CreatedAt
   createdAt!: Date;
 

@@ -6,6 +6,7 @@ import { Op } from "sequelize"; // Ensure this is imported correctly
 import sequelize from "infrastructure/config/sequelize";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import { Website } from "@infrastructure/models/websiteModel";
+import { ErrorDetails } from "@core/utils/utils";
 
 export class UserRepository implements IUserRepository {
   // Создать пользователя
@@ -128,6 +129,7 @@ export class UserRepository implements IUserRepository {
     }
   }
 
+  // Получение пользователя по коду веб-сайта
   async getUserFromWebsiteWithCode(
     websiteId: string,
     userId: number
@@ -151,6 +153,51 @@ export class UserRepository implements IUserRepository {
     } catch (error) {
       console.log(error);
       return;
+    }
+  }
+
+  // Поменять тему пользователя
+  async changeTheme(
+    userId: number,
+    theme: string,
+    errors: ErrorDetails[]
+  ): Promise<string> {
+    try {
+      console.log("repo is working!");
+
+      const [numberOfAffectedRows] = await sequelize
+        .getRepository(User)
+        .update({ theme: theme }, { where: { id: userId } });
+
+      if (numberOfAffectedRows === 0) {
+        errors.push(new ErrorDetails(404, "User or theme not found"));
+        return "light"; // Default theme in case of an error
+      }
+
+      return theme;
+    } catch (error) {
+      console.error("Ошибка с обновлением темы:", error);
+      errors.push(new ErrorDetails(500, "Ошибка сервера"));
+      // return "light";
+    }
+  }
+
+  // Получить тему пользователя
+  async getTheme(userId: number, errors: ErrorDetails[]): Promise<string> {
+    try {
+      const user = await sequelize.getRepository(User).findByPk(userId);
+      console.log("user theme:", user.theme);
+      const theme = user.theme;
+
+      if (!theme) {
+        errors.push(new ErrorDetails(404, "Тема пользователя не была найден"));
+      }
+
+      return theme;
+    } catch (error) {
+      console.error("Ошибка с получением темы:", error);
+      errors.push(new ErrorDetails(500, "Ошибка сервера"));
+      // return "light";
     }
   }
 }

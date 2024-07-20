@@ -23,4 +23,10 @@ export interface IUserRepository {
     websiteId: string,
     userId: number
   ): Promise<UserToWebsite | null>;
+  changeTheme(
+    userId: number,
+    theme: "dark" | "light",
+    errors: ErrorDetails[]
+  ): Promise<string>;
+  getTheme(userId: number, errors: ErrorDetails[]): Promise<string>;
 }
