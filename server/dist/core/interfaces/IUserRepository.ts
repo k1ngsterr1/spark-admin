@@ -1,3 +1,4 @@
+import { GetLanguage } from "./../use_cases/Language/GetLanguage";
 import { NewUserInput } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
@@ -29,4 +30,10 @@ export interface IUserRepository {
     errors: ErrorDetails[]
   ): Promise<string>;
   getTheme(userId: number, errors: ErrorDetails[]): Promise<string>;
+  changeLanguage?(
+    userId: number,
+    language: "RU" | "EN",
+    errors: ErrorDetails[]
+  ): Promise<string>;
+  getLanguage?(userId: number, errors: ErrorDetails[]): Promise<string>;
 }

@@ -13,10 +13,11 @@ export const ThemeButton = () => {
 
   const handleChangeTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
-    changeTheme(theme);
   };
 
-  useEffect(() => {}, [theme]);
+  useEffect(() => {
+    changeTheme(theme);
+  }, [theme]);
 
   // console.log(
   //   `%c

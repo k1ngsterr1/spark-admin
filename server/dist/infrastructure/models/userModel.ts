@@ -69,6 +69,10 @@ export class User extends Model<UserAttributes> {
   @Column(DataType.STRING)
   theme!: string;
 
+  @Default("EN")
+  @Column(DataType.STRING)
+  language!: string;
+
   @CreatedAt
   createdAt!: Date;
 

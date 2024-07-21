@@ -186,8 +186,9 @@ export class UserRepository implements IUserRepository {
   async getTheme(userId: number, errors: ErrorDetails[]): Promise<string> {
     try {
       const user = await sequelize.getRepository(User).findByPk(userId);
-      console.log("user theme:", user.theme);
       const theme = user.theme;
+
+      console.log("theme is repo:", theme);
 
       if (!theme) {
         errors.push(new ErrorDetails(404, "Тема пользователя не была найден"));
@@ -198,6 +199,29 @@ export class UserRepository implements IUserRepository {
       console.error("Ошибка с получением темы:", error);
       errors.push(new ErrorDetails(500, "Ошибка сервера"));
       // return "light";
+    }
+  }
+
+  // Поменять язык пользователя
+  async changeLanguage(
+    userId: number,
+    language: "RU" | "EN",
+    errors: ErrorDetails[]
+  ): Promise<string> {
+    try {
+      const [numberOfAffectedRows] = await sequelize
+        .getRepository(User)
+        .update({ language: language }, { where: { id: userId } });
+
+      if (numberOfAffectedRows === 0) {
+        errors.push(new ErrorDetails(404, "User or theme not found"));
+        return "EN";
+      }
+
+      return language;
+    } catch (error) {
+      console.error("Ошибка с обновлением темы:", error);
+      errors.push(new ErrorDetails(500, "Ошибка сервера"));
     }
   }
 }

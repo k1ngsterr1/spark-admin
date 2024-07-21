@@ -1,23 +1,22 @@
-import { IUserRepository } from "@core/interfaces/IUserRepository";
 import { ErrorDetails } from "@core/utils/utils";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
+import { IUserRepository } from "core/interfaces/IUserRepository";
 
-export class GetTheme {
+export class GetLanguage {
   private userRepository: IUserRepository;
+
   constructor() {
     this.userRepository = new UserRepository();
   }
 
   async execute(userId: number, errors: ErrorDetails[]): Promise<any> {
-    const theme = await this.userRepository.getTheme(userId, errors);
+    const language = await this.userRepository.getLanguage(userId, errors);
 
-    console.log("theme is here:", theme);
-
-    if (!theme) {
-      errors.push(new ErrorDetails(404, "Не удалось найти тему."));
+    if (!language) {
+      errors.push(new ErrorDetails(404, "Не удалось найти язык."));
       return;
     }
 
-    return theme;
+    return language;
   }
 }

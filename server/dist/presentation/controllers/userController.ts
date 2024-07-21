@@ -18,6 +18,8 @@ import { generateVerificationCode } from "@core/utils/generateCode"; // Ensure t
 import EmailService from "@core/use_cases/User/EmailVerification";
 import { ChangeTheme } from "@core/use_cases/User/ChangeTheme";
 import { GetTheme } from "@core/use_cases/User/GetTheme";
+import { ChangeLanguage } from "@core/use_cases/Language/ChangeLanguage";
+import { GetLanguage } from "@core/use_cases/Language/GetLanguage";
 
 class UserController {
   private createUserUseCase: CreateUser;
@@ -30,6 +32,8 @@ class UserController {
   private jwtService: JWTService;
   private changeThemeUseCase: ChangeTheme;
   private getThemeUseCase: GetTheme;
+  private changeLanguageUseCase: ChangeLanguage;
+  private getLanguageUseCase: GetLanguage;
   private changeUserPasswordService: ChangePasswordService;
 
   constructor() {
@@ -43,6 +47,8 @@ class UserController {
     this.createUserUseCase = new CreateUser();
     this.changeThemeUseCase = new ChangeTheme();
     this.getThemeUseCase = new GetTheme();
+    this.changeLanguageUseCase = new ChangeLanguage();
+    this.getLanguageUseCase = new GetLanguage();
     this.changeUserPasswordService = new ChangePasswordService();
   }
 

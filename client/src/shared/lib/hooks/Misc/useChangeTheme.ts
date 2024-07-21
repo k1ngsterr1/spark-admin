@@ -11,7 +11,7 @@ export function useChangeTheme() {
 
   const changeTheme = async (newTheme: string) => {
     try {
-      console.log("new theme:", newTheme);
+      console.log("new theme LOL:", newTheme);
 
       const response = await axiosInstance.post("/api/user/change-theme", {
         theme: newTheme,
