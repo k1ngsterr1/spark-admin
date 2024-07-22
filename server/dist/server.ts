@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 // const { convert_to_webp } = require("wasm_image_converter");
 const fs = require("fs");
 const dotenv = require("dotenv").config({ path: "./.env" });
+import YAML from "yamljs";
 
 // Routes
 import authRoutes from "infrastructure/routes/authRoutes";
@@ -93,11 +94,8 @@ app.use(
 );
 
 // Создание сваггера
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec, { explorer: true })
-);
+const swaggerDocument = YAML.load("swagger.yaml");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(express.static(path.join(__dirname, "templates/public")));
 
