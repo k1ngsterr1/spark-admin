@@ -1,10 +1,9 @@
+import { IUserRepository } from "@core/interfaces/IUserRepository";
 import { ErrorDetails } from "@core/utils/utils";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
-import { IUserRepository } from "core/interfaces/IUserRepository";
 
 export class GetLanguage {
   private userRepository: IUserRepository;
-
   constructor() {
     this.userRepository = new UserRepository();
   }

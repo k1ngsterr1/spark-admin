@@ -1,4 +1,4 @@
-import { GetLanguage } from "./../use_cases/Language/GetLanguage";
+import { GetLanguage } from "../use_cases/User/GetLanguage";
 import { NewUserInput } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";

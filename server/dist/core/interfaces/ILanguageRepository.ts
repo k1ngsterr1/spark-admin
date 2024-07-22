@@ -3,6 +3,7 @@ import { Language } from "@infrastructure/models/languageModel";
 
 export interface ILanguageRepository {
   change(
+    userId: number,
     language: "RU" | "ENG" | string,
     errors: ErrorDetails[]
   ): Promise<Language | null | string>;

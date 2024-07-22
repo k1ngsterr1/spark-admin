@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 
 interface IUserData {
+  id: number;
   username: string | null;
   email: string | null;
   accessToken: string | null;

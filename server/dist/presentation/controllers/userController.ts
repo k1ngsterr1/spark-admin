@@ -18,8 +18,8 @@ import { generateVerificationCode } from "@core/utils/generateCode"; // Ensure t
 import EmailService from "@core/use_cases/User/EmailVerification";
 import { ChangeTheme } from "@core/use_cases/User/ChangeTheme";
 import { GetTheme } from "@core/use_cases/User/GetTheme";
-import { ChangeLanguage } from "@core/use_cases/Language/ChangeLanguage";
-import { GetLanguage } from "@core/use_cases/Language/GetLanguage";
+import { ChangeLanguage } from "@core/use_cases/User/ChangeLanguage";
+import { GetLanguage } from "@core/use_cases/User/GetLanguage";
 
 class UserController {
   private createUserUseCase: CreateUser;
@@ -349,6 +349,47 @@ class UserController {
       res
         .status(500)
         .json({ message: `Ошибка при измении темы`, error: error.message });
+    }
+  }
+
+  // Смена языка
+  async changeLanguage(req: Request, res: Response): Promise<void> {
+    const errors: ErrorDetails[] = [];
+    try {
+      const language: "RU" | "EN" = req.body.language;
+      const userId = req.user.id;
+
+      const updatedLanguage = await this.changeLanguageUseCase.execute(
+        userId,
+        language,
+        errors
+      );
+
+      res
+        .status(201)
+        .json({ message: "Язык успешно обновлен", language: updatedLanguage });
+    } catch (error: any | unknown) {
+      console.log(error);
+      res.status(500).json({ message: `Ошибка при измении языка` });
+    }
+  }
+
+  // Получение языка
+  async getLanguage(req: Request, res: Response): Promise<void> {
+    const errors: ErrorDetails[] = [];
+    try {
+      const userId = req.user.id;
+
+      const language = await this.getLanguageUseCase.execute(userId, errors);
+
+      res
+        .status(201)
+        .json({ message: "Язык успешно получен:", language: language });
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .json({ message: `Ошибка при измении языка`, error: error.message });
     }
   }
 }

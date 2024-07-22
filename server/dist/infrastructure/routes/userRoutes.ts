@@ -21,4 +21,11 @@ router.post("/change-theme", (req, res) =>
 // Получение темы пользователя
 router.get("/get-theme", (req, res) => userController.getTheme(req, res));
 
+// Смена языка пользователя
+router.post("/change-language", (req, res) =>
+  userController.changeLanguage(req, res)
+);
+
+router.get("/get-language", (req, res) => userController.getLanguage(req, res));
+
 export default router;

@@ -1,10 +1,11 @@
+import { ILanguageRepository } from "@core/interfaces/ILanguageRepository";
 import { IUserRepository } from "@core/interfaces/IUserRepository";
 import { ErrorDetails } from "@core/utils/utils";
+import { LanguageRepository } from "@infrastructure/repositories/LanguageRepository";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 
 export class ChangeLanguage {
   private userRepository: IUserRepository;
-
   constructor() {
     this.userRepository = new UserRepository();
   }

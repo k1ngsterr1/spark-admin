@@ -11,14 +11,13 @@ export function useChangeTheme() {
 
   const changeTheme = async (newTheme: string) => {
     try {
-      console.log("new theme LOL:", newTheme);
-
       const response = await axiosInstance.post("/api/user/change-theme", {
         theme: newTheme,
       });
 
       // Notify other clients via WebSocket
       socket.emit("changeThemeRequest", { userId, newTheme }, (response) => {
+        console.log("Working fine");
         if (response.success) {
           console.log("Theme changed successfully:", response.theme);
         } else {

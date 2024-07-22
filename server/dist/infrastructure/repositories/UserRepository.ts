@@ -163,15 +163,13 @@ export class UserRepository implements IUserRepository {
     errors: ErrorDetails[]
   ): Promise<string> {
     try {
-      console.log("repo is working!");
-
       const [numberOfAffectedRows] = await sequelize
         .getRepository(User)
         .update({ theme: theme }, { where: { id: userId } });
 
       if (numberOfAffectedRows === 0) {
-        errors.push(new ErrorDetails(404, "User or theme not found"));
-        return "light"; // Default theme in case of an error
+        errors.push(new ErrorDetails(404, "User or language not found"));
+        return "EN";
       }
 
       return theme;
@@ -198,7 +196,7 @@ export class UserRepository implements IUserRepository {
     } catch (error) {
       console.error("Ошибка с получением темы:", error);
       errors.push(new ErrorDetails(500, "Ошибка сервера"));
-      // return "light";
+      return "light";
     }
   }
 
@@ -213,15 +211,34 @@ export class UserRepository implements IUserRepository {
         .getRepository(User)
         .update({ language: language }, { where: { id: userId } });
 
+      // ! Найдена ошибка
       if (numberOfAffectedRows === 0) {
-        errors.push(new ErrorDetails(404, "User or theme not found"));
+        errors.push(new ErrorDetails(404, "Язык пользователя не найден"));
         return "EN";
       }
 
       return language;
     } catch (error) {
-      console.error("Ошибка с обновлением темы:", error);
+      console.error("Ошибка с обновлением языка:", error);
       errors.push(new ErrorDetails(500, "Ошибка сервера"));
+    }
+  }
+
+  // Получить язык пользователя
+  async getLanguage(userId: number, errors: ErrorDetails[]): Promise<string> {
+    try {
+      const user = await sequelize.getRepository(User).findByPk(userId);
+      const language = user.language;
+
+      if (!language) {
+        errors.push(new ErrorDetails(404, "Язык пользователя не был найден"));
+      }
+
+      return language;
+    } catch (error) {
+      console.error("Ошибка с получением языка:", error);
+      errors.push(new ErrorDetails(500, "Ошибка сервера"));
+      return "EN";
     }
   }
 }
