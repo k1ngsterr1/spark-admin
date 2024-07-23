@@ -18,10 +18,7 @@ import userRoutes from "@infrastructure/routes/userRoutes";
 import blockRoutes from "@infrastructure/routes/blockRoutes";
 import pageCardRoutes from "@infrastructure/routes/pageCardRoutes";
 import siteRoutes from "@infrastructure/routes/siteRoutes";
-import themeRoutes from "@infrastructure/routes/themeRoutes";
 import colorRoutes from "@infrastructure/routes/colorRoutes";
-import languageRoutes from "@infrastructure/routes/languageRoutes";
-
 import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
 import { accessToken } from "@infrastructure/middleware/authMiddleware";
 
@@ -191,12 +188,6 @@ app.use("/api/blog", blogRoutes);
 
 // Логика для пользователей
 app.use("/api/user", userRoutes);
-
-// Логика для цветовых тем
-app.use("/api/theme", themeRoutes);
-
-// Логика для языков тем
-app.use("/api/language", languageRoutes);
 
 // Логика для страниц
 app.use("/api/page", pageRoutes);

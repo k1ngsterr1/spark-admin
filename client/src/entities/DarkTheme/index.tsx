@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
@@ -10,32 +10,31 @@ import styles from "./styles.module.scss";
 export const ThemeButton = () => {
   const { theme, setTheme } = useTheme();
   const { changeTheme } = useChangeTheme();
+  const prevThemeRef = useRef(theme);
 
   const handleChangeTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
-    changeTheme(theme);
   };
+  useEffect(() => {
+    if (prevThemeRef.current !== theme) {
+      changeTheme(theme);
+      prevThemeRef.current = theme;
+    }
+  }, [theme, changeTheme]);
 
-  console.log(
-    `%c
-                       
-      
-      
-    
-          ███████╗██████╗  █████╗ ██████╗ ██╗  ██╗     █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗
-          ██╔════╝██╔══██╗██╔══██╗██╔══██╗██║ ██╔╝    ██╔══██╗██╔══██╗████╗ ████║██║████╗  ██║
-          ███████╗██████╔╝███████║██████╔╝█████╔╝     ███████║██║  ██║██╔████╔██║██║██╔██╗ ██║
-          ╚════██║██╔═══╝ ██╔══██║██╔══██╗██╔═██╗     ██╔══██║██║  ██║██║╚██╔╝██║██║██║╚██╗██║
-          ███████║██║     ██║  ██║██║  ██║██║  ██╗    ██║  ██║██████╔╝██║ ╚═╝ ██║██║██║ ╚████║
-          ╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚═════╝ ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝
-                                                                                              
-          
-                                                                                                        
-      
-      
-      `,
-    "color:#FF5722"
-  );
+  // console.log(
+  //   `%c
+
+  //         ███████╗██████╗  █████╗ ██████╗ ██╗  ██╗     █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗
+  //         ██╔════╝██╔══██╗██╔══██╗██╔══██╗██║ ██╔╝    ██╔══██╗██╔══██╗████╗ ████║██║████╗  ██║
+  //         ███████╗██████╔╝███████║██████╔╝█████╔╝     ███████║██║  ██║██╔████╔██║██║██╔██╗ ██║
+  //         ╚════██║██╔═══╝ ██╔══██║██╔══██╗██╔═██╗     ██╔══██║██║  ██║██║╚██╔╝██║██║██║╚██╗██║
+  //         ███████║██║     ██║  ██║██║  ██║██║  ██╗    ██║  ██║██████╔╝██║ ╚═╝ ██║██║██║ ╚████║
+  //         ╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚═════╝ ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝
+
+  //     `,
+  //   "color:#FF5722"
+  // );
 
   return (
     <button

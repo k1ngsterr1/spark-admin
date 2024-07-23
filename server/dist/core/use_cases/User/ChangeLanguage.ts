@@ -1,18 +1,22 @@
 import { ILanguageRepository } from "@core/interfaces/ILanguageRepository";
+import { IUserRepository } from "@core/interfaces/IUserRepository";
 import { ErrorDetails } from "@core/utils/utils";
 import { LanguageRepository } from "@infrastructure/repositories/LanguageRepository";
+import { UserRepository } from "@infrastructure/repositories/UserRepository";
 
 export class ChangeLanguage {
-  private languageRepository: ILanguageRepository;
+  private userRepository: IUserRepository;
   constructor() {
-    this.languageRepository = new LanguageRepository();
+    this.userRepository = new UserRepository();
   }
 
   async execute(
+    userId: number,
     choosenLanguage: "RU" | "EN",
     errors: ErrorDetails[]
   ): Promise<any> {
-    const language = await this.languageRepository.change(
+    const language = await this.userRepository.changeLanguage(
+      userId,
       choosenLanguage,
       errors
     );

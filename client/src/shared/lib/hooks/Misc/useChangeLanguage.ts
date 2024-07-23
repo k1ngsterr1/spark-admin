@@ -1,32 +1,46 @@
 "use client";
 import { useSocket } from "@shared/lib/contexts/SocketContext";
 import { useUserData } from "../Form/useGetData";
+import { axiosInstance } from "./useInterceptor";
+import { useState } from "react";
 
 export function useChangeLanguage() {
   const socket = useSocket();
+  const [isSocketSent, setSocketSent] = useState<boolean>(false);
   const { userData } = useUserData();
 
-  const userId = userData?.email;
+  if (!userData) {
+    return;
+  }
 
-  const changeLanguage = (newLanguage: string | "RU" | "EN") => {
-    socket.emit(
-      "changeLanguageRequest",
-      { userId, newLanguage },
-      (response) => {
-        if (response.success) {
-          console.log("Language changed successfully:", response.language);
-        } else {
-          console.error("Failed to change language:", response.errors);
+  const userId = userData?.id;
+
+  const changeLanguage = async (newLanguage: string | "RU" | "EN") => {
+    try {
+      // const response = await axiosInstance.post("/api/user/change-language", {
+      //   language: newLanguage,
+      // });
+
+      console.log(newLanguage);
+
+      socket.emit(
+        "changeLanguageRequest",
+        { userId, newLanguage },
+        (response) => {
+          console.log("Working fine");
+          if (response.success) {
+            console.log("Theme changed successfully:", response.theme);
+          } else {
+            console.error("Failed to change theme:", response.errors);
+          }
         }
-      }
-    );
+      );
+    } catch (error) {
+      console.error("There was an error with changing language:", error);
+    } finally {
+      setSocketSent(true);
+    }
   };
 
-  // socket.on("themeChanged", (newTheme) => {
-  //   console.log("Theme changed to2:", newTheme);
-  //   // Update the theme in your application
-  //   // For example, update the theme in your state or context
-  // });
-
-  return { changeLanguage };
+  return { changeLanguage, isSocketSent };
 }

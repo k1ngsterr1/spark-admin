@@ -1,11 +1,13 @@
 import { ILanguageRepository } from "@core/interfaces/ILanguageRepository";
 import { Language } from "@infrastructure/models/languageModel";
-import sequelize from "@infrastructure/config/sequelize";
 import { ErrorDetails } from "@core/utils/utils";
+
+import sequelize from "@infrastructure/config/sequelize";
 
 export class LanguageRepository implements ILanguageRepository {
   // Изменение языка
   async change(
+    userId: number,
     language: "RU" | "EN" | string
   ): Promise<Language | null | string> {
     try {

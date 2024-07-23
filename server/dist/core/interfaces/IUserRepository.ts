@@ -1,3 +1,4 @@
+import { GetLanguage } from "../use_cases/User/GetLanguage";
 import { NewUserInput } from "@core/utils/types";
 import { ErrorDetails } from "@core/utils/utils";
 import { Color } from "@infrastructure/models/colorModel";
@@ -25,4 +26,16 @@ export interface IUserRepository {
     userId: number
   ): Promise<UserToWebsite | null>;
   findUserColors(userId: number, errors: ErrorDetails[]): Promise<Color[]>;
+  changeTheme(
+    userId: number,
+    theme: "dark" | "light",
+    errors: ErrorDetails[]
+  ): Promise<string>;
+  getTheme(userId: number, errors: ErrorDetails[]): Promise<string>;
+  changeLanguage?(
+    userId: number,
+    language: "RU" | "EN",
+    errors: ErrorDetails[]
+  ): Promise<string>;
+  getLanguage?(userId: number, errors: ErrorDetails[]): Promise<string>;
 }

@@ -7,7 +7,6 @@ import { Language } from "@infrastructure/models/languageModel";
 import { PageCard } from "@infrastructure/models/pageCardModel";
 import { Page } from "@infrastructure/models/pageModel";
 import { SiteData } from "@infrastructure/models/siteDataModel";
-import { Theme } from "@infrastructure/models/themeModel";
 import { UserToColor } from "@infrastructure/models/userToColorModel";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import { WebsiteToColor } from "@infrastructure/models/websiteToColor";
@@ -39,7 +38,6 @@ const sequelize = new Sequelize({
     Component,
     Block,
     PageCard,
-    Theme,
     CardToBlock,
     BlockComponent,
     SiteData,

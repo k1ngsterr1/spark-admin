@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
-import { ChangeTheme } from "@core/use_cases/Theme/ChangeTheme";
-import { ChangeLanguage } from "@core/use_cases/Language/ChangeLanguage";
+import { ChangeLanguage } from "@core/use_cases/User/ChangeLanguage";
+import { ChangeTheme } from "@core/use_cases/User/ChangeTheme";
 
 const userSockets = new Map<string, string>();
 
@@ -22,6 +22,7 @@ export class SocketService {
     });
 
     this.changeThemeUseCase = new ChangeTheme();
+    this.changeLanguageUseCase = new ChangeLanguage();
     this.configureSocketListeners();
   }
 
@@ -30,7 +31,6 @@ export class SocketService {
       console.log(`Client connected with id: ${socket.id}`);
 
       socket.on("register", (userId) => {
-        console.log("socket is registered!");
         userSockets.set(userId, socket.id);
         socket.userId = userId; // Attach userId to the socket for later use
       });
@@ -41,24 +41,25 @@ export class SocketService {
       });
 
       socket.on("changeThemeRequest", async (data: any, callback: Function) => {
-        const { userId, theme } = data;
+        const { userId, newTheme } = data;
+
+        console.log("change theme socket!");
 
         try {
           const socketId = userSockets.get(userId);
 
-          console.log(
-            "socket id is here:",
-            socketId,
-            "user sockets:",
-            userSockets
+          const errors: any[] = [];
+          const result = await this.changeThemeUseCase.execute(
+            userId,
+            newTheme,
+            errors
           );
 
-          const errors: any[] = [];
-          const result = await this.changeThemeUseCase.execute(theme, errors);
           if (errors.length > 0) {
             socket.emit("themeChangeError", { success: false, errors });
           } else {
-            socket.emit("themeChanged", { success: true, theme: result });
+            this.io.emit("themeChanged", { success: true, theme: result });
+            callback({ success: true, theme: result });
           }
         } catch (error) {
           console.error("Error changing theme:", error);
@@ -66,36 +67,38 @@ export class SocketService {
             success: false,
             error: "Internal server error",
           });
+          callback({ success: false, error: "Internal server error" });
         }
       });
 
       socket.on(
         "changeLanguageRequest",
         async (data: any, callback: Function) => {
-          const { userId, language } = data;
+          const { userId, newLanguage } = data;
+
+          console.log("language socket is working!", data);
 
           try {
             const socketId = userSockets.get(userId);
 
-            console.log(
-              "socket id is here:",
-              socketId,
-              "user sockets:",
-              userSockets
-            );
-
             const errors: any[] = [];
             const result = await this.changeLanguageUseCase.execute(
-              language,
+              userId,
+              newLanguage,
               errors
             );
+
             if (errors.length > 0) {
-              socket.emit("languageChangeError", { success: false, errors });
-            } else {
-              socket.emit("languageChanged", {
-                success: true,
-                theme: result,
+              this.io.emit("languageChangedError", {
+                success: false,
+                language: result,
               });
+            } else {
+              this.io.emit("languageChanged", {
+                success: true,
+                language: result,
+              });
+              callback({ success: true, language: result });
             }
           } catch (error) {
             console.error("Error changing language:", error);
@@ -103,6 +106,7 @@ export class SocketService {
               success: false,
               error: "Internal server error",
             });
+            callback({ success: false, error: "Internal server error" });
           }
         }
       );
@@ -111,9 +115,7 @@ export class SocketService {
 
   public changeUserTheme(userId: string, newTheme: "light" | "dark"): void {
     const socketId = userSockets.get(userId);
-    console.log("socketId:", socketId);
     if (socketId && this.io.sockets.sockets.get(socketId)) {
-      console.log("changed for specific user!");
       this.io.to(socketId).emit("themeChanged", newTheme);
     } else {
       console.log("User socket not found or disconnected.");
