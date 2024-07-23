@@ -50,7 +50,7 @@ export class UploadWebsite {
 
       return { message: "File uploaded successfully" };
     } catch (error) {
-      errors.push({ details: error.message, code: "UPLOAD_ERROR" });
+      errors.push({ details: error.message, code: 400 });
       return;
     }
   }

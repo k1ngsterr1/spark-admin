@@ -4,6 +4,7 @@ import { ErrorDetails } from "@core/utils/utils";
 import { PageRepository } from "@infrastructure/repositories/PageRepository";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import RequestManager from "@services/createRequest";
+import { ChangesDetails } from "./UpdateSite";
 
 export class AddSiteData {
   private userRepository: IUserRepository;
@@ -18,8 +19,7 @@ export class AddSiteData {
     userId: number,
     url: string,
     pageUrl: string,
-    componentName: string,
-    value: string,
+    changes: ChangesDetails,
     errors: ErrorDetails[]
   ): Promise<void> {
     const user = await this.userRepository.findByPk(userId);
@@ -38,8 +38,7 @@ export class AddSiteData {
     const params = { url: url };
     const body = {
       code: page.website.websiteCode,
-      name: componentName,
-      value: value,
+      ...changes,
     };
 
     await this.requestManager.postRequest(params, body, errors);
