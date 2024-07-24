@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Button } from "@shared/ui/Buttons_Components/Buttons/index";
-import useFileUpload from "@shared/lib/hooks/usePreviewPhoto";
+import useFileUpload from "@shared/lib/hooks/Misc/usePreviewPhoto";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import { TextArea } from "@shared/ui/TextArea/index";
 import Image from "next/image";
 import Link from "next/link";
 import { StaticImageData } from "next/image";
-import { useUpdateBlog } from "@shared/lib/hooks/useUpdateBlogCard";
+import { useUpdateBlog } from "@shared/lib/hooks/Blogs/useUpdateBlogCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 
@@ -128,7 +128,11 @@ export const EditBlogCard: React.FC<IBlogCard> = ({
           <span className={`${styles.container__card__title} dark:text-white`}>
             {blogTitle}
           </span>
-          <Link className={styles.container__card__href} href={blogHref} target="_blank">
+          <Link
+            className={styles.container__card__href}
+            href={blogHref}
+            target="_blank"
+          >
             Read More
           </Link>
         </div>

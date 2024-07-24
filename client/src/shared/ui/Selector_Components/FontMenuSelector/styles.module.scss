@@ -1,0 +1,37 @@
+.selector {
+  width: 100%;
+  position: relative;
+  border: 1px solid;
+  cursor: pointer;
+  transition: 0.3s all;
+  @apply border-primary;
+  @apply p-1;
+  @apply rounded-sm;
+
+  &__selected {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @apply p-1;
+    @apply text-primary;
+  }
+
+  &__dropdown {
+    overflow-y: scroll;
+    max-height: 250px;
+    @apply bg-dark-super;
+  }
+
+  &__tab {
+    transition: 0.3s all;
+    @apply p-1;
+
+    &:hover {
+      @apply text-primary;
+    }
+  }
+
+  &:hover {
+    background-color: rgba(255, 87, 34, 0.2);
+  }
+}

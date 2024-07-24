@@ -1,0 +1,19 @@
+.context_menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @apply gap-8;
+  @apply p-2;
+  @apply rounded-sm;
+  @apply bg-dark-upper2;
+  @apply shadow-lg;
+
+  button {
+    @apply text-lg;
+    transition: 0.3s all;
+
+    &:hover {
+      @apply text-primary;
+    }
+  }
+}

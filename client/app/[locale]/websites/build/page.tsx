@@ -1,26 +1,20 @@
-"use client";
 import React from "react";
-import Heading from "@shared/ui/Heading";
-import { Header } from "@features/Header";
 import { Menu } from "@features/Menu";
-import { PageTypeSelector } from "@features/PageTypeSelector";
-import { PageCardsLayout } from "@features/PageCardsLayout";
-import { useCheckIsAdmin } from "@shared/lib/hooks/useCheckIsAdmin";
-import { PageCardPopup } from "@entities/Popup_Components/PageCardPopup";
+import { WebsiteBuildScreen } from "@widgets/Screens/WebsiteBuild";
+
+export async function generateMetadata({ params }): Promise<Metadata> {
+  return {
+    title: "Build Your Own Website | Spark Admin",
+    description:
+      "Discover the simplicity of creating your own website with Spark Admin. Our platform offers intuitive tools and customizable templates to help you build a professional-looking website effortlessly. Whether you're setting up a business site or a personal blog, Spark Admin provides all the resources you need to go live quickly and with confidence.",
+  };
+}
 
 const BuildWebsite = () => {
-  const { isAdmin } = useCheckIsAdmin();
-
   return (
     <div className="flex">
       <Menu />
-      <main className="flex flex-col items-center w-[90%]">
-        <Header />
-        <PageCardPopup />
-        <Heading position="w-[92%]" text="Новая страница" />
-        <PageTypeSelector isAdmin={isAdmin} />
-        <PageCardsLayout pageType="a" />
-      </main>
+      <WebsiteBuildScreen />
     </div>
   );
 };

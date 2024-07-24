@@ -1,7 +1,7 @@
 "use client";
 import React, { ReactNode, useEffect, useState } from "react";
-import { useFetchPageContent } from "@shared/lib/hooks/useFetchPageContent";
-import { useParseHTMLContent } from "@shared/lib/hooks/useParseHTMLContent";
+import { useFetchPageContent } from "@shared/lib/hooks/Fetching/useFetchPageContent";
+import { useParseHTMLContent } from "@shared/lib/hooks/Fetching/useParseHTMLContent";
 import { useParams } from "next/navigation";
 import { BlockButton } from "@shared/ui/BlockButton";
 import {
@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { HeaderEditor } from "@features/HeaderEditor";
 import { AddBlockButton } from "@shared/ui/AddBlockButton";
-import { useSectionMover } from "@shared/lib/hooks/useSectionMovement";
+import { useSectionMover } from "@shared/lib/hooks/Misc/useSectionMovement";
 
 import styles from "./styles.module.scss";
 

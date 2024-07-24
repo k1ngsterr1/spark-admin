@@ -18,6 +18,8 @@ import { Page } from "./pageModel";
 import { User } from "./userModel";
 import { WebsiteAttributes } from "@core/utils/types";
 import UserToWebsite from "./userToWebsiteModel";
+import { Color } from "./colorModel";
+import { WebsiteToColor } from "./websiteToColor";
 
 // Модель вебсайта со всеми аттрибутами
 @Table({
@@ -35,6 +37,9 @@ export class Website extends Model<WebsiteAttributes> {
 
   @BelongsToMany(() => User, () => UserToWebsite)
   users!: User[];
+
+  @BelongsToMany(() => Color, () => WebsiteToColor)
+  colors!: Color[];
 
   @HasMany(() => Page)
   pages!: Page[];

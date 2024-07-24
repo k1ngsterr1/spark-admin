@@ -1,6 +1,6 @@
 "use client";
 import { FormEvent, useState } from "react";
-import { axiosInstance } from "./../useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 import { ICheckWebsiteData } from "./useGetWebsiteCode";
 
 // Хук проверки верификации веб-сайта

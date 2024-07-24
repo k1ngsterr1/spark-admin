@@ -3,11 +3,15 @@
 import React from "react";
 import Heading from "@shared/ui/Heading/index";
 import { EditBlogCard } from "@entities/Card_Components/BlogCard";
-import { useGetBlogs } from "@shared/lib/hooks/useGetBlogs";
-import { useDeleteBlogCard } from "@shared/lib/hooks/useDeleteBlogs"; 
-import { ButtonLink, Button } from "@shared/ui/Buttons_Components/Buttons/index";
+import { useGetBlogs } from "@shared/lib/hooks/Blogs/useGetBlogs";
+import { useDeleteBlogCard } from "@shared/lib/hooks/Blogs/useDeleteBlogs";
+import {
+  ButtonLink,
+  Button,
+} from "@shared/ui/Buttons_Components/Buttons/index";
 import SparkLogo from "@assets/spark_product_logo.svg";
 import styles from "./styles.module.scss";
+import { useTranslations } from "next-intl";
 
 interface IBlogCard {
   blogId: number;
@@ -15,11 +19,11 @@ interface IBlogCard {
 
 const AddBlogCard: React.FC<IBlogCard> = () => {
   const { data } = useGetBlogs();
+  const t = useTranslations("");
   const { deleteBlog } = useDeleteBlogCard();
 
   const handleDeleteBlog = (blogId: string) => {
     deleteBlog(blogId);
-    console.log(blogId);
   };
 
   return (
@@ -49,15 +53,15 @@ const AddBlogCard: React.FC<IBlogCard> = () => {
               margin="mt-6"
               onClick={() => handleDeleteBlog(blog.id)}
             />
+            <ButtonLink
+              buttonType="regular"
+              text="Back"
+              href="/ru/blog/add-card/ferla"
+              margin="mt-16"
+            />
           </div>
         ))}
       </div>
-      <ButtonLink
-        buttonType="regular"
-        text="Back"
-        href="/ru/blog/add-card/ferlo"
-        margin="mt-8 mb-8"
-      />
     </div>
   );
 };

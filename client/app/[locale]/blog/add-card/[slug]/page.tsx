@@ -9,15 +9,27 @@ import { faImage } from "@fortawesome/free-solid-svg-icons";
 import Heading from "@shared/ui/Heading/index";
 import Input from "@shared/ui/Inputs/DefaultInport";
 import { useAddCard } from "@shared/lib/hooks/Isolated_Components/useAddBlogCard";
+import useFileUpload from "@shared/lib/hooks/Misc/usePreviewPhoto";
+import { useAddBlogCard } from "@shared/lib/hooks/Blogs/useAddBlogCard";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
 
 import styles from "./styles.module.scss";
 
 const AddBlogCard: React.FC = () => {
+  const {
+    title,
+    setTitle,
+    href,
+    setHref,
+    code,
+    setCode,
+    handleSubmit,
+    previewUrl,
+    handleFileChange,
+    selectedFile,
+  } = useAddCard();
 
-  const { title, setTitle, href, setHref, code, setCode, handleSubmit, previewUrl, handleFileChange,selectedFile} = useAddCard();
- 
   return (
     <form onSubmit={handleSubmit}>
       <div className={styles.container}>

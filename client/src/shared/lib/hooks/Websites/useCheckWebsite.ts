@@ -1,7 +1,7 @@
 "use client";
 import { FormEvent, useState } from "react";
 import { useUserData } from "../Form/useGetData";
-import { axiosInstance } from "./../useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 
 interface ICheckWebsiteData {
   url: string;

@@ -1,18 +1,18 @@
 "use client";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
-import Input from "@shared/ui/Inputs/DefaultInport";
-import PasswordInput from "@shared/ui/Inputs/PasswordInput";
-import MiniText from "@shared/ui/MiniText/index";
-import Heading from "@shared/ui/Heading/index";
 import { useSubmitLogin } from "@shared/lib/hooks/Form/useSubmitLogin";
 import { ErrorDisplay } from "@shared/ui/Error";
 import { useClickChangePassword } from "@shared/lib/hooks/Form/useClickChangePassword";
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import Input from "@shared/ui/Inputs/DefaultInport";
+import PasswordInput from "@shared/ui/Inputs/PasswordInput";
+import MiniText from "@shared/ui/MiniText/index";
+import Heading from "@shared/ui/Heading/index";
+import SparkLogo from "@assets/spark_product_logo.svg";
 
 import styles from "../styles/styles.module.scss";
-
-import SparkLogo from "@assets/spark_product_logo.svg";
+import { Loading } from "@entities/Loading";
 
 const LoginForm = () => {
   const t = useTranslations("LoginPage");
@@ -26,6 +26,7 @@ const LoginForm = () => {
     password,
     setPassword,
     passwordError,
+    loading,
     handleSubmit,
     errors,
   } = useSubmitLogin(locale);
@@ -41,6 +42,7 @@ const LoginForm = () => {
           className={styles.registration__content__form}
           onSubmit={handleSubmit}
         >
+          {loading && <Loading />}
           <Input
             placeholder={"example@gmail.com"}
             inputType="default"

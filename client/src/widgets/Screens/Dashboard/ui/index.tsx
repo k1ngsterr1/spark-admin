@@ -1,17 +1,18 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { Button, ButtonLink } from "@shared/ui/Buttons_Components/Buttons";
-import { useGetWebsites } from "@shared/lib/hooks/useGetWebsites";
-import { EmptySvg } from "@assets/index";
-import { useCheckIsAdmin } from "@shared/lib/hooks/useCheckIsAdmin";
+import { useGetWebsites } from "@shared/lib/hooks/Websites/useGetWebsites";
+import { useCheckIsAdmin } from "@shared/lib/hooks/Misc/useCheckIsAdmin";
 import { useTranslations } from "next-intl";
-import { WebsiteItem } from "@shared/lib/types";
 import Heading from "@shared/ui/Heading/index";
 import WebsiteTab from "@entities/Tabs_Components/WebsiteTab/index";
-import SkeletonLoader from "@shared/ui/Skeleton_Loader";
+import ClipLoader from "react-spinners/ClipLoader";
+import { EmtpyScreen } from "@shared/ui/EmptyScreen";
+import { Loading } from "@entities/Loading";
 
 import styles from "./styles.module.scss";
+import { BigLoader } from "@entities/BigLoader";
 
 export const Dashboard = () => {
   const t = useTranslations("Dashboard");
@@ -19,11 +20,29 @@ export const Dashboard = () => {
   const { isAdmin } = useCheckIsAdmin();
   const { locale } = useParams();
 
+  useEffect(() => {
+    const handleCopy = (e) => {
+      const selection = window.getSelection();
+      if (selection && selection.toString().length > 0) {
+        const { clientX: x, clientY: y } = e;
+        setMenuPosition({ x, y });
+        setMenuVisible(true);
+      } else {
+        setMenuVisible(false);
+      }
+    };
+
+    document.addEventListener("copy", handleCopy);
+    return () => {
+      document.removeEventListener("copy", handleCopy);
+    };
+  }, []);
+
   if (isLoading) {
     return (
-      <div>
-        <SkeletonLoader />
-      </div>
+      <>
+        <BigLoader />
+      </>
     );
   }
 
@@ -58,8 +77,7 @@ export const Dashboard = () => {
               )}
             </div>
           </div>
-          <EmptySvg />
-          <p className={styles.container__already}>{t("empty")}</p>
+          <EmtpyScreen text={t("empty")} />
         </div>
       </>
     );

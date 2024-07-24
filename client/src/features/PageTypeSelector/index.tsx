@@ -4,6 +4,7 @@ import { pageTypes } from "@shared/lib/content/pageTypeContent";
 import { PageTypeTab } from "@shared/ui/PageTypeTab";
 import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
 import useScrollAnimation from "@shared/lib/hooks/animations/useScrollPageSelector";
 
 import styles from "./styles.module.scss";
@@ -16,6 +17,7 @@ interface IPageTypeSelectorProps {
 export const PageTypeSelector: React.FC<IPageTypeSelectorProps> = ({
   isAdmin,
 }) => {
+  const t = useTranslations("BuildWebsite");
   const { theme } = useTheme();
   const [activeType, setActiveType] = useState<string | null>(null);
   const { pageSelectorRef } = useScrollAnimation(100, theme);
@@ -30,7 +32,7 @@ export const PageTypeSelector: React.FC<IPageTypeSelectorProps> = ({
         {pageTypes.map((pageType) => (
           <PageTypeTab
             key={pageType.type}
-            name={pageType.label}
+            name={t(pageType.type)}
             type={pageType.type}
             isActive={activeType === pageType.type}
             onClick={() => handleSetActive(pageType.type)}

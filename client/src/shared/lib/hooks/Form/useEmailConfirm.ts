@@ -1,4 +1,4 @@
-import { axiosInstance } from "./../useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 
 interface IData {
   code: string;

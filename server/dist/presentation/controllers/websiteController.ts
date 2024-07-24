@@ -1,3 +1,4 @@
+import { uploadPath } from "./../../server";
 import { Request, Response } from "express";
 import { AddWebsite } from "core/use_cases/Website/AddWebsite";
 import { GetWebsites } from "@core/use_cases/Website/GetWebsites";
@@ -19,18 +20,22 @@ import {
   FormDetails,
 } from "@core/utils/Website/Ferla-bikes/types";
 import { AddCart } from "@core/use_cases/Website/CRUD/Ferla-bikes/AddCart";
-const fs = require("fs").promises;
 import path from "path";
-import { uploadPath } from "server";
 import { UpdateCart } from "@core/use_cases/Website/CRUD/Ferla-bikes/UpdateCart";
 import { DeleteCart } from "@core/use_cases/Website/CRUD/Ferla-bikes/DeleteCart";
 import { GetCarts } from "@core/use_cases/Website/CRUD/Ferla-bikes/GetCarts";
 import { GetForms } from "@core/use_cases/Website/CRUD/Ferla-bikes/Form/GetForms";
 import { DeleteForm } from "@core/use_cases/Website/CRUD/Ferla-bikes/Form/DeleteForms";
 import { AddForm } from "@core/use_cases/Website/CRUD/Ferla-bikes/Form/AddForm";
+import { UploadWebsite } from "@core/use_cases/Website/UploadWebsite";
+import { CheckAdminRole } from "@core/use_cases/User/CheckAdmin";
+
+const fs = require("fs").promises;
 
 class WebsiteController {
   private addWebsiteUseCase: AddWebsite;
+  private isSparkAdminUseCase: CheckAdminRole;
+  private uploadWebsiteUseCase: UploadWebsite;
   private websiteRepository: WebsiteRepository;
   private getWebsitesByOwner: GetWebsites;
   private checkVerificationUseCase: CheckVerification;
@@ -53,6 +58,8 @@ class WebsiteController {
 
   constructor() {
     this.websiteService = new WebsiteService();
+    this.isSparkAdminUseCase = new CheckAdminRole();
+    this.uploadWebsiteUseCase = new UploadWebsite();
     this.checkVerificationUseCase = new CheckVerification();
     this.getWebsiteCodeUseCase = new GetWebsitesCode();
     this.websiteRepository = new WebsiteRepository();
@@ -127,6 +134,38 @@ class WebsiteController {
       return res
         .status(500)
         .json({ error: "Ошибка с получением сайтов", details: error.message });
+    }
+  }
+
+  // Залить клиентский билд
+  async uploadWebsite(req: Request, res: Response): Promise<void> {
+    const errors: ErrorDetails[] = [];
+    try {
+      const userId: number = req.user.id;
+      const file = req.file;
+
+      console.log("file is here:", file);
+
+      const isSparkAdmin = await this.isSparkAdminUseCase.execute(userId);
+
+      if (isSparkAdmin) {
+        const result = await this.uploadWebsiteUseCase.execute(file, errors);
+
+        if (errors.length > 0) {
+          res.status(400).json({ errors });
+        } else {
+          res.status(200).json(result);
+        }
+      } else {
+        res
+          .status(403)
+          .json({ message: "You don't have permission to do this" });
+      }
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "There was an error with uploading website." });
+      console.log("There was an error with uploading website:", error);
     }
   }
 

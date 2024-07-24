@@ -6,6 +6,7 @@ import { Op } from "sequelize"; // Ensure this is imported correctly
 import sequelize from "infrastructure/config/sequelize";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
 import { Website } from "@infrastructure/models/websiteModel";
+import { ErrorDetails } from "@core/utils/utils";
 
 export class UserRepository implements IUserRepository {
   // Создать пользователя
@@ -128,6 +129,7 @@ export class UserRepository implements IUserRepository {
     }
   }
 
+  // Получение пользователя по коду веб-сайта
   async getUserFromWebsiteWithCode(
     websiteId: string,
     userId: number
@@ -151,6 +153,92 @@ export class UserRepository implements IUserRepository {
     } catch (error) {
       console.log(error);
       return;
+    }
+  }
+
+  // Поменять тему пользователя
+  async changeTheme(
+    userId: number,
+    theme: string,
+    errors: ErrorDetails[]
+  ): Promise<string> {
+    try {
+      const [numberOfAffectedRows] = await sequelize
+        .getRepository(User)
+        .update({ theme: theme }, { where: { id: userId } });
+
+      if (numberOfAffectedRows === 0) {
+        errors.push(new ErrorDetails(404, "User or language not found"));
+        return "EN";
+      }
+
+      return theme;
+    } catch (error) {
+      console.error("Ошибка с обновлением темы:", error);
+      errors.push(new ErrorDetails(500, "Ошибка сервера"));
+      // return "light";
+    }
+  }
+
+  // Получить тему пользователя
+  async getTheme(userId: number, errors: ErrorDetails[]): Promise<string> {
+    try {
+      const user = await sequelize.getRepository(User).findByPk(userId);
+      const theme = user.theme;
+
+      console.log("theme is repo:", theme);
+
+      if (!theme) {
+        errors.push(new ErrorDetails(404, "Тема пользователя не была найден"));
+      }
+
+      return theme;
+    } catch (error) {
+      console.error("Ошибка с получением темы:", error);
+      errors.push(new ErrorDetails(500, "Ошибка сервера"));
+      return "light";
+    }
+  }
+
+  // Поменять язык пользователя
+  async changeLanguage(
+    userId: number,
+    language: "RU" | "EN",
+    errors: ErrorDetails[]
+  ): Promise<string> {
+    try {
+      const [numberOfAffectedRows] = await sequelize
+        .getRepository(User)
+        .update({ language: language }, { where: { id: userId } });
+
+      // ! Найдена ошибка
+      if (numberOfAffectedRows === 0) {
+        errors.push(new ErrorDetails(404, "Язык пользователя не найден"));
+        return "EN";
+      }
+
+      return language;
+    } catch (error) {
+      console.error("Ошибка с обновлением языка:", error);
+      errors.push(new ErrorDetails(500, "Ошибка сервера"));
+    }
+  }
+
+  // Получить язык пользователя
+  async getLanguage(userId: number, errors: ErrorDetails[]): Promise<string> {
+    try {
+      const user = await sequelize.getRepository(User).findByPk(userId);
+      const language = user.language;
+
+      if (!language) {
+        errors.push(new ErrorDetails(404, "Язык пользователя не был найден"));
+      }
+
+      return language;
+    } catch (error) {
+      console.error("Ошибка с получением языка:", error);
+      errors.push(new ErrorDetails(500, "Ошибка сервера"));
+      return "EN";
     }
   }
 }
