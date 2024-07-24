@@ -90,5 +90,3 @@ export const useSubmitRegister = () => {
     backendError,
   };
 };
-
-/* eslint-disable react-hooks/rules-of-hooks */

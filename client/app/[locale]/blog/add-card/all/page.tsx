@@ -35,7 +35,7 @@ const AddBlogCard: React.FC<IBlogCard> = () => {
         <Heading text="All cards" margin="mt-8" />
       </div>
       <div className={styles.container__cards}>
-        {data?.map((blog, index) => (
+        {data?.map((blog) => (
           <div
             key={blog.id}
             className="ml-8 flex flex-col justify-center items-center"

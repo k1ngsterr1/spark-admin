@@ -53,10 +53,10 @@ const EmailConfirm = () => {
             {code.map((value, index) => (
               <Input
                 key={index}
+                autoCapitalize="characters"
                 inputType="email"
                 placeholder=""
                 autoComplete="off"
-                // value={code}
                 name={`code-${index}`}
                 onChange={(e) => handleInputChange(index, e.target.value)}
                 maxLength={1}
