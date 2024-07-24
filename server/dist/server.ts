@@ -3,9 +3,10 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const compression = require("compression");
 const bodyParser = require("body-parser");
+// const bundler = require("bundler");
 // const { convert_to_webp } = require("wasm_image_converter");
 const fs = require("fs");
-const dotenv = require("dotenv").config({ path: "../.env" });
+const dotenv = require("dotenv").config({ path: "./.env" });
 
 // Routes
 import authRoutes from "infrastructure/routes/authRoutes";
@@ -19,12 +20,21 @@ import siteRoutes from "@infrastructure/routes/siteRoutes";
 
 import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
 import { accessToken } from "@infrastructure/middleware/authMiddleware";
+
 import path from "path";
+
+import { registerSocketEvents } from "@presentation/controllers/websockets/socketController";
+import { SocketService } from "@infrastructure/websocket/socketServer";
 
 const app = express();
 
 export const buildRoute = path.join(__dirname, "templates/build/");
 export const uploadPath = path.join(__dirname, "uploads");
+
+// Server for sockets
+const httpServer = require("http").createServer(app);
+const socketService = new SocketService(httpServer);
+
 // Testing
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -78,12 +88,14 @@ app.use(
     parameterLimit: 50000,
   })
 );
+
 // Создание сваггера
 app.use(
   "/api-docs",
   swaggerUi.serve,
   swaggerUi.setup(swaggerSpec, { explorer: true })
 );
+
 app.use(express.static(path.join(__dirname, "templates/public")));
 
 app.set("view engine", "ejs");
@@ -196,6 +208,6 @@ app.use("/api/site", siteRoutes);
 
 // app.use("/api/article", articleRoutes);
 
-app.listen(port, () => {
+httpServer.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

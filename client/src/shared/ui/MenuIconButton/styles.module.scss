@@ -1,0 +1,18 @@
+.menu_icon_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s all;
+  @apply text-2xl;
+  @apply p-2;
+  @apply text-primary;
+  @apply rounded-md;
+
+  &__chevron {
+    @apply text-sm;
+  }
+
+  &:hover {
+    @apply bg-dark-upper;
+  }
+}

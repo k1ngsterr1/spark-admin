@@ -1,3 +1,7 @@
+@import "breakpoint-slicer";
+@import "../../../../shared/styles/mixins";
+@import "../../../../shared/styles/variables";
+
 .container {
   display: flex;
   justify-content: center;
@@ -7,5 +11,15 @@
   &__already {
     @apply mt-12;
     font-size: clamp(9px, 18 / 1360 * 100vw, 36px);
+  }
+
+  &__svg {
+    @include respond-to("4xl") {
+      width: clamp(350px, 700 / 1920 * 100vw, 1400px);
+    }
+
+    @include respond-to("5xl") {
+      width: clamp(350px, 700 / 2560 * 100vw, 1400px);
+    }
   }
 }

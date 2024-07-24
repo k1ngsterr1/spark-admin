@@ -13,6 +13,7 @@ import { Button } from "@shared/ui/Buttons_Components/Buttons";
 import styles from "../styles/styles.module.scss";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
+import { Loading } from "@entities/Loading";
 
 const Form = () => {
   const t = useTranslations("RegistrationPage");
@@ -23,6 +24,7 @@ const Form = () => {
     email,
     setEmail,
     password,
+    loading,
     setPassword,
     passwordConfirmation,
     setPasswordConfirmation,
@@ -33,6 +35,7 @@ const Form = () => {
 
   return (
     <section className={styles.registration}>
+      {loading && <Loading />}
       <div className={styles.registration__content}>
         <div className={styles.registration__content__logo}>
           <SparkLogo />

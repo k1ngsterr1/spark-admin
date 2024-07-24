@@ -36,6 +36,11 @@
       "loading": "Loading...",
       "check_code": "Check code",
       "close": "Close"
+    },
+    "upload": {
+      "upload": "Upload Website",
+      "your_build": "Your Build",
+      "button": "Upload"
     }
   },
   "LoginPage": {
@@ -86,6 +91,18 @@
   },
   "Editor": {
     "editor": "Text Editor"
+  },
+  "BuildWebsite": {
+    "heading": "Build Your Own Website",
+    "landing": "Landing",
+    "shop": "Shop",
+    "blog": "Blog",
+    "events": "Events"
+  },
+  "Users": {
+    "heading": "Users",
+    "add_user": "Add User",
+    "no_users": "You don't have any users"
   },
   "Support": {
     "support": "Support",

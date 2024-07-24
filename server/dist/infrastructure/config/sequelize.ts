@@ -1,11 +1,15 @@
 import { BlockComponent } from "@infrastructure/models/blockComponentModel";
 import { Block } from "@infrastructure/models/blockModel";
 import CardToBlock from "@infrastructure/models/cardToblockModel";
+import { Color } from "@infrastructure/models/colorModel";
 import { Component } from "@infrastructure/models/componentModel";
+import { Language } from "@infrastructure/models/languageModel";
 import { PageCard } from "@infrastructure/models/pageCardModel";
 import { Page } from "@infrastructure/models/pageModel";
 import { SiteData } from "@infrastructure/models/siteDataModel";
+import { UserToColor } from "@infrastructure/models/userToColorModel";
 import UserToWebsite from "@infrastructure/models/userToWebsiteModel";
+import { WebsiteToColor } from "@infrastructure/models/websiteToColor";
 import { User } from "infrastructure/models/userModel";
 import { Website } from "infrastructure/models/websiteModel";
 import { Sequelize } from "sequelize-typescript";
@@ -37,6 +41,10 @@ const sequelize = new Sequelize({
     CardToBlock,
     BlockComponent,
     SiteData,
+    Color,
+    UserToColor,
+    WebsiteToColor,
+    Language,
   ],
 });
 

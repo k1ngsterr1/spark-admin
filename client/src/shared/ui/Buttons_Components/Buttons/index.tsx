@@ -6,7 +6,7 @@ import {
   useWebsiteUploadPopup,
 } from "@shared/lib/contexts/AppContext";
 import { useUserPopup } from "@shared/lib/contexts/AppContext";
-import { FunctionTypes } from "@shared/lib/hooks/useFunctions";
+import { FunctionTypes } from "@shared/lib/hooks/Misc/useFunctions";
 import Link from "next/link";
 
 import styles from "./styles.module.scss";
@@ -15,12 +15,18 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   margin?: string;
   text: string;
   href?: string;
+
   buttonType:
     | "regular"
     | "transparent"
     | "regular--small"
+    | "regular--xxs--cancel"
     | "regular--xs"
-    | "regular--text";
+    | "regular--xxs"
+    | "regular--xxxs"
+    | "regular--text"
+    | "regular--text--xs";
+
   functionType?: FunctionTypes;
 }
 

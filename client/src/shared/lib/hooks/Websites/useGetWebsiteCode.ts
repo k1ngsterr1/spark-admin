@@ -1,5 +1,5 @@
 "use client";
-import { axiosInstance } from './../useInterceptor';
+import { axiosInstance } from "../Misc/useInterceptor";
 import { FormEvent, useState } from "react";
 import { useUserData } from "../Form/useGetData";
 
@@ -17,9 +17,7 @@ export function useGetWebsiteCode() {
     event.preventDefault();
     try {
       const data: ICheckWebsiteData = { url };
-      const response = await axiosInstance.post(
-        "/api/website/get-code", {}
-      );
+      const response = await axiosInstance.post("/api/website/get-code", {});
       setCode(response.data.code);
       console.log("Data created:", response.data);
     } catch (error: any | unknown) {

@@ -1,4 +1,5 @@
 import { Block } from "@infrastructure/models/blockModel";
+import { Color } from "@infrastructure/models/colorModel";
 import { PageCard } from "@infrastructure/models/pageCardModel";
 import { Page } from "@infrastructure/models/pageModel";
 import { User } from "@infrastructure/models/userModel";
@@ -13,12 +14,31 @@ export interface UserAttributes {
   email: string;
   password: string;
   role: string;
+  theme: string;
+  language: string;
   isSparkAdmin: boolean;
   verificationCode: string;
   isVerified: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface UserToColorAttributes {
+  id: number;
+  userId: number;
+  colorId: number;
+  user: User;
+  color: Color;
+}
+
+export interface WebsiteToColorAttributes {
+  id: number;
+  websiteId: string;
+  colorId: number;
+  website: Website;
+  color: Color;
+}
+
 export interface WebsiteAttributes {
   id: string;
   users: User[];
@@ -60,6 +80,18 @@ export interface PageCardAttributes {
   type: string;
 }
 
+export interface ThemeAttributes {
+  id: number;
+  theme: string;
+}
+
+export interface LanguageAttributes {
+  id: number;
+  language: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 export interface SiteDataAttributes {
   id: number;
   name: string;
@@ -68,13 +100,13 @@ export interface SiteDataAttributes {
   updatedAt: Date;
 }
 
-export interface FormAttributes{
-    id: number;
-    code: string;
-    name: string;
-    phoneNumber: string;
-    email: string;
-    date: Date;
+export interface FormAttributes {
+  id: number;
+  code: string;
+  name: string;
+  phoneNumber: string;
+  email: string;
+  date: Date;
 }
 
 export interface ComponentAttributes {
@@ -108,6 +140,11 @@ export interface BlockAttributes {
   video_url: string;
 }
 
+export interface ColorAttributes {
+  id: number;
+  value: string;
+}
+
 export interface CardToBlockAttributes {
   id: number;
   pageCardId: number;
@@ -134,7 +171,7 @@ export interface NewWebsiteInput {
   websiteCodeSignature: string;
 }
 
-export interface NewFormInput{
+export interface NewFormInput {
   name: string;
   phoneNumber: string;
   email: string;

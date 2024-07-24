@@ -1,0 +1,29 @@
+.slider_input {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 5px; /* Specified height */
+  background: #ff8762;
+  outline: none; /* Remove outline */
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+
+  &::-webkit-slider-thumb,
+  &::-moz-range-thumb {
+    border: 2px solid white;
+    @apply shadow-md;
+    @apply bg-primary;
+  }
+
+  &__size {
+    width: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+    @apply p-1;
+    @apply rounded-sm;
+    @apply text-primary;
+    @apply border-primary;
+  }
+}

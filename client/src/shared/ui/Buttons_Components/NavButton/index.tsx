@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
 import styles from "./styles.module.scss";
+import { ReactTooltip } from "@shared/ui/Tooltip";
+import { PlacesType } from "react-tooltip";
 
 interface NavButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   margin: string;
@@ -11,7 +13,12 @@ interface NavButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon: IconDefinition;
   href: string;
   isOpen: boolean;
+  id: string;
+  data_tooltip_content: string;
+  data_tooltip_id: string;
+  data_tooltip_place: any;
   textRef: LegacyRef<HTMLSpanElement>;
+  onClick?: () => void;
 }
 
 export const NavButton: React.FC<NavButtonProps> = ({
@@ -20,11 +27,23 @@ export const NavButton: React.FC<NavButtonProps> = ({
   text,
   href,
   isOpen,
+  id,
   textRef,
+  data_tooltip_content,
+  data_tooltip_id,
+  data_tooltip_place,
+  onClick,
 }) => {
   return (
     <>
-      <Link className={`${styles.nav_button} ${margin}`} href={href}>
+      <Link
+        className={`${styles.nav_button} ${margin}`}
+        href={href}
+        data-tooltip-content={data_tooltip_content}
+        data-tooltip-id={data_tooltip_id}
+        data-tooltip-place={data_tooltip_place}
+        onClick={onClick}
+      >
         <FontAwesomeIcon
           icon={icon}
           className={styles.nav_button__icon}
@@ -36,6 +55,7 @@ export const NavButton: React.FC<NavButtonProps> = ({
         >
           {text}
         </span>
+        {!isOpen && <ReactTooltip id={id} />}
       </Link>
     </>
   );

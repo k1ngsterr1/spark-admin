@@ -3,7 +3,7 @@ import Input from "@shared/ui/Inputs/DefaultInport";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dropdown } from "../Dropdown";
-import useSelector from "@shared/lib/hooks/useSelector";
+import useSelector from "@shared/lib/hooks/Misc/useSelector";
 
 import styles from "./style.module.scss";
 

@@ -1,8 +1,13 @@
+@import "../../shared/styles/mixins";
+@import "../../shared/styles/variables";
+@import "breakpoint-slicer";
+
 .header_edit {
   position: sticky;
   width: 100%;
   height: clamp(50px, 5.208vw, 200px);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: sticky;
@@ -20,10 +25,57 @@
     align-items: center;
     justify-content: space-between;
 
-    &__logo {
-      width: clamp(32px, 3.33312vw, 128px);
-      height: clamp(32px, 3.33312vw, 128px);
-      cursor: pointer;
+    &__link {
+      transition: 0.3s all;
+      @apply text-primary;
+
+      &:hover {
+        @apply text-functional;
+      }
     }
+
+    &__logo {
+      width: clamp(24px, 48 / 1200 * 100vw, 96px);
+      height: clamp(24px, 48 / 1200 * 100vw, 96px);
+      cursor: pointer;
+
+      @include respond-to("xl") {
+        width: clamp(24px, 48 / 1360 * 100vw, 96px);
+        height: clamp(24px, 48 / 1360 * 100vw, 96px);
+      }
+
+      @include respond-to("2xl") {
+        width: clamp(24px, 48 / 1520 * 100vw, 96px);
+        height: clamp(24px, 48 / 1520 * 100vw, 96px);
+      }
+
+      @include respond-to("3xl") {
+        width: clamp(24px, 48 / 1680 * 100vw, 96px);
+        height: clamp(24px, 48 / 1680 * 100vw, 96px);
+      }
+
+      @include respond-to("4xl") {
+        width: clamp(24px, 48 / 1920 * 100vw, 96px);
+        height: clamp(24px, 48 / 1920 * 100vw, 96px);
+      }
+
+      @include respond-to("5xl") {
+        width: clamp(24px, 48 / 2560 * 100vw, 96px);
+        height: clamp(24px, 48 / 2560 * 100vw, 96px);
+      }
+
+      @include respond-to("6xl") {
+        width: clamp(24px, 48 / 3840 * 100vw, 96px);
+        height: clamp(24px, 48 / 3840 * 100vw, 96px);
+      }
+    }
+  }
+
+  &__second_row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @apply mt-3;
   }
 }

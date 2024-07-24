@@ -11,7 +11,6 @@ import {
   Default,
   BeforeCreate,
   BeforeUpdate,
-  ForeignKey,
   BelongsToMany,
 } from "sequelize-typescript";
 
@@ -19,6 +18,8 @@ import bcryptjs from "bcryptjs";
 import { Website } from "./websiteModel";
 import { UserAttributes, UserRole } from "@core/utils/types";
 import UserToWebsite from "./userToWebsiteModel";
+import { Color } from "./colorModel";
+import { UserToColor } from "./userToColorModel";
 
 // Модель пользователя
 @Table({
@@ -32,6 +33,9 @@ export class User extends Model<UserAttributes> {
 
   @BelongsToMany(() => Website, () => UserToWebsite)
   websites!: Website;
+
+  @BelongsToMany(() => Color, () => UserToColor)
+  colors!: Color[];
 
   @Column(DataType.STRING)
   username!: string;
@@ -60,6 +64,14 @@ export class User extends Model<UserAttributes> {
   @Default(false)
   @Column(DataType.BOOLEAN)
   isVerified!: boolean;
+
+  @Default("light")
+  @Column(DataType.STRING)
+  theme!: string;
+
+  @Default("EN")
+  @Column(DataType.STRING)
+  language!: string;
 
   @CreatedAt
   createdAt!: Date;

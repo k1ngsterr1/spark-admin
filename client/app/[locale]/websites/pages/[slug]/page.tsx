@@ -2,7 +2,7 @@
 import { Header } from "@features/Header";
 import { Menu } from "@features/Menu";
 import { WebsiteInner } from "@widgets/Screens/WebsiteInner/ui";
-import { useGetWebsitePages } from "@shared/lib/hooks/useGetWebsitePages";
+import { useGetWebsitePages } from "@shared/lib/hooks/Websites/useGetWebsitePages";
 
 const WebsiteEditPage = ({ params }: { params: { slug: string } }) => {
   const { pageContent, isLoading } = useGetWebsitePages(params.slug);

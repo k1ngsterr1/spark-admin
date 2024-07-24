@@ -1,5 +1,5 @@
 "use client";
-import { axiosInstance } from "./../useInterceptor";
+import { axiosInstance } from "../Misc/useInterceptor";
 import { useUserData } from "./useGetData";
 
 interface IData {
