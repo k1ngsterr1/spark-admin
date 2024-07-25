@@ -32,7 +32,7 @@ export class User extends Model<UserAttributes> {
   id!: number;
 
   @BelongsToMany(() => Website, () => UserToWebsite)
-  websites!: Website;
+  websites!: Website[];
 
   @BelongsToMany(() => Color, () => UserToColor)
   colors!: Color[];

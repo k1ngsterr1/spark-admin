@@ -1,6 +1,9 @@
 import { AddSiteData } from "@core/use_cases/SiteData/AddSiteData";
 import { GetSiteDatas } from "@core/use_cases/SiteData/GetSiteDatas";
-import { UpdateSite } from "@core/use_cases/SiteData/UpdateSite";
+import {
+  ChangesDetails,
+  UpdateSite,
+} from "@core/use_cases/SiteData/UpdateSite";
 import { UploadImage } from "@core/use_cases/SiteData/UploadImage";
 import { ErrorDetails } from "@core/utils/utils";
 import { Request, Response } from "express";
@@ -25,15 +28,20 @@ class EditController {
       const userId: number = req.user.id;
       const url: string = req.body.url;
       const pageUrl: string = req.body.pageUrl;
-      const componentName: string = req.body.componentName;
-      const value: string = req.body.value;
+      const changes: ChangesDetails = {
+        content: req.body.content,
+        style: req.body.style,
+        font: req.body.font,
+        color: req.body.color,
+        link: req.body.link,
+        size: req.body.size,
+      };
 
       await this.addSiteDataComponent.execute(
         userId,
         url,
         pageUrl,
-        componentName,
-        value,
+        changes,
         errors
       );
 
@@ -59,14 +67,21 @@ class EditController {
       const websiteId: string = req.body.websiteId;
       const url: string = req.body.url;
       const componentId: number = req.params.componentId;
-      const newValue: string = req.body.newValue;
+      const changes: ChangesDetails = {
+        content: req.body.content,
+        style: req.body.style,
+        font: req.body.font,
+        color: req.body.color,
+        link: req.body.link,
+        size: req.body.size,
+      };
 
       await this.updateSiteComponent.execute(
         userId,
         websiteId,
         url,
         componentId,
-        newValue,
+        changes,
         errors
       );
 

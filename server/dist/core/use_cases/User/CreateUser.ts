@@ -6,13 +6,17 @@ import EmailService from "./EmailVerification";
 import { RegisterRequest } from "@core/utils/User/Request";
 import { ErrorDetails } from "@core/utils/utils";
 import { generateVerificationCode } from "@core/utils/generateCode";
+import { IColorRepository } from "@core/interfaces/IColorRepository";
+import { ColorRepository } from "@infrastructure/repositories/ColorRepository";
 
 export class CreateUser {
   private userRepository: UserRepository;
   private emailService: IEmailService;
+  private colorRepository: IColorRepository;
   constructor() {
     this.userRepository = new UserRepository();
     this.emailService = new EmailService();
+    this.colorRepository = new ColorRepository();
   }
 
   async execute(
@@ -53,6 +57,14 @@ export class CreateUser {
     await this.userRepository.saveVerificationCode(newUser, code);
 
     await this.emailService.sendVerificationEmail(email, username, code);
+
+    try {
+      await this.colorRepository.addUser(newUser.id, 1, errors);
+      await this.colorRepository.addUser(newUser.id, 2, errors);
+      await this.colorRepository.addUser(newUser.id, 3, errors);
+    } catch (e) {
+      console.log("Failed to add default color for user");
+    }
 
     return newUser;
   }

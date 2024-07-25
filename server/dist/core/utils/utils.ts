@@ -1,6 +1,6 @@
 // Класс для вывода ошибок
 export class ErrorDetails {
-  public code: number | string;
+  public code: number;
   public details: string;
   constructor(code: number, details: string) {
     this.code = code;

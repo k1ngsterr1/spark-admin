@@ -15,7 +15,7 @@ export const Header = () => {
       <div className={styles.header__content}>
         <SearchBar />
         <ThemeButton />
-        <SwitchLocale locale={locale} />
+        <SwitchLocale initialLocale={locale} />
       </div>
     </header>
   );

@@ -14,6 +14,7 @@ import { Color } from "./colorModel";
 
 @Table({
   tableName: "UserToColor",
+  timestamps: false,
 })
 export class UserToColor extends Model<UserToColorAttributes> {
   @PrimaryKey
