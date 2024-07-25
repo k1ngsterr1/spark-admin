@@ -7,6 +7,8 @@
   "dependencies": {
     "@react-three/a11y": "^3.0.0",
     "puppeteer": "^22.7.1",
-    "three": "^0.165.0"
+    "swagger-ui-express": "^5.0.1",
+    "three": "^0.165.0",
+    "yamljs": "^0.3.0"
   }
 }

@@ -6,22 +6,24 @@ import { validEmail, validURL } from "@core/utils/validators";
 import { UserRepository } from "@infrastructure/repositories/UserRepository";
 import { AddWebsiteRequest } from "@core/utils/Website/Request";
 import { ErrorDetails } from "@core/utils/utils";
-import { ChangeUserRole } from "./ChangeUserRole";
 import { IPageRepository } from "@core/interfaces/IPageRepository";
 import { PageRepository } from "@infrastructure/repositories/PageRepository";
 
 import websiteCodeGenerator from "@core/utils/generateWebsiteCode";
+import { IColorRepository } from "@core/interfaces/IColorRepository";
+import { ColorRepository } from "@infrastructure/repositories/ColorRepository";
 
 export class AddWebsite {
   private websiteRepository: IWebsiteRepository;
   private pageRepository: IPageRepository;
   private userRepository: UserRepository;
-  private changeUserRole: ChangeUserRole;
+  private colorRepository: IColorRepository;
+
   constructor() {
     this.userRepository = new UserRepository();
     this.pageRepository = new PageRepository();
     this.websiteRepository = new WebsiteRepository();
-    this.changeUserRole = new ChangeUserRole();
+    this.colorRepository = new ColorRepository();
   }
   async execute(
     request: AddWebsiteRequest,
@@ -80,6 +82,17 @@ export class AddWebsite {
 
       await this.pageRepository.create(pageInput);
 
+      try {
+        await this.colorRepository.addWebsite(newWebsite.id, 1, errors);
+        await this.colorRepository.addWebsite(newWebsite.id, 2, errors);
+        await this.colorRepository.addWebsite(newWebsite.id, 3, errors);
+        await this.colorRepository.addWebsite(newWebsite.id, 4, errors);
+        await this.colorRepository.addWebsite(newWebsite.id, 5, errors);
+        await this.colorRepository.addWebsite(newWebsite.id, 6, errors);
+        await this.colorRepository.addWebsite(newWebsite.id, 7, errors);
+      } catch (error) {
+        console.log("Error when adding default website colors" + error);
+      }
       return newWebsite;
     } catch (error) {
       console.log(error);

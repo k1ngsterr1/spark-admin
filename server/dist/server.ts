@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 // const { convert_to_webp } = require("wasm_image_converter");
 const fs = require("fs");
 const dotenv = require("dotenv").config({ path: "./.env" });
+import YAML from "yamljs";
 
 // Routes
 import authRoutes from "infrastructure/routes/authRoutes";
@@ -17,7 +18,7 @@ import userRoutes from "@infrastructure/routes/userRoutes";
 import blockRoutes from "@infrastructure/routes/blockRoutes";
 import pageCardRoutes from "@infrastructure/routes/pageCardRoutes";
 import siteRoutes from "@infrastructure/routes/siteRoutes";
-
+import colorRoutes from "@infrastructure/routes/colorRoutes";
 import { swaggerSpec, swaggerUi } from "@core/utils/swagger";
 import { accessToken } from "@infrastructure/middleware/authMiddleware";
 
@@ -90,11 +91,8 @@ app.use(
 );
 
 // Создание сваггера
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec, { explorer: true })
-);
+const swaggerDocument = YAML.load("swagger.yaml");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(express.static(path.join(__dirname, "templates/public")));
 
@@ -205,6 +203,9 @@ app.use("/api/page-card", pageCardRoutes);
 
 // Логика для данных сайта
 app.use("/api/site", siteRoutes);
+
+// Логика для цветов
+app.use("/api/color", colorRoutes);
 
 // app.use("/api/article", articleRoutes);
 

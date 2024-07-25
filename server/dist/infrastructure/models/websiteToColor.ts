@@ -14,6 +14,7 @@ import { Color } from "./colorModel";
 
 @Table({
   tableName: "WebsiteToColor",
+  timestamps: false,
 })
 export class WebsiteToColor extends Model<WebsiteToColorAttributes> {
   @PrimaryKey
