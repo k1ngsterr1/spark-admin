@@ -7,37 +7,33 @@ import { ButtonLink } from "@shared/ui/Buttons_Components/Buttons/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import Heading from "@shared/ui/Heading/index";
-import useFileUpload from "@shared/lib/hooks/Misc/usePreviewPhoto";
 import Input from "@shared/ui/Inputs/DefaultInport";
+import { useAddCard } from "@shared/lib/hooks/Isolated_Components/useAddBlogCard";
+import useFileUpload from "@shared/lib/hooks/Misc/usePreviewPhoto";
 import { useAddBlogCard } from "@shared/lib/hooks/Blogs/useAddBlogCard";
+import { useAddCard } from "@shared/lib/hooks/Isolated_Components/useAddBlogCard";
 
 import SparkLogo from "@assets/spark_product_logo.svg";
 
 import styles from "./styles.module.scss";
 
 const AddBlogCard: React.FC = () => {
-  const { previewUrl, handleFileChange, selectedFile } = useFileUpload();
-  const [title, setTitle] = useState("");
-  const [href, setHref] = useState("");
-  const [code, setCode] = useState("");
-  const { addBlog } = useAddBlogCard();
+  const {
+    title,
+    setTitle,
+    href,
+    setHref,
+    code,
+    setCode,
+    handleSubmit,
+    previewUrl,
+    handleFileChange,
+    selectedFile,
+  } = useAddCard();
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
 
-    if (title && href && code && selectedFile) {
-      const formData = new FormData();
-      formData.append("image", selectedFile);
-      formData.append("title", title);
-      formData.append("href", href);
-      formData.append("code", code);
-
-      await addBlog(formData);
-    } else {
-      console.log("All fields are required");
-    }
-  };
-
+  const { title, setTitle, href, setHref, code, setCode, handleSubmit, previewUrl, handleFileChange,selectedFile} = useAddCard();
+ 
   return (
     <form onSubmit={handleSubmit}>
       <div className={styles.container}>

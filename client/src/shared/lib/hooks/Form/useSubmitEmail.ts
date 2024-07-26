@@ -37,4 +37,3 @@ export default function useSubmitEmail() {
 
   return { code, handleInputChange, userData, emailError, handleSubmit };
 }
-/* eslint-disable react-hooks/rules-of-hooks */
