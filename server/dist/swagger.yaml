@@ -532,7 +532,7 @@ paths:
           description: Ошибка в данных запроса
         "500":
           description: Серверная ошибка при попытке добавления цвета
-  /api/color/user:
+  /api/color/add-user-color:
     post:
       summary: Добавление цвета пользователя
       description: Добавляет цвет, связанный с пользователем в формате HEX или RGBA.
@@ -561,44 +561,6 @@ paths:
           description: Ошибка в данных запроса
         "500":
           description: Серверная ошибка при попытке добавления цвета пользователя
-    get:
-      summary: Получение цвета пользователя
-      description: Получает любимые цвета пользователя, сохраненный в системе.
-      tags:
-        - Цвета
-      security:
-        - bearerAuth: []
-      responses:
-        "200":
-          description: Успешный ответ с цветом пользователя
-        "400":
-          description: Ошибка в данных запроса
-        "500":
-          description: "Серверная ошибка при попытке получения цвета пользователя"
-    delete:
-      summary: Удаление цвета пользователя
-      description: Удаляет цвет пользователя, используя предоставленное значение цвета и access токен.
-      tags:
-        - Цвета
-      security:
-        - bearerAuth: []
-      parameters:
-        - name: value
-          in: path
-          required: true
-          schema:
-            type: string
-            description: Значение цвета, который нужно удалить в формате HEX или RGBA
-            example: "#FF5733"
-      responses:
-        "200":
-          description: Цвет пользователя успешно удален
-        "400":
-          description: Ошибка в данных запроса
-        "404":
-          description: Цвет пользователя не найден
-        "500":
-          description: Серверная ошибка при попытке удаления цвета пользователя
   /api/color/website:
     post:
       summary: Добавление цвета для вебсайта
@@ -633,6 +595,21 @@ paths:
           description: Ошибка в данных запроса
         "500":
           description: Серверная ошибка при попытке добавления цвета для вебсайта
+  /api/color/get-user-colors:
+    get:
+      summary: Получение цвета пользователя
+      description: Получает любимые цвета пользователя, сохраненный в системе.
+      tags:
+        - Цвета
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Успешный ответ с цветом пользователя
+        "400":
+          description: Ошибка в данных запроса
+        "500":
+          description: "Серверная ошибка при попытке получения цвета пользователя"
   /api/color/website/{websiteId}:
     get:
       summary: Получение цвета для вебсайта
@@ -659,6 +636,31 @@ paths:
           description: Вебсайт не найден
         "500":
           description: Серверная ошибка при попытке получения цвета вебсайта
+  /api/color/user/{value}:
+    delete:
+      summary: Удаление цвета пользователя
+      description: Удаляет цвет пользователя, используя предоставленное значение цвета и access токен.
+      tags:
+        - Цвета
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: value
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Значение цвета, который нужно удалить в формате HEX или RGBA
+            example: "#FF5733"
+      responses:
+        "200":
+          description: Цвет пользователя успешно удален
+        "400":
+          description: Ошибка в данных запроса
+        "404":
+          description: Цвет пользователя не найден
+        "500":
+          description: Серверная ошибка при попытке удаления цвета пользователя
   /api/color/website/{websiteId}/{value}:
     delete:
       summary: Удаление цвета вебсайта
