@@ -155,30 +155,7 @@ app.use("/images", express.static(path.join(__dirname, "uploads")));
 app.use(compression());
 
 // Роуты:
-/**
- * @swagger
- * components:
- *   securitySchemes:
- *     bearerAuth:
- *       type: http
- *       scheme: bearer
- * /access:
- *   post:
- *     summary: Создание нового access token'а
- *     description: Создание нового access token'а с помощью валидного refresh token'a
- *     tags:
- *       - Access Token
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       201:
- *         description: Access token был успешно создан
- *       400:
- *         description: Не удалось создать access token'a
- *       500:
- *         description: Произошла ошибка при создание access token'a
- */
-app.post("/access", (req, res) => accessToken(req, res));
+app.post("/api/access", (req, res) => accessToken(req, res));
 
 // Логика для аутентификация
 app.use("/api/auth", authRoutes);
