@@ -24,14 +24,12 @@ export const SwitchLocale: React.FC<ISwitchLocale> = ({ locale }) => {
       const path = `/${newLocale}${window.location.pathname.substring(3)}`;
       setNewPath(path);
       changeLanguage(newLocale);
-      console.log(isSocketSent);
     } catch (error) {
       console.error("There was an error with language changing");
     }
   };
 
   useEffect(() => {
-    console.log("socket:", isSocketSent);
     if (isSocketSent) {
       router.push(newPath);
     }

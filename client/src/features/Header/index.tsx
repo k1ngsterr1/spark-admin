@@ -10,10 +10,6 @@ import styles from "./styles.module.scss";
 export const Header = () => {
   const { locale } = useParams();
 
-  useEffect(() => {
-    console.log("locale in header:", locale);
-  });
-
   return (
     <header className={styles.header}>
       <div className={styles.header__content}>
