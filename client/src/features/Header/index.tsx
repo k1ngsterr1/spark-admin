@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { SearchBar } from "@features/SearchBar";
 import { ThemeButton } from "@entities/DarkTheme";
 import { SwitchLocale } from "@shared/ui/SwitchLocale";
@@ -10,12 +10,16 @@ import styles from "./styles.module.scss";
 export const Header = () => {
   const { locale } = useParams();
 
+  useEffect(() => {
+    console.log("locale in header:", locale);
+  });
+
   return (
     <header className={styles.header}>
       <div className={styles.header__content}>
         <SearchBar />
         <ThemeButton />
-        <SwitchLocale initialLocale={locale} />
+        <SwitchLocale locale={locale} />
       </div>
     </header>
   );

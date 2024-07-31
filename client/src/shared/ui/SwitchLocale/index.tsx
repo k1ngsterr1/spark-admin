@@ -6,7 +6,11 @@ import { useChangeLanguage } from "@shared/lib/hooks/Misc/useChangeLanguage";
 
 import styles from "./styles.module.scss";
 
-export const SwitchLocale = ({ locale }) => {
+interface ISwitchLocale {
+  locale: string | string[];
+}
+
+export const SwitchLocale: React.FC<ISwitchLocale> = ({ locale }) => {
   const t = useTranslations("MainPage");
   const [initialMount, setInitialMount] = useState<boolean>(true);
   const [newPath, setNewPath] = useState("");
