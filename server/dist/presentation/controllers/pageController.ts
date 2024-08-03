@@ -91,8 +91,9 @@ class PageController {
 
       if (errors.length > 0) {
         const current_error = errors[0];
-        res.status(current_error.code).json({ message: current_error.details });
-        return;
+        return res
+          .status(current_error.code)
+          .json({ message: current_error.details });
       }
 
       res.status(200).json({ pages: pages });
@@ -142,6 +143,7 @@ class PageController {
       if (errors.length > 0) {
         const current_error = errors[0];
         res.status(current_error.code).json({ message: current_error.details });
+        return;
       }
 
       res.status(200).json({ page: page });

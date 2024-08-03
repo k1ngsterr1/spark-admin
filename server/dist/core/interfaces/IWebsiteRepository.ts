@@ -58,4 +58,6 @@ export interface IWebsiteRepository {
     websiteId: string,
     errors: ErrorDetails[]
   ): Promise<Color[]>;
+
+  findByName(name: string, errors: ErrorDetails[]): Promise<Website>;
 }

@@ -230,4 +230,24 @@ export class WebsiteRepository implements IWebsiteRepository {
       return [];
     }
   }
+
+  async findByName(name: string, errors: ErrorDetails[]): Promise<Website> {
+    try {
+      const website = await sequelize.getRepository(Website).findOne({
+        where: { name: name },
+        include: [
+          {
+            model: sequelize.getRepository(Page),
+            attributes: ["id", "url", "name"],
+          },
+        ],
+      });
+
+      return website;
+    } catch (error) {
+      console.log(error);
+      errors.push(new ErrorDetails(500, "Error finding website colors"));
+      return null;
+    }
+  }
 }
