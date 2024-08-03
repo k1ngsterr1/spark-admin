@@ -8,9 +8,7 @@ const router = express.Router();
 router.use(authenticateToken);
 router.use(advancedLogger);
 
-router.post("/add-theme-color", (req, res) =>
-  colorController.addColor(req, res)
-);
+router.post("/add", (req, res) => colorController.addColor(req, res));
 
 router.post("/add-user-color", (req, res) =>
   colorController.addUserColor(req, res)
