@@ -158,7 +158,7 @@ class PageController {
   // Получение контента страницы
   async fetchPageContent(req: Request, res: Response): Promise<void> {
     const errors: ErrorDetails[] = [];
-    const url = req.params.website;
+    const url = req.params.website; ///
 
     console.log(url);
 
